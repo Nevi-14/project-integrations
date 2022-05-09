@@ -17,7 +17,7 @@ date = this.today.getDate();
 month = this.today.getMonth();
 year = this.today.getFullYear();
 image = '../assets/islena.png';
-box = '../assets/box.svg';
+box = '../assets/supply-chain.svg';
 textoBuscar = '';
   constructor(
     public modalCtrl: ModalController,

@@ -185,13 +185,13 @@ Dia
 
 
 
-  <ion-grid >
-     <ion-row  *ngIf="articulosService.articulos.length == 0 && !proveedor">
-        <ion-col class="ion-text-center ion-margin">
-    <span style="display: grid;place-content: center;">
-      <img style="height: 10rem;" src="{{box}}" alt="">
-      <ion-label >Gestor Proveedores / Articulos <ion-badge color="warning" mode="ios">0</ion-badge> </ion-label>
-    </span>
+  <ion-grid  style="height: 100%;">
+     <ion-row style="height: 100%;display: flex;justify-content: center;"  *ngIf="articulosService.articulos.length == 0 && !proveedor">
+        <ion-col class="ion-text-center ion-margin" style="display: grid;place-content: center;"> 
+
+      <img style="height: 11rem;margin: 0 auto;" src="{{box}}" alt="">
+      <ion-label class="ion-margin ion-text-uppercase" style="font-weight: bold;">Gestor Proveedores / Articulos <ion-badge color="warning" mode="ios">0</ion-badge> </ion-label>
+   
         </ion-col>
      </ion-row>
 
