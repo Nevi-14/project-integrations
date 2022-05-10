@@ -9,6 +9,7 @@ import { AlertasService } from './alertas.service';
 })
 export class ArticulosService {
 articulos:Articulos[]=[];
+articulosProveedor:Articulos[]=[];
   constructor(
     public http: HttpClient,
     public alertasService: AlertasService

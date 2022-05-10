@@ -19,6 +19,7 @@ export class Articulos{
        public  DESCRIP_CATALOGO: null,
        public  PAIS: string,
        public  TIPO: string,
-       public  IMPUESTO: number
+       public  IMPUESTO: number,
+       public  SELECTED: boolean
     ){}
 }

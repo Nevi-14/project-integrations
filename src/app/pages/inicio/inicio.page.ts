@@ -5,6 +5,8 @@ import { Proveedores } from 'src/app/models/proveedores';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { ListaProveedoresPage } from '../lista-proveedores/lista-proveedores.page';
+import { ListaArticulosPage } from '../lista-articulos/lista-articulos.page';
+import { Articulos } from 'src/app/models/articulos';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
@@ -19,6 +21,7 @@ year = this.today.getFullYear();
 image = '../assets/islena.png';
 box = '../assets/supply-chain.svg';
 textoBuscar = '';
+articulos:Articulos[]=[];
   constructor(
     public modalCtrl: ModalController,
     public proveedoresService:ProveedoresService,
@@ -52,18 +55,29 @@ cssClass: 'large-modal',
     const { data } = await modal.onWillDismiss();
 if(data != undefined){
   this.proveedor = data.proveedor;
-  console.log(data.proveedor, 'retorn')
+  this.articulosService.articulosProveedor = [];
   this.articulosService.syncGetArticulos(this.proveedor.ID)
 
 }
     
   }
+  async  listaArticulos(){
 
+    let modal = await  this.modalCtrl.create({
+   component:ListaArticulosPage,
+   cssClass: 'large-modal',
+   
+       });
+       await modal.present();
+
+       
+     }
 
   limpiarDatos(){
 this.proveedor = null;
 this.proveedoresService.proveedores = [];
 this.articulosService.articulos = [];
+this.articulosService.articulosProveedor = [];
 }
   
 }

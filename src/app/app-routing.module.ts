@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'lista-proveedores',
     loadChildren: () => import('./pages/lista-proveedores/lista-proveedores.module').then( m => m.ListaProveedoresPageModule)
   },
+  {
+    path: 'lista-articulos',
+    loadChildren: () => import('./pages/lista-articulos/lista-articulos.module').then( m => m.ListaArticulosPageModule)
+  },
  
 ];
 

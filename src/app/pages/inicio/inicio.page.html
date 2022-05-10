@@ -82,11 +82,11 @@ Dia
  <ion-grid >
     <ion-row>
       <ion-col size="6">
-         <ion-accordion-group *ngIf="articulosService.articulos.length > 0 && proveedor" >
+         <ion-accordion-group *ngIf="proveedor" >
             <ion-accordion >
               <ion-item slot="header">
                 <ion-label><h2>Proveedor : {{proveedor.NOMBRE}}</h2></ion-label>
-                <ion-label>Total de Articulos :   <ion-badge  color="warning" mode="ios">{{articulosService.articulos.length}}</ion-badge></ion-label>
+                <ion-label *ngIf="articulosService.articulosProveedor.length > 0">Total de Articulos :   <ion-badge  color="warning" mode="ios">{{articulosService.articulosProveedor.length}}</ion-badge></ion-label>
      
               </ion-item>
           
@@ -135,8 +135,11 @@ Dia
             </ion-accordion>
           </ion-accordion-group>
        </ion-col>
-       <ion-col size="6">
-         <ion-searchbar *ngIf="articulosService.articulos.length > 0 && proveedor" class="ion-margin-top"   mode="ios" style="max-width:40vw"  inputmode="text"  debounce="250" placeholder="Buscar Articulo" (ionChange)="onSearchChange($event)" ></ion-searchbar>
+       <ion-col *ngIf="articulosService.articulos.length > 0 && proveedor" size="6" style="display: flex;justify-content: center;align-items: center;">
+         <ion-searchbar  class="ion-margin-top"   mode="ios" style="max-width:40vw"  inputmode="text"  debounce="250" placeholder="Buscar Articulo" (ionChange)="onSearchChange($event)" ></ion-searchbar>
+         <ion-fab-button (click)="listaArticulos()" color="dark" size="small">
+            <ion-icon name="add"></ion-icon>
+         </ion-fab-button>
        </ion-col>
 
     </ion-row>
@@ -186,16 +189,16 @@ Dia
 
 
   <ion-grid  style="height: 100%;">
-     <ion-row style="height: 100%;display: flex;justify-content: center;"  *ngIf="articulosService.articulos.length == 0 && !proveedor">
+     <ion-row style="height: 100%;display: flex;justify-content: center;"  *ngIf="articulosService.articulosProveedor.length == 0 ">
         <ion-col class="ion-text-center ion-margin" style="display: grid;place-content: center;"> 
 
-      <img style="height: 11rem;margin: 0 auto;" src="{{box}}" alt="">
+      <img style="height: 8rem;margin: 0 auto;" src="{{box}}" alt="">
       <ion-label class="ion-margin ion-text-uppercase" style="font-weight: bold;">Gestor Proveedores / Articulos <ion-badge color="warning" mode="ios">0</ion-badge> </ion-label>
    
         </ion-col>
      </ion-row>
 
-<ion-row    class="data-row"  *ngFor="let articulo of articulosService.articulos | filtro: textoBuscar:'ARTICULO' ; let odd = odd; " [ngClass]="odd ? 'odd' : 'even'">
+<ion-row    class="data-row"  *ngFor="let articulo of articulosService.articulosProveedor | filtro: textoBuscar:'ARTICULO' ; let odd = odd; " [ngClass]="odd ? 'odd' : 'even'">
 
    <ion-col size="1">
 <ion-label >{{articulo.ARTICULO}}</ion-label>
