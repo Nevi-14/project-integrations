@@ -3,11 +3,17 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Articulos } from '../models/articulos';
 import { AlertasService } from './alertas.service';
-
+interface PostArticulos {
+  articulo:Articulos,
+  PAL:number,
+  Cajas:number,
+  Total: number
+}
 @Injectable({
   providedIn: 'root'
 })
 export class ArticulosService {
+articulosPostArray:PostArticulos[]=[];
 articulos:Articulos[]=[];
 articulosProveedor:Articulos[]=[];
   constructor(

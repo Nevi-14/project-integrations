@@ -98,7 +98,8 @@ constructor (
   public   NUM_RES_COACTIVA: string,
   public  GRANDES_COMPRA_SEMT:string,
   public TIPO_SERVICIO: string,
-  public PDB_EXPORTADORES: string
+  public PDB_EXPORTADORES: string,
+
 ){}
 
 }

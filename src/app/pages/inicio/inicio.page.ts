@@ -7,6 +7,12 @@ import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { ListaProveedoresPage } from '../lista-proveedores/lista-proveedores.page';
 import { ListaArticulosPage } from '../lista-articulos/lista-articulos.page';
 import { Articulos } from 'src/app/models/articulos';
+interface PostArticulos {
+  articulo:Articulos,
+  PAL:number,
+  Cajas:number,
+  Total: number
+}
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
@@ -22,6 +28,8 @@ image = '../assets/islena.png';
 box = '../assets/supply-chain.svg';
 textoBuscar = '';
 articulos:Articulos[]=[];
+subTotal: number = 0;
+total: number = 0;
   constructor(
     public modalCtrl: ModalController,
     public proveedoresService:ProveedoresService,
@@ -74,10 +82,34 @@ if(data != undefined){
      }
 
   limpiarDatos(){
+    this.total = 0;
+    this.subTotal = 0;
 this.proveedor = null;
 this.proveedoresService.proveedores = [];
 this.articulosService.articulos = [];
 this.articulosService.articulosProveedor = [];
+this.articulosService.articulosPostArray = [];
 }
   
+
+setPals($event, articulo:PostArticulos){
+
+  let value = $event.target.value;
+  console.log($event, value)
+}
+
+setCajas($event, articulo:PostArticulos){
+
+  let value = $event.target.value;
+  this.subTotal = 0;
+  this.total = 0;
+  articulo.Total = 0;
+  articulo.Total =  articulo.articulo.ULT_PREC_UNITARIO * value;
+
+  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
+
+       this.subTotal += this.articulosService.articulosPostArray[i].Total
+       this.total += this.articulosService.articulosPostArray[i].Total
+  }
+}
 }

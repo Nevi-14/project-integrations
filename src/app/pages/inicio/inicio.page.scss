@@ -54,3 +54,14 @@ h1{
     margin-top: 0.4rem;
     margin-bottom: 0.4rem;
 }
+ion-item{
+  border-radius: 50px;
+  box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.08);
+  --highlight-height:0px;
+}
+
+ion-input{
+  font-size: 18px;
+
+
+}

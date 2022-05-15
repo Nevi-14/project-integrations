@@ -20,6 +20,8 @@ export class Articulos{
        public  PAIS: string,
        public  TIPO: string,
        public  IMPUESTO: number,
-       public  SELECTED: boolean
+       public  SELECTED: boolean,
+       public ULT_MODENA: string,
+       public ULT_PREC_UNITARIO: number
     ){}
 }

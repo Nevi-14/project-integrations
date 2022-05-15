@@ -3,7 +3,12 @@ import { IonGrid, ModalController } from '@ionic/angular';
 import { Articulos } from 'src/app/models/articulos';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ArticulosService } from 'src/app/services/articulos.service';
-
+interface PostArticulos {
+  articulo:Articulos,
+  PAL:number,
+  Cajas:number,
+  Total: number
+}
 @Component({
   selector: 'app-lista-articulos',
   templateUrl: './lista-articulos.page.html',
@@ -29,18 +34,27 @@ export class ListaArticulosPage implements OnInit {
 
 
     if( !articulo.SELECTED ){
+  let articuloPostArray: PostArticulos = {
+      articulo:articulo,
+      PAL:0,
+      Cajas:0,
+      Total: 0
 
-      this.articulosService.articulosProveedor.push(articulo);
+  }
+  this.articulosService.articulosPostArray.push(articuloPostArray);
+    
       this.alertasService.message('ISLEÑA', 'Articulo ' + articulo.ARTICULO +' '+'se agrego a la lista');
     }else{
  
-      let i =  this.articulosService.articulosProveedor.findIndex(art => art.ARTICULO == articulo.ARTICULO)
+      let i =  this.articulosService.articulosPostArray.findIndex(art => art.articulo.ARTICULO == articulo.ARTICULO)
     if(i >=0){
-      this.articulosService.articulosProveedor.splice(i,1);
+      this.articulosService.articulosPostArray.splice(i,1);
       this.alertasService.message('ISLEÑA', 'Articulo ' + articulo.ARTICULO +' '+'se elimino de la lista');
     }
+
+    
     }
-  	console.log(  this.articulosService.articulosProveedor);//it is working !!!
+  	console.log(  this.articulosService.articulosPostArray);//it is working !!!
 
   }
 
