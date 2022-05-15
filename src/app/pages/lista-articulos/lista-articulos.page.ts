@@ -5,7 +5,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { ArticulosService } from 'src/app/services/articulos.service';
 interface PostArticulos {
   articulo:Articulos,
-  PAL:number,
+  Unidades:number,
   Cajas:number,
   Total: number
 }
@@ -36,7 +36,7 @@ export class ListaArticulosPage implements OnInit {
     if( !articulo.SELECTED ){
   let articuloPostArray: PostArticulos = {
       articulo:articulo,
-      PAL:0,
+      Unidades:0,
       Cajas:0,
       Total: 0
 

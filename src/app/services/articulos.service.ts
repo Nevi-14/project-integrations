@@ -5,7 +5,7 @@ import { Articulos } from '../models/articulos';
 import { AlertasService } from './alertas.service';
 interface PostArticulos {
   articulo:Articulos,
-  PAL:number,
+  Unidades:number,
   Cajas:number,
   Total: number
 }

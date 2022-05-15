@@ -9,7 +9,7 @@ import { ListaArticulosPage } from '../lista-articulos/lista-articulos.page';
 import { Articulos } from 'src/app/models/articulos';
 interface PostArticulos {
   articulo:Articulos,
-  PAL:number,
+  Unidades:number,
   Cajas:number,
   Total: number
 }
@@ -92,19 +92,18 @@ this.articulosService.articulosPostArray = [];
 }
   
 
-setPals($event, articulo:PostArticulos){
-
-  let value = $event.target.value;
-  console.log($event, value)
-}
 
 setCajas($event, articulo:PostArticulos){
 
   let value = $event.target.value;
   this.subTotal = 0;
   this.total = 0;
+  articulo.Unidades = 0;
+  articulo.Unidades = value;
   articulo.Total = 0;
-  articulo.Total =  articulo.articulo.ULT_PREC_UNITARIO * value;
+  articulo.Cajas = 0;
+  articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
+  articulo.Total =  articulo.Unidades *   articulo.articulo.ULT_PREC_UNITARIO ;
 
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
 

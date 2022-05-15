@@ -154,7 +154,7 @@ Dia
   </ion-col>  
 
   <ion-col  size="1">
-<ion-label>     PAL</ion-label>
+<ion-label>     Unidades</ion-label>
   </ion-col>  
   <ion-col  size="1">
   <ion-label>   Cajas</ion-label>
@@ -207,36 +207,36 @@ Dia
  
   <ion-col size="1">
 <ion-item>
-   <ion-input (ionInput)="setPals($event, articulo)"  type="number" placeholder="Pals" [(ngModel)]="articulo.PAL"></ion-input>
+   <ion-input (ionInput)="setCajas($event,articulo)"  type="number" placeholder="Unidades" [(ngModel)]="articulo.Unidades"></ion-input>
 </ion-item>
   </ion-col>  
   <ion-col size="1">
    <ion-item>
-      <ion-input (ionInput)="setCajas($event,articulo)"  type="number" placeholder="Cajas" [(ngModel)]="articulo.Cajas"></ion-input>
+      <ion-input readonly="true"   type="number" placeholder="Cajas" [(ngModel)]="articulo.Cajas"></ion-input>
    </ion-item>
   </ion-col>  
   <ion-col size="2">
    <ion-item>
-      <ion-input type="number" placeholder="Precio Ant"></ion-input>
+      <ion-input readonly="true"  type="number" placeholder="Precio Ant"></ion-input>
    </ion-item>
   </ion-col>  
   <ion-col size="2">
 
    <ion-item>
-      <ion-input type="number" placeholder="ULT_PREC_UNITARIO" [(ngModel)]="articulo.articulo.ULT_PREC_UNITARIO"></ion-input>
+      <ion-input readonly="true" type="number" placeholder="ULT_PREC_UNITARIO" [(ngModel)]="articulo.articulo.ULT_PREC_UNITARIO"></ion-input>
    </ion-item>
 
 
   </ion-col>  
   <ion-col size="2">
    <ion-item>
-      <ion-input type="number" placeholder="Total" [(ngModel)]="articulo.Total"></ion-input>
+      <ion-input  readonly="true" type="number" placeholder="Total" [(ngModel)]="articulo.Total"></ion-input>
    </ion-item>
   </ion-col>  
 
   <ion-col size="1">
    <ion-item>
-      <ion-input type="text" placeholder="Indicador"></ion-input>
+      <ion-input readonly="true"  type="text" placeholder="Indicador"></ion-input>
    </ion-item>
   </ion-col>  
 
