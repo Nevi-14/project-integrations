@@ -7,7 +7,6 @@ import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { ListaProveedoresPage } from '../lista-proveedores/lista-proveedores.page';
 import { ListaArticulosPage } from '../lista-articulos/lista-articulos.page';
 import { Articulos } from 'src/app/models/articulos';
-import { ListaBodegasPage } from '../lista-bodegas/lista-bodegas.page';
 interface PostArticulos {
   articulo:Articulos,
   Unidades:number,
@@ -29,7 +28,8 @@ image = '../assets/islena.png';
 box = '../assets/supply-chain.svg';
 textoBuscar = '';
 articulos:Articulos[]=[];
-
+subTotal: number = 0;
+total: number = 0;
   constructor(
     public modalCtrl: ModalController,
     public proveedoresService:ProveedoresService,
@@ -69,23 +69,6 @@ if(data != undefined){
 }
     
   }
-
-  async  listaBodegas(){
-
-    let modal = await  this.modalCtrl.create({
-   component:ListaBodegasPage,
-   cssClass: 'large-modal',
-   
-       });
-       await modal.present();
-       const { data } = await modal.onWillDismiss();
-   if(data != undefined){
-     let bode = data.bodega;
-   
-   
-   }
-       
-     }
   async  listaArticulos(){
 
     let modal = await  this.modalCtrl.create({
@@ -99,8 +82,8 @@ if(data != undefined){
      }
 
   limpiarDatos(){
-    this.articulosService.total = 0;
-    this.articulosService.subTotal = 0;
+    this.total = 0;
+    this.subTotal = 0;
 this.proveedor = null;
 this.proveedoresService.proveedores = [];
 this.articulosService.articulos = [];
@@ -113,8 +96,8 @@ this.articulosService.articulosPostArray = [];
 setCajas($event, articulo:PostArticulos){
 
   let value = $event.target.value;
-  this.articulosService.subTotal = 0;
-  this.articulosService.total = 0;
+  this.subTotal = 0;
+  this.total = 0;
   articulo.Unidades = 0;
   articulo.Unidades = value;
   articulo.Total = 0;
@@ -124,8 +107,8 @@ setCajas($event, articulo:PostArticulos){
 
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
 
-       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
-       this.articulosService.total += this.articulosService.articulosPostArray[i].Total
+       this.subTotal += this.articulosService.articulosPostArray[i].Total
+       this.total += this.articulosService.articulosPostArray[i].Total
   }
 }
 }

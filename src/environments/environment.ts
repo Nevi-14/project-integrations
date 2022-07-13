@@ -10,6 +10,7 @@ export const environment = {
   postURL:'.di-apps.co.cr/api/',
   prdMode:true,
   proveedoresURL:'Proveedores/',
+  bodegasURL:'ONE_Bodega',
   articulosURL:'ONE_ArtProv/',
   idProvedorParam:'?IDProv='
 };

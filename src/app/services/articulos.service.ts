@@ -13,6 +13,8 @@ interface PostArticulos {
   providedIn: 'root'
 })
 export class ArticulosService {
+subTotal: number = 0;
+total: number = 0;
 articulosPostArray:PostArticulos[]=[];
 articulos:Articulos[]=[];
 articulosProveedor:Articulos[]=[];

@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'lista-articulos',
     loadChildren: () => import('./pages/lista-articulos/lista-articulos.module').then( m => m.ListaArticulosPageModule)
+  },  {
+    path: 'lista-bodegas',
+    loadChildren: () => import('./pages/lista-bodegas/lista-bodegas.module').then( m => m.ListaBodegasPageModule)
   },
+
  
 ];
 

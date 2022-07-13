@@ -36,13 +36,15 @@ export class ListaArticulosPage implements OnInit {
     if( !articulo.SELECTED ){
   let articuloPostArray: PostArticulos = {
       articulo:articulo,
-      Unidades:0,
-      Cajas:0,
-      Total: 0
+      Unidades:1,
+      Cajas:1,
+      Total: articulo.ULT_PREC_UNITARIO * 1
 
   }
+  
   this.articulosService.articulosPostArray.push(articuloPostArray);
-    
+  this.articulosService.subTotal += articuloPostArray.Total
+  this.articulosService.total += articuloPostArray.Total
       this.alertasService.message('ISLEÑA', 'Articulo ' + articulo.ARTICULO +' '+'se agrego a la lista');
     }else{
  

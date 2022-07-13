@@ -7,6 +7,7 @@ export const environment = {
   prdMode:false,
   proveedoresURL:'Proveedores/',
   articulosURL:'ONE_ArtProv/',
-  idProvedorParam:'?IDProv='
+  idProvedorParam:'?IDProv=',
+  bodegasURL:'ONE_Bodega',
 
 };
