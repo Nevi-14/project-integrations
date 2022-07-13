@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Bodegas } from '../models/bodegas';
 import { OrdenCompra } from '../models/ordencompra';
+import { UltimaOrdenCompra } from '../models/ultimaOrdencompra';
 import { AlertasService } from './alertas.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdenCompraService {
-ultimaOrdenCompra:OrdenCompra = null;
+ordenCompra:OrdenCompra = null;
+ultimaOrdenCompra:UltimaOrdenCompra = null;
   constructor(
     private http: HttpClient,
     public alertasService:AlertasService
@@ -35,11 +37,27 @@ return URL;
 private getUltimaOrdenCompra(){
   const URL = this.getURL(environment.ultimaOrdenCompraURL);
   console.log('URL', URL)
-  return this.http.get<OrdenCompra[]>(URL)
+  return this.http.get<UltimaOrdenCompra[]>(URL)
 
 
 }
+private postOrdenCompra (ordenCompra:OrdenCompra){
+  const URL = this.getURL( environment.ordenCompraURL );
+  const options = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    }
+  };
+ 
+  return this.http.post( URL, JSON.stringify(ordenCompra), options );
+}
 
+syncPostOrdenCompraToPromise(ordenCompra:OrdenCompra){
+
+return  this.postOrdenCompra(ordenCompra).toPromise();
+}
 syncUltimaOrdenCompra(){
 
 this.alertasService.presentaLoading('Cargando datos...')
