@@ -12,7 +12,8 @@ export const environment = {
   proveedoresURL:'Proveedores/',
   bodegasURL:'ONE_Bodega',
   articulosURL:'ONE_ArtProv/',
-  idProvedorParam:'?IDProv='
+  idProvedorParam:'?IDProv=',
+  ultimaOrdenCompraURL:'ONE_Consec',
 };
 
 /*

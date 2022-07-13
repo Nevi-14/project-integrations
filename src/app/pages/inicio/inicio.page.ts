@@ -8,6 +8,7 @@ import { ListaProveedoresPage } from '../lista-proveedores/lista-proveedores.pag
 import { ListaArticulosPage } from '../lista-articulos/lista-articulos.page';
 import { Articulos } from 'src/app/models/articulos';
 import { ListaBodegasPage } from '../lista-bodegas/lista-bodegas.page';
+import { OrdenCompraService } from '../../services/ordencompra.service';
 interface PostArticulos {
   articulo:Articulos,
   Unidades:number,
@@ -34,14 +35,15 @@ articulos:Articulos[]=[];
     public modalCtrl: ModalController,
     public proveedoresService:ProveedoresService,
     public articulosService: ArticulosService,
-    public route: Router
+    public route: Router,
+    public ordenCompraService: OrdenCompraService
   ) { }
 
   ngOnInit() {
 
   }
   ionViewWillEnter(){
-
+this.ordenCompraService.syncUltimaOrdenCompra();
     this.limpiarDatos();
   }
   onSearchChange(event){

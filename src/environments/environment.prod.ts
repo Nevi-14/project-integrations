@@ -9,5 +9,6 @@ export const environment = {
   articulosURL:'ONE_ArtProv/',
   idProvedorParam:'?IDProv=',
   bodegasURL:'ONE_Bodega',
+  ultimaOrdenCompraURL:'ONE_Consec',
 
 };
