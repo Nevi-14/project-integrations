@@ -143,39 +143,6 @@ this.articulosService.articulosPostArray = [];
   
 
 
-setPrecio($event, articulo:PostArticulos){
-  let value = $event.target.value;
-
-  this.articulosService.subTotal = 0;
-  this.articulosService.total = 0;
-
-  articulo.articulo.PRECIO_UNITARIO = value;
-  
-
-
-  
-  articulo.Total = 0;
-  articulo.Cajas = 0;
-  articulo.Cajas = articulo.articulo.CANTIDAD_ORDENADA * articulo.articulo.FACTOR_CONVERSION;
-  // actualizamos monto descuento 
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-    // actualizamos precio descuento 
-    articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-  // actualizamos total
-  let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-  articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-
-  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
-
-       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
-       this.articulosService.total += this.articulosService.articulosPostArray[i].Total
-  }
-  
-}
-
-
-
-
 setUnidades($event, articulo:PostArticulos){
 
   let value = $event.target.value;
@@ -186,13 +153,7 @@ setUnidades($event, articulo:PostArticulos){
   articulo.Total = 0;
   articulo.Cajas = 0;
   articulo.Cajas = articulo.articulo.CANTIDAD_ORDENADA * articulo.articulo.FACTOR_CONVERSION;
-  // actualizamos monto descuento 
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-    // actualizamos precio descuento 
-    articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-  // actualizamos total
-  let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-  articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
+  articulo.Total =  articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO ;
 
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
 
@@ -201,26 +162,35 @@ setUnidades($event, articulo:PostArticulos){
   }
 }
 
+setPrecio($event, articulo:PostArticulos){
+  let value = $event.target.value;
+  this.articulosService.subTotal = 0;
+  this.articulosService.total = 0;
 
+  articulo.articulo.PRECIO_UNITARIO = value;
+  articulo.Total = 0;
+  articulo.Cajas = 0;
+  articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
+  articulo.Total =  articulo.Unidades *   articulo.articulo.PRECIO_UNITARIO ;
 
+  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
+
+       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
+       this.articulosService.total += this.articulosService.articulosPostArray[i].Total
+  }
+  
+}
 setDescuento($event, articulo:PostArticulos){
   let value = $event.target.value;
   this.articulosService.subTotal = 0;
   this.articulosService.total = 0;
- 
   articulo.articulo.PORC_DESCUENTO = value;
   articulo.Total = 0;
   articulo.Cajas = 0;
   articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
   articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
+  articulo.Total =  (articulo.Unidades *   articulo.articulo.PRECIO_UNITARIO) -articulo.articulo.MONTO_DESCUENTO ;
   articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-  // actualizamos monto descuento 
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-    // actualizamos precio descuento 
-    articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-  // actualizamos total
-  let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-  articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
 
        this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
@@ -237,13 +207,8 @@ setImpuesto($event, articulo:PostArticulos){
   articulo.Total = 0;
   articulo.Cajas = 0;
   articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-  // actualizamos monto descuento 
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-    // actualizamos precio descuento 
-    articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-  // actualizamos total
-  let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-  articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
+let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
+  articulo.Total =  (articulo.Unidades *   articulo.articulo.PRECIO_UNITARIO)- articulo.articulo.MONTO_DESCUENTO + montoImpuesto ;
 
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
 

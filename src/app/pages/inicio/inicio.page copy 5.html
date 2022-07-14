@@ -1,0 +1,386 @@
+
+ <ion-toolbar style="display: flex;justify-content: center;align-items: center;">
+   <img  slot="start" src="{{image}}" />
+   <ion-title slot="start"><h1>DiONE Gestor / Proveedores  / Articulos</h1></ion-title>
+ 
+
+   <ion-buttons slot="end" >
+      <ion-button (click)="listaProveedores()">
+         <ion-icon size="large" name="settings-outline"></ion-icon>
+  
+      </ion-button>
+      <ion-button (click)="salir()">
+         <ion-icon size="large" name="exit-outline"></ion-icon>
+  
+      </ion-button>
+   </ion-buttons>
+ </ion-toolbar>
+
+ <ion-toolbar>
+    
+
+  
+ </ion-toolbar>
+
+<ion-content >
+   <ion-row class="ion-margin">
+      <ion-col size="6">
+<ion-row>
+   <ion-col size="12">
+      <ion-label>Distribuidora Isleña de Alimentos S.A</ion-label>
+   </ion-col>
+   <ion-col size="12">
+      <ion-label>TAX ID: 3-101-10918017</ion-label>
+   </ion-col>
+   <ion-col size="12">
+      <ion-label>Telefono: (506) 2293-0609</ion-label>
+   </ion-col>
+   <ion-col size="12">
+      <ion-label>Fax: (506) 2293-3231</ion-label>
+   </ion-col>
+   <ion-col size="12">
+      <ion-label>Dirección:Barreal Heredia-Alajuela-Costa Rica</ion-label>
+   </ion-col>
+   <ion-col size="12">
+      <ion-label><a href="https://www.di.cr/" target="_blank">www.di.cr</a></ion-label>
+   </ion-col>
+</ion-row>
+      </ion-col>
+      <ion-col size="6">
+         <ion-row>
+
+            <ion-col size="12">
+               <ion-label>Orden de compra #</ion-label>
+            </ion-col>
+            <ion-col size="12">
+               <ion-row class="dark-header">
+                  <ion-col size="4">
+Dia
+                  </ion-col>
+                  <ion-col size="4">
+                     Mes
+                  </ion-col>
+                  <ion-col size="4">
+                     Año
+                  </ion-col>
+               </ion-row>
+               <ion-row class="row-text-center">
+                  <ion-col size="4">
+{{date}}
+                  </ion-col>
+                  <ion-col size="4">
+                     {{month}}
+                  </ion-col>
+                  <ion-col size="4">
+                     {{year}}
+                  </ion-col>
+               </ion-row>
+            </ion-col>
+         </ion-row>
+
+      </ion-col>
+   </ion-row>
+
+   
+    <ion-row *ngIf="proveedor" class="ion-margin">
+      <ion-col size="4" >
+
+          <ion-row>
+            <ion-col size="12">
+               <ion-label><h2>Proveedor : {{proveedor.NOMBRE}}</h2></ion-label>
+               <ion-label *ngIf="articulosService.articulosPostArray.length > 0">Total de Articulos :   <ion-badge  color="warning" mode="ios">{{articulosService.articulosProveedor.length}}</ion-badge></ion-label>
+      
+            </ion-col>
+
+           
+      
+      </ion-row>
+               </ion-col>
+
+               <ion-col size="4">
+                  <ion-row>
+                     <ion-col size="12">
+                        <ion-label>Dirección : {{proveedor.DIRECCION}}</ion-label>
+                     </ion-col>
+                     <ion-col size="12">
+                        <ion-label>Correo : {{proveedor.E_MAIL}}</ion-label>
+                     </ion-col>
+                     <ion-col size="12">
+                        <ion-label>Telefono : {{proveedor.TELEFONO1}}</ion-label>
+                     </ion-col>
+                  </ion-row>
+               </ion-col>
+               <ion-col size="4">
+                 <ion-row>
+                    <ion-col size="12">
+                       <ion-label>Proforma # :</ion-label>
+                    </ion-col>
+         
+                    <ion-col size="12">
+                       <ion-label>Codigo Postal : </ion-label>
+                    </ion-col>
+                    <ion-col size="12">
+                       <ion-label>Contacto : </ion-label>
+                    </ion-col>
+                    <ion-col size="12">
+                       <ion-label>Incoterm : </ion-label>
+                    </ion-col>
+              
+                 </ion-row>
+               </ion-col>
+       
+
+    </ion-row>
+   
+  <ion-card>
+   <ion-card-header color="dark">
+      <ion-label><strong><h2>    ORDEN DE COMPRA # <span *ngIf="ordenCompra">{{ordenCompra.ORDEN_COMPRA}}</span></h2></strong></ion-label>
+      
+   </ion-card-header>
+   <ion-card-content>
+      <ion-row  class="ion-padding  ">
+     
+ 
+         <ion-col size="4">
+            <ion-label><strong><h2>DETALLES GENERALES</h2></strong></ion-label>
+      
+         </ion-col>
+         <ion-col *ngIf="proveedor" size="8" style="display: flex;justify-content: flex-end;align-items: center;">
+            <ion-badge color="dark" mode="ios" class="ion-margin">LISTA BODEGAS</ion-badge>
+            <ion-fab-button (click)="listaBodegas()" color="dark" size="small">
+               <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-col>
+         <ion-col size="12">
+    
+            
+   <div style="overflow-x:auto;">
+   
+      <table>
+   
+    <thead class="header-row">
+      <th>USUARIO</th>
+      <th>PROVEEDOR</th>
+      <th>BODEGA</th>
+      <th>CONDICION PAGO</th>
+      <th>MONEDA</th>
+      <th>PAIS</th>
+      <th>FECHA</th>
+      <th>FECHA REQUERIDA</th>                
+      <th>% DESCUENTO</th>
+    </thead>
+        <tr *ngIf="ordenCompra">
+  
+   <td>
+     <ion-item lines="none">
+      <ion-input type="text" placeholder="usuario" [value]="ordenCompra.USUARIO"></ion-input>
+     </ion-item>
+  
+   </td>
+   <td>
+      <ion-item lines="none">
+         <ion-input type="text" placeholder="proveedor" [value]="ordenCompra.PROVEEDOR"></ion-input>
+        </ion-item>
+   
+   </td>
+   <td>
+      <ion-item lines="none">
+         <ion-input type="text" placeholder="bodega" [value]="ordenCompra.BODEGA"></ion-input>
+        </ion-item>
+    
+   </td>
+   <td>
+      <ion-item lines="none">
+         <ion-input type="text" placeholder="condicion pago" [value]="ordenCompra.CONDICION_PAGO"></ion-input>
+        </ion-item> 
+   </td>
+   <td>
+      <ion-item lines="none">
+         <ion-input type="text" placeholder="moneda" [value]="ordenCompra.MONEDA"></ion-input>
+        </ion-item>  
+   </td>
+   <td>
+      <ion-item lines="none">
+         <ion-input type="text" placeholder="pais" [value]="ordenCompra.PAIS"></ion-input>
+        </ion-item>  
+   </td>
+
+   <td>
+      <ion-item lines="none">
+         <ion-input type="text" placeholder="fecha" [value]="ordenCompra.FECHA"></ion-input>
+        </ion-item>  
+   </td>
+   <td>
+      <ion-item lines="none">
+         
+         <ion-input type="text" placeholder="fecha requerida" [value]="ordenCompra.FECHA_REQUERIDA"></ion-input>
+        </ion-item> 
+   </td>
+
+   <td>
+      <ion-item lines="none">
+         <ion-input type="number" placeholder="%" [value]="ordenCompra.PORC_DESCUENTO"></ion-input>
+        </ion-item>   
+   </td>
+   
+        </tr>
+      
+      </table>
+      <ion-col size="12">
+         <ion-label><strong><h2>MONTOS</h2></strong></ion-label>
+   
+      </ion-col>
+      <table>
+         <thead class="header-row">
+   
+            <th>DESCUENTO</th>
+   
+            <th>FLETE</th>
+            <th>SEGURO</th>
+            <th>ANTICIPO</th>
+         </thead>
+         <tr *ngIf="ordenCompra">
+         
+            <td>
+               <ion-item lines="none">
+                  <ion-input type="number" placeholder="flete" [value]="ordenCompra.MONTO_FLETE"></ion-input>
+                 </ion-item> 
+           
+            </td>
+            <td>
+               
+            </td>
+            <td>
+               <ion-item lines="none">
+                  <ion-input type="number" placeholder="seguro" [value]="ordenCompra.MONTO_SEGURO"></ion-input>
+                 </ion-item> 
+               
+            </td>
+      
+            <td>
+               <ion-item lines="none">
+                  <ion-input type="number" placeholder="anticipo" [value]="ordenCompra.MONTO_ANTICIPO"></ion-input>
+                 </ion-item> 
+              
+            </td>
+     
+            
+                 </tr>
+   
+      </table>
+      <ion-col size="12">
+         <ion-label><strong><h2>TOTALES</h2></strong></ion-label>
+   
+      </ion-col>
+      <table>
+         <thead class="header-row">
+            <th>MERCADERIA</th>
+            <th>COMPRAR</th>
+            <th>IMPUESTO1</th>
+            <th>IMPUESTO2</th>
+         </thead>
+         <tr *ngIf="ordenCompra">
+         
+            <td>
+               <ion-item lines="none">
+                  <ion-input type="number" placeholder="total mercaderia" [value]="ordenCompra.TOTAL_MERCADERIA"></ion-input>
+                 </ion-item> 
+              
+
+             
+            </td>
+            <td>
+               <ion-item lines="none">
+                  <ion-input type="number" placeholder="total comprar" [value]="ordenCompra.TOTAL_A_COMPRAR"></ion-input>
+                 </ion-item> 
+              
+
+            </td>
+            <td>
+               <ion-item lines="none">
+                  <ion-input type="number" placeholder="total impuesto 1" [value]="ordenCompra.TOTAL_IMPUESTO1"></ion-input>
+                 </ion-item> 
+              
+               
+            </td>
+           
+        
+            
+                 </tr>
+   
+      </table>
+    </div>
+         </ion-col>
+       </ion-row>
+   </ion-card-content>
+  </ion-card>
+<ion-item-divider>
+
+</ion-item-divider>
+ <ion-row  class="ion-margin">
+   <ion-col size="4">
+      <ion-label><strong><h2>LISTA DE ARTICULOS</h2></strong></ion-label>
+
+   </ion-col>
+   <ion-col *ngIf="articulosService.articulos.length > 0 && proveedor" size="8" style="display: flex;justify-content: flex-end;align-items: center;">
+      <ion-searchbar  class="ion-margin-top"   mode="ios" style="max-width:40vw"  inputmode="text"  debounce="250" placeholder="Buscar Articulo" (ionChange)="onSearchChange($event)" ></ion-searchbar>
+      <ion-badge color="dark" mode="ios" class="ion-margin">LISTA ARTICULOS</ion-badge>
+      <ion-fab-button (click)="listaArticulos()" color="dark" size="small">
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+
+    <ion-col size="12">
+  
+      <div style="overflow-x:auto;">
+         <table>
+       <thead>
+         <th>CODIGO_DI</th>
+         <th>DESCRIPCION</th>
+         <th>UNIDADES</th>
+         <th>CAJAS</th>
+         <th>PRECIO_ANTERIOR</th>
+         <th>PRECIO_ACTUAL</th>
+         <th>TOTAL</th>
+         <th>INDICADOR</th>
+        
+       </thead>
+           <tr *ngFor="let articulo of articulosService.articulosPostArray | filtro: textoBuscar:'ARTICULO' ; let odd = odd; " [ngClass]="odd ? 'odd' : 'even'">
+             <td><ion-label >{{articulo.articulo.ARTICULO}}</ion-label></td>
+             <td><ion-label>{{articulo.articulo.DESCRIPCION}}</ion-label></td>
+             <td><ion-input (ionInput)="setCajas($event,articulo)"  type="number" placeholder="Unidades" [(ngModel)]="articulo.Unidades"></ion-input></td>
+             <td><ion-input readonly="true"   type="number" placeholder="Cajas" [(ngModel)]="articulo.Cajas"></ion-input></td>
+             <td><ion-input readonly="true"  type="number" placeholder="Precio Ant" min="0"></ion-input></td>
+             <td><ion-input readonly="true" type="number" placeholder="ULT_PREC_UNITARIO" [(ngModel)]="articulo.articulo.ULT_PREC_UNITARIO"></ion-input></td>
+             <td><ion-input  readonly="true" type="number" placeholder="Total" [(ngModel)]="articulo.Total"></ion-input></td>
+             <td> <ion-input readonly="true"  type="text" placeholder="Indicador"></ion-input></td>
+            
+             
+      
+           </tr>
+         <tfoot >
+            <tr class="ion-margin">
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+        
+               <td colspan="2"> <ion-label    *ngIf="articulosService.articulos.length > 0 && proveedor"  ><h2>SubTotal : {{articulosService.subTotal.toFixed(2) }}</h2></ion-label></td>
+               <td>  <ion-label  *ngIf="articulosService.articulos.length > 0 && proveedor"   ><h2>Total : {{articulosService.total.toFixed(2)}}</h2></ion-label></td>
+               
+             </tr>
+         </tfoot>
+         </table>
+        
+       </div>
+            </ion-col>
+
+
+
+  
+  </ion-row>
+
+
+
+</ion-content>

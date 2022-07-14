@@ -3,8 +3,9 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Articulos } from '../models/articulos';
 import { AlertasService } from './alertas.service';
+import { Lineas } from '../models/lineas';
 interface PostArticulos {
-  articulo:Articulos,
+  articulo:Lineas,
   Unidades:number,
   Cajas:number,
   Total: number

@@ -3,8 +3,9 @@ import { IonGrid, ModalController } from '@ionic/angular';
 import { Articulos } from 'src/app/models/articulos';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ArticulosService } from 'src/app/services/articulos.service';
+import { Lineas } from '../../models/lineas';
 interface PostArticulos {
-  articulo:Articulos,
+  articulo:Lineas,
   Unidades:number,
   Cajas:number,
   Total: number
@@ -34,8 +35,33 @@ export class ListaArticulosPage implements OnInit {
 
 
     if( !articulo.SELECTED ){
+
+      let linea = {
+        ORDEN_COMPRA: "OC001",
+        ORDEN_COMPRA_LINEA: 1,
+        ARTICULO: articulo.ARTICULO,
+        BODEGA: null,
+        LINEA_USUARIO: 1,
+        DESCRIPCION: articulo.DESCRIPCION,
+        CANTIDAD_ORDENADA: 1,
+        CANTIDAD_EMBARCADA: 0,
+        CANTIDAD_RECIBIDA: 0,
+        CANTIDAD_RECHAZADA: 0,
+        PRECIO_UNITARIO: articulo.ULT_PREC_UNITARIO,
+        IMPUESTO1: 0,
+        IMPUESTO2: 0,
+        PORC_DESCUENTO: 0,
+        MONTO_DESCUENTO: 0,
+        FECHA: new Date().toISOString(),
+        FACTOR_CONVERSION: articulo.FACTOR_CONVERSION,
+        FECHA_REQUERIDA: null,
+        CENTRO_COSTO: "001-001-01-01",
+        CUENTA_CONTABLE: "00003",
+        TIPO_IMPUESTO1: "01",
+        TIPO_TARIFA1: "08"
+    }
   let articuloPostArray: PostArticulos = {
-      articulo:articulo,
+      articulo : linea,
       Unidades:1,
       Cajas:1,
       Total: articulo.ULT_PREC_UNITARIO * 1

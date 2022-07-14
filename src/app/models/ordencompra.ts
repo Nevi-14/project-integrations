@@ -4,7 +4,7 @@
     constructor (
        public ORDEN_COMPRA: string,
        public USUARIO: string,
-       public PROVEEDOR: string,
+       public PROVEEDOR: number,
        public BODEGA: string,
        public CONDICION_PAGO: string,
        public MONEDA: string,
