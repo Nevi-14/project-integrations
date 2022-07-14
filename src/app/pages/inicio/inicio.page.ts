@@ -389,6 +389,7 @@ generarPost(){
   this.alertasService.presentaLoading('Generando Consecutivo')
   this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
     this.ordenCompraService.ultimaOrdenCompra = resp[0];
+  this.ordenCompra.ORDEN_COMPRA =   this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
     console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
     console.log('orden de compra',this.ordenCompra);
     console.log('productos',this.articulosService.articulosPostArray);
@@ -399,5 +400,22 @@ generarPost(){
     this.alertasService.loadingDissmiss();
   });
 
+}
+
+nextConsecutivo( consecutivoAnterior){
+  let consecutivo: number = 0;
+  let arreglo: string;
+  let preArreglo: string;
+  let tamDigitos: number = 0;
+  let nuevoConsecutivo  = '';
+
+  arreglo = '';
+  preArreglo = consecutivoAnterior.slice(0,2);
+  consecutivo = +consecutivoAnterior.slice(2) + 1;
+  for (let i = 0; i < tamDigitos - consecutivo.toString().length; i++) {
+    arreglo = arreglo + '0';
+  }
+  return nuevoConsecutivo = preArreglo + arreglo + consecutivo.toString()
+ 
 }
 }
