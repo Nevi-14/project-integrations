@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FiltroPipe } from './filtro.pipe';
 
 
 
 @NgModule({
   declarations: [
-    FiltroPipe,
+    FiltroPipe
 
   
   ],
   exports:[
-    FiltroPipe
+    FiltroPipe,
+    DatePipe
   ],
   imports: [
     CommonModule

@@ -77,4 +77,11 @@ this.alertasService.loadingDissmiss();
     }
   )
 }
+
+syncUltimaOrdenCompraToPromise(){
+
+
+   return this.getUltimaOrdenCompra().toPromise();
+}
+
 }

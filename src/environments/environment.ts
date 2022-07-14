@@ -15,6 +15,7 @@ export const environment = {
   idProvedorParam:'?IDProv=',
   ultimaOrdenCompraURL:'ONE_Consec',
   ordenCompraURL:'ONE_OC',
+  lineasPostURL:'ONE_OC_Linea',
 };
 
 /*

@@ -31,12 +31,21 @@ export class ListaArticulosPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+
+  retornarArticulo(articulo){
+    this.modalCtrl.dismiss({
+      articulo:articulo
+    })
+
+  }
   agregarArticulo(articulo:Articulos){
 
 
     if( !articulo.SELECTED ){
 
-      let linea = {
+    
+  let articuloPostArray: PostArticulos = {
+      articulo : {
         ORDEN_COMPRA: "OC001",
         ORDEN_COMPRA_LINEA: 1,
         ARTICULO: articulo.ARTICULO,
@@ -59,9 +68,7 @@ export class ListaArticulosPage implements OnInit {
         CUENTA_CONTABLE: "00003",
         TIPO_IMPUESTO1: "01",
         TIPO_TARIFA1: "08"
-    }
-  let articuloPostArray: PostArticulos = {
-      articulo : linea,
+    },
       Unidades:1,
       Cajas:1,
       Total: articulo.ULT_PREC_UNITARIO * 1
@@ -71,6 +78,7 @@ export class ListaArticulosPage implements OnInit {
   this.articulosService.articulosPostArray.push(articuloPostArray);
   this.articulosService.subTotal += articuloPostArray.Total
   this.articulosService.total += articuloPostArray.Total
+  
       this.alertasService.message('ISLEÑA', 'Articulo ' + articulo.ARTICULO +' '+'se agrego a la lista');
     }else{
  

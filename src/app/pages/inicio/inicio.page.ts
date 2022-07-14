@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetButton, ActionSheetController, ModalController, PopoverController } from '@ionic/angular';
 import { Proveedores } from 'src/app/models/proveedores';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
@@ -12,6 +12,8 @@ import { OrdenCompraService } from '../../services/ordencompra.service';
 import { OrdenCompra } from 'src/app/models/ordencompra';
 import { Bodegas } from 'src/app/models/bodegas';
 import { Lineas } from 'src/app/models/lineas';
+import { AlertasService } from 'src/app/services/alertas.service';
+import { CalendarioPopoverPage } from '../calendario-popover/calendario-popover.page';
 interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
@@ -51,10 +53,10 @@ ordenCompra:OrdenCompra =
 }
 proveedor:Proveedores;
 bodega:Bodegas;
-today: Date = new Date();
-date = this.today.getDate();
-month = this.today.getMonth();
-year = this.today.getFullYear();
+fecha: Date = new Date();
+date = this.fecha.getDate();
+month = this.fecha.getMonth();
+year = this.fecha.getFullYear();
 image = '../assets/islena.png';
 box = '../assets/supply-chain.svg';
 textoBuscar = '';
@@ -65,14 +67,16 @@ articulos:Articulos[]=[];
     public proveedoresService:ProveedoresService,
     public articulosService: ArticulosService,
     public route: Router,
-    public ordenCompraService: OrdenCompraService
+    public ordenCompraService: OrdenCompraService,
+    public alertasService: AlertasService,
+    public popOverCtrl: PopoverController
   ) { }
 
   ngOnInit() {
 
   }
   ionViewWillEnter(){
-this.ordenCompraService.syncUltimaOrdenCompra();
+
     this.limpiarDatos();
   }
   onSearchChange(event){
@@ -103,7 +107,10 @@ if(data != undefined){
   }
 
   async  listaBodegas(){
-
+    if(!this.proveedor){
+      this.alertasService.message('ISLEÑA','Seleccionar Proveedor')
+            return
+          }
     let modal = await  this.modalCtrl.create({
    component:ListaBodegasPage,
    cssClass: 'large-modal',
@@ -121,13 +128,20 @@ if(data != undefined){
      }
   async  listaArticulos(){
 
+    if(!this.bodega){
+this.alertasService.message('ISLEÑA','Seleccionar Bodega')
+      return
+    }
     let modal = await  this.modalCtrl.create({
    component:ListaArticulosPage,
    cssClass: 'large-modal',
    
        });
        await modal.present();
-
+       const { data } = await modal.onWillDismiss();
+       this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
+       this.sumarTotales();
+       
        
      }
 
@@ -141,7 +155,36 @@ this.articulosService.articulosProveedor = [];
 this.articulosService.articulosPostArray = [];
 }
   
+async presentPopover(articulo:PostArticulos) {
+  const popover = await this.popOverCtrl.create({
+    component: CalendarioPopoverPage,
+    cssClass: 'my-custom-class',
+    translucent: true,
+    componentProps : {
+      fecha:articulo.articulo.FECHA_REQUERIDA 
+    }
+  });
+  await popover.present();
 
+  const { data } = await popover.onDidDismiss();
+
+  if(data != undefined){
+   
+    let fecha= new Date(data.fecha).toLocaleDateString('Es', {
+      year: 'numeric',
+      month: '2-digit',
+      weekday: 'short',
+      day: 'numeric',
+    });
+   articulo.articulo.FECHA_REQUERIDA = data.fecha;
+
+  }
+}
+
+formatDate(date:Date){
+
+return date.toLocaleDateString()
+}
 
 setPrecio($event, articulo:PostArticulos){
   let value = $event.target.value;
@@ -165,16 +208,79 @@ setPrecio($event, articulo:PostArticulos){
   let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
   articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
 
-  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
-
-       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
-       this.articulosService.total += this.articulosService.articulosPostArray[i].Total
-  }
+this.sumarTotales();
   
 }
 
+setFlete($event){
+
+  if(!this.proveedor){
+    this.ordenCompra.MONTO_FLETE = 0;
+    this.alertasService.message('ISLEÑA','Seleccionar proveedor')
+          return
+        }
+  let value = $event.target.value;
 
 
+ this.ordenCompra.MONTO_FLETE = value;
+
+
+
+this.sumarTotales();
+  
+
+}
+
+setSeguro($event){
+  if(!this.proveedor){
+    this.ordenCompra.MONTO_SEGURO = 0;
+    this.alertasService.message('ISLEÑA','Seleccionar proveedor')
+          return
+        }
+let value = $event.target.value;
+this.ordenCompra.MONTO_SEGURO = value;
+this.sumarTotales();
+  
+
+}
+setAnticipo($event){
+  if(!this.proveedor){
+    this.ordenCompra.MONTO_ANTICIPO = 0;
+    this.alertasService.message('ISLEÑA','Seleccionar proveedor')
+          return
+        }
+  let value = $event.target.value;
+  this.ordenCompra.MONTO_ANTICIPO = value;
+  this.sumarTotales();
+    
+  
+  }
+sumarTotales(){
+  this.articulosService.subTotal = 0;
+  this.articulosService.total = 0;
+  this.ordenCompra.TOTAL_MERCADERIA = 0;
+  this.ordenCompra.TOTAL_IMPUESTO1 = 0;
+  this.ordenCompra.TOTAL_A_COMPRAR = 0;
+  this.articulosService.total +=this.ordenCompra.MONTO_FLETE;
+  this.articulosService.total += this.ordenCompra.MONTO_SEGURO;
+  this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
+  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
+    
+    this.articulosService.articulosPostArray[i].articulo.BODEGA = this.ordenCompra.BODEGA
+   
+    this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
+    this.articulosService.total += this.articulosService.articulosPostArray[i].Total
+    this.ordenCompra.TOTAL_MERCADERIA += this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA;
+    this.ordenCompra.TOTAL_IMPUESTO1 += Number(this.articulosService.articulosPostArray[i].Unidades) * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO / 100) *this.articulosService.articulosPostArray[i].articulo.IMPUESTO1;
+    if(i == this.articulosService.articulosPostArray.length -1){
+
+     this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
+     
+ }
+
+
+}
+}
 
 setUnidades($event, articulo:PostArticulos){
 
@@ -194,11 +300,7 @@ setUnidades($event, articulo:PostArticulos){
   let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
   articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
 
-  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
-
-       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
-       this.articulosService.total += this.articulosService.articulosPostArray[i].Total
-  }
+  this.sumarTotales();
 }
 
 
@@ -221,11 +323,7 @@ setDescuento($event, articulo:PostArticulos){
   // actualizamos total
   let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
   articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
-
-       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
-       this.articulosService.total += this.articulosService.articulosPostArray[i].Total
-  }
+  this.sumarTotales();
   
 }
 setImpuesto($event, articulo:PostArticulos){
@@ -244,12 +342,7 @@ setImpuesto($event, articulo:PostArticulos){
   // actualizamos total
   let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
   articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-
-  for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
-
-       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
-       this.articulosService.total += this.articulosService.articulosPostArray[i].Total
-  }
+  this.sumarTotales();
   
 
 
@@ -260,6 +353,7 @@ borrarArticulo(index, articulo:PostArticulos){
  this.articulosService.articulos[i].SELECTED = false;
   this.articulosService.subTotal -= articulo.Total
   this.articulosService.total -= articulo.Total
+  this.ordenCompra.TOTAL_A_COMPRAR   -= articulo.Total;
   this.articulosService.articulosPostArray.splice(index,1);
 }
 rellenarOrdenCompra(proveedor:Proveedores){
@@ -286,6 +380,24 @@ this.ordenCompra.MONTO_ANTICIPO = 0;
 this.ordenCompra.TOTAL_A_COMPRAR = 0;
 
 
+
+}
+
+
+
+generarPost(){
+  this.alertasService.presentaLoading('Generando Consecutivo')
+  this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
+    this.ordenCompraService.ultimaOrdenCompra = resp[0];
+    console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
+    console.log('orden de compra',this.ordenCompra);
+    console.log('productos',this.articulosService.articulosPostArray);
+    this.alertasService.loadingDissmiss();
+
+  }, error =>{
+    console.log('error',error);
+    this.alertasService.loadingDissmiss();
+  });
 
 }
 }

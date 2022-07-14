@@ -11,5 +11,6 @@ export const environment = {
   bodegasURL:'ONE_Bodega',
   ultimaOrdenCompraURL:'ONE_Consec',
   ordenCompraURL:'ONE_OC',
+  lineasPostURL:'ONE_OC_Linea',
 
 };

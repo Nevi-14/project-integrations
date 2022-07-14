@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'lista-bodegas',
     loadChildren: () => import('./pages/lista-bodegas/lista-bodegas.module').then( m => m.ListaBodegasPageModule)
   },
+  {
+    path: 'calendario-popover',
+    loadChildren: () => import('./pages/calendario-popover/calendario-popover.module').then( m => m.CalendarioPopoverPageModule)
+  },
 
  
 ];
