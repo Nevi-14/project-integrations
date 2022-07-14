@@ -388,12 +388,11 @@ this.ordenCompra.TOTAL_A_COMPRAR = 0;
 
 generarPost(){
 
-/**
- *   if(!this.proveedor || !this.bodega || !this.ordenCompra || this.articulosService.articulosPostArray.length == 0){
+   if(!this.proveedor || !this.bodega || !this.ordenCompra || this.articulosService.articulosPostArray.length == 0){
 this.alertasService.message('ISLEÑA','La orden de compra no se encuentra completa aun.')
     return
   }
- */
+ 
   this.alertasService.presentaLoading('Generando Consecutivo')
   this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
     this.ordenCompraService.ultimaOrdenCompra = resp[0];
