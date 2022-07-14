@@ -327,16 +327,16 @@ Dia
               </tr>
             <tfoot >
             
-               <tr class="ion-margin">
+               <tr class="ion-margin" >
                   <td colspan="3"><ion-label slot="start"><strong><h2>TOTAL</h2></strong></ion-label></td>
             
-                  <td>{{ordenCompra.TOTAL_MERCADERIA }}</td>
-                  <td> {{ordenCompra.TOTAL_IMPUESTO1 }}</td>
+                  <td *ngIf="ordenCompra.TOTAL_MERCADERIA">{{ordenCompra.TOTAL_MERCADERIA.toFixed(2) }}</td>
+                  <td *ngIf="ordenCompra.TOTAL_IMPUESTO1"> {{ordenCompra.TOTAL_IMPUESTO1.toFixed(2) }}</td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td colspan="2"> <ion-label       ><h2> {{ordenCompra.TOTAL_A_COMPRAR }}</h2></ion-label></td>
+                  <td colspan="2" *ngIf="ordenCompra.TOTAL_A_COMPRAR"> <ion-label       ><h2> {{ordenCompra.TOTAL_A_COMPRAR.toFixed(2) }}</h2></ion-label></td>
                 
                   
                 </tr>

@@ -8,7 +8,8 @@ interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
   Cajas:number,
-  Total: number
+  Total: number,
+  precioDescuento:number
 }
 @Injectable({
   providedIn: 'root'

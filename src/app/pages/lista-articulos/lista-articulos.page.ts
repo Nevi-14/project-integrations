@@ -8,7 +8,8 @@ interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
   Cajas:number,
-  Total: number
+  Total: number,
+  precioDescuento:number
 }
 @Component({
   selector: 'app-lista-articulos',
@@ -71,7 +72,8 @@ export class ListaArticulosPage implements OnInit {
     },
       Unidades:1,
       Cajas:1,
-      Total: articulo.ULT_PREC_UNITARIO * 1
+      Total: articulo.ULT_PREC_UNITARIO * 1,
+      precioDescuento:0
 
   }
   

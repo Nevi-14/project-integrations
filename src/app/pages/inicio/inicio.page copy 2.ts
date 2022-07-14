@@ -193,19 +193,10 @@ setPrecio($event, articulo:PostArticulos){
   this.articulosService.total = 0;
 
   articulo.articulo.PRECIO_UNITARIO = Number(value);
-  articulo.Total = 0;
-  articulo.Cajas = 0;
-  articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-  articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-  // actualizamos monto descuento 
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-    // actualizamos precio descuento 
-    articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-  // actualizamos total
-  let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-  articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-  this.sumarTotales();
+  
+
+
+
 
 this.sumarTotales();
   
@@ -266,11 +257,25 @@ sumarTotales(){
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
     
     this.articulosService.articulosPostArray[i].articulo.BODEGA = this.ordenCompra.BODEGA
-   
+    this.articulosService.articulosPostArray[i].Total = 0;
+    this.articulosService.articulosPostArray[i].Cajas = 0;
+    this.articulosService.articulosPostArray[i].Cajas = this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA * this.articulosService.articulosPostArray[i].articulo.FACTOR_CONVERSION;
     this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
     this.articulosService.total += this.articulosService.articulosPostArray[i].Total
     this.ordenCompra.TOTAL_MERCADERIA +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA);
     this.ordenCompra.TOTAL_IMPUESTO1 += Number(this.articulosService.articulosPostArray[i].Unidades) * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO / 100) *this.articulosService.articulosPostArray[i].articulo.IMPUESTO1;
+
+      
+ 
+  // actualizamos monto descuento 
+  this.articulosService.articulosPostArray[i].articulo.MONTO_DESCUENTO = this.articulosService.articulosPostArray[i].Unidades * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO / 100) *this.articulosService.articulosPostArray[i].articulo.PORC_DESCUENTO;
+    // actualizamos precio descuento 
+    this.articulosService.articulosPostArray[i].precioDescuento  = this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO - this.articulosService.articulosPostArray[i].articulo.MONTO_DESCUENTO
+  // actualizamos total
+  let montoImpuesto = this.articulosService.articulosPostArray[i].Unidades * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO / 100) *this.articulosService.articulosPostArray[i].articulo.IMPUESTO1;
+  this.articulosService.articulosPostArray[i].Total =  (this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA *   this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO) - (this.articulosService.articulosPostArray[i].articulo.MONTO_DESCUENTO * this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
+
+
     if(i == this.articulosService.articulosPostArray.length -1){
 
      this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
@@ -354,8 +359,6 @@ borrarArticulo(index, articulo:PostArticulos){
   this.articulosService.total -= articulo.Total
   this.ordenCompra.TOTAL_A_COMPRAR   -= articulo.Total;
   this.articulosService.articulosPostArray.splice(index,1);
-
-  
 }
 rellenarOrdenCompra(proveedor:Proveedores){
 this.ordenCompra.ORDEN_COMPRA = 'Sin Definir';
