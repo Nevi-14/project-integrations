@@ -169,7 +169,7 @@ Dia
     <ion-col size="2">
       <ion-label>USUARIO</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="usuario" [value]="ordenCompra.USUARIO"></ion-input>
+         <ion-input type="text" placeholder="usuario" [(ngModel)]="ordenCompra.USUARIO"></ion-input>
         </ion-item>
     </ion-col>
 
@@ -178,34 +178,34 @@ Dia
     <ion-col size="2">
       <ion-label>PROVEEDOR</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="proveedor" [value]="ordenCompra.PROVEEDOR"></ion-input>
+         <ion-input type="text" placeholder="proveedor" [(ngModel)]="ordenCompra.PROVEEDOR"></ion-input>
         </ion-item>
     </ion-col>
 
     <ion-col size="2">
       <ion-label>BODEGA</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="bodega" [value]="ordenCompra.BODEGA"></ion-input>
+         <ion-input type="text" placeholder="bodega" [(ngModel)]="ordenCompra.BODEGA"></ion-input>
         </ion-item>
     </ion-col>
 
     <ion-col size="2">
       <ion-label>CONDICION PAGO</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="bodega" [value]="ordenCompra.CONDICION_PAGO"></ion-input>
+         <ion-input type="text" placeholder="bodega" [(ngModel)]="ordenCompra.CONDICION_PAGO"></ion-input>
         </ion-item>
     </ion-col>
     <ion-col size="2">
       <ion-label>MONEDA</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="moneda" [value]="ordenCompra.MONEDA"></ion-input>
+         <ion-input type="text" placeholder="moneda" [(ngModel)]="ordenCompra.MONEDA"></ion-input>
         </ion-item>
     </ion-col>
 
     <ion-col size="2">
       <ion-label>PAIS</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="pais" [value]="ordenCompra.PAIS"></ion-input>
+         <ion-input type="text" placeholder="pais"[(ngModel)]="ordenCompra.PAIS"></ion-input>
         </ion-item>
     </ion-col>
 
@@ -216,37 +216,37 @@ Dia
          <ion-col size="2">
             <ion-label>FECHA REQUERIDA</ion-label>
             <ion-item lines="none">
-               <ion-input type="text" placeholder="fecha requerida" [value]="ordenCompra.FECHA_REQUERIDA"></ion-input>
+               <ion-input type="text" placeholder="fecha requerida"[(ngModel)]="ordenCompra.FECHA_REQUERIDA"></ion-input>
               </ion-item>
           </ion-col>
           <ion-col size="2">
             <ion-label>% DESCUENTO</ion-label>
             <ion-item lines="none">
-               <ion-input type="number" placeholder="descuento" [value]="ordenCompra.PORC_DESCUENTO"></ion-input>
+               <ion-input type="number" placeholder="descuento"[(ngModel)]="ordenCompra.PORC_DESCUENTO"></ion-input>
               </ion-item>
           </ion-col>
           <ion-col size="2">
             <ion-label>MONTO DESCUENTO</ion-label>
             <ion-item lines="none">
-               <ion-input type="text" placeholder="monto descuento" [value]="ordenCompra.MONTO_DESCUENTO"></ion-input>
+               <ion-input type="text" placeholder="monto descuento" [(ngModel)]="ordenCompra.MONTO_DESCUENTO"></ion-input>
               </ion-item>
           </ion-col>
           <ion-col size="2">
             <ion-label>MONTO FLETE</ion-label>
             <ion-item lines="none">
-               <ion-input  (ionInput)="setFlete($event)"   type="number" placeholder="monto flete" [value]="ordenCompra.MONTO_FLETE"></ion-input>
+               <ion-input  (ionInput)="setFlete($event)"   type="number" placeholder="monto flete" [(ngModel)]="ordenCompra.MONTO_FLETE"></ion-input>
               </ion-item>
          </ion-col>
          <ion-col size="2">
             <ion-label>SEGURO</ion-label>
             <ion-item lines="none">
-               <ion-input (ionInput)="setSeguro($event)" type="text" placeholder="monto seguro" [value]="ordenCompra.MONTO_SEGURO"></ion-input>
+               <ion-input (ionInput)="setSeguro($event)" type="text" placeholder="monto seguro" [(ngModel)]="ordenCompra.MONTO_SEGURO"></ion-input>
               </ion-item>
          </ion-col>
          <ion-col size="2">
             <ion-label>ANTICIPO</ion-label>
             <ion-item lines="none">
-               <ion-input (ionInput)="setAnticipo($event)"  type="text" placeholder="monto anticipo" [value]="ordenCompra.MONTO_ANTICIPO"></ion-input>
+               <ion-input (ionInput)="setAnticipo($event)"  type="text" placeholder="monto anticipo" [(ngModel)]="ordenCompra.MONTO_ANTICIPO"></ion-input>
               </ion-item>
          </ion-col>
       </ion-row>

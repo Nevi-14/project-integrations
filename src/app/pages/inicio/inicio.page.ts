@@ -14,6 +14,7 @@ import { Bodegas } from 'src/app/models/bodegas';
 import { Lineas } from 'src/app/models/lineas';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { CalendarioPopoverPage } from '../calendario-popover/calendario-popover.page';
+import { LineasService } from 'src/app/services/lineas.service';
 interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
@@ -69,7 +70,8 @@ articulos:Articulos[]=[];
     public route: Router,
     public ordenCompraService: OrdenCompraService,
     public alertasService: AlertasService,
-    public popOverCtrl: PopoverController
+    public popOverCtrl: PopoverController,
+    public lineasService: LineasService
   ) { }
 
   ngOnInit() {
@@ -140,6 +142,7 @@ this.alertasService.message('ISLEÑA','Seleccionar Bodega')
        await modal.present();
        const { data } = await modal.onWillDismiss();
        this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
+  
        this.sumarTotales();
        
        
@@ -266,7 +269,7 @@ sumarTotales(){
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
     
     this.articulosService.articulosPostArray[i].articulo.BODEGA = this.ordenCompra.BODEGA
-   
+    this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA;
     this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
     this.articulosService.total += this.articulosService.articulosPostArray[i].Total
     this.ordenCompra.TOTAL_MERCADERIA +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA);
@@ -359,15 +362,15 @@ borrarArticulo(index, articulo:PostArticulos){
 }
 rellenarOrdenCompra(proveedor:Proveedores){
 this.ordenCompra.ORDEN_COMPRA = 'Sin Definir';
-this.ordenCompra.USUARIO = 'SA'
+this.ordenCompra.USUARIO = ''
 this.ordenCompra.PROVEEDOR = proveedor.ID;
 this.ordenCompra.BODEGA = 'Sin Definir';
 this.ordenCompra.CONDICION_PAGO = proveedor.CONDICION_PAGO.toString();
 this.ordenCompra.MONEDA = proveedor.MONEDA;
 this.ordenCompra.PAIS = proveedor.PAIS;
 this.ordenCompra.MODULO_ORIGEN = 'CO';
-this.ordenCompra.FECHA = new Date().toLocaleDateString();
-this.ordenCompra.FECHA_REQUERIDA = new Date().toLocaleDateString();
+this.ordenCompra.FECHA = this.fecha.toLocaleDateString();
+this.ordenCompra.FECHA_REQUERIDA = this.fecha.toLocaleDateString();
 this.ordenCompra.TIPO_DESCUENTO = 'A';
 this.ordenCompra.PORC_DESCUENTO = 0;
 this.ordenCompra.MONTO_DESCUENTO = 0;
@@ -392,15 +395,42 @@ generarPost(){
 this.alertasService.message('ISLEÑA','La orden de compra no se encuentra completa aun.')
     return
   }
- 
+
+  this.fecha.setHours(0,0,0,0)
+this.ordenCompra.FECHA = this.fecha.toISOString().split('T0')[0]+'T00:00:00';
+this.ordenCompra.FECHA_REQUERIDA =   this.ordenCompra.FECHA_REQUERIDA   ?  this.fecha.toISOString().split('T0')[0]+'T00:00:00' : this.ordenCompra.FECHA;
   this.alertasService.presentaLoading('Generando Consecutivo')
   this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
     this.ordenCompraService.ultimaOrdenCompra = resp[0];
   this.ordenCompra.ORDEN_COMPRA =   this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
+
+let articulos:Lineas[] = [];
+for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
+  articulos.push(this.articulosService.articulosPostArray[i].articulo)
+  this.articulosService.articulosPostArray[i].articulo.FECHA =  this.fecha.toISOString().split('T0')[0]+'T00:00:00'
+  this.articulosService.articulosPostArray[i].articulo.FECHA_REQUERIDA =   this.articulosService.articulosPostArray[i].articulo.FECHA_REQUERIDA  ?   this.articulosService.articulosPostArray[i].articulo.FECHA_REQUERIDA.split('T0')[0]+'T00:00:00' : this.ordenCompra.FECHA;
+  if(i === this.articulosService.articulosPostArray.length -1){
     console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
     console.log('orden de compra',this.ordenCompra);
-    console.log('productos',this.articulosService.articulosPostArray);
+    console.log('articulos',articulos);
     this.alertasService.loadingDissmiss();
+
+  this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
+    this.lineasService.syncPostLineasToPromise(articulos).then(resp =>{
+
+    }, error =>{
+
+      this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
+    });
+
+  }, error =>{
+    this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
+  });
+  }
+}
+
+
+   
 
   }, error =>{
     console.log('error',error);

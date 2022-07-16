@@ -47,7 +47,7 @@ export class ListaArticulosPage implements OnInit {
     
   let articuloPostArray: PostArticulos = {
       articulo : {
-        ORDEN_COMPRA: "OC001",
+        ORDEN_COMPRA: null,
         ORDEN_COMPRA_LINEA: 1,
         ARTICULO: articulo.ARTICULO,
         BODEGA: null,

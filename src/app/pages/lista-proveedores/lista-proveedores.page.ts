@@ -17,10 +17,16 @@ export class ListaProveedoresPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if( this.proveedoresService.proveedores.length == 0){
-      this.proveedoresService.syncGetProvedores('');
+
+  
+
+    if(localStorage.getItem('proveedores')){
+      this.proveedoresService.proveedores = JSON.parse(localStorage.getItem('proveedores'));
+
+      return
+     // this.proveedoresService.syncGetProvedores('');
     }
- 
+    this.proveedoresService.syncGetProvedores('');
   }
   onSearchChange(event){
 

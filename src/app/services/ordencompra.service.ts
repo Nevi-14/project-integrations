@@ -41,7 +41,7 @@ private getUltimaOrdenCompra(){
 
 
 }
-private postOrdenCompra (ordenCompra:OrdenCompra){
+private postOrdenCompra (ordenCompra:OrdenCompra[]){
   const URL = this.getURL( environment.ordenCompraURL );
   const options = {
     headers: {
@@ -54,7 +54,7 @@ private postOrdenCompra (ordenCompra:OrdenCompra){
   return this.http.post( URL, JSON.stringify(ordenCompra), options );
 }
 
-syncPostOrdenCompraToPromise(ordenCompra:OrdenCompra){
+syncPostOrdenCompraToPromise(ordenCompra:OrdenCompra[]){
 
 return  this.postOrdenCompra(ordenCompra).toPromise();
 }

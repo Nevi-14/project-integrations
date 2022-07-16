@@ -18,7 +18,7 @@ export class Lineas{
        public  MONTO_DESCUENTO: number,
        public  FECHA: string,
        public  FACTOR_CONVERSION: number,
-       public FECHA_REQUERIDA: Date,
+       public FECHA_REQUERIDA: string,
        public CENTRO_COSTO: string,
        public CUENTA_CONTABLE: string,
        public TIPO_IMPUESTO1: string,
