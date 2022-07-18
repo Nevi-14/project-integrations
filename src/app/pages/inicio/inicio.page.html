@@ -54,7 +54,10 @@
          <ion-row>
 
             <ion-col size="12">
-               <ion-label><strong><h2>    ORDEN DE COMPRA # <span *ngIf="ordenCompra">{{ordenCompra.ORDEN_COMPRA}}</span></h2></strong></ion-label>
+               <ion-label><strong><h2>    ORDEN DE COMPRA #</h2></strong></ion-label>
+               <ion-input *ngIf="ordenCompra"  type="text" placeholder="Ingresar Orden de  compra" [(ngModel)]="ordenCompra.ORDEN_COMPRA"></ion-input>
+
+
             </ion-col>
             <ion-col size="12">
                <ion-row class="dark-header">
@@ -178,34 +181,34 @@ Dia
     <ion-col size="2">
       <ion-label>PROVEEDOR</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="proveedor" [(ngModel)]="ordenCompra.PROVEEDOR"></ion-input>
+         <ion-input readonly  type="text" placeholder="proveedor" [(ngModel)]="ordenCompra.PROVEEDOR"></ion-input>
         </ion-item>
     </ion-col>
 
     <ion-col size="2">
       <ion-label>BODEGA</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="bodega" [(ngModel)]="ordenCompra.BODEGA"></ion-input>
+         <ion-input readonly type="text"  placeholder="bodega" [(ngModel)]="ordenCompra.BODEGA"></ion-input>
         </ion-item>
     </ion-col>
 
     <ion-col size="2">
       <ion-label>CONDICION PAGO</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="bodega" [(ngModel)]="ordenCompra.CONDICION_PAGO"></ion-input>
+         <ion-input readonly type="text" placeholder="bodega" [(ngModel)]="ordenCompra.CONDICION_PAGO"></ion-input>
         </ion-item>
     </ion-col>
     <ion-col size="2">
       <ion-label>MONEDA</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="moneda" [(ngModel)]="ordenCompra.MONEDA"></ion-input>
+         <ion-input readonly type="text" placeholder="moneda" [(ngModel)]="ordenCompra.MONEDA"></ion-input>
         </ion-item>
     </ion-col>
 
     <ion-col size="2">
       <ion-label>PAIS</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="pais"[(ngModel)]="ordenCompra.PAIS"></ion-input>
+         <ion-input readonly type="text" placeholder="pais"[(ngModel)]="ordenCompra.PAIS"></ion-input>
         </ion-item>
     </ion-col>
 
@@ -216,19 +219,20 @@ Dia
          <ion-col size="2">
             <ion-label>FECHA REQUERIDA</ion-label>
             <ion-item lines="none">
-               <ion-input type="text" placeholder="fecha requerida"[(ngModel)]="ordenCompra.FECHA_REQUERIDA"></ion-input>
+               <ion-input readonly type="text" placeholder="fecha requerida"[(ngModel)]="ordenCompra.FECHA_REQUERIDA"   (click)="fechaOrdenCompra(ordenCompra)" [ngModel]="ordenCompra.FECHA_REQUERIDA | date" 
+               (ngModelChange)="ordenCompra.FECHA_REQUERIDA=$event"></ion-input>
               </ion-item>
           </ion-col>
           <ion-col size="2">
             <ion-label>% DESCUENTO</ion-label>
             <ion-item lines="none">
-               <ion-input type="number" placeholder="descuento"[(ngModel)]="ordenCompra.PORC_DESCUENTO"></ion-input>
+               <ion-input (ionInput)="setDescuentoOrden($event)" type="number" placeholder="descuento" [(ngModel)]="ordenCompra.PORC_DESCUENTO"></ion-input>
               </ion-item>
           </ion-col>
           <ion-col size="2">
             <ion-label>MONTO DESCUENTO</ion-label>
             <ion-item lines="none">
-               <ion-input type="text" placeholder="monto descuento" [(ngModel)]="ordenCompra.MONTO_DESCUENTO"></ion-input>
+               <ion-input readonly type="text" placeholder="monto descuento" [(ngModel)]="ordenCompra.MONTO_DESCUENTO"></ion-input>
               </ion-item>
           </ion-col>
           <ion-col size="2">
@@ -273,85 +277,110 @@ Dia
 
   <ion-card-content>
 
-   <ion-row  class="ion-margin">
-
-
-   
-       <ion-col size="12">
+   <div style="overflow-x:auto;">
+      <table style="width: 100%;">
+    <thead >
+      <th>ARTICULO</th>
+      <th>DESCRIPCION</th>
+      <th>PRECIO</th>
+      <th>UNIDADES</th>
+      <th>% IMPUESTO</th>
+      <th>% DESCUENTO</th>
+      <th>MONTO DESCUENTO</th>
+      <th >PRECIO DESCUENTO</th>
+      <th >FECHA REQUERIDA</th>
+      <th>TOTAL</th>
+     <th></th>
+    </thead>
+<tbody>
+   <tr *ngFor="let articulo of articulosService.articulosPostArray | filtro: textoBuscar:'ARTICULO' ; let odd = odd; let i = index; " [ngClass]="odd ? 'odd' : 'even'">
+      <td>
+        
+        <ion-input readonly="true"   type="text" placeholder="articulo" [(ngModel)]="articulo.articulo.ARTICULO"></ion-input>
+        
+</td>
+      <td>
      
-         <div style="overflow-x:auto;">
-            <table>
-          <thead>
-            <th>ARTICULO</th>
-            <th>DESCRIPCION</th>
-            <th>PRECIO</th>
-            <th>UNIDADES</th>
-            <th>% IMPUESTO</th>
-            <th>% DESCUENTO</th>
-            <th>MONTO DESCUENTO</th>
-            <th>PRECIO DESCUENTO</th>
-            <th>FECHA REQUERIDA</th>
-            <th>TOTAL</th>
-           <th></th>
-          </thead>
-              <tr *ngFor="let articulo of articulosService.articulosPostArray | filtro: textoBuscar:'ARTICULO' ; let odd = odd; let i = index; " [ngClass]="odd ? 'odd' : 'even'">
-                <td>
-                  
-                  <ion-input readonly="true"   type="text" placeholder="articulo" [(ngModel)]="articulo.articulo.ARTICULO"></ion-input>
-                  
-       </td>
-                <td>
-               
-                  <ion-input readonly="true"   type="text" placeholder="descripcion" [(ngModel)]="articulo.articulo.DESCRIPCION"></ion-input></td>
+        <ion-input readonly="true"   type="text" placeholder="descripcion" [(ngModel)]="articulo.articulo.DESCRIPCION"></ion-input></td>
 
-                  <td><ion-input  (ionInput)="setPrecio($event,articulo)"   type="number" placeholder="precio" [(ngModel)]="articulo.articulo.PRECIO_UNITARIO"></ion-input></td>
-                  
-                <td><ion-input (ionInput)="setUnidades($event,articulo)"  type="number" placeholder="Unidades" [(ngModel)]="articulo.articulo.CANTIDAD_ORDENADA"></ion-input></td>
-                <td><ion-input  (ionInput)="setImpuesto($event,articulo)"    type="number" placeholder="impuesto 1" [(ngModel)]="articulo.articulo.IMPUESTO1" ></ion-input></td>
-                <td><ion-input (ionInput)="setDescuento($event,articulo)"   type="number" placeholder="descuento" min="0" [(ngModel)]="articulo.articulo.PORC_DESCUENTO"></ion-input></td>
-                <td><ion-input  readonly="true"   type="number" placeholder="monto descuento" min="0" [(ngModel)]="articulo.articulo.MONTO_DESCUENTO"></ion-input></td>
-                <td><ion-input  readonly="true"  type="number" placeholder="precio descuento" min="0" [(ngModel)]="articulo.precioDescuento"></ion-input></td>
-           
-                <td> <ion-input readonly (click)="presentPopover(articulo)"   type="text" placeholder="fecha requerida" [ngModel]="articulo.articulo.FECHA_REQUERIDA | date" 
-                  (ngModelChange)="articulo.articulo.FECHA_REQUERIDA=$event"></ion-input></td>
-                <td><ion-input  readonly="true" type="number" placeholder="Total" [(ngModel)]="ordenCompra.TOTAL_A_COMPRAR"></ion-input></td>
-            
-                
-               <td>
-                  <ion-button size="large"   (click)="borrarArticulo(i, articulo)" fill="clear" >
-                  <ion-icon size="large"  name="trash-outline" color="danger"></ion-icon>
-                  </ion-button>
-               </td>
-                
+        <td><ion-input  (ionInput)="setPrecio($event,articulo)"   type="number" placeholder="precio" [(ngModel)]="articulo.articulo.PRECIO_UNITARIO"></ion-input></td>
+        
+      <td><ion-input (ionInput)="setUnidades($event,articulo)"  type="number" placeholder="Unidades" [(ngModel)]="articulo.articulo.CANTIDAD_ORDENADA"></ion-input></td>
+      <td><ion-input  (ionInput)="setImpuesto($event,articulo)"    type="number" placeholder="impuesto 1" [(ngModel)]="articulo.articulo.IMPUESTO1" ></ion-input></td>
+      <td><ion-input (ionInput)="setDescuento($event,articulo)"   type="number" placeholder="descuento" min="0" [(ngModel)]="articulo.articulo.PORC_DESCUENTO"></ion-input></td>
+      <td><ion-input  readonly="true"   type="number" placeholder="monto descuento" min="0" [(ngModel)]="articulo.articulo.MONTO_DESCUENTO"></ion-input></td>
+      <td><ion-input  readonly="true"  type="number" placeholder="precio descuento" min="0" [(ngModel)]="articulo.precioDescuento"></ion-input></td>
+ 
+      <td> <ion-input readonly (click)="presentPopover(articulo)"   type="text" placeholder="fecha requerida" [ngModel]="articulo.articulo.FECHA_REQUERIDA | date" 
+        (ngModelChange)="articulo.articulo.FECHA_REQUERIDA=$event"></ion-input></td>
+      <td><ion-input  readonly="true" type="number" placeholder="Total" [ngModel]="ordenCompra.TOTAL_A_COMPRAR" (ngModelChange)="onInputChange($event)"  ></ion-input></td>
+      
+    
+     <td>
+        <ion-button size="large"   (click)="borrarArticulo(i, articulo)" fill="clear" >
+        <ion-icon size="large"  name="trash-outline" color="danger"></ion-icon>
+        </ion-button>
+     </td>
+      
+
+    </tr>
+</tbody>
+
+
+      <tfoot  *ngIf="articulosService.articulosPostArray.length > 0">
+      
+ 
+          <tr class="ion-margin">
+        
+            <th colspan="2" class="ion-text-left"> 
+           <ion-label>UNIDADES TOTALES</ion-label>
+              <ion-item lines="none">
+               <ion-label>{{TOTAL_UNIDADES}}</ion-label>
+            </ion-item>
+
+             </th>
+
+            <th colspan="2" class="ion-text-left"> 
+          <ion-label>DESC SOBRE LA ORDEN</ion-label>
+
+            <ion-item lines="none">
+               <ion-label>{{ordenCompra.MONTO_DESCUENTO  | colones}}</ion-label>
+            </ion-item>
+
+             </th>
+      
+     
+            <th colspan="2" class="ion-text-left"> 
+               <ion-label>TOTAL IMPUESTOS</ion-label>
+              <ion-item lines="none">
+                  <ion-label>{{ordenCompra.TOTAL_IMPUESTO1  | colones}}</ion-label>
+               </ion-item>
+             </th>
+   
+            <th colspan="2" class="ion-text-left"> 
+           <ion-label>TOTAL MERCADERIA</ion-label>
+            <ion-item lines="none">
+               <ion-label>{{ordenCompra.TOTAL_MERCADERIA  | colones}}</ion-label>
+            </ion-item>
+
+
+         </th>
+            <th colspan="2" class="ion-text-left">  
+               <ion-label>TOTAL COMPRAR</ion-label>
          
-              </tr>
-            <tfoot  *ngIf="articulosService.articulosPostArray.length > 0">
-            
-               <tr class="ion-margin" >
-                  <td colspan="3"><ion-label slot="start"><strong><h2>TOTAL</h2></strong></ion-label></td>
-            
-                  <td *ngIf="ordenCompra.TOTAL_MERCADERIA">{{ordenCompra.TOTAL_MERCADERIA.toFixed(2) }}</td>
-                  <td *ngIf="ordenCompra.TOTAL_IMPUESTO1"> {{ordenCompra.TOTAL_IMPUESTO1.toFixed(2) }}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td colspan="2" *ngIf="ordenCompra.TOTAL_A_COMPRAR"> <ion-label       ><h2> {{ordenCompra.TOTAL_A_COMPRAR.toFixed(2) }}</h2></ion-label></td>
-                
-                  
-                </tr>
-               
-            </tfoot>
-            </table>
-           
-          </div>
-               </ion-col>
-   
-   
-   
+            <ion-item lines="none">
+               <ion-label>{{ordenCompra.TOTAL_A_COMPRAR  | colones}}</ion-label>
+            </ion-item>
+            </th>
+          
+          </tr>
+
+
+      </tfoot>
+      </table>
+
      
-     </ion-row>
-   
+    </div>
    
   </ion-card-content>
 </ion-card>

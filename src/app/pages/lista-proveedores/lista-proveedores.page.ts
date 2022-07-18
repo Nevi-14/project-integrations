@@ -19,7 +19,7 @@ export class ListaProveedoresPage implements OnInit {
   ngOnInit() {
 
   
-
+console.log(localStorage.getItem('proveedores'), 'provedores storage');
     if(localStorage.getItem('proveedores')){
       this.proveedoresService.proveedores = JSON.parse(localStorage.getItem('proveedores'));
 

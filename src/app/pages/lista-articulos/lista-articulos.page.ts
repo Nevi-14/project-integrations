@@ -18,6 +18,9 @@ interface PostArticulos {
 })
 export class ListaArticulosPage implements OnInit {
   textoBuscar = '';
+  
+  fecha = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
+
   constructor(
     public modalCtrl: ModalController,
     public articulosService:ArticulosService,
@@ -62,9 +65,9 @@ export class ListaArticulosPage implements OnInit {
         IMPUESTO2: 0,
         PORC_DESCUENTO: 0,
         MONTO_DESCUENTO: 0,
-        FECHA: new Date().toISOString(),
+        FECHA: this.fecha,
         FACTOR_CONVERSION: articulo.FACTOR_CONVERSION,
-        FECHA_REQUERIDA: null,
+        FECHA_REQUERIDA:  this.fecha,
         CENTRO_COSTO: "001-001-01-01",
         CUENTA_CONTABLE: "00003",
         TIPO_IMPUESTO1: "01",

@@ -47,7 +47,8 @@ this.alertasService.presentaLoading('Cargando datos...')
 
 this.proveedores = resp.slice(0);
 console.log('this.proveedores', this.proveedores)
-
+let currentDate = new Date().toISOString();
+localStorage.setItem('proveedores',JSON.stringify(this.proveedores))
 this.alertasService.loadingDissmiss();
     }, error =>{
 

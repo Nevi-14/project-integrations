@@ -50,14 +50,16 @@ ordenCompra:OrdenCompra =
   MONTO_SEGURO: null,
   MONTO_DOCUMENTACIO:null,
   MONTO_ANTICIPO: null,
-  TOTAL_A_COMPRAR: null,
+  TOTAL_A_COMPRAR: null
 }
+TOTAL_UNIDADES =  0;
 proveedor:Proveedores;
 bodega:Bodegas;
 fecha: Date = new Date();
 date = this.fecha.getDate();
 month = this.fecha.getMonth();
 year = this.fecha.getFullYear();
+formatoFecha = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
 image = '../assets/islena.png';
 box = '../assets/supply-chain.svg';
 textoBuscar = '';
@@ -156,6 +158,31 @@ this.proveedoresService.proveedores = [];
 this.articulosService.articulos = [];
 this.articulosService.articulosProveedor = [];
 this.articulosService.articulosPostArray = [];
+this.TOTAL_UNIDADES = 0;
+this.bodega = null;
+this.ordenCompra = {
+  ORDEN_COMPRA: null,
+  USUARIO: null,
+  PROVEEDOR: null,
+  BODEGA: null,
+  CONDICION_PAGO: null,
+  MONEDA: null,
+  PAIS: null,
+  MODULO_ORIGEN:null,
+  FECHA: null,
+  FECHA_REQUERIDA: null,
+  TIPO_DESCUENTO: null,
+  PORC_DESCUENTO: null,
+  MONTO_DESCUENTO: null,
+  TOTAL_MERCADERIA: null,
+  TOTAL_IMPUESTO1: null,
+  TOTAL_IMPUESTO2: null,
+  MONTO_FLETE: null,
+  MONTO_SEGURO: null,
+  MONTO_DOCUMENTACIO:null,
+  MONTO_ANTICIPO: null,
+  TOTAL_A_COMPRAR: null
+}
 }
   
 async presentPopover(articulo:PostArticulos) {
@@ -180,6 +207,31 @@ async presentPopover(articulo:PostArticulos) {
       day: 'numeric',
     });
    articulo.articulo.FECHA_REQUERIDA = data.fecha;
+
+  }
+}
+async fechaOrdenCompra(ordenComre:OrdenCompra) {
+  const popover = await this.popOverCtrl.create({
+    component: CalendarioPopoverPage,
+    cssClass: 'my-custom-class',
+    translucent: true,
+    componentProps : {
+      fecha:ordenComre.FECHA_REQUERIDA 
+    }
+  });
+  await popover.present();
+
+  const { data } = await popover.onDidDismiss();
+
+  if(data != undefined){
+   
+    let fecha= new Date(data.fecha).toLocaleDateString('Es', {
+      year: 'numeric',
+      month: '2-digit',
+      weekday: 'short',
+      day: 'numeric',
+    });
+    this.ordenCompra.FECHA_REQUERIDA = data.fecha;
 
   }
 }
@@ -258,6 +310,7 @@ setAnticipo($event){
   
   }
 sumarTotales(){
+  this.TOTAL_UNIDADES  = 0;
   this.articulosService.subTotal = 0;
   this.articulosService.total = 0;
   this.ordenCompra.TOTAL_MERCADERIA = 0;
@@ -267,21 +320,24 @@ sumarTotales(){
   this.articulosService.total += this.ordenCompra.MONTO_SEGURO;
   this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
   for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
-    
+    this.TOTAL_UNIDADES   +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA)
     this.articulosService.articulosPostArray[i].articulo.BODEGA = this.ordenCompra.BODEGA
     this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA;
     this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
     this.articulosService.total += this.articulosService.articulosPostArray[i].Total
-    this.ordenCompra.TOTAL_MERCADERIA +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA);
+    this.ordenCompra.TOTAL_MERCADERIA +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA) * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO )
     this.ordenCompra.TOTAL_IMPUESTO1 += Number(this.articulosService.articulosPostArray[i].Unidades) * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO / 100) *this.articulosService.articulosPostArray[i].articulo.IMPUESTO1;
     if(i == this.articulosService.articulosPostArray.length -1){
 
-     this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
+     this.ordenCompra.TOTAL_A_COMPRAR  =   this.ordenCompra.TOTAL_MERCADERIA + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO
      
  }
 
 
 }
+}
+onInputChange(event: string) {
+  return Number.parseFloat(event).toFixed(2);
 }
 
 setUnidades($event, articulo:PostArticulos){
@@ -328,6 +384,20 @@ setDescuento($event, articulo:PostArticulos){
   this.sumarTotales();
   
 }
+setDescuentoOrden($event){
+
+if(this.articulosService.articulosPostArray.length  == 0){
+  $event.target.value = 0;
+  this.ordenCompra.MONTO_DESCUENTO = 0;
+   this.alertasService.message('ISLEÑA', 'Debes de agregar al menos un producto.')
+   return
+}
+  let value = $event.target.value;
+  this.ordenCompra.PORC_DESCUENTO = value;
+ this.ordenCompra.MONTO_DESCUENTO = (this.ordenCompra.TOTAL_A_COMPRAR / 100) *value
+  this.sumarTotales();
+  
+}
 setImpuesto($event, articulo:PostArticulos){
   let value = $event.target.value;
   this.articulosService.subTotal = 0;
@@ -361,16 +431,16 @@ borrarArticulo(index, articulo:PostArticulos){
   
 }
 rellenarOrdenCompra(proveedor:Proveedores){
-this.ordenCompra.ORDEN_COMPRA = 'Sin Definir';
-this.ordenCompra.USUARIO = ''
+this.ordenCompra.ORDEN_COMPRA = null;
+this.ordenCompra.USUARIO = null;
 this.ordenCompra.PROVEEDOR = proveedor.ID;
-this.ordenCompra.BODEGA = 'Sin Definir';
+this.ordenCompra.BODEGA = null;
 this.ordenCompra.CONDICION_PAGO = proveedor.CONDICION_PAGO.toString();
 this.ordenCompra.MONEDA = proveedor.MONEDA;
 this.ordenCompra.PAIS = proveedor.PAIS;
 this.ordenCompra.MODULO_ORIGEN = 'CO';
-this.ordenCompra.FECHA = this.fecha.toLocaleDateString();
-this.ordenCompra.FECHA_REQUERIDA = this.fecha.toLocaleDateString();
+this.ordenCompra.FECHA = this.formatoFecha;
+this.ordenCompra.FECHA_REQUERIDA = this.formatoFecha;
 this.ordenCompra.TIPO_DESCUENTO = 'A';
 this.ordenCompra.PORC_DESCUENTO = 0;
 this.ordenCompra.MONTO_DESCUENTO = 0;
@@ -391,24 +461,27 @@ this.ordenCompra.TOTAL_A_COMPRAR = 0;
 
 generarPost(){
 
-   if(!this.proveedor || !this.bodega || !this.ordenCompra || this.articulosService.articulosPostArray.length == 0){
+   if(!this.proveedor || !this.bodega || !this.ordenCompra || this.articulosService.articulosPostArray.length == 0  || this.ordenCompra.ORDEN_COMPRA == null || this.ordenCompra.USUARIO == null){
 this.alertasService.message('ISLEÑA','La orden de compra no se encuentra completa aun.')
     return
   }
 
   this.fecha.setHours(0,0,0,0)
-this.ordenCompra.FECHA = this.fecha.toISOString().split('T0')[0]+'T00:00:00';
-this.ordenCompra.FECHA_REQUERIDA =   this.ordenCompra.FECHA_REQUERIDA   ?  this.fecha.toISOString().split('T0')[0]+'T00:00:00' : this.ordenCompra.FECHA;
+this.ordenCompra.FECHA = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
+
+
   this.alertasService.presentaLoading('Generando Consecutivo')
+
+
   this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
     this.ordenCompraService.ultimaOrdenCompra = resp[0];
-  this.ordenCompra.ORDEN_COMPRA =   this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
+  //this.ordenCompra.ORDEN_COMPRA =   this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
 
 let articulos:Lineas[] = [];
 for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
+  this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA
   articulos.push(this.articulosService.articulosPostArray[i].articulo)
-  this.articulosService.articulosPostArray[i].articulo.FECHA =  this.fecha.toISOString().split('T0')[0]+'T00:00:00'
-  this.articulosService.articulosPostArray[i].articulo.FECHA_REQUERIDA =   this.articulosService.articulosPostArray[i].articulo.FECHA_REQUERIDA  ?   this.articulosService.articulosPostArray[i].articulo.FECHA_REQUERIDA.split('T0')[0]+'T00:00:00' : this.ordenCompra.FECHA;
+
   if(i === this.articulosService.articulosPostArray.length -1){
     console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
     console.log('orden de compra',this.ordenCompra);
@@ -416,8 +489,10 @@ for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
     this.alertasService.loadingDissmiss();
 
   this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
+    console.log('orden de compra',[this.ordenCompra]);
+    this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
     this.lineasService.syncPostLineasToPromise(articulos).then(resp =>{
-
+    this.limpiarDatos();
     }, error =>{
 
       this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
