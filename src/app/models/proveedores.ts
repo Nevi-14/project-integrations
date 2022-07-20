@@ -103,3 +103,12 @@ constructor (
 ){}
 
 }
+
+export interface UsersBD {
+  EMPLEADO: string;
+  Usuario: string;
+  Clave: string;
+  Email: string;
+  Nombre: string;
+}
+

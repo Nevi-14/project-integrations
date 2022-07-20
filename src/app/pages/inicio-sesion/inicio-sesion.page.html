@@ -20,8 +20,8 @@
                        
                        <ion-item>
                  
-                         <ion-label  position="stacked"><ion-icon  name="mail-outline"></ion-icon>Correo</ion-label>
-                         <ion-input type="email" placeholder="correo" name="correo"></ion-input>
+                         <ion-label  position="stacked"><ion-icon  name="mail-outline"></ion-icon>Usuario</ion-label>
+                         <ion-input type="number" placeholder="Usuario" name="usuario" [(ngModel)]="usuario"></ion-input>
                        </ion-item>
                      </div>
              
@@ -31,7 +31,7 @@
                 
                            <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
                        
-                         <ion-input type="password" name="contrasena" autocomplete="off"  type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña"></ion-input>
+                         <ion-input type="password" name="contrasena" autocomplete="off"  type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña" [(ngModel)]="clave"></ion-input>
                          <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
                        </ion-item>
                      </div>

@@ -9,13 +9,17 @@ export const environment = {
   TestURL:'_test',
   postURL:'.di-apps.co.cr/api/',
   prdMode:true,
-  proveedoresURL:'Proveedores/',
-  bodegasURL:'ONE_Bodega',
   articulosURL:'ONE_ArtProv/',
-  idProvedorParam:'?IDProv=',
-  ultimaOrdenCompraURL:'ONE_Consec',
-  ordenCompraURL:'ONE_OC',
+  bodegasURL:'ONE_Bodega',
   lineasPostURL:'ONE_OC_Linea',
+  ordenCompraURL:'ONE_OC',
+  proveedoresURL:'Proveedores/',
+  ultimaOrdenCompraURL:'ONE_Consec',
+  usuariosURL:    'ONE_Users/',
+  idProvedorParam:'?IDProv=',
+  
+  
+  
 };
 
 /*
