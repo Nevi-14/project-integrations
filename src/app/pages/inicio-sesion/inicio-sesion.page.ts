@@ -42,7 +42,7 @@ export class InicioSesionPage implements OnInit {
         }
       }, error => {
         this.alertas.loadingDissmiss();
-        this.alertas.message('Error', 'No se puede acceder a la BD');
+        this.alertas.message('Error', `No se puede acceder a la BD. ${error.message}`);
       }
     )
 

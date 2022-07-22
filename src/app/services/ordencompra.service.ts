@@ -10,78 +10,72 @@ import { AlertasService } from './alertas.service';
   providedIn: 'root'
 })
 export class OrdenCompraService {
-ordenCompra:OrdenCompra = null;
-ultimaOrdenCompra:UltimaOrdenCompra = null;
+
+  ordenCompra:OrdenCompra = null;
+  ultimaOrdenCompra:UltimaOrdenCompra = null;
+
   constructor(
     private http: HttpClient,
     public alertasService:AlertasService
   ) { }
 
 
-getURL(api){
+  getURL(api){
+    let test : string = '';
 
-let test : string = '';
+    if(!environment.prdMode){
+      test = environment.TestURL;
+    }
 
-if(!environment.prdMode){
+    const URL = environment.preURL + test + environment.postURL + api;
+    return URL;
+  }
+ 
+  private getUltimaOrdenCompra(){
+    const URL = this.getURL(environment.ultimaOrdenCompraURL);
+    console.log('URL', URL)
+    return this.http.get<UltimaOrdenCompra[]>(URL)
+  }
 
-test = environment.TestURL;
-
-}
-
-const URL = environment.preURL + test + environment.postURL + api;
-
-return URL;
+  private postOrdenCompra (ordenCompra:OrdenCompra[]){
+    const URL = this.getURL( environment.ordenCompraURL );
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
   
-}
- 
-private getUltimaOrdenCompra(){
-  const URL = this.getURL(environment.ultimaOrdenCompraURL);
-  console.log('URL', URL)
-  return this.http.get<UltimaOrdenCompra[]>(URL)
+    return this.http.post( URL, JSON.stringify(ordenCompra), options );
+  }
 
+  syncPostOrdenCompraToPromise(ordenCompra: OrdenCompra[]){
 
-}
-private postOrdenCompra (ordenCompra:OrdenCompra[]){
-  const URL = this.getURL( environment.ordenCompraURL );
-  const options = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-    }
-  };
- 
-  return this.http.post( URL, JSON.stringify(ordenCompra), options );
-}
+    return  this.postOrdenCompra(ordenCompra).toPromise();
+  }
 
-syncPostOrdenCompraToPromise(ordenCompra:OrdenCompra[]){
+  syncUltimaOrdenCompra(){
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.getUltimaOrdenCompra().subscribe(
 
-return  this.postOrdenCompra(ordenCompra).toPromise();
-}
-syncUltimaOrdenCompra(){
+      resp => {
 
-this.alertasService.presentaLoading('Cargando datos...')
-  this.getUltimaOrdenCompra().subscribe(
+        this.ultimaOrdenCompra = resp[0];
+        console.log('this.ultimaOrdenCompra', this.ultimaOrdenCompra)
 
-    resp => {
+        this.alertasService.loadingDissmiss();
 
-this.ultimaOrdenCompra = resp[0];
-console.log('this.ultimaOrdenCompra', this.ultimaOrdenCompra)
+      }, error =>{
 
-this.alertasService.loadingDissmiss();
-    }, error =>{
+        this.alertasService.loadingDissmiss();
 
+      }
+    )
+  }
 
-      this.alertasService.loadingDissmiss();
-
-    }
-  )
-}
-
-syncUltimaOrdenCompraToPromise(){
-
-
-   return this.getUltimaOrdenCompra().toPromise();
-}
+  syncUltimaOrdenCompraToPromise(){
+    return this.getUltimaOrdenCompra().toPromise();
+  }
 
 }
