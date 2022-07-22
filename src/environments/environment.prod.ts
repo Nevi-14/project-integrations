@@ -10,6 +10,7 @@ export const environment = {
   idProvedorParam:'?IDProv=',
   bodegasURL:'ONE_Bodega',
   ultimaOrdenCompraURL:'ONE_Consec',
+  usuariosURL:    'ONE_Users/',
   ordenCompraURL:'ONE_OC',
   lineasPostURL:'ONE_OC_Linea',
 

@@ -20,7 +20,8 @@ interface PostArticulos {
   Unidades:number,
   Cajas:number,
   Total: number,
-  precioDescuento:number
+  precioDescuento:number,
+  montoImpuesto:number
 }
 @Component({
   selector: 'app-inicio',
@@ -258,6 +259,7 @@ setPrecio($event, articulo:PostArticulos){
     articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
   // actualizamos total
   let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
+  articulo.montoImpuesto = montoImpuesto;
   articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
   this.sumarTotales();
 
@@ -353,6 +355,7 @@ this.sumarTotales();
       articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
     // actualizamos total
     let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
+    articulo.montoImpuesto = montoImpuesto;
     articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
 
     this.sumarTotales();
@@ -375,6 +378,7 @@ this.sumarTotales();
       articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
     // actualizamos total
     let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
+    articulo.montoImpuesto = montoImpuesto;
     articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
     this.sumarTotales();
     
@@ -410,6 +414,7 @@ this.sumarTotales();
       articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
     // actualizamos total
     let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
+    articulo.montoImpuesto = montoImpuesto;
     articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
     this.sumarTotales();
   }

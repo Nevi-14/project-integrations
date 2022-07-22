@@ -286,6 +286,7 @@ Dia
       <th>UNIDADES</th>
       <th>% IMPUESTO</th>
       <th>% DESCUENTO</th>
+      <th>MONTO IMPUESTO</th>
       <th>MONTO DESCUENTO</th>
       <th >PRECIO DESCUENTO</th>
       <th >FECHA REQUERIDA</th>
@@ -306,14 +307,15 @@ Dia
         <td><ion-input  (ionInput)="setPrecio($event,articulo)"   type="number" placeholder="precio" [(ngModel)]="articulo.articulo.PRECIO_UNITARIO"></ion-input></td>
         
       <td><ion-input (ionInput)="setUnidades($event,articulo)"  type="number" placeholder="Unidades" [(ngModel)]="articulo.articulo.CANTIDAD_ORDENADA"></ion-input></td>
-      <td><ion-input  (ionInput)="setImpuesto($event,articulo)"    type="number" placeholder="impuesto 1" [(ngModel)]="articulo.articulo.IMPUESTO1" ></ion-input></td>
-      <td><ion-input (ionInput)="setDescuento($event,articulo)"   type="number" placeholder="descuento" min="0" [(ngModel)]="articulo.articulo.PORC_DESCUENTO"></ion-input></td>
-      <td><ion-input  readonly="true"   type="number" placeholder="monto descuento" min="0" [(ngModel)]="articulo.articulo.MONTO_DESCUENTO"></ion-input></td>
-      <td><ion-input  readonly="true"  type="number" placeholder="precio descuento" min="0" [(ngModel)]="articulo.precioDescuento"></ion-input></td>
+      <td><ion-input  (ionInput)="setImpuesto($event,articulo)"    type="number" placeholder="impuesto 1" [(ngModel)]="articulo.articulo.IMPUESTO1"    [ngModel]="articulo.articulo.IMPUESTO1" (ngModelChange)="onInputChange($event)" ></ion-input></td>
+      <td><ion-input (ionInput)="setDescuento($event,articulo)"   type="number" placeholder="descuento" min="0"    [(ngModel)]="articulo.articulo.PORC_DESCUENTO"    ></ion-input></td>
+      <td><ion-input  readonly="true"   type="text" placeholder="monto impuesto"  [ngModel]="articulo.montoImpuesto | colones" (ngModelChange)="articulo.montoImpuesto = $event"  ></ion-input></td>
+      <td><ion-input  readonly="true"   type="text" placeholder="monto descuento"  [ngModel]="articulo.articulo.MONTO_DESCUENTO | colones" (ngModelChange)="articulo.articulo.MONTO_DESCUENTO = $event"  ></ion-input></td>
+      <td><ion-input  readonly="true"  type="text" placeholder="precio descuento"    [ngModel]="articulo.precioDescuento | colones" (ngModelChange)="articulo.precioDescuento = $event" ></ion-input></td>
  
       <td> <ion-input readonly (click)="presentPopover(articulo)"   type="text" placeholder="fecha requerida" [ngModel]="articulo.articulo.FECHA_REQUERIDA | date" 
         (ngModelChange)="articulo.articulo.FECHA_REQUERIDA=$event"></ion-input></td>
-      <td><ion-input  readonly="true" type="number" placeholder="Total" [ngModel]="ordenCompra.TOTAL_A_COMPRAR" (ngModelChange)="onInputChange($event)"  ></ion-input></td>
+      <td><ion-input  readonly="true" type="text" placeholder="Total" [ngModel]="articulo.Total | colones" (ngModelChange)="articulo.Total = $event"  ></ion-input></td>
       
     
      <td>
