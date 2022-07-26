@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetButton, ActionSheetController, ModalController, PopoverController } from '@ionic/angular';
+import { ActionSheetButton, ActionSheetController, MenuController, ModalController, PopoverController } from '@ionic/angular';
 import { Proveedores } from 'src/app/models/proveedores';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
@@ -15,6 +15,9 @@ import { Lineas } from 'src/app/models/lineas';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { CalendarioPopoverPage } from '../calendario-popover/calendario-popover.page';
 import { LineasService } from 'src/app/services/lineas.service';
+import { OrdenesDeCompraPage } from '../ordenes-de-compra/ordenes-de-compra.page';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { BodegasService } from 'src/app/services/bodegas.service';
 interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
@@ -51,7 +54,9 @@ ordenCompra:OrdenCompra =
   MONTO_SEGURO: null,
   MONTO_DOCUMENTACIO:null,
   MONTO_ANTICIPO: null,
-  TOTAL_A_COMPRAR: null
+  TOTAL_A_COMPRAR: null,
+  PRD : null,
+  ACCION : null
 }
 TOTAL_UNIDADES =  0;
 proveedor:Proveedores;
@@ -65,6 +70,7 @@ image = '../assets/islena.png';
 box = '../assets/supply-chain.svg';
 textoBuscar = '';
 articulos:Articulos[]=[];
+modeOn = false;
 
   constructor(
     public modalCtrl: ModalController,
@@ -74,13 +80,20 @@ articulos:Articulos[]=[];
     public ordenCompraService: OrdenCompraService,
     public alertasService: AlertasService,
     public popOverCtrl: PopoverController,
-    public lineasService: LineasService
+    public lineasService: LineasService,
+    public usuariosService:UsuariosService,
+    public menu: MenuController,
+    public bodegasService: BodegasService
   ) { }
 
   ngOnInit() {
+   
 
   }
-
+  openCustom() {
+    this.menu.enable(true, 'custom');
+    this.menu.open('custom');
+  }
   ionViewWillEnter(){
     this.limpiarDatos();
   }
@@ -89,6 +102,12 @@ articulos:Articulos[]=[];
     this.textoBuscar = event.detail.value;
   }
 
+  toggleMode(event){
+
+  
+this.modeOn  = event.detail.checked;
+
+  }
   salir(){
     this.route.navigate(['/inicio-sesion']);
   }
@@ -129,7 +148,72 @@ articulos:Articulos[]=[];
    }
        
      }
+     async  ordenesDeCompra(){
+    
+      let modal = await  this.modalCtrl.create({
+     component:OrdenesDeCompraPage,
+     cssClass: 'large-modal',
+     
+         });
+         await modal.present();
+         const { data } = await modal.onWillDismiss();
+     if(data != undefined){
+      this.ordenCompra = data.orden;
+      this.ordenCompra.PRD  = this.modeOn ? 'S':'N';
+      this.ordenCompra.ACCION = 'M';
+ this.sincronizarOrdenDeEntregaExistente();
+      
+     }
+         
+       }
 
+
+       sincronizarOrdenDeEntregaExistente(){
+        this.proveedoresService.proveedores = []
+        this.proveedoresService.syncGetProvedorestoPromise(this.ordenCompra.PROVEEDOR).then(resp =>{
+          this.proveedoresService.proveedores = resp;
+  
+          let p =    this.proveedoresService.proveedores.findIndex(proveedor => proveedor.ID == this.ordenCompra.PROVEEDOR);
+          this.proveedor = this.proveedoresService.proveedores[p];
+          console.log('res', resp)
+          this.bodegasService.bodegas = [];
+          this.bodegasService.syncGetBodegasToPromise().then(bodegas =>{
+         this.bodegasService.bodegas = bodegas;
+            let b =  this.bodegasService.bodegas.findIndex(bodega => bodega.BODEGA == this.ordenCompra.BODEGA);
+            this.bodega = this.bodegasService.bodegas[b];
+            
+            this.articulosService.articulos = [];
+            this.articulos =[];
+            this.articulosService.syncGetArticulosToPromise(this.ordenCompra.PROVEEDOR).then(articulos =>{
+    this.articulosService.articulos = articulos;
+              this.articulos = articulos;
+              console.log('this.articulos', this.articulos)
+              this.lineasService.syncConsultarLineasOrdenCompra(this.ordenCompra.ORDEN_COMPRA).then(lineas =>{
+                console.log('lineas', lineas)
+                this.rellenarLineas(lineas);
+                            });
+            })
+
+
+          })
+  
+        });
+
+
+       }
+
+
+       rellenarLineas(lineas:Lineas[]){
+        lineas.forEach(linea => {
+
+          console.log(linea)
+
+          this.articulosService.agregarArticulo(linea);
+          this.sumarTotales();
+
+        })
+
+       }
   async  listaArticulos(){
 
     if(!this.bodega){
@@ -180,7 +264,9 @@ articulos:Articulos[]=[];
       MONTO_SEGURO: null,
       MONTO_DOCUMENTACIO:null,
       MONTO_ANTICIPO: null,
-      TOTAL_A_COMPRAR: null
+      TOTAL_A_COMPRAR: null,
+      PRD : null,
+      ACCION : null
     }
   }
   
@@ -263,7 +349,7 @@ setPrecio($event, articulo:PostArticulos){
   articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
   this.sumarTotales();
 
-this.sumarTotales();
+
   
 }
 
@@ -310,6 +396,7 @@ this.sumarTotales();
   }
 
   sumarTotales(){
+    
     this.TOTAL_UNIDADES  = 0;
     this.articulosService.subTotal = 0;
     this.articulosService.total = 0;

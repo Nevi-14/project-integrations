@@ -86,4 +86,22 @@ ion-input{
     --highlight-height:0px;
    
   }
+  ion-toggle::before {
+    position: absolute;
   
+    top: 16px;
+    left: 10px;
+  
+    content: "ON";
+  
+    color: white;
+    font-size: 8px;
+  
+    z-index: 1;
+  }ion-toggle {
+    height: 30px;
+    width: 50px;
+    --handle-spacing: 0px;
+    --handle-height: 30px;
+    --handle-width: 30px;
+  }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProveedoresService } from '../../services/proveedores.service';
 import { AlertasService } from '../../services/alertas.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -16,7 +17,7 @@ export class InicioSesionPage implements OnInit {
   clave: string = '';
 
   constructor( public route: Router,
-               private provServices: ProveedoresService,
+               private usuariosService: UsuariosService,
                private alertas: AlertasService ) { }
 
   ngOnInit() {
@@ -25,14 +26,15 @@ export class InicioSesionPage implements OnInit {
   loginMethod(){
     console.log(this.usuario);
     console.log(this.clave);
-
+this.usuariosService.usuario = null;
     this.alertas.presentaLoading('Espere x favor...');
-    this.provServices.getUsers(this.usuario).subscribe(
+    this.usuariosService.syngGetUsersToPromise(this.usuario).then(
       resp => {
         this.alertas.loadingDissmiss();
         if (resp.length > 0){
           console.log(resp);
           if (resp[0].Clave === this.clave){
+            this.usuariosService.usuario = resp[0];
             this.route.navigate(['/inicio']);
           } else {
             this.alertas.message('ERROR', 'Usuario o clave incorrectos.');

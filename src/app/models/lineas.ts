@@ -22,6 +22,8 @@ export class Lineas{
        public CENTRO_COSTO: string,
        public CUENTA_CONTABLE: string,
        public TIPO_IMPUESTO1: string,
-       public TIPO_TARIFA1: string
+       public TIPO_TARIFA1: string,
+       public PRD : string,
+       public ACCION :string
     ){}
 }

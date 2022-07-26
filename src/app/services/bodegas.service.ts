@@ -39,6 +39,13 @@ private getBodegas(){
 
 }
 
+syncGetBodegasToPromise(){
+
+ return this.getBodegas().toPromise();
+
+
+}
+
 syncGetProvedores(){
   this.bodegas = [];
 this.alertasService.presentaLoading('Cargando datos...')

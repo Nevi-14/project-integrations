@@ -8,26 +8,33 @@
 <strong>{{usuariosService.usuario.Nombre}}</strong>
 
    </ion-label>
-<ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0" slot="end" size="small" color="dark"  (click)="generarPost()">
+<ion-fab-button slot="end" size="small" color="dark"  (click)="generarPost()">
    <ion-icon name="save"></ion-icon>
 </ion-fab-button>
-<ion-fab-button slot="end" size="small" color="dark" (click)="listaProveedores()">
-   <ion-icon name="settings"></ion-icon>
+<ion-fab-button slot="end" size="small" color="dark">
+   <ion-icon name="add"></ion-icon>
 </ion-fab-button>
-
-<ion-fab-button slot="end" size="small" color="dark" (click)="ordenesDeCompra()">
-   <ion-icon name="search"></ion-icon>
+<ion-fab-button slot="end" size="small" color="dark">
+   <ion-icon name="add"></ion-icon>
 </ion-fab-button>
-
-<ion-fab-button slot="end" size="small" color="dark" (click)="limpiarDatos()">
-   <ion-icon name="reload"></ion-icon>
+<ion-fab-button slot="end" size="small" color="dark">
+   <ion-icon name="add"></ion-icon>
 </ion-fab-button>
-
-<ion-label slot="end" class="ion-margin ion-text-uppercase"><strong>{{modeOn ? 'Producción' : 'Pruebas'}}</strong></ion-label>
-<ion-toggle size="large" slot="end" color="dark"  checked={{modeOn}} (ionChange)="toggleMode($event)"></ion-toggle>
-<ion-fab-button slot="end" size="small" color="dark" (click)="salir()">
-   <ion-icon name="exit"></ion-icon>
-</ion-fab-button>
+   <ion-buttons slot="end" >
+    
+      <ion-button (click)="listaProveedores()">
+         <ion-icon  size="large" slot="icon-only"  name="settings"></ion-icon>
+  
+      </ion-button>
+      <ion-button (click)="ordenesDeCompra()">
+         <ion-icon size="large" slot="icon-only"  name="search"></ion-icon>
+  
+      </ion-button>
+      <ion-button (click)="salir()">
+         <ion-icon size="large" slot="icon-only"  name="exit"></ion-icon>
+  
+      </ion-button>
+   </ion-buttons>
  </ion-toolbar>
  
  <ion-toolbar>

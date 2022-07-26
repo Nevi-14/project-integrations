@@ -10,7 +10,7 @@ import { AlertasService } from './alertas.service';
   providedIn: 'root'
 })
 export class OrdenCompraService {
-
+  ordenesDeCompra:OrdenCompra[]=[];
   ordenCompra:OrdenCompra = null;
   ultimaOrdenCompra:UltimaOrdenCompra = null;
 
@@ -36,6 +36,12 @@ export class OrdenCompraService {
     console.log('URL', URL)
     return this.http.get<UltimaOrdenCompra[]>(URL)
   }
+  private getOrdenCompraEstado(estado:string){
+    let URL = this.getURL(environment.ordenCompraEstadoURL);
+    URL = URL+ estado;
+    console.log('URL', URL)
+    return this.http.get<OrdenCompra[]>(URL)
+  }
 
   private postOrdenCompra (ordenCompra:OrdenCompra[]){
     const URL = this.getURL( environment.ordenCompraURL );
@@ -54,6 +60,36 @@ export class OrdenCompraService {
 
     return  this.postOrdenCompra(ordenCompra).toPromise();
   }
+
+  syncGetOrdenesCompraEstado(estado: string){
+    this.ordenesDeCompra = [];
+  this.alertasService.presentaLoading('Cargando ordenes...')
+    this.getOrdenCompraEstado(estado).subscribe(
+
+      resp => {
+
+        this.ordenesDeCompra = resp;
+        console.log('this.ordenesDeCompra', this.ordenesDeCompra)
+
+        this.alertasService.loadingDissmiss();
+
+      }, error =>{
+
+        this.alertasService.loadingDissmiss();
+
+      }
+    )
+  }
+
+
+
+  syncGetOrdenesCompraEstadoToPromise(estado: string){
+    return  this.getOrdenCompraEstado(estado).toPromise();
+  }
+
+  
+
+
 
   syncUltimaOrdenCompra(){
     this.alertasService.presentaLoading('Cargando datos...')

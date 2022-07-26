@@ -48,6 +48,22 @@ private postLineas (lineas:Lineas[]){
   return this.http.post( URL, JSON.stringify(lineas), options );
 }
 
+
+private consultarLineasOrdenCompra(oc:string){
+  let URL  = this.getURL(environment.consultarOrdenCompraLineasURL);
+
+  URL = URL +oc;
+  console.log('consultarlineas', URL)
+ return this.http.get<Lineas[]>(URL);
+
+
+}
+
+syncConsultarLineasOrdenCompra(oc:string){
+
+  return  this.consultarLineasOrdenCompra(oc).toPromise();
+  }
+  
 syncPostLineasToPromise(lineas:Lineas[]){
 
 return  this.postLineas(lineas).toPromise();

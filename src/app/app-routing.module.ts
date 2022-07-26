@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes, CanLoad } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'inicio',
-    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
+    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule),
+    canLoad:[AuthGuard]
   },
   {
     path: 'lista-proveedores',
@@ -22,7 +24,8 @@ const routes: Routes = [
   {
     path: 'lista-articulos',
     loadChildren: () => import('./pages/lista-articulos/lista-articulos.module').then( m => m.ListaArticulosPageModule)
-  },  {
+  },
+  {
     path: 'lista-bodegas',
     loadChildren: () => import('./pages/lista-bodegas/lista-bodegas.module').then( m => m.ListaBodegasPageModule)
   },
@@ -30,7 +33,10 @@ const routes: Routes = [
     path: 'calendario-popover',
     loadChildren: () => import('./pages/calendario-popover/calendario-popover.module').then( m => m.CalendarioPopoverPageModule)
   },
-
+  {
+    path: 'ordenes-de-compra',
+    loadChildren: () => import('./pages/ordenes-de-compra/ordenes-de-compra.module').then( m => m.OrdenesDeCompraPageModule)
+  }
  
 ];
 

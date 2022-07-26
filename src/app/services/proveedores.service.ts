@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Proveedores, UsersBD } from '../models/proveedores';
+import { Proveedores } from '../models/proveedores';
 import { environment } from 'src/environments/environment';
 import { AlertasService } from './alertas.service';
 @Injectable({
@@ -26,7 +26,7 @@ export class ProveedoresService {
     }
 
     const URL = environment.preURL + test + environment.postURL + api + id;
-
+console.log('URL', URL)
     return URL;
     
   }
@@ -35,12 +35,9 @@ export class ProveedoresService {
     const URL = this.getURL(environment.proveedoresURL, id);
     return this.http.get<Proveedores[]>(URL);
   }
-
-  getUsers(usuario: string){
-    const URL = this.getURL(environment.usuariosURL, `?User=${usuario}`);
-    return this.http.get<UsersBD[]>(URL);
+  syncGetProvedorestoPromise(id){
+   return  this.getProveedores(id).toPromise();
   }
-
 syncGetProvedores(id){
   this.proveedores = [];
   this.alertasService.presentaLoading('Cargando datos...')

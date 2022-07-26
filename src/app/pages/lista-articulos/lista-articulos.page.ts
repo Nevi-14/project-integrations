@@ -71,7 +71,9 @@ export class ListaArticulosPage implements OnInit {
         CENTRO_COSTO: "001-001-01-01",
         CUENTA_CONTABLE: "00003",
         TIPO_IMPUESTO1: "01",
-        TIPO_TARIFA1: "08"
+        TIPO_TARIFA1: "08",
+        PRD : 'N',
+        ACCION : 'I'
     },
       Unidades:1,
       Cajas:1,

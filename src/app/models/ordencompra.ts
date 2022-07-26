@@ -23,6 +23,8 @@
        public  MONTO_DOCUMENTACIO: number,
        public  MONTO_ANTICIPO: number,
        public TOTAL_A_COMPRAR: number,
+       public PRD : string,
+       public ACCION :string
     
     ){}
     
