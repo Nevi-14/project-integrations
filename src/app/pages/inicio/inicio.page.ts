@@ -107,6 +107,12 @@ modeOn = false;
   
 this.modeOn  = event.detail.checked;
 
+if(event.detail.checked){
+this.ordenCompra.PRD = 'S';
+}else{
+  this.ordenCompra.PRD = 'N';
+}
+
   }
   salir(){
     this.route.navigate(['/inicio-sesion']);
@@ -181,7 +187,7 @@ this.modeOn  = event.detail.checked;
          this.bodegasService.bodegas = bodegas;
             let b =  this.bodegasService.bodegas.findIndex(bodega => bodega.BODEGA == this.ordenCompra.BODEGA);
             this.bodega = this.bodegasService.bodegas[b];
-            
+            this.articulosService.articulosPostArray = [];
             this.articulosService.articulos = [];
             this.articulos =[];
             this.articulosService.syncGetArticulosToPromise(this.ordenCompra.PROVEEDOR).then(articulos =>{
@@ -337,12 +343,12 @@ setPrecio($event, articulo:PostArticulos){
   articulo.Total = 0;
   articulo.Cajas = 0;
   articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-  articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
+ 
   // actualizamos monto descuento 
-  articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
+  articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
     // actualizamos precio descuento 
-    articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
+    // actualizamos precio descuento 
+    articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
   // actualizamos total
   let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
   articulo.montoImpuesto = montoImpuesto;
@@ -408,6 +414,7 @@ this.sumarTotales();
     this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
     for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
       this.TOTAL_UNIDADES   +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA)
+
       this.articulosService.articulosPostArray[i].articulo.BODEGA = this.ordenCompra.BODEGA
       this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA;
       this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
@@ -436,10 +443,11 @@ this.sumarTotales();
     articulo.Total = 0;
     articulo.Cajas = 0;
     articulo.Cajas = articulo.articulo.CANTIDAD_ORDENADA * articulo.articulo.FACTOR_CONVERSION;
-    // actualizamos monto descuento 
-    articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-      // actualizamos precio descuento 
-      articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
+  // actualizamos monto descuento 
+  articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
+    // actualizamos precio descuento 
+    // actualizamos precio descuento 
+    articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
     // actualizamos total
     let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
     articulo.montoImpuesto = montoImpuesto;
@@ -457,12 +465,11 @@ this.sumarTotales();
     articulo.Total = 0;
     articulo.Cajas = 0;
     articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-    articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-    articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
-    // actualizamos monto descuento 
-    articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-      // actualizamos precio descuento 
-      articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
+  // actualizamos monto descuento 
+  articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
+    // actualizamos precio descuento 
+       // actualizamos precio descuento 
+       articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
     // actualizamos total
     let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
     articulo.montoImpuesto = montoImpuesto;
@@ -495,10 +502,10 @@ this.sumarTotales();
     articulo.Total = 0;
     articulo.Cajas = 0;
     articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-    // actualizamos monto descuento 
-    articulo.articulo.MONTO_DESCUENTO = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO;
-      // actualizamos precio descuento 
-      articulo.precioDescuento  = articulo.articulo.PRECIO_UNITARIO - articulo.articulo.MONTO_DESCUENTO
+  // actualizamos monto descuento 
+  articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
+    // actualizamos precio descuento 
+    articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
     // actualizamos total
     let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
     articulo.montoImpuesto = montoImpuesto;
@@ -516,6 +523,9 @@ this.sumarTotales();
   }
 
   rellenarOrdenCompra(proveedor:Proveedores){
+    this.ordenCompra.ACCION = 'I';
+    this.ordenCompra.PRD =  this.modeOn ? 'S' : 'N';
+    this.ordenCompra.ORDEN_COMPRA = null;
     this.ordenCompra.ORDEN_COMPRA = null;
     this.ordenCompra.USUARIO = null;
     this.ordenCompra.PROVEEDOR = proveedor.ID;
@@ -560,12 +570,16 @@ this.sumarTotales();
       for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
         this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA
         articulos.push(this.articulosService.articulosPostArray[i].articulo)
-
+        this.articulosService.articulosPostArray[i].articulo.PRD = this.modeOn  ? 'S' : 'N';
+        this.articulosService.articulosPostArray[i].articulo.ACCION = this.ordenCompra.ACCION;
         if(i === this.articulosService.articulosPostArray.length -1){
           console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
           console.log('orden de compra',this.ordenCompra);
           console.log('articulos',articulos);
           this.alertasService.loadingDissmiss();
+
+
+          return
 
           this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
             console.log('orden de compra',[this.ordenCompra]);
