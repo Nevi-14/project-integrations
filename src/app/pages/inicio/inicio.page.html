@@ -15,7 +15,7 @@
    <ion-icon name="settings"></ion-icon>
 </ion-fab-button>
 
-<ion-fab-button slot="end" size="small" color="dark" (click)="ordenesDeCompra()">
+<ion-fab-button *ngIf="usuariosService.usuario.UsuarioExactus == 'GCOMPRAS'" slot="end" size="small" color="dark" (click)="ordenesDeCompra()">
    <ion-icon name="search"></ion-icon>
 </ion-fab-button>
 
