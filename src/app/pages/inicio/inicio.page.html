@@ -65,7 +65,7 @@
 
             <ion-col size="12">
                <ion-label><strong><h2>    ORDEN DE COMPRA #</h2></strong></ion-label>
-               <ion-input *ngIf="ordenCompra"  type="text" placeholder="Ingresar Orden de  compra" [(ngModel)]="ordenCompra.ORDEN_COMPRA"></ion-input>
+               <ion-input readonly *ngIf="ordenCompra"  type="text" placeholder="Ingresar Orden de  compra" [(ngModel)]="ordenCompra.ORDEN_COMPRA"></ion-input>
 
 
             </ion-col>
@@ -116,7 +116,7 @@ Dia
                 <ion-row>
                   <ion-col size="12">
                      <ion-label><h2>Proveedor : {{proveedor.NOMBRE}}</h2></ion-label>
-                     <ion-label *ngIf="articulosService.articulosPostArray.length > 0">Total de Articulos :   <ion-badge  color="warning" mode="ios">{{articulosService.articulosProveedor.length}}</ion-badge></ion-label>
+                     <ion-label *ngIf="articulosService.articulosPostArray.length > 0">Total de Articulos :   <ion-badge  color="warning" mode="ios">{{articulosService.articulos.length}}</ion-badge></ion-label>
             
                   </ion-col>
       
@@ -182,7 +182,7 @@ Dia
     <ion-col size="2">
       <ion-label>USUARIO</ion-label>
       <ion-item lines="none">
-         <ion-input type="text" placeholder="usuario" [(ngModel)]="ordenCompra.USUARIO"></ion-input>
+         <ion-input readonly type="text" placeholder="usuario" [(ngModel)]="ordenCompra.USUARIO"></ion-input>
         </ion-item>
     </ion-col>
 

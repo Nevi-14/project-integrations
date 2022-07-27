@@ -37,17 +37,19 @@ ordenCompra:OrdenCompra =
   ORDEN_COMPRA: null,
   USUARIO: null,
   PROVEEDOR: null,
-  ESTADO:null,
   BODEGA: null,
   CONDICION_PAGO: null,
   MONEDA: null,
   PAIS: null,
+  MODULO_ORIGEN:null,
   FECHA: null,
   FECHA_REQUERIDA: null,
+  TIPO_DESCUENTO: null,
   PORC_DESCUENTO: null,
   MONTO_DESCUENTO: null,
   TOTAL_MERCADERIA: null,
   TOTAL_IMPUESTO1: null,
+  TOTAL_IMPUESTO2: null,
   MONTO_FLETE: null,
   MONTO_SEGURO: null,
   MONTO_DOCUMENTACIO:null,
@@ -166,7 +168,6 @@ this.ordenCompra.PRD = 'S';
       this.ordenCompra = data.orden;
       this.ordenCompra.PRD  = this.modeOn ? 'S':'N';
       this.ordenCompra.ACCION = 'M';
-      this.ordenCompra.ESTADO = 'A';
  this.sincronizarOrdenDeEntregaExistente();
       
      }
@@ -252,19 +253,21 @@ this.ordenCompra.PRD = 'S';
     this.bodega = null;
     this.ordenCompra = {
       ORDEN_COMPRA: null,
-      ESTADO:null,
       USUARIO: this.usuariosService.usuario.UsuarioExactus,
       PROVEEDOR: null,
       BODEGA: null,
       CONDICION_PAGO: null,
       MONEDA: null,
       PAIS: null,
+      MODULO_ORIGEN:null,
       FECHA: null,
       FECHA_REQUERIDA: null,
+      TIPO_DESCUENTO: null,
       PORC_DESCUENTO: null,
       MONTO_DESCUENTO: null,
       TOTAL_MERCADERIA: null,
       TOTAL_IMPUESTO1: null,
+      TOTAL_IMPUESTO2: null,
       MONTO_FLETE: null,
       MONTO_SEGURO: null,
       MONTO_DOCUMENTACIO:null,
@@ -532,13 +535,15 @@ this.sumarTotales();
     this.ordenCompra.CONDICION_PAGO = proveedor.CONDICION_PAGO.toString();
     this.ordenCompra.MONEDA = proveedor.MONEDA;
     this.ordenCompra.PAIS = proveedor.PAIS;
-    this.ordenCompra.ESTADO = 'A';
+    this.ordenCompra.MODULO_ORIGEN = 'CO';
     this.ordenCompra.FECHA = this.formatoFecha;
     this.ordenCompra.FECHA_REQUERIDA = this.formatoFecha;
+    this.ordenCompra.TIPO_DESCUENTO = 'A';
     this.ordenCompra.PORC_DESCUENTO = 0;
     this.ordenCompra.MONTO_DESCUENTO = 0;
     this.ordenCompra.TOTAL_MERCADERIA = 0;
     this.ordenCompra.TOTAL_IMPUESTO1 = 0;
+    this.ordenCompra.TOTAL_IMPUESTO2 = 0;
     this.ordenCompra.MONTO_FLETE = 0;
     this.ordenCompra.MONTO_SEGURO = 0;
     this.ordenCompra.MONTO_DOCUMENTACIO = 0;
@@ -578,7 +583,7 @@ this.sumarTotales();
           this.alertasService.loadingDissmiss();
 
 
-       return
+       
 
           this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
             console.log('orden de compra',[this.ordenCompra]);
