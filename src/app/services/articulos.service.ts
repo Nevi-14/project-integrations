@@ -89,6 +89,7 @@ agregarArticulo(linea:Lineas){
   let articuloPostArray: PostArticulos = {
     articulo : {
       ORDEN_COMPRA: linea.ORDEN_COMPRA,
+      FECHA_REGISTRO: linea.FECHA_REGISTRO,
       ORDEN_COMPRA_LINEA:  linea.ORDEN_COMPRA_LINEA,
       ARTICULO:  linea.ARTICULO,
       BODEGA:  linea.BODEGA,

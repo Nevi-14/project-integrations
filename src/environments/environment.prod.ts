@@ -14,6 +14,6 @@ export const environment = {
   usuariosURL:    'ONE_Users/',
   ordenCompraURL:'ONE_OC',
   ordenCompraEstadoURL:'ONE_OCQuery/?estado=',
-  lineasPostURL:'ONE_OC_Linea',
+  lineasPostURL:'ONE_OCLin',
 
 };

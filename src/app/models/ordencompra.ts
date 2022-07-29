@@ -3,6 +3,7 @@
   export class OrdenCompra{
     constructor (
        public ORDEN_COMPRA: string,
+       public FECHA_REGISTRO: string,
        public USUARIO: string,
        public PROVEEDOR: number,
        public BODEGA: string,

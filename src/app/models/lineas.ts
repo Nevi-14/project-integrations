@@ -2,6 +2,7 @@ export class Lineas{
 
     constructor(
        public ORDEN_COMPRA:string,
+       public FECHA_REGISTRO: string,
        public   ORDEN_COMPRA_LINEA:number,
        public  ARTICULO:number,
        public BODEGA: string,

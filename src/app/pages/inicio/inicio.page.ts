@@ -35,6 +35,7 @@ export class InicioPage implements OnInit {
 ordenCompra:OrdenCompra =
 {
   ORDEN_COMPRA: null,
+  FECHA_REGISTRO: null,
   USUARIO: null,
   PROVEEDOR: null,
   ESTADO:null,
@@ -175,6 +176,7 @@ this.ordenCompra.PRD = 'S';
 
 
        sincronizarOrdenDeEntregaExistente(){
+        this.ordenCompra.FECHA_REGISTRO = null;
         this.ordenCompra.USUARIO = this.usuariosService.usuario.UsuarioExactus;
         this.proveedoresService.proveedores = []
         this.proveedoresService.syncGetProvedorestoPromise(this.ordenCompra.PROVEEDOR).then(resp =>{
@@ -252,6 +254,7 @@ this.ordenCompra.PRD = 'S';
     this.bodega = null;
     this.ordenCompra = {
       ORDEN_COMPRA: null,
+      FECHA_REGISTRO: null,
       ESTADO:null,
       USUARIO: this.usuariosService.usuario.UsuarioExactus,
       PROVEEDOR: null,
@@ -522,6 +525,7 @@ this.sumarTotales();
   }
 
   rellenarOrdenCompra(proveedor:Proveedores){
+    this.ordenCompra.FECHA_REGISTRO = null;
     this.ordenCompra.ACCION = 'I';
     this.ordenCompra.PRD =  this.modeOn ? 'S' : 'N';
     this.ordenCompra.ORDEN_COMPRA = null;
@@ -556,7 +560,7 @@ this.sumarTotales();
 
     this.fecha.setHours(0,0,0,0)
     this.ordenCompra.FECHA = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
-
+    this.ordenCompra.FECHA_REGISTRO =new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T'+ new Date().getHours()+':'+String(new Date().getMinutes()).padStart(2, '0') +':'+String(new Date().getSeconds()).padStart(2, '0');
     this.alertasService.presentaLoading('Generando Consecutivo')
 
     this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
@@ -570,7 +574,7 @@ this.sumarTotales();
         this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA
         articulos.push(this.articulosService.articulosPostArray[i].articulo)
         this.articulosService.articulosPostArray[i].articulo.PRD = this.modeOn  ? 'S' : 'N';
-      
+      this.articulosService.articulosPostArray[i].articulo.FECHA_REGISTRO = this.ordenCompra.FECHA_REGISTRO;
         if(i === this.articulosService.articulosPostArray.length -1){
           console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
           console.log('orden de compra',this.ordenCompra);
@@ -578,12 +582,13 @@ this.sumarTotales();
           this.alertasService.loadingDissmiss();
 
 
-       return
+       //return
 
           this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
             console.log('orden de compra',[this.ordenCompra]);
             this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
             this.lineasService.syncPostLineasToPromise(articulos).then(resp =>{
+              console.log('resp lineas', resp)
               this.limpiarDatos();
             }, error =>{
               this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
