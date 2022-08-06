@@ -20,6 +20,7 @@ export const environment = {
   ultimaOrdenCompraURL:'ONE_Consec',
   usuariosURL:    'ONE_Users/',
   idProvedorParam:'?IDProv=',
+  mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
   
   
   

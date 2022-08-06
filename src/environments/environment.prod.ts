@@ -15,5 +15,6 @@ export const environment = {
   ordenCompraURL:'ONE_OC',
   ordenCompraEstadoURL:'ONE_OCQuery/?estado=',
   lineasPostURL:'ONE_OCLin',
-
+  mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
+  
 };
