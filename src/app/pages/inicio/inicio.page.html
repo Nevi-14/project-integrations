@@ -10,7 +10,7 @@
           <span style="display:flex;justify-content:start; align-items:center; font-size: 1rem;">
             
         
-   <img  style="margin:1rem;" slot="start" src="{{image}}" />
+   <img  style="margin:1.5rem;"  src="{{image}}" />
           
           </span>
           <ion-button *ngIf="large"   (click)="class=!class"  slot="end"  fill="clear" >
@@ -28,24 +28,24 @@
              
               <ion-list id="inbox-list">
                 <ion-item   >
-                  <ion-icon slot="start" name="person"></ion-icon>
+                  <ion-icon [ngStyle]="{'margin': !class ? '0 auto' : ''}" slot="{{class ? 'start':''}}" name="person"></ion-icon>
                   <ion-label *ngIf="class"><strong>{{this.usuariosService.usuario.Nombre }}</strong></ion-label>
                 </ion-item>
                 <ion-item   >
-                  <ion-icon slot="start" name="at"></ion-icon>
+                  <ion-icon [ngStyle]="{'margin': !class ? '0 auto' : ''}" slot="{{class ? 'start':''}}"  name="at"></ion-icon>
                   <ion-label *ngIf="class"><strong>{{this.usuariosService.usuario.Email }}</strong></ion-label>
                 </ion-item>
       
                 <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
                   <ion-item     style="margin-top:0.5rem" [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item"  lines="none" detail="false" routerLinkActive="selected">
-                    <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                    <ion-icon [ngStyle]="{'margin': !class ? '0 auto' : ''}" slot="{{class ? 'start':''}}" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
                     <ion-label *ngIf="class">{{ p.title }}</ion-label>
                   </ion-item>
                 </ion-menu-toggle>
 
               </ion-list>
              <ion-item   >
-                    <ion-icon slot="start" ios="log-out-outline" md="log-out-sharp"></ion-icon>
+                    <ion-icon [ngStyle]="{'margin': !class ? '0 auto' : ''}" slot="{{class ? 'start':''}}" ios="log-out-outline" md="log-out-sharp"></ion-icon>
                     <ion-label *ngIf="class">Cerrar Sesión</ion-label>
                   </ion-item>
          
