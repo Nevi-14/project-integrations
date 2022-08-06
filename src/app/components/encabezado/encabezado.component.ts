@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-encabezado',
@@ -7,8 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EncabezadoComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public menuCtrl: MenuController,
+    private plt:Platform
+    
+      ) {}
 
   ngOnInit() {}
-
+  toggle(){
+ //   this.class = true;
+    this.menuCtrl.toggle('myMenu');
+  
+  }
 }

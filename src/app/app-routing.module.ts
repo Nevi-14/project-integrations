@@ -3,14 +3,15 @@ import { PreloadAllModules, RouterModule, Routes, CanLoad } from '@angular/route
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {
-    path: 'inicio-sesion',
-    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
-  },
+
   {
     path: '',
     redirectTo: 'inicio-sesion',
     pathMatch: 'full'
+  },
+  {
+    path: 'inicio-sesion',
+    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
   },
   {
     path: 'inicio',
@@ -36,7 +37,9 @@ const routes: Routes = [
   {
     path: 'ordenes-de-compra',
     loadChildren: () => import('./pages/ordenes-de-compra/ordenes-de-compra.module').then( m => m.OrdenesDeCompraPageModule)
-  }
+  },
+
+
  
 ];
 

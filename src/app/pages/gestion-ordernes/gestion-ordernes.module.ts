@@ -4,20 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ListaProveedoresPageRoutingModule } from './lista-proveedores-routing.module';
+import { GestionOrdernesPageRoutingModule } from './gestion-ordernes-routing.module';
 
-import { ListaProveedoresPage } from './lista-proveedores.page';
+import { GestionOrdernesPage } from './gestion-ordernes.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
-
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListaProveedoresPageRoutingModule,
+    GestionOrdernesPageRoutingModule,
     PipesModule
   ],
-  declarations: [ListaProveedoresPage]
+  declarations: [GestionOrdernesPage]
 })
-export class ListaProveedoresPageModule {}
+export class GestionOrdernesPageModule {}

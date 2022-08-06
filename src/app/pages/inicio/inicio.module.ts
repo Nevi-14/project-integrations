@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -7,8 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InicioPageRoutingModule } from './inicio-routing.module';
 
 import { InicioPage } from './inicio.page';
-import { PipesModule } from 'src/app/pipes/pipes.module';
-
+import { ComponentModule } from 'src/app/components/component.module';
 
 @NgModule({
   imports: [
@@ -16,8 +15,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     FormsModule,
     IonicModule,
     InicioPageRoutingModule,
-    PipesModule
-
+    ComponentModule
   ],
   declarations: [InicioPage]
 })
