@@ -15,7 +15,8 @@ export class InicioPage implements OnInit {
     { title: 'Compras en Linea', url: '/inicio/dashboard-compras-en-linea', icon: 'storefront' },
    
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+
+  titulo = 'Inicio'
   class:boolean =false;
   width:number;
   url = '';
@@ -80,8 +81,8 @@ export class InicioPage implements OnInit {
 
   }
 
-setTitle(){
-
+setTitle(titulo){
+this.titulo = titulo;
 
 }
 

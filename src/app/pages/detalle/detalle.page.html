@@ -32,12 +32,12 @@
   </ion-col>
   <ion-col size="12" size-md="6">
     <ion-list>
-      <ion-list-header>
-        <ion-label class="ion-text-uppercase"><strong>Modulos Incluidos en este Software</strong></ion-label>
-        
-      </ion-list-header>
+      <ion-item>
+        <ion-label class="ion-text-uppercase"><strong>Modulos Incluidos en DIONE </strong></ion-label>
+      </ion-item>
+
       <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-        <ion-item     style="margin-top:0.5rem" [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item"  lines="none" detail="false" routerLinkActive="selected">
+        <ion-item     style="margin-top:0.5rem" [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item"  lines="full" detail="false" routerLinkActive="selected">
           <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
           <ion-label  >{{ p.title }}</ion-label>
         </ion-item>

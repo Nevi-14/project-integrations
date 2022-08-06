@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
 
 @Component({
@@ -7,7 +7,8 @@ import { MenuController, Platform } from '@ionic/angular';
   styleUrls: ['./encabezado.component.scss'],
 })
 export class EncabezadoComponent implements OnInit {
-
+@Input()titulo;
+fecha = new Date().toLocaleDateString();
   constructor(
     public menuCtrl: MenuController,
     private plt:Platform
