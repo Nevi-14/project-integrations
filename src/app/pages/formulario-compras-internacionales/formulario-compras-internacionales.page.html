@@ -1,0 +1,50 @@
+<ion-header class="ion-no-border ion-padding">
+  <ion-toolbar>
+    <ion-title>Formulario Compras Internacionales</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12"   >
+<ion-label>No. Orden</ion-label>
+<ion-input type="text" placeholder="Awesome Input"></ion-input>
+      </ion-col>
+      <ion-col size="12" size-md="6" >
+
+<ion-label>Fecha</ion-label>
+<ion-input type="text" placeholder="Awesome Input"></ion-input>
+      </ion-col>
+<ion-col size="12" size-md="6">
+  <ion-label>Proveedor</ion-label>
+  <ion-input type="text" placeholder="Awesome Input"></ion-input>
+</ion-col>
+<ion-col size="12" size-md="6">
+  <ion-label>Item</ion-label>
+  <ion-input type="text" placeholder="Awesome Input"></ion-input>
+</ion-col>
+
+<ion-col size="12" size-md="6">
+  <ion-label>Marca</ion-label>
+  <ion-input type="text" placeholder="Awesome Input"></ion-input>
+</ion-col>
+<ion-col size="12">
+  <ion-label>Informacion de la orden</ion-label>
+  <ion-textarea></ion-textarea>
+</ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>
+
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="cerrarModal()" color="danger" size="small">
+    <ion-icon name="close-outline" size="large"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

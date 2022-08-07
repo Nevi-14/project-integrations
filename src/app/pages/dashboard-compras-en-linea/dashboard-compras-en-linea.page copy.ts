@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AlertasService } from 'src/app/services/alertas.service';
 import * as  mapboxgl from 'mapbox-gl';
-import { ModalController } from '@ionic/angular';
-import { FormularioComprasInternacionalesPage } from '../formulario-compras-internacionales/formulario-compras-internacionales.page';
 @Component({
   selector: 'app-dashboard-compras-en-linea',
   templateUrl: './dashboard-compras-en-linea.page.html',
@@ -15,8 +13,7 @@ export class DashboardComprasEnLineaPage implements OnInit, AfterViewInit {
   lngLat: [number, number] = [ -84.14123589305028, 9.982628288210657 ];
   zoomLevel: number = 12;
   constructor(
-public alertasService:AlertasService,
-public modalCtrl: ModalController
+public alertasService:AlertasService
 
   ) { }
 
@@ -62,19 +59,6 @@ public modalCtrl: ModalController
 
 
 
-
-  }
-
-
-  async fomularioComprasInternacionales(){
-
-    let modal = await this.modalCtrl.create({
-    component:FormularioComprasInternacionalesPage,
-    cssClass:'my-custom-modal',
-    mode:'ios'
-    });
-
-  return await modal.present();
 
   }
 }

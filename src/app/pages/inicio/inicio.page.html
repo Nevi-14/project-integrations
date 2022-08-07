@@ -6,13 +6,9 @@
     <ion-menu  [ngClass]="class  ? 'expand-menu' :'menu-hide'"  contentId="main-content"  type="overlay"   menuId="myMenu">
       <ion-header class="ion-no-border">
         <ion-toolbar   color="dark">
-         
-          <span style="display:flex;justify-content:start; align-items:center; font-size: 1rem;">
-            
-        
-   <img  style="margin-left:0.5rem;margin-top:0.5rem"  src="{{image}}" />
-          
-          </span>
+<ion-avatar   style="width: 140px;height:140px;margin:0 auto;">
+  <img   src="assets/icons/logo_transparent.png" />
+</ion-avatar>
           <ion-button *ngIf="large"   (click)="class=!class"  slot="end"  fill="clear" >
             <ion-icon color="light" name="menu" size="large"></ion-icon>
           </ion-button>
