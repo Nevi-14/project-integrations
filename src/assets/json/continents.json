@@ -1,0 +1,38 @@
+[
+    {
+        "code": "AS",
+        "name": "Asia",
+        "latitud": "29.8405555556",
+        "longitud": "89.2966666667"
+    },
+    {
+        "code": "AM",
+        "name": "America",
+        "latitud": "37.090240",
+        "longitud": "-95.712891"
+    },
+    {
+        "code": "AF",
+        "name": "Afria",
+        "latitud": "7.18805555556",
+        "longitud": "21.0936111111"
+    },
+    {
+        "code": "AN",
+        "name": "Antartida",
+        "latitud": "-83.3594444444",
+        "longitud": "16.5233333333"
+    },
+    {
+        "code": "EU",
+        "name": "Europa",
+        "latitud": "48.6908333333",
+        "longitud": "9.14055555556"
+    },
+    {
+        "code": "OC",
+        "name": "Oceania",
+        "latitud": "-18.3127777778",
+        "longitud": "138.515555556"
+    }
+]

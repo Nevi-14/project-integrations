@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border ion-padding">
+  <ion-toolbar>
+    <ion-button slot="start" (click)="cerrarModal()"   fill="clear"  >
+     <ion-icon size="large" color="dark"  name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title  slot="start">{{estado}}</ion-title>
+  </ion-toolbar>
+<ion-row >
+  <ion-col size="12" size-md="4"  class="ion-no-padding" >
+    <ion-searchbar   mode="ios" placeholder="numero de orden"   type="text" (ionChange)="onSearchChange($event)" >    </ion-searchbar>
+  </ion-col>
+  <ion-col size="12" size-md="2">
+    <ion-button  color="dark" expand="block" fill="outline"  >
+      <ion-label>Desde</ion-label>
+    </ion-button>
+  </ion-col>
+  <ion-col size="12" size-md="2">
+    <ion-button  color="dark" expand="block" fill="outline"  >
+      <ion-label>Para</ion-label>
+    </ion-button>
+  </ion-col>
+  <ion-col size="12" size-md="2">
+    <ion-button  color="dark" expand="block" fill="outline"  >
+      <ion-label>Fecha Pedido</ion-label>
+    </ion-button>
+  </ion-col>
+  <ion-col size="12" size-md="2">
+    <ion-button  color="dark" expand="block" fill="outline"  >
+      <ion-label>Fecha Llegada</ion-label>
+    </ion-button>
+  </ion-col>
+</ion-row>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+<ion-grid >
+  <ion-row>
+    <ion-col >PO</ion-col>
+    <ion-col >País</ion-col>
+    <ion-col >Marca</ion-col>
+    <ion-col >SKU</ion-col>
+    <ion-col >Fecha Pedido</ion-col>
+    <ion-col >Fecha Llegada</ion-col>
+    <ion-col >Estatus</ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col >1</ion-col>
+    <ion-col >CR</ion-col>
+    <ion-col >TEST</ion-col>
+    <ion-col >1111</ion-col>
+    <ion-col >TEST</ion-col>
+    <ion-col >TEST</ion-col>
+    <ion-col >TEST</ion-col>
+  </ion-row>
+
+
+</ion-grid>
+
+</ion-content>
+
+
+ 

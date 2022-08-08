@@ -41,6 +41,10 @@ const routes: Routes = [
     path: 'formulario-compras-internacionales',
     loadChildren: () => import('./pages/formulario-compras-internacionales/formulario-compras-internacionales.module').then( m => m.FormularioComprasInternacionalesPageModule)
   },
+  {
+    path: 'ordenes-internacionales',
+    loadChildren: () => import('./pages/ordenes-internacionales/ordenes-internacionales.module').then( m => m.OrdenesInternacionalesPageModule)
+  },
 
 
 

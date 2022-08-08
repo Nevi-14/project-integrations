@@ -453,17 +453,3 @@ ion-modal.extra-large-modal {
     
  
 }
-
-ion-modal.fullscreen-large-modal {
-
-  --backdrop-opacity: 0.8 !important;
-  align-items: center;
-  justify-content: center; 
-  &::part(content){
-    width: 100%;
-    height: 100%; 
-  }
-
-    
- 
-}

@@ -1,0 +1,1770 @@
+[
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "AD",
+        "Pais": "Andorra",
+        "Latitud": "42.546245",
+        "Longitud": "1.601554"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "AE",
+        "Pais": "United Arab Emirates",
+        "Latitud": "23.424076",
+        "Longitud": "53.847818"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "AF",
+        "Pais": "Afghanistan",
+        "Latitud": "33.93911",
+        "Longitud": "67.709953"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "AG",
+        "Pais": "Antigua and Barbuda",
+        "Latitud": "17.060816",
+        "Longitud": "-61.796428"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "AI",
+        "Pais": "Anguilla",
+        "Latitud": "18.220554",
+        "Longitud": "-63.068615"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "AL",
+        "Pais": "Albania",
+        "Latitud": "41.153332",
+        "Longitud": "20.168331"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "AM",
+        "Pais": "Armenia",
+        "Latitud": "40.069099",
+        "Longitud": "45.038189"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "AS",
+        "Pais": "American Samoa",
+        "Latitud": "-14.270972",
+        "Longitud": "-170.132217"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "AT",
+        "Pais": "Austria",
+        "Latitud": "47.516231",
+        "Longitud": "14.550072"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "AU",
+        "Pais": "Australia",
+        "Latitud": "-25.274398",
+        "Longitud": "133.775136"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "AW",
+        "Pais": "Aruba",
+        "Latitud": "12.52111",
+        "Longitud": "-69.968338"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "AZ",
+        "Pais": "Azerbaijan",
+        "Latitud": "40.143105",
+        "Longitud": "47.576927"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "BA",
+        "Pais": "Bosnia and Herzegovina",
+        "Latitud": "43.915886",
+        "Longitud": "17.679076"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "BB",
+        "Pais": "Barbados",
+        "Latitud": "13.193887",
+        "Longitud": "-59.543198"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "BD",
+        "Pais": "Bangladesh",
+        "Latitud": "23.684994",
+        "Longitud": "90.356331"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "BE",
+        "Pais": "Belgium",
+        "Latitud": "50.503887",
+        "Longitud": "4.469936"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "BF",
+        "Pais": "Burkina Faso",
+        "Latitud": "12.238333",
+        "Longitud": "-1.561593"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "BG",
+        "Pais": "Bulgaria",
+        "Latitud": "42.733883",
+        "Longitud": "25.48583"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "BH",
+        "Pais": "Bahrain",
+        "Latitud": "25.930414",
+        "Longitud": "50.637772"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "BI",
+        "Pais": "Burundi",
+        "Latitud": "-3.373056",
+        "Longitud": "29.918886"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "BJ",
+        "Pais": "Benin",
+        "Latitud": "9.30769",
+        "Longitud": "2.315834"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "BM",
+        "Pais": "Bermuda",
+        "Latitud": "32.321384",
+        "Longitud": "-64.75737"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "BN",
+        "Pais": "Brunei",
+        "Latitud": "4.535277",
+        "Longitud": "114.727669"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "BO",
+        "Pais": "Bolivia",
+        "Latitud": "-16.290154",
+        "Longitud": "-63.588653"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "BR",
+        "Pais": "Brazil",
+        "Latitud": "-14.235004",
+        "Longitud": "-51.92528"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "BS",
+        "Pais": "Bahamas",
+        "Latitud": "25.03428",
+        "Longitud": "-77.39628"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "BT",
+        "Pais": "Bhutan",
+        "Latitud": "27.514162",
+        "Longitud": "90.433601"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "BV",
+        "Pais": "Bouvet Island",
+        "Latitud": "-54.423199",
+        "Longitud": "3.413194"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "BW",
+        "Pais": "Botswana",
+        "Latitud": "-22.328474",
+        "Longitud": "24.684866"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "BY",
+        "Pais": "Belarus",
+        "Latitud": "53.709807",
+        "Longitud": "27.953389"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "BZ",
+        "Pais": "Belize",
+        "Latitud": "17.189877",
+        "Longitud": "-88.49765"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "CA",
+        "Pais": "Canada",
+        "Latitud": "56.130366",
+        "Longitud": "-106.346771"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "CF",
+        "Pais": "Central African Republic",
+        "Latitud": "6.611111",
+        "Longitud": "20.939444"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "CG",
+        "Pais": "Congo [Republic]",
+        "Latitud": "-0.228021",
+        "Longitud": "15.827659"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "CH",
+        "Pais": "Switzerland",
+        "Latitud": "46.818188",
+        "Longitud": "8.227512"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "CI",
+        "Pais": "Côte d'Ivoire",
+        "Latitud": "7.539989",
+        "Longitud": "-5.54708"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "CK",
+        "Pais": "Cook Islands",
+        "Latitud": "-21.236736",
+        "Longitud": "-159.777671"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "CL",
+        "Pais": "Chile",
+        "Latitud": "-35.675147",
+        "Longitud": "-71.542969"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "CM",
+        "Pais": "Cameroon",
+        "Latitud": "7.369722",
+        "Longitud": "12.354722"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "CN",
+        "Pais": "China",
+        "Latitud": "35.86166",
+        "Longitud": "104.195397"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "CO",
+        "Pais": "Colombia",
+        "Latitud": "4.570868",
+        "Longitud": "-74.297333"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "CR",
+        "Pais": "Costa Rica",
+        "Latitud": "9.748917",
+        "Longitud": "-83.753428"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "CU",
+        "Pais": "Cuba",
+        "Latitud": "21.521757",
+        "Longitud": "-77.781167"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "CV",
+        "Pais": "Cape Verde",
+        "Latitud": "16.002082",
+        "Longitud": "-24.013197"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "CY",
+        "Pais": "Cyprus",
+        "Latitud": "35.126413",
+        "Longitud": "33.429859"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "CZ",
+        "Pais": "Czech Republic",
+        "Latitud": "49.817492",
+        "Longitud": "15.472962"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "DE",
+        "Pais": "Germany",
+        "Latitud": "51.165691",
+        "Longitud": "10.451526"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "DJ",
+        "Pais": "Djibouti",
+        "Latitud": "11.825138",
+        "Longitud": "42.590275"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "DK",
+        "Pais": "Denmark",
+        "Latitud": "56.26392",
+        "Longitud": "9.501785"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "DM",
+        "Pais": "Dominica",
+        "Latitud": "15.414999",
+        "Longitud": "-61.370976"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "DO",
+        "Pais": "Dominican Republic",
+        "Latitud": "18.735693",
+        "Longitud": "-70.162651"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "DZ",
+        "Pais": "Algeria",
+        "Latitud": "28.033886",
+        "Longitud": "1.659626"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "EC",
+        "Pais": "Ecuador",
+        "Latitud": "-1.831239",
+        "Longitud": "-78.183406"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "EE",
+        "Pais": "Estonia",
+        "Latitud": "58.595272",
+        "Longitud": "25.013607"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "EG",
+        "Pais": "Egypt",
+        "Latitud": "26.820553",
+        "Longitud": "30.802498"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "EH",
+        "Pais": "Western Sahara",
+        "Latitud": "24.215527",
+        "Longitud": "-12.885834"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "ER",
+        "Pais": "Eritrea",
+        "Latitud": "15.179384",
+        "Longitud": "39.782334"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "ES",
+        "Pais": "Spain",
+        "Latitud": "40.463667",
+        "Longitud": "-3.74922"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "ET",
+        "Pais": "Ethiopia",
+        "Latitud": "9.145",
+        "Longitud": "40.489673"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "FI",
+        "Pais": "Finland",
+        "Latitud": "61.92411",
+        "Longitud": "25.748151"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "FJ",
+        "Pais": "Fiji",
+        "Latitud": "-16.578193",
+        "Longitud": "179.414413"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "FK",
+        "Pais": "Falkland Islands [Islas Malvinas]",
+        "Latitud": "-51.796253",
+        "Longitud": "-59.523613"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "FM",
+        "Pais": "Micronesia",
+        "Latitud": "7.425554",
+        "Longitud": "150.550812"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "FO",
+        "Pais": "Faroe Islands",
+        "Latitud": "61.892635",
+        "Longitud": "-6.911806"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "FR",
+        "Pais": "France",
+        "Latitud": "46.227638",
+        "Longitud": "2.213749"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "GA",
+        "Pais": "Gabon",
+        "Latitud": "-0.803689",
+        "Longitud": "11.609444"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "GB",
+        "Pais": "United Kingdom",
+        "Latitud": "55.378051",
+        "Longitud": "-3.435973"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "GD",
+        "Pais": "Grenada",
+        "Latitud": "12.262776",
+        "Longitud": "-61.604171"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "GE",
+        "Pais": "Georgia",
+        "Latitud": "42.315407",
+        "Longitud": "43.356892"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "GF",
+        "Pais": "French Guiana",
+        "Latitud": "3.933889",
+        "Longitud": "-53.125782"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "GG",
+        "Pais": "Guernsey",
+        "Latitud": "49.465691",
+        "Longitud": "-2.585278"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "GH",
+        "Pais": "Ghana",
+        "Latitud": "7.946527",
+        "Longitud": "-1.023194"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "GI",
+        "Pais": "Gibraltar",
+        "Latitud": "36.137741",
+        "Longitud": "-5.345374"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "GL",
+        "Pais": "Greenland",
+        "Latitud": "71.706936",
+        "Longitud": "-42.604303"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "GM",
+        "Pais": "Gambia",
+        "Latitud": "13.443182",
+        "Longitud": "-15.310139"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "GN",
+        "Pais": "Guinea",
+        "Latitud": "9.945587",
+        "Longitud": "-9.696645"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "GP",
+        "Pais": "Guadeloupe",
+        "Latitud": "16.995971",
+        "Longitud": "-62.067641"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "GQ",
+        "Pais": "Equatorial Guinea",
+        "Latitud": "1.650801",
+        "Longitud": "10.267895"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "GR",
+        "Pais": "Greece",
+        "Latitud": "39.074208",
+        "Longitud": "21.824312"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "GS",
+        "Pais": "South Georgia and the South Sandwich Islands",
+        "Latitud": "-54.429579",
+        "Longitud": "-36.587909"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "GT",
+        "Pais": "Guatemala",
+        "Latitud": "15.783471",
+        "Longitud": "-90.230759"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "GU",
+        "Pais": "Guam",
+        "Latitud": "13.444304",
+        "Longitud": "144.793731"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "GW",
+        "Pais": "Guinea-Bissau",
+        "Latitud": "11.803749",
+        "Longitud": "-15.180413"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "HK",
+        "Pais": "Hong Kong",
+        "Latitud": "22.396428",
+        "Longitud": "114.109497"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "HM",
+        "Pais": "Heard Island and McDonald Islands",
+        "Latitud": "-53.08181",
+        "Longitud": "73.504158"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "HN",
+        "Pais": "Honduras",
+        "Latitud": "15.199999",
+        "Longitud": "-86.241905"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "HR",
+        "Pais": "Croatia",
+        "Latitud": "45.1",
+        "Longitud": "15.2"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "HT",
+        "Pais": "Haiti",
+        "Latitud": "18.971187",
+        "Longitud": "-72.285215"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "HU",
+        "Pais": "Hungary",
+        "Latitud": "47.162494",
+        "Longitud": "19.503304"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "ID",
+        "Pais": "Indonesia",
+        "Latitud": "-0.789275",
+        "Longitud": "113.921327"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "IE",
+        "Pais": "Ireland",
+        "Latitud": "53.41291",
+        "Longitud": "-8.24389"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "IL",
+        "Pais": "Israel",
+        "Latitud": "31.046051",
+        "Longitud": "34.851612"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "IM",
+        "Pais": "Isle of Man",
+        "Latitud": "54.236107",
+        "Longitud": "-4.548056"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "IN",
+        "Pais": "India",
+        "Latitud": "20.593684",
+        "Longitud": "78.96288"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "IO",
+        "Pais": "British Indian Ocean Territory",
+        "Latitud": "-6.343194",
+        "Longitud": "71.876519"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "IQ",
+        "Pais": "Iraq",
+        "Latitud": "33.223191",
+        "Longitud": "43.679291"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "IR",
+        "Pais": "Iran",
+        "Latitud": "32.427908",
+        "Longitud": "53.688046"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "IS",
+        "Pais": "Iceland",
+        "Latitud": "64.963051",
+        "Longitud": "-19.020835"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "IT",
+        "Pais": "Italy",
+        "Latitud": "41.87194",
+        "Longitud": "12.56738"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "JE",
+        "Pais": "Jersey",
+        "Latitud": "49.214439",
+        "Longitud": "-2.13125"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "JM",
+        "Pais": "Jamaica",
+        "Latitud": "18.109581",
+        "Longitud": "-77.297508"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "JO",
+        "Pais": "Jordan",
+        "Latitud": "30.585164",
+        "Longitud": "36.238414"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "JP",
+        "Pais": "Japan",
+        "Latitud": "36.204824",
+        "Longitud": "138.252924"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "KE",
+        "Pais": "Kenya",
+        "Latitud": "-0.023559",
+        "Longitud": "37.906193"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "KG",
+        "Pais": "Kyrgyzstan",
+        "Latitud": "41.20438",
+        "Longitud": "74.766098"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "KH",
+        "Pais": "Cambodia",
+        "Latitud": "12.565679",
+        "Longitud": "104.990963"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "KI",
+        "Pais": "Kiribati",
+        "Latitud": "-3.370417",
+        "Longitud": "-168.734039"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "KM",
+        "Pais": "Comoros",
+        "Latitud": "-11.875001",
+        "Longitud": "43.872219"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "KN",
+        "Pais": "Saint Kitts and Nevis",
+        "Latitud": "17.357822",
+        "Longitud": "-62.782998"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "KP",
+        "Pais": "North Korea",
+        "Latitud": "40.339852",
+        "Longitud": "127.510093"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "KY",
+        "Pais": "Cayman Islands",
+        "Latitud": "19.513469",
+        "Longitud": "-80.566956"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "KZ",
+        "Pais": "Kazakhstan",
+        "Latitud": "48.019573",
+        "Longitud": "66.923684"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "LA",
+        "Pais": "Laos",
+        "Latitud": "19.85627",
+        "Longitud": "102.495496"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "LB",
+        "Pais": "Lebanon",
+        "Latitud": "33.854721",
+        "Longitud": "35.862285"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "LC",
+        "Pais": "Saint Lucia",
+        "Latitud": "13.909444",
+        "Longitud": "-60.978893"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "LI",
+        "Pais": "Liechtenstein",
+        "Latitud": "47.166",
+        "Longitud": "9.555373"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "LK",
+        "Pais": "Sri Lanka",
+        "Latitud": "7.873054",
+        "Longitud": "80.771797"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "LR",
+        "Pais": "Liberia",
+        "Latitud": "6.428055",
+        "Longitud": "-9.429499"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "LS",
+        "Pais": "Lesotho",
+        "Latitud": "-29.609988",
+        "Longitud": "28.233608"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "LT",
+        "Pais": "Lithuania",
+        "Latitud": "55.169438",
+        "Longitud": "23.881275"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "LU",
+        "Pais": "Luxembourg",
+        "Latitud": "49.815273",
+        "Longitud": "6.129583"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "LV",
+        "Pais": "Latvia",
+        "Latitud": "56.879635",
+        "Longitud": "24.603189"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "LY",
+        "Pais": "Libya",
+        "Latitud": "26.3351",
+        "Longitud": "17.228331"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "MA",
+        "Pais": "Morocco",
+        "Latitud": "31.791702",
+        "Longitud": "-7.09262"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "MC",
+        "Pais": "Monaco",
+        "Latitud": "43.750298",
+        "Longitud": "7.412841"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "ME",
+        "Pais": "Montenegro",
+        "Latitud": "42.708678",
+        "Longitud": "19.37439"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "MG",
+        "Pais": "Madagascar",
+        "Latitud": "-18.766947",
+        "Longitud": "46.869107"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "MH",
+        "Pais": "Marshall Islands",
+        "Latitud": "7.131474",
+        "Longitud": "171.184478"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "MK",
+        "Pais": "Macedonia [FYROM]",
+        "Latitud": "41.608635",
+        "Longitud": "21.745275"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "ML",
+        "Pais": "Mali",
+        "Latitud": "17.570692",
+        "Longitud": "-3.996166"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "MM",
+        "Pais": "Myanmar [Burma]",
+        "Latitud": "21.913965",
+        "Longitud": "95.956223"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "MN",
+        "Pais": "Mongolia",
+        "Latitud": "46.862496",
+        "Longitud": "103.846656"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "MO",
+        "Pais": "Macau",
+        "Latitud": "22.198745",
+        "Longitud": "113.543873"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "MP",
+        "Pais": "Northern Mariana Islands",
+        "Latitud": "17.33083",
+        "Longitud": "145.38469"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "MQ",
+        "Pais": "Martinique",
+        "Latitud": "14.641528",
+        "Longitud": "-61.024174"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "MR",
+        "Pais": "Mauritania",
+        "Latitud": "21.00789",
+        "Longitud": "-10.940835"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "MS",
+        "Pais": "Montserrat",
+        "Latitud": "16.742498",
+        "Longitud": "-62.187366"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "MT",
+        "Pais": "Malta",
+        "Latitud": "35.937496",
+        "Longitud": "14.375416"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "MU",
+        "Pais": "Mauritius",
+        "Latitud": "-20.348404",
+        "Longitud": "57.552152"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "MV",
+        "Pais": "Maldives",
+        "Latitud": "3.202778",
+        "Longitud": "73.22068"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "MW",
+        "Pais": "Malawi",
+        "Latitud": "-13.254308",
+        "Longitud": "34.301525"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "MX",
+        "Pais": "Mexico",
+        "Latitud": "23.634501",
+        "Longitud": "-102.552784"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "MY",
+        "Pais": "Malaysia",
+        "Latitud": "4.210484",
+        "Longitud": "101.975766"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "MZ",
+        "Pais": "Mozambique",
+        "Latitud": "-18.665695",
+        "Longitud": "35.529562"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "NA",
+        "Pais": "Namibia",
+        "Latitud": "-22.95764",
+        "Longitud": "18.49041"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "NC",
+        "Pais": "New Caledonia",
+        "Latitud": "-20.904305",
+        "Longitud": "165.618042"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "NE",
+        "Pais": "Niger",
+        "Latitud": "17.607789",
+        "Longitud": "8.081666"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "NF",
+        "Pais": "Norfolk Island",
+        "Latitud": "-29.040835",
+        "Longitud": "167.954712"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "NG",
+        "Pais": "Nigeria",
+        "Latitud": "9.081999",
+        "Longitud": "8.675277"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "NI",
+        "Pais": "Nicaragua",
+        "Latitud": "12.865416",
+        "Longitud": "-85.207229"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "NL",
+        "Pais": "Netherlands",
+        "Latitud": "52.132633",
+        "Longitud": "5.291266"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "NO",
+        "Pais": "Norway",
+        "Latitud": "60.472024",
+        "Longitud": "8.468946"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "NP",
+        "Pais": "Nepal",
+        "Latitud": "28.394857",
+        "Longitud": "84.124008"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "NR",
+        "Pais": "Nauru",
+        "Latitud": "-0.522778",
+        "Longitud": "166.931503"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "NU",
+        "Pais": "Niue",
+        "Latitud": "-19.054445",
+        "Longitud": "-169.867233"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "NZ",
+        "Pais": "New Zealand",
+        "Latitud": "-40.900557",
+        "Longitud": "174.885971"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "OM",
+        "Pais": "Oman",
+        "Latitud": "21.512583",
+        "Longitud": "55.923255"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "PA",
+        "Pais": "Panama",
+        "Latitud": "8.537981",
+        "Longitud": "-80.782127"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "PE",
+        "Pais": "Peru",
+        "Latitud": "-9.189967",
+        "Longitud": "-75.015152"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "PF",
+        "Pais": "French Polynesia",
+        "Latitud": "-17.679742",
+        "Longitud": "-149.406843"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "PG",
+        "Pais": "Papua New Guinea",
+        "Latitud": "-6.314993",
+        "Longitud": "143.95555"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "PH",
+        "Pais": "Philippines",
+        "Latitud": "12.879721",
+        "Longitud": "121.774017"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "PK",
+        "Pais": "Pakistan",
+        "Latitud": "30.375321",
+        "Longitud": "69.345116"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "PL",
+        "Pais": "Poland",
+        "Latitud": "51.919438",
+        "Longitud": "19.145136"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "PM",
+        "Pais": "Saint Pierre and Miquelon",
+        "Latitud": "46.941936",
+        "Longitud": "-56.27111"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "PN",
+        "Pais": "Pitcairn Islands",
+        "Latitud": "-24.703615",
+        "Longitud": "-127.439308"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "PR",
+        "Pais": "Puerto Rico",
+        "Latitud": "18.220833",
+        "Longitud": "-66.590149"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "PT",
+        "Pais": "Portugal",
+        "Latitud": "39.399872",
+        "Longitud": "-8.224454"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "PY",
+        "Pais": "Paraguay",
+        "Latitud": "-23.442503",
+        "Longitud": "-58.443832"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "QA",
+        "Pais": "Qatar",
+        "Latitud": "25.354826",
+        "Longitud": "51.183884"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "RE",
+        "Pais": "Réunion",
+        "Latitud": "-21.115141",
+        "Longitud": "55.536384"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "RO",
+        "Pais": "Romania",
+        "Latitud": "45.943161",
+        "Longitud": "24.96676"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "RS",
+        "Pais": "Serbia",
+        "Latitud": "44.016521",
+        "Longitud": "21.005859"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "RU",
+        "Pais": "Russia",
+        "Latitud": "61.52401",
+        "Longitud": "105.318756"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "RW",
+        "Pais": "Rwanda",
+        "Latitud": "-1.940278",
+        "Longitud": "29.873888"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "SA",
+        "Pais": "Saudi Arabia",
+        "Latitud": "23.885942",
+        "Longitud": "45.079162"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "SB",
+        "Pais": "Solomon Islands",
+        "Latitud": "-9.64571",
+        "Longitud": "160.156194"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "SC",
+        "Pais": "Seychelles",
+        "Latitud": "-4.679574",
+        "Longitud": "55.491977"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "SD",
+        "Pais": "Sudan",
+        "Latitud": "12.862807",
+        "Longitud": "30.217636"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "SE",
+        "Pais": "Sweden",
+        "Latitud": "60.128161",
+        "Longitud": "18.643501"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "SG",
+        "Pais": "Singapore",
+        "Latitud": "1.352083",
+        "Longitud": "103.819836"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "SI",
+        "Pais": "Slovenia",
+        "Latitud": "46.151241",
+        "Longitud": "14.995463"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "SJ",
+        "Pais": "Svalbard and Jan Mayen",
+        "Latitud": "77.553604",
+        "Longitud": "23.670272"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "SL",
+        "Pais": "Sierra Leone",
+        "Latitud": "8.460555",
+        "Longitud": "-11.779889"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "SM",
+        "Pais": "San Marino",
+        "Latitud": "43.94236",
+        "Longitud": "12.457777"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "SN",
+        "Pais": "Senegal",
+        "Latitud": "14.497401",
+        "Longitud": "-14.452362"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "SO",
+        "Pais": "Somalia",
+        "Latitud": "5.152149",
+        "Longitud": "46.199616"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "SR",
+        "Pais": "Suriname",
+        "Latitud": "3.919305",
+        "Longitud": "-56.027783"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "ST",
+        "Pais": "São Tomé and Príncipe",
+        "Latitud": "0.18636",
+        "Longitud": "6.613081"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "SV",
+        "Pais": "El Salvador",
+        "Latitud": "13.794185",
+        "Longitud": "-88.89653"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "SY",
+        "Pais": "Syria",
+        "Latitud": "34.802075",
+        "Longitud": "38.996815"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "SZ",
+        "Pais": "Swaziland",
+        "Latitud": "-26.522503",
+        "Longitud": "31.465866"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "TC",
+        "Pais": "Turks and Caicos Islands",
+        "Latitud": "21.694025",
+        "Longitud": "-71.797928"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "TD",
+        "Pais": "Chad",
+        "Latitud": "15.454166",
+        "Longitud": "18.732207"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "TF",
+        "Pais": "French Southern Territories",
+        "Latitud": "-49.280366",
+        "Longitud": "69.348557"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "TG",
+        "Pais": "Togo",
+        "Latitud": "8.619543",
+        "Longitud": "0.824782"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "TH",
+        "Pais": "Thailand",
+        "Latitud": "15.870032",
+        "Longitud": "100.992541"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "TJ",
+        "Pais": "Tajikistan",
+        "Latitud": "38.861034",
+        "Longitud": "71.276093"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "TK",
+        "Pais": "Tokelau",
+        "Latitud": "-8.967363",
+        "Longitud": "-171.855881"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "TL",
+        "Pais": "Timor-Leste",
+        "Latitud": "-8.874217",
+        "Longitud": "125.727539"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "TM",
+        "Pais": "Turkmenistan",
+        "Latitud": "38.969719",
+        "Longitud": "59.556278"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "TN",
+        "Pais": "Tunisia",
+        "Latitud": "33.886917",
+        "Longitud": "9.537499"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "TO",
+        "Pais": "Tonga",
+        "Latitud": "-21.178986",
+        "Longitud": "-175.198242"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "TR",
+        "Pais": "Turkey",
+        "Latitud": "38.963745",
+        "Longitud": "35.243322"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "TT",
+        "Pais": "Trinidad and Tobago",
+        "Latitud": "10.691803",
+        "Longitud": "-61.222503"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "TV",
+        "Pais": "Tuvalu",
+        "Latitud": "-7.109535",
+        "Longitud": "177.64933"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "UA",
+        "Pais": "Ukraine",
+        "Latitud": "48.379433",
+        "Longitud": "31.16558"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "US",
+        "Pais": "United States",
+        "Latitud": "37.09024",
+        "Longitud": "-95.712891"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "UY",
+        "Pais": "Uruguay",
+        "Latitud": "-32.522779",
+        "Longitud": "-55.765835"
+    },
+    {
+        "Abreviacion_Continente": "EU",
+        "Continente": "Europe",
+        "Abreviacion_Pais": "VA",
+        "Pais": "Vatican City",
+        "Latitud": "41.902916",
+        "Longitud": "12.453389"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "VC",
+        "Pais": "Saint Vincent and the Grenadines",
+        "Latitud": "12.984305",
+        "Longitud": "-61.287228"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "VE",
+        "Pais": "Venezuela",
+        "Latitud": "6.42375",
+        "Longitud": "-66.58973"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "VG",
+        "Pais": "British Virgin Islands",
+        "Latitud": "18.420695",
+        "Longitud": "-64.639968"
+    },
+    {
+        "Abreviacion_Continente": "AM",
+        "Continente": "America",
+        "Abreviacion_Pais": "VI",
+        "Pais": "U.S. Virgin Islands",
+        "Latitud": "18.335765",
+        "Longitud": "-64.896335"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "VN",
+        "Pais": "Vietnam",
+        "Latitud": "14.058324",
+        "Longitud": "108.277199"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "VU",
+        "Pais": "Vanuatu",
+        "Latitud": "-15.376706",
+        "Longitud": "166.959158"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "WF",
+        "Pais": "Wallis and Futuna",
+        "Latitud": "-13.768752",
+        "Longitud": "-177.156097"
+    },
+    {
+        "Abreviacion_Continente": "OC",
+        "Continente": "Oceania",
+        "Abreviacion_Pais": "WS",
+        "Pais": "Samoa",
+        "Latitud": "-13.759029",
+        "Longitud": "-172.104629"
+    },
+    {
+        "Abreviacion_Continente": "AS",
+        "Continente": "Asia",
+        "Abreviacion_Pais": "YE",
+        "Pais": "Yemen",
+        "Latitud": "15.552727",
+        "Longitud": "48.516388"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "YT",
+        "Pais": "Mayotte",
+        "Latitud": "-12.8275",
+        "Longitud": "45.166244"
+    },
+    {
+        "Abreviacion_Continente": "AF",
+        "Continente": "Africa",
+        "Abreviacion_Pais": "ZW",
+        "Pais": "Zimbabwe",
+        "Latitud": "-19.015438",
+        "Longitud": "29.154857"
+    }
+]

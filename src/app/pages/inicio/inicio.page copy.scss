@@ -21,7 +21,7 @@ div{
   
   }
   ion-item {
-    --background: transparent!important;
+    --background: rgba(var(--ion-color-primary-rgb), 0.14);
     color: #fff;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;

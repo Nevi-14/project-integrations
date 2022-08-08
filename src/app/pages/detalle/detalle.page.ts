@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class DetallePage implements OnInit {
   image = '../assets/islena.png';
   public appPages = [
-    { title: 'Ordenes de Compra', url: '/inicio/gestion-ordernes', icon: 'reader' },
-    { title: 'Compras en Linea', url: '/inicio/dashboard-compras-en-linea', icon: 'storefront' },
+    { title: 'Ordenes de Compra', url: '/inicio/gestion-ordernes', icon: 'bag' },
+    { title: 'Compras Internacionales', url: '/inicio/compras-internacionales', icon: 'boat' },
    
   ];
   constructor() { }

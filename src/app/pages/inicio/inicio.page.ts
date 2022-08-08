@@ -11,8 +11,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class InicioPage implements OnInit {
   public appPages = [
     { title: 'Inicio', url: '/inicio/detalle', icon: 'home' },
-    { title: 'Ordenes de Compra', url: '/inicio/gestion-ordernes', icon: 'reader' },
-    { title: 'Compras en Linea', url: '/inicio/dashboard-compras-en-linea', icon: 'storefront' },
+    { title: 'Ordenes de Compra', url: '/inicio/gestion-ordernes', icon: 'bag' },
+    { title: 'Compras Internacionales', url: '/inicio/compras-internacionales', icon: 'boat' },
    
   ];
 
@@ -48,13 +48,13 @@ export class InicioPage implements OnInit {
     if(this.width > 768){
       this.large = true;
       this.small = false;
-      this.class = true;
+      //this.class = true;
      // this.menuCtrl.toggle('myMenu');
   
     }else{
       this.class = false;
       this.large = false;
-      this.small = true;
+   //   this.small = true;
        // this.menuCtrl.toggle('myMenu');
 
      

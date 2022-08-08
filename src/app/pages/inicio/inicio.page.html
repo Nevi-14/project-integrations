@@ -22,7 +22,7 @@
             <ion-content>
             
              
-              <ion-list id="inbox-list">
+              <ion-list id="inbox-list" lines="none">
                 <ion-item button  >
                   <ion-icon [ngStyle]="{'margin': !class ? '0 auto' : ''}" slot="{{class ? 'start':''}}" name="person"></ion-icon>
                   <ion-label *ngIf="class">{{this.usuariosService.usuario.Nombre }}</ion-label>

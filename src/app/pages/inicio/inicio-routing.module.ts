@@ -18,8 +18,8 @@ const routes: Routes = [
         loadChildren: () => import('../detalle/detalle.module').then( m => m.DetallePageModule)
       },
        {
-        path: 'dashboard-compras-en-linea',
-        loadChildren: () => import('../dashboard-compras-en-linea/dashboard-compras-en-linea.module').then( m => m.DashboardComprasEnLineaPageModule)
+        path: 'compras-internacionales',
+        loadChildren: () => import('../compras-internacionales/compras-internacionales.module').then( m => m.ComprasInternacionalesPageModule)
       },
       {
         path: 'gestion-ordernes',

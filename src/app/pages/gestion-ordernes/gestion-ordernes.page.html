@@ -256,22 +256,22 @@ Dia
 
 
 
- <ion-card-content>
+ <ion-card-content class="ion-padding">
 
   <div style="overflow-x:auto;">
-     <table style="width: 100%;">
+     <table style="width: 100%; margin:1rem" class="ion-padding">
    <thead >
-     <th>ARTICULO</th>
-     <th>DESCRIPCION</th>
-     <th>PRECIO</th>
-     <th>UNIDADES</th>
-     <th>% IMPUESTO</th>
-     <th>% DESCUENTO</th>
-     <th>MONTO IMPUESTO</th>
-     <th>MONTO DESCUENTO</th>
-     <th >PRECIO DESCUENTO</th>
-     <th >FECHA REQUERIDA</th>
-     <th>TOTAL</th>
+     <th style="min-width:120px;">ARTICULO</th>
+     <th style="min-width:200px;">DESCRIPCION</th>
+     <th style="min-width:120px;">PRECIO</th>
+     <th style="min-width:120px;">UNIDADES</th>
+     <th style="min-width:120px;">% IMPUESTO</th>
+     <th style="min-width:120px;">% DESCUENTO</th>
+     <th style="min-width:200px;">MONTO IMPUESTO</th>
+     <th style="min-width:200px;">MONTO DESCUENTO</th>
+     <th style="min-width:200px;">PRECIO DESCUENTO</th>
+     <th style="min-width:200px;">FECHA REQUERIDA</th>
+     <th style="min-width:200px;">TOTAL</th>
     <th></th>
    </thead>
 <tbody>
@@ -310,61 +310,53 @@ Dia
 </tbody>
 
 
-     <tfoot  *ngIf="articulosService.articulosPostArray.length > 0">
-     
 
-         <tr class="ion-margin">
-       
-           <th colspan="2" class="ion-text-left"> 
-          <ion-label>UNIDADES TOTALES</ion-label>
-             <ion-item lines="none">
-              <ion-label>{{TOTAL_UNIDADES}}</ion-label>
-           </ion-item>
-
-            </th>
-
-           <th colspan="2" class="ion-text-left"> 
-         <ion-label>DESC SOBRE LA ORDEN</ion-label>
-
-           <ion-item lines="none">
-              <ion-label>{{ordenCompra.MONTO_DESCUENTO  | colones}}</ion-label>
-           </ion-item>
-
-            </th>
-     
-    
-           <th colspan="2" class="ion-text-left"> 
-              <ion-label>TOTAL IMPUESTOS</ion-label>
-             <ion-item lines="none">
-                 <ion-label>{{ordenCompra.TOTAL_IMPUESTO1  | colones}}</ion-label>
-              </ion-item>
-            </th>
-  
-           <th colspan="2" class="ion-text-left"> 
-          <ion-label>TOTAL MERCADERIA</ion-label>
-           <ion-item lines="none">
-              <ion-label>{{ordenCompra.TOTAL_MERCADERIA  | colones}}</ion-label>
-           </ion-item>
-
-
-        </th>
-           <th colspan="2" class="ion-text-left">  
-              <ion-label>TOTAL COMPRAR</ion-label>
-        
-           <ion-item lines="none">
-              <ion-label>{{ordenCompra.TOTAL_A_COMPRAR  | colones}}</ion-label>
-           </ion-item>
-           </th>
-         
-         </tr>
-
-
-     </tfoot>
      </table>
 
     
    </div>
+   
   
+      <ion-toolbar  *ngIf="articulosService.articulosPostArray.length > 0" class="ion-padding ion-margin-top">
+         <ion-row>
+            <ion-col size="12" size-md="2">
+               <ion-label>UNIDADES TOTALES</ion-label>
+               <ion-item lines="none">
+                <ion-label>{{TOTAL_UNIDADES}}</ion-label>
+             </ion-item>
+     
+            </ion-col>
+            <ion-col size="12" size-md="3">
+               <ion-label>DESC SOBRE LA ORDEN</ion-label>
+
+               <ion-item lines="none">
+                  <ion-label>{{ordenCompra.MONTO_DESCUENTO  | colones}}</ion-label>
+               </ion-item>
+            </ion-col>
+            <ion-col size="12" size-md="2">
+               <ion-label>TOTAL IMPUESTOS</ion-label>
+               <ion-item lines="none">
+                   <ion-label>{{ordenCompra.TOTAL_IMPUESTO1  | colones}}</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="12" size-md="2">
+               <ion-label>TOTAL MERCADERIA</ion-label>
+               <ion-item lines="none">
+                  <ion-label>{{ordenCompra.TOTAL_MERCADERIA  | colones}}</ion-label>
+               </ion-item>
+            </ion-col>
+       
+            <ion-col size="12" size-md="3">
+               <ion-label>TOTAL COMPRAR</ion-label>
+     
+               <ion-item lines="none">
+                  <ion-label>{{ordenCompra.TOTAL_A_COMPRAR  | colones}}</ion-label>
+               </ion-item>
+            </ion-col>
+         </ion-row>
+      </ion-toolbar>
+ 
+ 
  </ion-card-content>
 </ion-card>
 
