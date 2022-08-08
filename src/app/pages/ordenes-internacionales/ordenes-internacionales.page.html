@@ -35,7 +35,7 @@
 <ion-content class="ion-padding">
 
 <ion-grid >
-  <ion-row>
+  <ion-row class="header-row">
     <ion-col >PO</ion-col>
     <ion-col >País</ion-col>
     <ion-col >Marca</ion-col>
@@ -43,16 +43,20 @@
     <ion-col >Fecha Pedido</ion-col>
     <ion-col >Fecha Llegada</ion-col>
     <ion-col >Estatus</ion-col>
+    <ion-col >Opciones</ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col >1</ion-col>
-    <ion-col >CR</ion-col>
-    <ion-col >TEST</ion-col>
-    <ion-col >1111</ion-col>
-    <ion-col >TEST</ion-col>
-    <ion-col >TEST</ion-col>
-    <ion-col >TEST</ion-col>
+  <ion-row *ngFor="let orden of ordenes" class="data-row">
+    <ion-col >{{orden.No_Orden}}</ion-col>
+    <ion-col >{{orden.Abreviacion_Pais}}</ion-col>
+    <ion-col >{{orden.Marca}}</ion-col>
+    <ion-col >{{orden.SKU}}</ion-col>
+    <ion-col >{{orden.Fecha}}</ion-col>
+    <ion-col >{{orden.Fecha_Pedido}}</ion-col>
+    <ion-col ><ion-badge color="warning" mode="ios">{{orden.Estado}}</ion-badge></ion-col>
+    <ion-col ><ion-button    fill="clear" size="small">
+   <ion-icon slot="icon-only" size="large" name="trash" color="danger"></ion-icon>
+    </ion-button></ion-col>
   </ion-row>
 
 

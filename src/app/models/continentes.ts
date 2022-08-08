@@ -1,4 +1,4 @@
-export class Contientes{
+export class Continentes{
 
     constructor(
        public code:number,

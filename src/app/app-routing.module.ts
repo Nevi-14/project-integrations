@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'ordenes-internacionales',
     loadChildren: () => import('./pages/ordenes-internacionales/ordenes-internacionales.module').then( m => m.OrdenesInternacionalesPageModule)
   },
+  {
+    path: 'lista-paises',
+    loadChildren: () => import('./pages/lista-paises/lista-paises.module').then( m => m.ListaPaisesPageModule)
+  },
 
 
 

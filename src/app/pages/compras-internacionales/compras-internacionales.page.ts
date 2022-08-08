@@ -4,9 +4,10 @@ import * as  mapboxgl from 'mapbox-gl';
 import { ModalController } from '@ionic/angular';
 import { FormularioComprasInternacionalesPage } from '../formulario-compras-internacionales/formulario-compras-internacionales.page';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
-import { Contientes } from 'src/app/models/continentes';
+import { Continentes } from 'src/app/models/continentes';
 import { OrdenesInternacionalesPage } from '../ordenes-internacionales/ordenes-internacionales.page';
 import { PaisesContientes } from 'src/app/models/paisescontientes';
+import { Ordenes } from '../../models/ordenes';
 
 @Component({
   selector: 'app-compras-internacionales',
@@ -19,8 +20,9 @@ export class ComprasInternacionalesPage implements OnInit, AfterViewInit {
   mapa!: mapboxgl.Map;
   lngLat: [number, number] = [ -84.14123589305028, 9.982628288210657 ];
   zoomLevel: number = 0;
-  continentes:Contientes[];
+  continentes:Continentes[];
   paises:PaisesContientes[];
+  ordenes:Ordenes[];
   fullscreen = false;
   estados = [
     {id:1,estado:'Planificaión'},
@@ -28,7 +30,18 @@ export class ComprasInternacionalesPage implements OnInit, AfterViewInit {
     {id:3,estado:'Terminado'},
     {id:4,estado:'Liberación y pago'},
   
-  ]
+  ];
+  imagenes = [
+
+'assets/numbers/028-1.svg',
+'assets/numbers/029-2.svg',
+'assets/numbers/030-3.svg',
+'assets/numbers/031-4.svg',
+'assets/numbers/032-5.svg',
+'assets/numbers/033-6.svg'
+
+  ];
+  private modalOpen:boolean = false;
   constructor(
 public alertasService:AlertasService,
 public modalCtrl: ModalController,
@@ -37,20 +50,26 @@ public localizacionService:LocalizacionService
   ) { }
 
   ngOnInit() {
+    this.ordenes = [];
     this.continentes = [];
-  this.localizacionService.syncContinentesToPromise().then(continentes =>{
-    this.continentes = continentes;
-console.log('continentes', continentes)
 
-this.localizacionService.syncPaisesContinentesToPromise().then(paises=>{
-this.paises = paises;
-console.log('paises', paises)
-});
-
-  });
   }
   ngAfterViewInit() {
-    this.crearMapa();
+
+    this.localizacionService.syncContinentesToPromise().then(continentes =>{
+      this.continentes = continentes;
+  console.log('continentes', continentes)
+  
+  this.localizacionService.syncPaisesContinentesToPromise().then(paises=>{
+  this.paises = paises;
+  console.log('paises', paises)
+  this.crearMapa();
+  });
+  
+    });
+
+
+   
   }
   crearMapa(){
     if(this.mapa){
@@ -75,10 +94,40 @@ console.log('paises', paises)
       draggable: false
     })
 
+    for(let i =0; i < this.continentes.length; i++){
+
+    
+
+      const el = document.createElement('div');
+      const width = 40;
+      const height = 40;
+      el.className = 'marker';
+      el.style.backgroundImage =  `url(${this.imagenes[i]})`;
+      el.style.width = `${width}px`;
+      el.style.height = `${height}px`;
+      el.style.backgroundSize = '100%';
+       
+      el.addEventListener('click', () => {
+ 
+   this.alertasService.message('DIONE', 'Proximamente ' + this.continentes[i].name)
+ 
+      
+      });
+      new mapboxgl.Marker(el)
+      .setLngLat([this.continentes[i].longitud,this.continentes[i].latitud])
+      .addTo(this.mapa); 
+
+      if(i == this.continentes.length -1){
+
+      }
+    }
+
+
+
     newMarker.setLngLat(this.lngLat)
     .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText("DISTRIBUIDORA ISLEÑA"))
     .addTo(this.mapa)
-    .togglePopup();
+  //  .togglePopup();
 
     this.mapa.addControl(new mapboxgl.NavigationControl());
     this.mapa.addControl(new mapboxgl.FullscreenControl());
@@ -102,35 +151,60 @@ console.log('paises', paises)
   }
 
   async fomularioComprasInternacionales(){
-
-    let modal = await this.modalCtrl.create({
+     
+if (!this.modalOpen){
+  const modal = await this.modalCtrl.create({
     component:FormularioComprasInternacionalesPage,
     cssClass:'my-custom-modal',
     mode:'ios'
-    });
+  });
+  this.modalOpen = true;
 
-  return await modal.present();
+   await modal.present();
+   const { data } = await modal.onWillDismiss();
+
+   if(data != undefined){
+    console.log('orden', data.orden)
+    this.ordenes.push(data.orden)
+
+   }
+   this.modalOpen = false;
+
+}
+
+
+
 
   }
 
   async ordenesInternacionales(estado){
   
-
-    let modal = await this.modalCtrl.create({
+     
+if (!this.modalOpen){
+  const modal = await this.modalCtrl.create({
     component:OrdenesInternacionalesPage,
     cssClass:'fullscreen-large-modal',
     mode:'md',
     componentProps:{
-      estado:estado
+      estado:estado,
+      ordenes:this.ordenes
     }
-    });
+  });
+  this.modalOpen = true;
 
-  return await modal.present();
+   await modal.present();
+   const { data } = await modal.onWillDismiss();
+   this.modalOpen = false;
+  
+
+}
+
+
 
   }
   filtrar($event){
 
-    let data:Contientes = $event.detail.value;
+    let data:Continentes = $event.detail.value;
 
     console.log(data, 'data')
     if(data.longitud && data.latitud){
@@ -146,7 +220,9 @@ this.crearMapa();
 
   }
 
-
+  filtrarEstado($event){
+    
+  }
 
   irMarcador(longLat) {
    
