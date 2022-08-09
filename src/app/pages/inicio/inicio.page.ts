@@ -85,5 +85,8 @@ setTitle(titulo){
 this.titulo = titulo;
 
 }
-
+cerrarSesion(){
+  this.usuariosService.usuario = null;
+  this.router.navigate(['/inicio-sesion']);
+}
 }
