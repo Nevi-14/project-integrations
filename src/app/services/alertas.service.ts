@@ -66,7 +66,7 @@ export class AlertasService {
   async  message(header,message){
     
     const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
+      cssClass: 'alert-popup',
       header: header,
       message: message,
       buttons: ['OK']
