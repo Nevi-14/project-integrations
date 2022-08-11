@@ -116,8 +116,6 @@ this.filtrarTodos();
         let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
         orden.LONGITUD = this.paises[index].LONGITUD;
         orden.LATITUD =  this.paises[index].LATITUD;
-        this.paises[index].TOTAL += 1;
-        this.paises[index].TRANSITO += 1;
         if( counter == this.ordenesEnPlanificacion.length -1 ){
       
 this.crearMapa();
@@ -133,8 +131,6 @@ this.crearMapa();
       this.ordenesEnPlanificacion = planificacion;
       this.ordenesEnPlanificacion.forEach((orden, counter) =>{
         let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
-        this.paises[index].TOTAL += 1;
-        this.paises[index].PLANIFICACION += 1;
         orden.LONGITUD = this.paises[index].LONGITUD;
         orden.LATITUD =  this.paises[index].LATITUD;
         if( counter == this.ordenesEnPlanificacion.length -1 ){
@@ -154,8 +150,6 @@ this.crearMapa();
       this.ordenesEnPlanificacion = planificacion;
       this.ordenesEnPlanificacion.forEach((orden, counter) =>{
         let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
-        this.paises[index].TOTAL += 1;
-        this.paises[index].PLANIFICACION += 1;
         orden.LONGITUD = this.paises[index].LONGITUD;
         orden.LATITUD =  this.paises[index].LATITUD;
         if( counter == this.ordenesEnPlanificacion.length -1 ){
@@ -166,8 +160,6 @@ this.crearMapa();
        
             this.ordenesEnTransito.forEach((orden,counter2) =>{
               let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
-               this.paises[index].TOTAL += 1;
-               this.paises[index].TRANSITO += 1;
               orden.LONGITUD = this.paises[index].LONGITUD;
               orden.LATITUD =  this.paises[index].LATITUD;
               if( counter2 == this.ordenesEnTransito.length -1 ){
@@ -217,7 +209,36 @@ this.crearMapa();
       draggable: false
     })
 
-   
+    for(let i =0; i < this.continentes.length; i++){
+
+    
+
+      const el = document.createElement('div');
+      const width = 40;
+      const height = 40;
+      el.className = 'marker';
+      el.style.backgroundImage =  `url(${this.imagenes[i]})`;
+      el.style.width = `${width}px`;
+      el.style.height = `${height}px`;
+      el.style.backgroundSize = '100%';
+       
+      el.addEventListener('click', () => {
+ 
+   this.alertasService.message('DIONE', 'Proximamente ' + this.continentes[i].name)
+ 
+      
+      });
+      new mapboxgl.Marker(el)
+      
+      .setLngLat([this.continentes[i].longitud,this.continentes[i].latitud])
+      .addTo(this.mapa); 
+
+      if(i == this.continentes.length -1){
+
+      }
+    }
+
+
 
     newMarker.setLngLat(this.lngLat)
     .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText("DISTRIBUIDORA ISLEÑA"))
@@ -226,37 +247,14 @@ this.crearMapa();
   this.mapa.addControl(new mapboxgl.NavigationControl());
   this.mapa.addControl(new mapboxgl.FullscreenControl());
 
-  for(let p = 0; p < this.paises.length; p++){
+  if(this.incluirOP && this.incluirOT){
+    this.agregarTodaslasOrdenesMapa();
+  }else if(this.incluirOP && !this.incluirOT){
 
-  
-if(this.paises[p].TOTAL > 0){
-  const marker2 = new mapboxgl.Marker({
-    color:"#000000",
-    draggable: true
-  })
-//alert([orden.LONGITUD, orden.LATITUD])
-marker2.setLngLat([this.paises[p].LONGITUD, this.paises[p].LATITUD])
-.setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(
+this.agregarTodaslasOrdenesPMapa();
+  }else{
+this.agregarTodaslasOrdenesTMapa();
 
-  'Pais ' +this.paises[p].PAIS+ ' Total Ordenes '+String(this.paises[p].TOTAL) + ' - Total Planificacion ' + this.paises[p].PLANIFICACION + ' - Total Transito ' + this.paises[p].TRANSITO
-
-
-))
-.addTo(this.mapa)
-
-}
-
-if(p == this.paises.length -1){
-
-  
-
-  this.mapa.on('load', () => {
-    this.alertasService.loadingDissmiss();
-    this.mapa.resize();
-  });
-
-
-}
   }
 
 
@@ -307,7 +305,7 @@ if(p == this.paises.length -1){
       })
     //alert([orden.LONGITUD, orden.LATITUD])
     marker2.setLngLat([this.ordenesEnTransito[OT].LONGITUD, this.ordenesEnTransito[OT].LATITUD])
-    .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(this.ordenesEnTransito[OT].NOMBRE))
+    .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(this.ordenesEnTransito[OT].PAIS))
     .addTo(this.mapa)
   
   

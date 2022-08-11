@@ -5,6 +5,7 @@
        public ORDEN_COMPRA: string,
        public FECHA_REGISTRO: string,
        public USUARIO: string,
+       public NOMBRE: string,
        public PROVEEDOR: number,
        public BODEGA: string,
        public CONDICION_PAGO: string,

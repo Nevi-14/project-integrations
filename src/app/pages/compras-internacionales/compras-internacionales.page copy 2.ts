@@ -225,43 +225,45 @@ this.crearMapa();
   //  .togglePopup();
   this.mapa.addControl(new mapboxgl.NavigationControl());
   this.mapa.addControl(new mapboxgl.FullscreenControl());
-
+if(this.paises.length > 0){
+  
   for(let p = 0; p < this.paises.length; p++){
 
+    if(this.paises[p].TOTAL > 0){
   
-if(this.paises[p].TOTAL > 0){
-  const marker2 = new mapboxgl.Marker({
-    color:"#000000",
-    draggable: true
-  })
-//alert([orden.LONGITUD, orden.LATITUD])
-marker2.setLngLat([this.paises[p].LONGITUD, this.paises[p].LATITUD])
-.setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(
-
-  'Pais ' +this.paises[p].PAIS+ ' Total Ordenes '+String(this.paises[p].TOTAL) + ' - Total Planificacion ' + this.paises[p].PLANIFICACION + ' - Total Transito ' + this.paises[p].TRANSITO
-
-
-))
-.addTo(this.mapa)
-
-}
-
-if(p == this.paises.length -1){
-
   
-
-  this.mapa.on('load', () => {
-    this.alertasService.loadingDissmiss();
-    this.mapa.resize();
-  });
-
-
-}
+  
+      const marker2 = new mapboxgl.Marker({
+        color:"#000000",
+        draggable: true
+      })
+    //alert([orden.LONGITUD, orden.LATITUD])
+    marker2.setLngLat([this.paises[p].LONGITUD, this.paises[p].LATITUD])
+    .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(
+  
+       String(this.paises[p].TOTAL)
+  
+  
+    ))
+    .addTo(this.mapa)
+    
+    if(p == this.paises.length -1){
+    
+      this.alertasService.loadingDissmiss();
+    
+      this.mapa.on('load', () => {
+       
+        this.mapa.resize();
+      });
+    
+    
+    }
+    }
+  
+  
   }
-
-
-
-
+  
+}
 
 
   }

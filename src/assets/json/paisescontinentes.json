@@ -5,7 +5,10 @@
         "Abreviacion_Pais": "AD",
         "Pais": "Andorra",
         "Latitud": "42.546245",
-        "Longitud": "1.601554"
+        "Longitud": "1.601554",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -13,7 +16,10 @@
         "Abreviacion_Pais": "AE",
         "Pais": "United Arab Emirates",
         "Latitud": "23.424076",
-        "Longitud": "53.847818"
+        "Longitud": "53.847818",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -21,7 +27,10 @@
         "Abreviacion_Pais": "AF",
         "Pais": "Afghanistan",
         "Latitud": "33.93911",
-        "Longitud": "67.709953"
+        "Longitud": "67.709953",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -29,7 +38,10 @@
         "Abreviacion_Pais": "AG",
         "Pais": "Antigua and Barbuda",
         "Latitud": "17.060816",
-        "Longitud": "-61.796428"
+        "Longitud": "-61.796428",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -37,7 +49,10 @@
         "Abreviacion_Pais": "AI",
         "Pais": "Anguilla",
         "Latitud": "18.220554",
-        "Longitud": "-63.068615"
+        "Longitud": "-63.068615",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -45,7 +60,10 @@
         "Abreviacion_Pais": "AL",
         "Pais": "Albania",
         "Latitud": "41.153332",
-        "Longitud": "20.168331"
+        "Longitud": "20.168331",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -53,7 +71,10 @@
         "Abreviacion_Pais": "AM",
         "Pais": "Armenia",
         "Latitud": "40.069099",
-        "Longitud": "45.038189"
+        "Longitud": "45.038189",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "OC",
@@ -61,7 +82,10 @@
         "Abreviacion_Pais": "AS",
         "Pais": "American Samoa",
         "Latitud": "-14.270972",
-        "Longitud": "-170.132217"
+        "Longitud": "-170.132217",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -69,7 +93,10 @@
         "Abreviacion_Pais": "AT",
         "Pais": "Austria",
         "Latitud": "47.516231",
-        "Longitud": "14.550072"
+        "Longitud": "14.550072",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "OC",
@@ -77,7 +104,10 @@
         "Abreviacion_Pais": "AU",
         "Pais": "Australia",
         "Latitud": "-25.274398",
-        "Longitud": "133.775136"
+        "Longitud": "133.775136",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -85,7 +115,10 @@
         "Abreviacion_Pais": "AW",
         "Pais": "Aruba",
         "Latitud": "12.52111",
-        "Longitud": "-69.968338"
+        "Longitud": "-69.968338",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -93,7 +126,10 @@
         "Abreviacion_Pais": "AZ",
         "Pais": "Azerbaijan",
         "Latitud": "40.143105",
-        "Longitud": "47.576927"
+        "Longitud": "47.576927",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -101,7 +137,10 @@
         "Abreviacion_Pais": "BA",
         "Pais": "Bosnia and Herzegovina",
         "Latitud": "43.915886",
-        "Longitud": "17.679076"
+        "Longitud": "17.679076",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -109,7 +148,10 @@
         "Abreviacion_Pais": "BB",
         "Pais": "Barbados",
         "Latitud": "13.193887",
-        "Longitud": "-59.543198"
+        "Longitud": "-59.543198",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -117,7 +159,10 @@
         "Abreviacion_Pais": "BD",
         "Pais": "Bangladesh",
         "Latitud": "23.684994",
-        "Longitud": "90.356331"
+        "Longitud": "90.356331",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -125,7 +170,10 @@
         "Abreviacion_Pais": "BE",
         "Pais": "Belgium",
         "Latitud": "50.503887",
-        "Longitud": "4.469936"
+        "Longitud": "4.469936",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -133,7 +181,10 @@
         "Abreviacion_Pais": "BF",
         "Pais": "Burkina Faso",
         "Latitud": "12.238333",
-        "Longitud": "-1.561593"
+        "Longitud": "-1.561593",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -141,7 +192,10 @@
         "Abreviacion_Pais": "BG",
         "Pais": "Bulgaria",
         "Latitud": "42.733883",
-        "Longitud": "25.48583"
+        "Longitud": "25.48583",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -149,7 +203,10 @@
         "Abreviacion_Pais": "BH",
         "Pais": "Bahrain",
         "Latitud": "25.930414",
-        "Longitud": "50.637772"
+        "Longitud": "50.637772",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -157,7 +214,10 @@
         "Abreviacion_Pais": "BI",
         "Pais": "Burundi",
         "Latitud": "-3.373056",
-        "Longitud": "29.918886"
+        "Longitud": "29.918886",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -165,7 +225,10 @@
         "Abreviacion_Pais": "BJ",
         "Pais": "Benin",
         "Latitud": "9.30769",
-        "Longitud": "2.315834"
+        "Longitud": "2.315834",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -173,7 +236,10 @@
         "Abreviacion_Pais": "BM",
         "Pais": "Bermuda",
         "Latitud": "32.321384",
-        "Longitud": "-64.75737"
+        "Longitud": "-64.75737",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -181,7 +247,10 @@
         "Abreviacion_Pais": "BN",
         "Pais": "Brunei",
         "Latitud": "4.535277",
-        "Longitud": "114.727669"
+        "Longitud": "114.727669",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -189,7 +258,10 @@
         "Abreviacion_Pais": "BO",
         "Pais": "Bolivia",
         "Latitud": "-16.290154",
-        "Longitud": "-63.588653"
+        "Longitud": "-63.588653",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -197,7 +269,10 @@
         "Abreviacion_Pais": "BR",
         "Pais": "Brazil",
         "Latitud": "-14.235004",
-        "Longitud": "-51.92528"
+        "Longitud": "-51.92528",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -205,7 +280,10 @@
         "Abreviacion_Pais": "BS",
         "Pais": "Bahamas",
         "Latitud": "25.03428",
-        "Longitud": "-77.39628"
+        "Longitud": "-77.39628",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -213,7 +291,10 @@
         "Abreviacion_Pais": "BT",
         "Pais": "Bhutan",
         "Latitud": "27.514162",
-        "Longitud": "90.433601"
+        "Longitud": "90.433601",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -221,7 +302,10 @@
         "Abreviacion_Pais": "BV",
         "Pais": "Bouvet Island",
         "Latitud": "-54.423199",
-        "Longitud": "3.413194"
+        "Longitud": "3.413194",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -229,7 +313,10 @@
         "Abreviacion_Pais": "BW",
         "Pais": "Botswana",
         "Latitud": "-22.328474",
-        "Longitud": "24.684866"
+        "Longitud": "24.684866",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -237,7 +324,10 @@
         "Abreviacion_Pais": "BY",
         "Pais": "Belarus",
         "Latitud": "53.709807",
-        "Longitud": "27.953389"
+        "Longitud": "27.953389",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -245,7 +335,10 @@
         "Abreviacion_Pais": "BZ",
         "Pais": "Belize",
         "Latitud": "17.189877",
-        "Longitud": "-88.49765"
+        "Longitud": "-88.49765",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -253,7 +346,10 @@
         "Abreviacion_Pais": "CA",
         "Pais": "Canada",
         "Latitud": "56.130366",
-        "Longitud": "-106.346771"
+        "Longitud": "-106.346771",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -261,7 +357,10 @@
         "Abreviacion_Pais": "CF",
         "Pais": "Central African Republic",
         "Latitud": "6.611111",
-        "Longitud": "20.939444"
+        "Longitud": "20.939444",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -269,7 +368,10 @@
         "Abreviacion_Pais": "CG",
         "Pais": "Congo [Republic]",
         "Latitud": "-0.228021",
-        "Longitud": "15.827659"
+        "Longitud": "15.827659",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "EU",
@@ -277,7 +379,10 @@
         "Abreviacion_Pais": "CH",
         "Pais": "Switzerland",
         "Latitud": "46.818188",
-        "Longitud": "8.227512"
+        "Longitud": "8.227512",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -285,7 +390,10 @@
         "Abreviacion_Pais": "CI",
         "Pais": "Côte d'Ivoire",
         "Latitud": "7.539989",
-        "Longitud": "-5.54708"
+        "Longitud": "-5.54708",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "OC",
@@ -293,7 +401,10 @@
         "Abreviacion_Pais": "CK",
         "Pais": "Cook Islands",
         "Latitud": "-21.236736",
-        "Longitud": "-159.777671"
+        "Longitud": "-159.777671",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -301,7 +412,10 @@
         "Abreviacion_Pais": "CL",
         "Pais": "Chile",
         "Latitud": "-35.675147",
-        "Longitud": "-71.542969"
+        "Longitud": "-71.542969",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AF",
@@ -309,7 +423,10 @@
         "Abreviacion_Pais": "CM",
         "Pais": "Cameroon",
         "Latitud": "7.369722",
-        "Longitud": "12.354722"
+        "Longitud": "12.354722",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AS",
@@ -317,7 +434,10 @@
         "Abreviacion_Pais": "CN",
         "Pais": "China",
         "Latitud": "35.86166",
-        "Longitud": "104.195397"
+        "Longitud": "104.195397",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
@@ -325,7 +445,10 @@
         "Abreviacion_Pais": "CO",
         "Pais": "Colombia",
         "Latitud": "4.570868",
-        "Longitud": "-74.297333"
+        "Longitud": "-74.297333",
+        "Transito":0,
+        "Planificacion":0,
+        "Total":0
     },
     {
         "Abreviacion_Continente": "AM",
