@@ -81,23 +81,6 @@ public ordenesService: OrdenCompraService
 
 
   ngOnInit() {
-    this.alertasService.presentaLoading('Adjuntado informacion al mapa');
-    this.ordenes = [];
-    this.continentes = [];
-
-    this.localizacionService.syncContinentesToPromise().then(continentes =>{
-      this.continentes = continentes;
-  console.log('continentes', continentes)
-  
-  this.localizacionService.syncPaisesContinentesToPromise().then(paises=>{
-  this.paises = paises;
-  console.log('paises', paises)
-
-this.filtrarTodos();
- 
-  });
-
-    });
 
 
 
@@ -188,9 +171,26 @@ this.crearMapa();
           });
   }
   ngAfterViewInit() {
+    this.alertasService.presentaLoading('Adjuntado informacion al mapa');
+    this.ordenes = [];
+    this.continentes = [];
+
+    this.localizacionService.syncContinentesToPromise().then(continentes =>{
+      this.continentes = continentes;
+  console.log('continentes', continentes)
+  
+  this.localizacionService.syncPaisesContinentesToPromise().then(paises=>{
+  this.paises = paises;
+  console.log('paises', paises)
+
+this.filtrarTodos();
+this.crearMapa();
+  });
+
+    });
 
 
-    this.crearMapa();
+ 
    
   }
   crearMapa(){
