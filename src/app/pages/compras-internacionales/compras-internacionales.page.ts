@@ -2,12 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angula
 import { AlertasService } from 'src/app/services/alertas.service';
 import * as  mapboxgl from 'mapbox-gl';
 import { ModalController } from '@ionic/angular';
-import { FormularioComprasInternacionalesPage } from '../formulario-compras-internacionales/formulario-compras-internacionales.page';
+
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { Continentes } from 'src/app/models/continentes';
 import { OrdenesInternacionalesPage } from '../ordenes-internacionales/ordenes-internacionales.page';
-import { PaisesContientes } from 'src/app/models/paisescontientes';
-import { Ordenes } from '../../models/ordenes';
+
+import { OrdenCompraService } from '../../services/ordencompra.service';
+import { OrdenComprasInternacionales } from 'src/app/models/ordenesComprasInternacionales';
+import { PaisesContientesSoftland } from 'src/app/models/paisescontientes';
 
 @Component({
   selector: 'app-compras-internacionales',
@@ -21,14 +23,14 @@ export class ComprasInternacionalesPage implements OnInit, AfterViewInit {
   lngLat: [number, number] = [ -84.14123589305028, 9.982628288210657 ];
   zoomLevel: number = 0;
   continentes:Continentes[];
-  paises:PaisesContientes[];
-  ordenes:Ordenes[];
+  paises:PaisesContientesSoftland[];
+  ordenes:OrdenComprasInternacionales[];
+  incluirOP = true;
+  incluirOT = true;
   fullscreen = false;
   estados = [
-    {id:1,estado:'Planificaión'},
-    {id:2,estado:'Producción'},
-    {id:3,estado:'Terminado'},
-    {id:4,estado:'Liberación y pago'},
+    {id:1,code:'A',estado:'Planificaicón'},
+    {id:2,code:'E',estado:'Transito'}
   
   ];
   imagenes = [
@@ -41,20 +43,47 @@ export class ComprasInternacionalesPage implements OnInit, AfterViewInit {
 'assets/numbers/033-6.svg'
 
   ];
+  ordenesEnPlanificacion:OrdenComprasInternacionales[]=[];
+  ordenesEnTransito:OrdenComprasInternacionales[]=[];
+  
   private modalOpen:boolean = false;
   constructor(
 public alertasService:AlertasService,
 public modalCtrl: ModalController,
-public localizacionService:LocalizacionService
+public localizacionService:LocalizacionService,
+public ordenesService: OrdenCompraService
 
   ) { }
 
+  filtrarEstado(estado){
+    this.alertasService.presentaLoading('Adjuntado informacion al mapa');
+
+      if(estado == 'A'){
+        this.incluirOP = true;
+        this.incluirOT = false;
+        this.filtrarPlanificacion();
+      }else if ( estado == 'E'){
+        this.incluirOP = false;
+        this.incluirOT = true;
+ this.filtrarTransito()
+
+      }else{
+        this.incluirOP = true;
+        this.incluirOT = true;
+        this.filtrarTodos();
+      }
+
+      this.ordenesService.syncGetOrdenesCompraEstadoToPromise('A').then((planificacion:any)=>{
+
+
+      })
+  }
+
+
   ngOnInit() {
+    this.alertasService.presentaLoading('Adjuntado informacion al mapa');
     this.ordenes = [];
     this.continentes = [];
-
-  }
-  ngAfterViewInit() {
 
     this.localizacionService.syncContinentesToPromise().then(continentes =>{
       this.continentes = continentes;
@@ -63,15 +92,101 @@ public localizacionService:LocalizacionService
   this.localizacionService.syncPaisesContinentesToPromise().then(paises=>{
   this.paises = paises;
   console.log('paises', paises)
-  this.crearMapa();
+
+this.filtrarTodos();
+ 
   });
-  
+
     });
 
 
+
+
+
+    
+
+
+  }
+
+  filtrarTransito(){
+    
+    this.ordenesService.syncGetOrdenesCompraEstadoToPromise('E').then((planificacion:any)=>{
+      this.ordenesEnTransito = planificacion;
+      this.ordenesEnTransito.forEach((orden, counter) =>{
+        let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
+        orden.LONGITUD = this.paises[index].LONGITUD;
+        orden.LATITUD =  this.paises[index].LATITUD;
+        if( counter == this.ordenesEnPlanificacion.length -1 ){
+      
+this.crearMapa();
+       
+  }
+
+})
+    })
+  }
+  filtrarPlanificacion(){
+ 
+    this.ordenesService.syncGetOrdenesCompraEstadoToPromise('A').then((planificacion:any)=>{
+      this.ordenesEnPlanificacion = planificacion;
+      this.ordenesEnPlanificacion.forEach((orden, counter) =>{
+        let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
+        orden.LONGITUD = this.paises[index].LONGITUD;
+        orden.LATITUD =  this.paises[index].LATITUD;
+        if( counter == this.ordenesEnPlanificacion.length -1 ){
+      
+this.crearMapa();
+       
+  }
+
+})
+    })
+  }
+
+
+  filtrarTodos(){
+
+    this.ordenesService.syncGetOrdenesCompraEstadoToPromise('A').then((planificacion:any)=>{
+      this.ordenesEnPlanificacion = planificacion;
+      this.ordenesEnPlanificacion.forEach((orden, counter) =>{
+        let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
+        orden.LONGITUD = this.paises[index].LONGITUD;
+        orden.LATITUD =  this.paises[index].LATITUD;
+        if( counter == this.ordenesEnPlanificacion.length -1 ){
+      
+          console.log('ordenes en planificacion', planificacion)
+          this.ordenesService.syncGetOrdenesCompraEstadoToPromise('E').then((transito:any)=>{
+            this.ordenesEnTransito = transito;
+       
+            this.ordenesEnTransito.forEach((orden,counter2) =>{
+              let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
+              orden.LONGITUD = this.paises[index].LONGITUD;
+              orden.LATITUD =  this.paises[index].LATITUD;
+              if( counter2 == this.ordenesEnTransito.length -1 ){
+  
+       console.log('ordenes en transito', transito)
+       this.crearMapa();
+              }
+  
+            })
+                });
+        }
+      
+      });
+      
+      
+      
+      
+          });
+  }
+  ngAfterViewInit() {
+
+
+    this.crearMapa();
    
   }
   crearMapa(){
+    
     if(this.mapa){
       this.mapa.remove();
     }
@@ -114,6 +229,7 @@ public localizacionService:LocalizacionService
       
       });
       new mapboxgl.Marker(el)
+      
       .setLngLat([this.continentes[i].longitud,this.continentes[i].latitud])
       .addTo(this.mapa); 
 
@@ -128,20 +244,136 @@ public localizacionService:LocalizacionService
     .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText("DISTRIBUIDORA ISLEÑA"))
     .addTo(this.mapa)
   //  .togglePopup();
+  this.mapa.addControl(new mapboxgl.NavigationControl());
+  this.mapa.addControl(new mapboxgl.FullscreenControl());
 
-    this.mapa.addControl(new mapboxgl.NavigationControl());
-    this.mapa.addControl(new mapboxgl.FullscreenControl());
+  if(this.incluirOP && this.incluirOT){
+    this.agregarTodaslasOrdenesMapa();
+  }else if(this.incluirOP && !this.incluirOT){
+
+this.agregarTodaslasOrdenesPMapa();
+  }else{
+this.agregarTodaslasOrdenesTMapa();
+
+  }
 
 
- this.mapa.on('load', () => {
-     
-  this.mapa.resize();
-});
 
 
 
 
+  }
 
+  agregarTodaslasOrdenesPMapa(){
+    for(let OP = 0; OP < this.ordenesEnPlanificacion.length; OP++){
+
+  
+      const marker2 = new mapboxgl.Marker({
+        color:"#000000",
+        draggable: true
+      })
+    //alert([orden.LONGITUD, orden.LATITUD])
+    marker2.setLngLat([this.ordenesEnPlanificacion[OP].LONGITUD, this.ordenesEnPlanificacion[OP].LATITUD])
+    .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(this.ordenesEnPlanificacion[OP].PAIS))
+    .addTo(this.mapa)
+    
+    if(OP == this.ordenesEnPlanificacion.length -1){
+    
+      
+    
+      this.mapa.on('load', () => {
+        this.alertasService.loadingDissmiss();
+        this.mapa.resize();
+      });
+    
+    
+    }
+    }
+    
+    
+    
+    
+  }
+
+
+  agregarTodaslasOrdenesTMapa(){
+
+    for(let OT = 0; OT < this.ordenesEnTransito.length; OT++){
+      const marker2 = new mapboxgl.Marker({
+        color:"#000000",
+        draggable: true
+      })
+    //alert([orden.LONGITUD, orden.LATITUD])
+    marker2.setLngLat([this.ordenesEnTransito[OT].LONGITUD, this.ordenesEnTransito[OT].LATITUD])
+    .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(this.ordenesEnTransito[OT].PAIS))
+    .addTo(this.mapa)
+  
+  
+    if(OT == this.ordenesEnTransito.length -1){
+  
+      
+  
+  
+  
+   this.mapa.on('load', () => {
+       this.alertasService.loadingDissmiss();
+    this.mapa.resize();
+  });
+    }
+  
+    }
+    
+    
+    
+  }
+
+  agregarTodaslasOrdenesMapa(){
+    for(let OP = 0; OP < this.ordenesEnPlanificacion.length; OP++){
+
+  
+      const marker2 = new mapboxgl.Marker({
+        color:"#000000",
+        draggable: true
+      })
+    //alert([orden.LONGITUD, orden.LATITUD])
+    marker2.setLngLat([this.ordenesEnPlanificacion[OP].LONGITUD, this.ordenesEnPlanificacion[OP].LATITUD])
+    .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(this.ordenesEnPlanificacion[OP].PAIS))
+    .addTo(this.mapa)
+    
+    if(OP == this.ordenesEnPlanificacion.length -1){
+    
+      for(let OT = 0; OT < this.ordenesEnTransito.length; OT++){
+        const marker2 = new mapboxgl.Marker({
+          color:"#000000",
+          draggable: true
+        })
+      //alert([orden.LONGITUD, orden.LATITUD])
+      marker2.setLngLat([this.ordenesEnTransito[OT].LONGITUD, this.ordenesEnTransito[OT].LATITUD])
+      .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(this.ordenesEnTransito[OT].PAIS))
+      .addTo(this.mapa)
+    
+    
+      if(OT == this.ordenesEnTransito.length -1){
+    
+        
+    
+    
+    
+     this.mapa.on('load', () => {
+      this.alertasService.loadingDissmiss();
+      this.mapa.resize();
+    });
+      }
+    
+      }
+    
+    
+    }
+    }
+    
+    
+    
+    
   }
 
 
@@ -150,44 +382,21 @@ public localizacionService:LocalizacionService
    container.requestFullscreen();
   }
 
-  async fomularioComprasInternacionales(){
-     
-if (!this.modalOpen){
-  const modal = await this.modalCtrl.create({
-    component:FormularioComprasInternacionalesPage,
-    cssClass:'my-custom-modal',
-    mode:'ios'
-  });
-  this.modalOpen = true;
-
-   await modal.present();
-   const { data } = await modal.onWillDismiss();
-
-   if(data != undefined){
-    console.log('orden', data.orden)
-    this.ordenes.push(data.orden)
-
-   }
-   this.modalOpen = false;
-
-}
 
 
-
-
-  }
-
-  async ordenesInternacionales(estado){
+  async ordenesInternacionales(ordenes){
   
      
+
 if (!this.modalOpen){
+  this.alertasService.presentaLoading('preparando ordenes, un momento...');
   const modal = await this.modalCtrl.create({
     component:OrdenesInternacionalesPage,
     cssClass:'fullscreen-large-modal',
     mode:'md',
     componentProps:{
-      estado:estado,
-      ordenes:this.ordenes
+      //estado:estado,
+      ordenes:ordenes
     }
   });
   this.modalOpen = true;
@@ -220,15 +429,12 @@ this.crearMapa();
 
   }
 
-  filtrarEstado($event){
-    
-  }
 
   irMarcador(longLat) {
    
     if (longLat) {
       this.mapa.flyTo(
-        { center: longLat, zoom: 1.5 }
+        { center: longLat, zoom: 4 }
       )
 
     }

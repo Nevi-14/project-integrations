@@ -20,7 +20,7 @@
 <ion-content>
   <ion-list  >
     <ion-item lines="full"  (click)="retornarPais(pais)" *ngFor="let pais of paises | filtro: textoBuscar:'Pais'">
-      <ion-label>{{pais.Pais}}</ion-label>
+      <ion-label>{{pais.NOMBRE}}</ion-label>
     </ion-item>
   </ion-list>
 

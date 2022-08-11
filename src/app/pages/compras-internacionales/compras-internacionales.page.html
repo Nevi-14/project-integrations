@@ -4,28 +4,33 @@
   <ion-grid  style="height: 100%;">
   <ion-row    style="height: 100%;">
 
-    <ion-col size="12" style=" display: flex;
-    flex-wrap: wrap;">
-      <ion-card style="height: 120px;min-width: 200px;"  *ngFor="let estado of estados" button (click)="ordenesInternacionales(estado.estado)">
+    <ion-col size="12" size-md="6" style=" display: flex;">
+      <ion-card style="height: 130px;min-width: 200px;"  button (click)="ordenesInternacionales(ordenesEnPlanificacion)">
 
         <ion-card-content class="ion-padding ion-text-center">
        <ion-fab-button   style="margin: 0.5rem auto;" size="small" color="dark">
 
-        <span *ngIf="estado.id == 1">
-          {{ordenes.length}}
-        </span>
-        <span *ngIf="estado.id != 1">
-          0
-        </span>
+        {{ordenesEnPlanificacion.length}}
        </ion-fab-button>
-         <ion-label  ><strong>{{estado.estado}}</strong></ion-label>
+         <ion-label  ><strong>Ordenes en Planificacion</strong></ion-label>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card style="height: 130px;min-width: 200px;"  button (click)="ordenesInternacionales(ordenesEnTransito)">
+
+        <ion-card-content class="ion-padding ion-text-center">
+       <ion-fab-button   style="margin: 0.5rem auto;" size="small" color="dark">
+        {{ordenesEnTransito.length}}
+       </ion-fab-button>
+         <ion-label  ><strong>Ordenes en Transito</strong></ion-label>
         </ion-card-content>
       </ion-card>
     
     </ion-col>
-    <ion-col size="12">
+
+    <ion-col size="12" size-md="6">
       <ion-row>
-        <ion-col size="4">
+        <ion-col size="10">
 
           <ion-item>
             <ion-label>Filtrar por Continente</ion-label>
@@ -35,10 +40,10 @@
               <ion-select-option value="all">Todos</ion-select-option>
             </ion-select>
           </ion-item>
-
+    
         </ion-col>
-        <ion-col size="4">
-
+        <ion-col size="10">
+    
           <ion-item>
             <ion-label>Filtrar por Estado</ion-label>
             <ion-select  value="all"  placeholder="Filtrar Estado"  (ionChange)="filtrarEstado($event)">
@@ -47,16 +52,14 @@
               <ion-select-option value="all">Todos</ion-select-option>
             </ion-select>
           </ion-item>
-
+    
         </ion-col>
       </ion-row>
     </ion-col>
-  
-        
   <ion-col size="12">
   
   <div  #mapa  [ngStyle]="{
-    'height': '50vh',
+    'height': '60vh',
     'width': '100%'
   }" class="mapa"></div>
   
@@ -71,9 +74,3 @@
   
   </ion-content>
 
-
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button  (click)="fomularioComprasInternacionales()"  color="dark" size="small">
-      <ion-icon name="add" size="large"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>

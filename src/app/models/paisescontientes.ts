@@ -1,11 +1,10 @@
-export class PaisesContientes{
+export class PaisesContientesSoftland{
 
     constructor(
-       public Abreviacion_Continente:string,
-       public Continente:string,
-       public Abreviacion_Pais:string,
-       public Pais:string,
-       public latitud: number,
-       public longitud: number
+       public PAIS:string,
+       public NOMBRE:string,
+       public LATITUD:number,
+       public LONGITUD:number,
+       public CONTINENTE: string
     ){}
 }

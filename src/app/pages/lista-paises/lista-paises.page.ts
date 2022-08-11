@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PaisesContientes } from 'src/app/models/paisescontientes';
+import { PaisesContientesSoftland } from 'src/app/models/paisescontientes';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { LocalizacionService } from 'src/app/services/localizacion.service';
   styleUrls: ['./lista-paises.page.scss'],
 })
 export class ListaPaisesPage implements OnInit {
-paises:PaisesContientes[];
+paises:PaisesContientesSoftland[];
 textoBuscar = '';
   constructor(
     public modalCtrl:ModalController,
@@ -22,6 +22,7 @@ textoBuscar = '';
       console.log('paises', paises);
     })
   }
+
 
   cerrarModal(){
     this.modalCtrl.dismiss()
