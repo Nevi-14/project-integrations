@@ -1,29 +1,59 @@
-<ion-header class="ion-no-border ion-padding">
-  <ion-toolbar>
-    <ion-button slot="start" (click)="cerrarModal()"   fill="clear"  >
-     <ion-icon size="large" color="dark"  name="arrow-back-outline"></ion-icon>
-    </ion-button>
-    <ion-title  slot="start">Ordenes de Compra</ion-title>
-  </ion-toolbar>
+<ion-header class="ion-no-border">
+ 
 <ion-row >
-  <ion-col size="12" size-md="4"  class="ion-no-padding" >
+  <ion-col size="12" size-md="4"    style="display: flex;justify-content:center;align-items:center">
+<ion-row>
+  <ion-col size="12">
+    <ion-toolbar>
+      <ion-button slot="start" (click)="cerrarModal()"   fill="clear"  >
+       <ion-icon size="large" color="dark"  name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-title  slot="start">Ordenes de Compra       <ion-badge color="dark" mode="ios">{{ordenes.length}}</ion-badge></ion-title>
+    </ion-toolbar>
+   
+  </ion-col>
+  <ion-col size="12">
+ 
     <ion-searchbar   mode="ios" placeholder="numero de orden"   type="text" (ionChange)="onSearchChange($event)" >    </ion-searchbar>
   </ion-col>
+</ion-row>
+  </ion-col>
   <ion-col size="12" size-md="2">
-    <ion-button  color="dark" expand="block" fill="outline"  >
+    <ion-item>
+      <ion-label>{{pais ? pais.NOMBRE : ''}}</ion-label>
+
+    </ion-item>
+    <ion-button  color="dark" expand="block" fill="outline"  (click)="listaPaises()" >
       <ion-label>Desde</ion-label>
     </ion-button>
   </ion-col>
 
-  <ion-col size="12" size-md="2">
+  <ion-col size="12" size-md="2"  (click)="fechaPedido()">
+    <ion-item>
+      <ion-label>{{this.fechaP | date: 'longDate'}}</ion-label>
+    </ion-item>
     <ion-button  color="dark" expand="block" fill="outline"  >
       <ion-label>Fecha Pedido</ion-label>
     </ion-button>
   </ion-col>
-  <ion-col size="12" size-md="2">
+  <ion-col size="12" size-md="2"  (click)="fechaLlegada()">
+    <ion-item>
+      <ion-label>{{this.fechaE | date: 'longDate'}}</ion-label>
+    </ion-item>
     <ion-button  color="dark" expand="block" fill="outline"  >
       <ion-label>Fecha Llegada</ion-label>
     </ion-button>
+  </ion-col>
+  <ion-col size="12" size-md="2"   >
+    <ion-item>
+      <ion-label>Filtrar</ion-label>
+    </ion-item>
+    <ion-button  color="dark" fill="outline"  (click)="filtrarDatos()">
+  <ion-icon slot="icon-only" size="large" name="funnel-outline"></ion-icon>
+    </ion-button>
+    <ion-button  color="dark"  fill="outline"  (click)="reset()">
+      <ion-icon slot="icon-only" size="large" name="refresh-outline"></ion-icon>
+        </ion-button>
   </ion-col>
 </ion-row>
 </ion-header>
@@ -40,11 +70,11 @@
  
   </ion-row>
 
-  <ion-row *ngFor="let orden of ordenes" class="data-row">
+  <ion-row *ngFor="let orden of ordenes  | filtro: textoBuscar:'ORDEN_COMPRA'" class="data-row" button (click)="consultarOrden(orden)">
     <ion-col >{{orden.ORDEN_COMPRA}}</ion-col>
     <ion-col >{{orden.PAIS}}</ion-col>
-    <ion-col >{{orden.FECHA}}</ion-col>
-    <ion-col >{{orden.FECHA_REQUERIDA}}</ion-col>
+    <ion-col >{{orden.FECHA | date: 'longDate'}}</ion-col>
+    <ion-col >{{orden.FECHA_REQUERIDA | date: 'longDate'}}</ion-col>
     <ion-col ><ion-badge color="warning" mode="ios">{{orden.ESTADO}}</ion-badge></ion-col>
 
   </ion-row>

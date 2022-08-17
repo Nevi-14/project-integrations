@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { OrdenesInternacionalesPageRoutingModule } from './ordenes-internacionales-routing.module';
+import { OrdenDeCompraDetallePageRoutingModule } from './orden-de-compra-detalle-routing.module';
 
-import { OrdenesInternacionalesPage } from './ordenes-internacionales.page';
+import { OrdenDeCompraDetallePage } from './orden-de-compra-detalle.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    OrdenesInternacionalesPageRoutingModule,
+    OrdenDeCompraDetallePageRoutingModule,
     PipesModule
   ],
-  declarations: [OrdenesInternacionalesPage]
+  declarations: [OrdenDeCompraDetallePage]
 })
-export class OrdenesInternacionalesPageModule {}
+export class OrdenDeCompraDetallePageModule {}
