@@ -44,7 +44,8 @@ private postLineas (lineas:Lineas[]){
         'Access-Control-Allow-Origin': '*'
     }
   };
- console.log('URL', URL)
+ console.log('URL lineas: ', URL);
+ console.log('JSON Lineas:', JSON.stringify(lineas));
   return this.http.post( URL, JSON.stringify(lineas), options );
 }
 

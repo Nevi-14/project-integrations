@@ -8,7 +8,7 @@ export const environment = {
   preURL:'http://api_irp',
   TestURL:'_test',
   postURL:'.di-apps.co.cr/api/',
-  prdMode:true,
+  prdMode: false,
   articulosURL:'ONE_ArtProv/',
   bodegasURL:'ONE_Bodega',
   lineasPostURL:'ONE_OCLin',
