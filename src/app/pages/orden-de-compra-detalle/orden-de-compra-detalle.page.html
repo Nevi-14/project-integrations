@@ -156,9 +156,9 @@
     
        <ion-input readonly="true"   type="text" placeholder="descripcion" [(ngModel)]="linea.DESCRIPCION"></ion-input></td>
 
-       <td><ion-input     type="number" placeholder="precio" [(ngModel)]="linea.PRECIO_UNITARIO"></ion-input></td>
+       <td><ion-input class="ion-text-right"    type="text" placeholder="precio"  [ngModel]="linea.PRECIO_UNITARIO | colones" (ngModelChange)="linea.PRECIO_UNITARIO = $event"></ion-input></td>
        
-     <td><ion-input   type="number" placeholder="Unidades" [(ngModel)]="linea.CANTIDAD_ORDENADA"></ion-input></td>
+     <td><ion-input class="ion-text-right"   type="number" placeholder="Unidades" [(ngModel)]="linea.CANTIDAD_ORDENADA"></ion-input></td>
      <td><ion-input     type="number" placeholder="impuesto 1" [(ngModel)]="linea.IMPUESTO1"    [ngModel]="linea.IMPUESTO1" ></ion-input></td>
      <td><ion-input    type="number" placeholder="descuento" min="0"    [(ngModel)]="linea.PORC_DESCUENTO"    ></ion-input></td>
      <td><ion-input  readonly="true"   type="text" placeholder="monto impuesto"  [ngModel]="linea.montoImpuesto | colones" (ngModelChange)="linea.montoImpuesto = $event"  ></ion-input></td>

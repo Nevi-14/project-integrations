@@ -238,7 +238,7 @@ if(this.paises[p].TOTAL > 0){
 marker2.setLngLat([this.paises[p].LONGITUD, this.paises[p].LATITUD])
 .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(
 
-  'Pais ' +this.paises[p].PAIS+ ' Total Ordenes '+String(this.paises[p].TOTAL) + ' - Total Planificacion ' + this.paises[p].PLANIFICACION + ' - Total Transito ' + this.paises[p].TRANSITO
+  'Pais ' +this.paises[p].PAIS+ ' Total Ordenes '+String(this.paises[p].TOTAL) + ' - Planificacion ' + this.paises[p].PLANIFICACION + ' - Transito ' + this.paises[p].TRANSITO
 
 
 ))

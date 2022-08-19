@@ -37,7 +37,21 @@ public popOverCtrl: PopoverController
 
   ) { }
 
+
+
+  dateC(dat){
+
+let d = new Date(dat);
+let date = d.getDate();
+let month = d.getMonth()+1;
+let year = d.getFullYear();
+let f = String(year)+String(month).padStart(2,'0')+String(date);
+console.log(f)
+return Number(f)
+  }
   ngOnInit() {
+    this.ordenes.sort((a, b) =>   this.dateC(b.FECHA) -  this.dateC(a.FECHA)  )
+
     this.ordenesArray = this.ordenes;
     this.alertasService.loadingDissmiss();
     console.log('ordenes',this.ordenes)

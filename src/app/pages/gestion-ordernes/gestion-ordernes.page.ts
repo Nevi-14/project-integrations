@@ -562,7 +562,7 @@ export class GestionOrdernesPage implements OnInit {
   
       this.fecha.setHours(0,0,0,0)
       this.ordenCompra.FECHA = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
-      this.ordenCompra.FECHA_REGISTRO =new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T'+ new Date().getHours()+':'+String(new Date().getMinutes()).padStart(2, '0') +':'+String(new Date().getSeconds()).padStart(2, '0');
+      this.ordenCompra.FECHA_REGISTRO =new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T'+ String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2, '0') +':'+String(new Date().getSeconds()).padStart(2, '0');
       this.alertasService.presentaLoading('Generando Consecutivo')
   
       this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
@@ -576,6 +576,7 @@ export class GestionOrdernesPage implements OnInit {
           this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA
           articulos.push(this.articulosService.articulosPostArray[i].articulo)
           this.articulosService.articulosPostArray[i].articulo.PRD = this.modeOn  ? 'S' : 'N';
+          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA = i+1;
         this.articulosService.articulosPostArray[i].articulo.FECHA_REGISTRO = this.ordenCompra.FECHA_REGISTRO;
           if(i === this.articulosService.articulosPostArray.length -1){
             console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
@@ -593,9 +594,11 @@ export class GestionOrdernesPage implements OnInit {
                 console.log('resp lineas', resp)
                 this.limpiarDatos();
               }, error =>{
+                console.log(error)
                 this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
               });
             }, error =>{
+              console.log(error)
               this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
             });
           }

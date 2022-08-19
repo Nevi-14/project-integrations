@@ -52,7 +52,8 @@ export class OrdenCompraService {
           'Access-Control-Allow-Origin': '*'
       }
     };
-  
+  console.log('post orden', URL)
+  console.log('JSON ordenCompra:', JSON.stringify(ordenCompra));
     return this.http.post( URL, JSON.stringify(ordenCompra), options );
   }
 
