@@ -169,6 +169,16 @@ if(this.pais){
                   })
   }
 
+  diasTotales(date_1, date_2){
+
+
+    let dat1 = new Date(date_1);
+    let dat2 = new Date(date_2);
+    let difference = dat1.getTime() - dat2.getTime();
+    let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+    
+    return TotalDays;
+}
   async listaPaises( ){
 
     if (!this.modalOpen){

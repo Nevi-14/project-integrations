@@ -66,6 +66,9 @@
     <ion-col >País</ion-col>
     <ion-col >Fecha Pedido</ion-col>
     <ion-col >Fecha Llegada</ion-col>
+    <ion-col>
+      Dias Transcurridos
+    </ion-col>
     <ion-col >Estatus</ion-col>
  
   </ion-row>
@@ -75,6 +78,7 @@
     <ion-col >{{orden.PAIS}}</ion-col>
     <ion-col >{{orden.FECHA | date: 'longDate'}}</ion-col>
     <ion-col >{{orden.FECHA_REQUERIDA | date: 'longDate'}}</ion-col>
+    <ion-col >{{diasTotales(orden.FECHA,orden.FECHA_REQUERIDA)}}</ion-col>
     <ion-col ><ion-badge color="warning" mode="ios">{{ orden.ESTADO  == 'A' ? 'Planificación' : 'Transito'}}</ion-badge></ion-col>
 
   </ion-row>
