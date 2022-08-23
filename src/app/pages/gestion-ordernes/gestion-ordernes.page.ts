@@ -576,6 +576,7 @@ export class GestionOrdernesPage implements OnInit {
           this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA
           articulos.push(this.articulosService.articulosPostArray[i].articulo)
           this.articulosService.articulosPostArray[i].articulo.PRD = this.modeOn  ? 'S' : 'N';
+          this.articulosService.articulosPostArray[i].articulo.LINEA_USUARIO = i+1;
           this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA = i+1;
         this.articulosService.articulosPostArray[i].articulo.FECHA_REGISTRO = this.ordenCompra.FECHA_REGISTRO;
           if(i === this.articulosService.articulosPostArray.length -1){
