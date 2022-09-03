@@ -225,7 +225,7 @@ export class GestionOrdernesPage implements OnInit {
       }
       let modal = await  this.modalCtrl.create({
         component:ListaArticulosPage,
-        cssClass: 'fullscreen-large-modal',
+        cssClass: 'large-modal',
      
       });
   
@@ -539,136 +539,45 @@ export class GestionOrdernesPage implements OnInit {
       this.alertasService.presentaLoading('Generando Consecutivo')
   
       this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
-      this.ordenCompraService.ultimaOrdenCompra = resp[0];
-      let ORDEN_COMPRA =  this.ordenCompra.ORDEN_COMPRA;
-      if(!this.actualizar && this.ordenCompra.ORDEN_COMPRA == null){
-        ORDEN_COMPRA =  this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
-        console.log('ORDEN_COMPRA',ORDEN_COMPRA)
-
-        this.ordenCompra.ORDEN_COMPRA = ORDEN_COMPRA;
-       }
-       let ultima_linea = null;
+        this.ordenCompraService.ultimaOrdenCompra = resp[0];
+ 
         let articulos:Lineas[] = [];
-        let putArticulos =[];
-        let postArticulos = [];
         for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
-          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA =  !this.actualizar ? this.ordenCompra.ORDEN_COMPRA : ORDEN_COMPRA;
-
-          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA  ? ultima_linea = this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA : ultima_linea = i;
-          if(  this.articulosService.articulosPostArray[i].accion == 'I'){
-
-            postArticulos.push(this.articulosService.articulosPostArray[i].articulo);
-          }else{
-
-            putArticulos.push(this.articulosService.articulosPostArray[i].articulo);
-          }
-      
-
+          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA
+          articulos.push(this.articulosService.articulosPostArray[i].articulo)
+          this.articulosService.articulosPostArray[i].articulo.PRD = this.modeOn  ? 'S' : 'N';
+          this.articulosService.articulosPostArray[i].articulo.LINEA_USUARIO = i+1;
+          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA = i+1;
+        this.articulosService.articulosPostArray[i].articulo.FECHA_REGISTRO = this.ordenCompra.FECHA;
           if(i === this.articulosService.articulosPostArray.length -1){
-        
             console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
             console.log('orden de compra',this.ordenCompra);
-            console.log('put',putArticulos);
-            console.log('post',postArticulos);
+            console.log('articulos',articulos);
             this.alertasService.loadingDissmiss();
-
-
+  
             if(this.actualizar){
-                     this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
-              console.log('orden de compra',[this.ordenCompra]);
-              this.alertasService.message('ISLEÑA', 'Orden Actualizada ' + this.ordenCompra.ORDEN_COMPRA)
-              if(postArticulos.length > 0){
 
-
-                for(let a = 0; a < postArticulos.length ; a++){
-
-
-          postArticulos[a].ORDEN_COMPRA_LINEA =   putArticulos.length > 0 ? putArticulos.length+1 : a+1;
-          
-                  if(a == postArticulos.length -1){
-                    this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
-                      console.log('resp lineas', resp)
-                      this.limpiarDatos();
-                    }, error =>{
-                      console.log(error)
-                      this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
-                    });
-
-                  }
-                }
-           
-  
-  
-  
-              }
-  
-              if(putArticulos.length > 0 ){
-  
-                putArticulos.forEach(articulo =>{
-                  this.lineasService.syncPutLineasToPromise(articulo).then(resp =>{
-                    console.log('resp linea put', resp)
-                    this.limpiarDatos();
-                  }, error =>{
-                    console.log(error)
-                    this.alertasService.message('ISLEÑA', 'Error guardando lineas put .')
-                  });
-                });
-              }
-    
-       
-         
-            }, error =>{
-              console.log(error)
-              this.alertasService.message('ISLEÑA', 'Error guardando orden entrega put .')
-            });
+              console.log('actualizar')
             }else{
-
-        
-              this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
-                console.log('orden de compra',[this.ordenCompra]);
-                this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
-
-                if(postArticulos.length > 0){
-
-                  this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
-                    console.log('resp lineas', resp)
-                    this.limpiarDatos();
-                  }, error =>{
-                    console.log(error)
-                    this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
-                  });
-    
-    
-    
-                }
-    
-                if(putArticulos.length > 0 ){
-    
-                  putArticulos.forEach(articulo =>{
-                    this.lineasService.syncPutLineasToPromise(articulo).then(resp =>{
-                      console.log('resp linea put', resp)
-                      this.limpiarDatos();
-                    }, error =>{
-                      console.log(error)
-                      this.alertasService.message('ISLEÑA', 'Error guardando lineas put .')
-                    });
-                  });
-                }
-      
-         
-         
-              }, error =>{
-                console.log(error)
-                this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
-              });
-
-
+              console.log('post')
             }
-
   
          return
   
-       
+            this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
+              console.log('orden de compra',[this.ordenCompra]);
+              this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
+              this.lineasService.syncPostLineasToPromise(articulos).then(resp =>{
+                console.log('resp lineas', resp)
+                this.limpiarDatos();
+              }, error =>{
+                console.log(error)
+                this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
+              });
+            }, error =>{
+              console.log(error)
+              this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
+            });
           }
         }
       }, error =>{

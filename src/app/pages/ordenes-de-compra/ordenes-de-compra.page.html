@@ -10,7 +10,7 @@
         </ion-col>
         <ion-col size="5" style="display: flex; justify-content: center;align-items: right;">
       
-          <ion-searchbar    mode="ios" placeholder="Buscar articulo" inputmode="text" (ionChange)="onSearchChange($event)"  debounce="250" ></ion-searchbar>
+          <ion-searchbar    mode="ios" placeholder="Buscar orden" inputmode="text" (ionChange)="onSearchChange($event)"  debounce="250" ></ion-searchbar>
   
   
         </ion-col>
@@ -20,10 +20,19 @@
       </ion-toolbar>
   
   <ion-content>
-  <ion-list lines="none">
-    <ion-item (click)="retornarOrden(orden)"  *ngFor="let orden of ordenescompraservice.ordenesDeCompra | filtro: textoBuscar:'NOMBRE'">
-      <ion-label><ion-badge color="warning" mode="ios" class="ion-margin-right">{{orden.ORDEN_COMPRA}}</ion-badge> {{orden.NOMBRE}} </ion-label>
-    
+  <ion-list >
+    <ion-item (click)="retornarOrden(orden)"  *ngFor="let orden of ordenescompraservice.ordenesDeCompra | filtro: textoBuscar:'ORDEN_COMPRA'" detail>
+
+      <ion-label>Orden # <ion-badge color="warning" mode="ios" class="ion-margin-right">{{orden.ORDEN_COMPRA}}</ion-badge>  </ion-label>
+      <ion-label>
+        <h3><ion-icon   name="person-outline" style="margin-right: 0.5rem;"></ion-icon> {{orden.USUARIO}}</h3>
+        <p><ion-icon   name="calendar-outline" style="margin-right: 0.5rem;">
+        </ion-icon>{{orden.FECHA | date}}
+        <ion-icon   name="location-outline" style="margin-left: 0.5rem;margin-right: 0.5rem;"></ion-icon> {{orden.PAIS}}
+      
+      </p>
+      </ion-label>
+
     </ion-item>
   </ion-list>
   

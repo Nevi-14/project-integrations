@@ -42,7 +42,20 @@ export class OrdenCompraService {
     console.log('URL', URL)
     return this.http.get<OrdenCompra[]>(URL)
   }
-
+  private putOrdenCompra (ordenCompra:OrdenCompra){
+    let  URL = this.getURL( environment.ordenCompraURL );
+         URL = URL +environment.idParam + ordenCompra.ORDEN_COMPRA;
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
+  console.log('put orden', URL)
+  console.log('JSON ordenCompra:', JSON.stringify(ordenCompra));
+    return this.http.put( URL, JSON.stringify(ordenCompra), options );
+  }
   private postOrdenCompra (ordenCompra:OrdenCompra[]){
     const URL = this.getURL( environment.ordenCompraURL );
     const options = {
@@ -55,6 +68,10 @@ export class OrdenCompraService {
   console.log('post orden', URL)
   console.log('JSON ordenCompra:', JSON.stringify(ordenCompra));
     return this.http.post( URL, JSON.stringify(ordenCompra), options );
+  }
+  syncPutOrdenCompraToPromise(ordenCompra: OrdenCompra){
+
+    return  this.putOrdenCompra(ordenCompra).toPromise();
   }
 
   syncPostOrdenCompraToPromise(ordenCompra: OrdenCompra[]){

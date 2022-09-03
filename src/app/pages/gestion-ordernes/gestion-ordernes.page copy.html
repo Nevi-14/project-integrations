@@ -16,6 +16,9 @@
 <ion-fab-button slot="end" size="small" color="dark" (click)="limpiarDatos()">
   <ion-icon name="reload"></ion-icon>
 </ion-fab-button>
+
+<ion-label slot="end" class="ion-margin ion-text-uppercase"><strong>{{modeOn ? 'Producción' : 'Pruebas'}}</strong></ion-label>
+<ion-toggle size="large" slot="end" color="dark"  checked={{modeOn}} (ionChange)="toggleMode($event)"></ion-toggle>
 <ion-fab-button slot="end" size="small" color="dark" (click)="salir()">
   <ion-icon name="exit"></ion-icon>
 </ion-fab-button>
@@ -317,6 +320,7 @@ Dia
      <th style="min-width:200px;">MONTO IMPUESTO</th>
      <th style="min-width:200px;">MONTO DESCUENTO</th>
      <th style="min-width:200px;">PRECIO DESCUENTO</th>
+     <th style="min-width:200px;">FECHA REQUERIDA</th>
      <th style="min-width:200px;">TOTAL</th>
     <th></th>
    </thead>
@@ -340,6 +344,8 @@ Dia
      <td><ion-input  readonly="true"   type="text" placeholder="monto descuento"  [ngModel]="articulo.articulo.MONTO_DESCUENTO | colones" (ngModelChange)="articulo.articulo.MONTO_DESCUENTO = $event"  ></ion-input></td>
      <td><ion-input  readonly="true"  type="text" placeholder="precio descuento"    [ngModel]="articulo.precioDescuento | colones" (ngModelChange)="articulo.precioDescuento = $event" ></ion-input></td>
 
+     <td> <ion-input readonly (click)="presentPopover(articulo)"   type="text" placeholder="fecha requerida" [ngModel]="articulo.articulo.FECHA_REQUERIDA | date" 
+       (ngModelChange)="articulo.articulo.FECHA_REQUERIDA=$event"></ion-input></td>
      <td><ion-input  readonly="true" type="text" placeholder="Total" [ngModel]="articulo.Total | colones" (ngModelChange)="articulo.Total = $event"  ></ion-input></td>
      
    

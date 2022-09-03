@@ -44,11 +44,25 @@ private postLineas (lineas:Lineas[]){
         'Access-Control-Allow-Origin': '*'
     }
   };
- console.log('URL lineas: ', URL);
+ console.log('URL post lineas: ', URL);
  console.log('JSON Lineas:', JSON.stringify(lineas));
   return this.http.post( URL, JSON.stringify(lineas), options );
 }
 
+private putLineas (linea:Lineas){
+  let  URL = this.getURL( environment.lineasPostURL);
+       URL = URL + environment.idParam + linea.ORDEN_COMPRA + environment.numParam+linea.ORDEN_COMPRA_LINEA
+  const options = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    }
+  };
+ console.log('URL put lineas: ', URL);
+ console.log('JSON Lineas:', JSON.stringify(linea));
+  return this.http.put( URL, JSON.stringify(linea), options );
+}
 
 private consultarLineasOrdenCompra(oc:string){
   let URL  = this.getURL(environment.consultarOrdenCompraLineasURL);
@@ -69,6 +83,9 @@ syncPostLineasToPromise(lineas:Lineas[]){
 
 return  this.postLineas(lineas).toPromise();
 }
+syncPutLineasToPromise(linea:Lineas){
 
+  return  this.putLineas(linea).toPromise();
+  }
 
 }

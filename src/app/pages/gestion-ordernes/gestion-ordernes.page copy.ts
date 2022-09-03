@@ -33,35 +33,31 @@ interface PostArticulos {
 })
 export class GestionOrdernesPage implements OnInit {
 
-  actualizar = false;
+
   ordenCompra:OrdenCompra =
   {
     ORDEN_COMPRA: null,
+    FECHA_REGISTRO: null,
     USUARIO: null,
-    PROVEEDOR:  null,
-    BODEGA:  null,
+    PROVEEDOR: null,
+    ESTADO:null,
+    BODEGA: null,
     CONDICION_PAGO: null,
     MONEDA: null,
-    PAIS:  null,
-    ESTADO:  null,
-    FECHA:  null,
-    FECHA_COTIZACION:  null,
+    PAIS: null,
+    FECHA: null,
     FECHA_REQUERIDA: null,
-    FECHA_EMBARQUE: null,
-    FECHA_ARRIBO: null,
-    FECHA_APROBACION: null,
-    FECHA_DESALMACENAJE: null,
-    FECHA_CIERRE: null,
-    PORC_DESCUENTO:0,
-    MONTO_DESCUENTO:0,
-    TOTAL_MERCADERIA:0,
-    TOTAL_IMPUESTO1: 0,
-    MONTO_FLETE:0,
-    MONTO_SEGURO:0,
-    MONTO_DOCUMENTACIO:0,
-    MONTO_ANTICIPO: 0,
-    TOTAL_A_COMPRAR: 0,
-    INSTRUCCIONES: null
+    PORC_DESCUENTO: null,
+    MONTO_DESCUENTO: null,
+    TOTAL_MERCADERIA: null,
+    TOTAL_IMPUESTO1: null,
+    MONTO_FLETE: null,
+    MONTO_SEGURO: null,
+    MONTO_DOCUMENTACIO:null,
+    MONTO_ANTICIPO: null,
+    TOTAL_A_COMPRAR: null,
+    PRD : null,
+    ACCION : null
   }
   TOTAL_UNIDADES =  0;
   proveedor:Proveedores;
@@ -107,7 +103,18 @@ export class GestionOrdernesPage implements OnInit {
       this.textoBuscar = event.detail.value;
     }
   
-
+    toggleMode(event){
+  
+    
+  this.modeOn  = event.detail.checked;
+  
+  if(event.detail.checked){
+  this.ordenCompra.PRD = 'S';
+  }else{
+    this.ordenCompra.PRD = 'N';
+  }
+  
+    }
     salir(){
       this.route.navigate(['/inicio-sesion']);
     }
@@ -150,7 +157,7 @@ export class GestionOrdernesPage implements OnInit {
          
        }
        async  ordenesDeCompra(){
-       
+      
         let modal = await  this.modalCtrl.create({
        component:OrdenesDeCompraPage,
        cssClass: 'large-modal',
@@ -160,8 +167,9 @@ export class GestionOrdernesPage implements OnInit {
            const { data } = await modal.onWillDismiss();
        if(data != undefined){
         this.ordenCompra = data.orden;
+        this.ordenCompra.PRD  = this.modeOn ? 'S':'N';
+        this.ordenCompra.ACCION = 'M';
         this.ordenCompra.ESTADO = 'A';
-        this.actualizar = true;
    this.sincronizarOrdenDeEntregaExistente();
         
        }
@@ -170,7 +178,7 @@ export class GestionOrdernesPage implements OnInit {
   
   
          sincronizarOrdenDeEntregaExistente(){
-          this.ordenCompra.FECHA = null;
+          this.ordenCompra.FECHA_REGISTRO = null;
           this.ordenCompra.USUARIO = this.usuariosService.usuario.UsuarioExactus;
           this.proveedoresService.proveedores = []
           this.proveedoresService.syncGetProvedorestoPromise(this.ordenCompra.PROVEEDOR).then(resp =>{
@@ -225,7 +233,7 @@ export class GestionOrdernesPage implements OnInit {
       }
       let modal = await  this.modalCtrl.create({
         component:ListaArticulosPage,
-        cssClass: 'fullscreen-large-modal',
+        cssClass: 'large-modal',
      
       });
   
@@ -235,7 +243,7 @@ export class GestionOrdernesPage implements OnInit {
   
       this.sumarTotales();
     }
-    
+  
     limpiarDatos(){
       this.articulosService.total = 0;
       this.articulosService.subTotal = 0;
@@ -248,46 +256,63 @@ export class GestionOrdernesPage implements OnInit {
       this.bodega = null;
       this.ordenCompra = {
         ORDEN_COMPRA: null,
+        FECHA_REGISTRO: null,
+        ESTADO:null,
         USUARIO: this.usuariosService.usuario.UsuarioExactus,
-        PROVEEDOR:  null,
-        BODEGA:  null,
+        PROVEEDOR: null,
+        BODEGA: null,
         CONDICION_PAGO: null,
         MONEDA: null,
-        PAIS:  null,
-        ESTADO:  null,
-        FECHA:  null,
-        FECHA_COTIZACION:  null,
+        PAIS: null,
+        FECHA: null,
         FECHA_REQUERIDA: null,
-        FECHA_EMBARQUE: null,
-        FECHA_ARRIBO: null,
-        FECHA_APROBACION: null,
-        FECHA_DESALMACENAJE: null,
-        FECHA_CIERRE: null,
-        PORC_DESCUENTO:0,
-        MONTO_DESCUENTO:0,
-        TOTAL_MERCADERIA:0,
-        TOTAL_IMPUESTO1: 0,
-        MONTO_FLETE:0,
-        MONTO_SEGURO:0,
-        MONTO_DOCUMENTACIO:0,
-        MONTO_ANTICIPO: 0,
-        TOTAL_A_COMPRAR: 0,
-        INSTRUCCIONES: null
+        PORC_DESCUENTO: null,
+        MONTO_DESCUENTO: null,
+        TOTAL_MERCADERIA: null,
+        TOTAL_IMPUESTO1: null,
+        MONTO_FLETE: null,
+        MONTO_SEGURO: null,
+        MONTO_DOCUMENTACIO:null,
+        MONTO_ANTICIPO: null,
+        TOTAL_A_COMPRAR: null,
+        PRD : null,
+        ACCION : null
       }
-      this.actualizar = false;
     }
     
-
+    async presentPopover(articulo:PostArticulos) {
+      const popover = await this.popOverCtrl.create({
+        component: CalendarioPopoverPage,
+        cssClass: 'my-custom-class',
+        translucent: true,
+        componentProps : {
+          fecha:articulo.articulo.FECHA_REQUERIDA 
+        }
+      });
+      await popover.present();
   
-  async fechaOrdenCompra(ordenCompra:OrdenCompra, property:string) {
-
-    console.log('ordenCompra[property]', ordenCompra[property], property)
+      const { data } = await popover.onDidDismiss();
+  
+      if(data != undefined){
+      
+        let fecha= new Date(data.fecha).toLocaleDateString('Es', {
+          year: 'numeric',
+          month: '2-digit',
+          weekday: 'short',
+          day: 'numeric',
+        });
+      articulo.articulo.FECHA_REQUERIDA = data.fecha;
+  
+      }
+    }
+  
+  async fechaOrdenCompra(ordenComre:OrdenCompra) {
     const popover = await this.popOverCtrl.create({
       component: CalendarioPopoverPage,
       cssClass: 'my-custom-class',
       translucent: true,
       componentProps : {
-        fecha:ordenCompra[property] == null ?  this.formatoFecha : ordenCompra[property]
+        fecha:ordenComre.FECHA_REQUERIDA 
       }
     });
     await popover.present();
@@ -302,7 +327,7 @@ export class GestionOrdernesPage implements OnInit {
         weekday: 'short',
         day: 'numeric',
       });
-      this.ordenCompra[property] = data.fecha;
+      this.ordenCompra.FECHA_REQUERIDA = data.fecha;
   
     }
   }
@@ -502,13 +527,15 @@ export class GestionOrdernesPage implements OnInit {
     }
   
     rellenarOrdenCompra(proveedor:Proveedores){
-      this.ordenCompra.FECHA = null;
+      this.ordenCompra.FECHA_REGISTRO = null;
+      this.ordenCompra.ACCION = 'I';
+      this.ordenCompra.PRD =  this.modeOn ? 'S' : 'N';
       this.ordenCompra.ORDEN_COMPRA = null;
       this.ordenCompra.ORDEN_COMPRA = null;
       this.ordenCompra.USUARIO = this.usuariosService.usuario.UsuarioExactus;
       this.ordenCompra.PROVEEDOR = proveedor.ID;
       this.ordenCompra.BODEGA = null;
-      this.ordenCompra.CONDICION_PAGO = proveedor.CONDICION_PAGO;
+      this.ordenCompra.CONDICION_PAGO = proveedor.CONDICION_PAGO.toString();
       this.ordenCompra.MONEDA = proveedor.MONEDA;
       this.ordenCompra.PAIS = proveedor.PAIS;
       this.ordenCompra.ESTADO = 'A';
@@ -535,140 +562,46 @@ export class GestionOrdernesPage implements OnInit {
   
       this.fecha.setHours(0,0,0,0)
       this.ordenCompra.FECHA = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
-      this.ordenCompra.FECHA =new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T'+ String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2, '0') +':'+String(new Date().getSeconds()).padStart(2, '0');
+      this.ordenCompra.FECHA_REGISTRO =new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T'+ String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2, '0') +':'+String(new Date().getSeconds()).padStart(2, '0');
       this.alertasService.presentaLoading('Generando Consecutivo')
   
       this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
-      this.ordenCompraService.ultimaOrdenCompra = resp[0];
-      let ORDEN_COMPRA =  this.ordenCompra.ORDEN_COMPRA;
-      if(!this.actualizar && this.ordenCompra.ORDEN_COMPRA == null){
-        ORDEN_COMPRA =  this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
-        console.log('ORDEN_COMPRA',ORDEN_COMPRA)
-
-        this.ordenCompra.ORDEN_COMPRA = ORDEN_COMPRA;
-       }
-       let ultima_linea = null;
+        this.ordenCompraService.ultimaOrdenCompra = resp[0];
+    if(this.ordenCompra.ACCION == 'I'){
+      this.ordenCompra.ORDEN_COMPRA =   this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
+    }
+  
         let articulos:Lineas[] = [];
-        let putArticulos =[];
-        let postArticulos = [];
         for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
-          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA =  !this.actualizar ? this.ordenCompra.ORDEN_COMPRA : ORDEN_COMPRA;
-
-          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA  ? ultima_linea = this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA : ultima_linea = i;
-          if(  this.articulosService.articulosPostArray[i].accion == 'I'){
-
-            postArticulos.push(this.articulosService.articulosPostArray[i].articulo);
-          }else{
-
-            putArticulos.push(this.articulosService.articulosPostArray[i].articulo);
-          }
-      
-
+          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA
+          articulos.push(this.articulosService.articulosPostArray[i].articulo)
+          this.articulosService.articulosPostArray[i].articulo.PRD = this.modeOn  ? 'S' : 'N';
+          this.articulosService.articulosPostArray[i].articulo.LINEA_USUARIO = i+1;
+          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA = i+1;
+        this.articulosService.articulosPostArray[i].articulo.FECHA_REGISTRO = this.ordenCompra.FECHA_REGISTRO;
           if(i === this.articulosService.articulosPostArray.length -1){
-        
             console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
             console.log('orden de compra',this.ordenCompra);
-            console.log('put',putArticulos);
-            console.log('post',postArticulos);
+            console.log('articulos',articulos);
             this.alertasService.loadingDissmiss();
-
-
-            if(this.actualizar){
-                     this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
+  
+  
+         //return
+  
+            this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
               console.log('orden de compra',[this.ordenCompra]);
-              this.alertasService.message('ISLEÑA', 'Orden Actualizada ' + this.ordenCompra.ORDEN_COMPRA)
-              if(postArticulos.length > 0){
-
-
-                for(let a = 0; a < postArticulos.length ; a++){
-
-
-          postArticulos[a].ORDEN_COMPRA_LINEA =   putArticulos.length > 0 ? putArticulos.length+1 : a+1;
-          
-                  if(a == postArticulos.length -1){
-                    this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
-                      console.log('resp lineas', resp)
-                      this.limpiarDatos();
-                    }, error =>{
-                      console.log(error)
-                      this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
-                    });
-
-                  }
-                }
-           
-  
-  
-  
-              }
-  
-              if(putArticulos.length > 0 ){
-  
-                putArticulos.forEach(articulo =>{
-                  this.lineasService.syncPutLineasToPromise(articulo).then(resp =>{
-                    console.log('resp linea put', resp)
-                    this.limpiarDatos();
-                  }, error =>{
-                    console.log(error)
-                    this.alertasService.message('ISLEÑA', 'Error guardando lineas put .')
-                  });
-                });
-              }
-    
-       
-         
-            }, error =>{
-              console.log(error)
-              this.alertasService.message('ISLEÑA', 'Error guardando orden entrega put .')
-            });
-            }else{
-
-        
-              this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
-                console.log('orden de compra',[this.ordenCompra]);
-                this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
-
-                if(postArticulos.length > 0){
-
-                  this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
-                    console.log('resp lineas', resp)
-                    this.limpiarDatos();
-                  }, error =>{
-                    console.log(error)
-                    this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
-                  });
-    
-    
-    
-                }
-    
-                if(putArticulos.length > 0 ){
-    
-                  putArticulos.forEach(articulo =>{
-                    this.lineasService.syncPutLineasToPromise(articulo).then(resp =>{
-                      console.log('resp linea put', resp)
-                      this.limpiarDatos();
-                    }, error =>{
-                      console.log(error)
-                      this.alertasService.message('ISLEÑA', 'Error guardando lineas put .')
-                    });
-                  });
-                }
-      
-         
-         
+              this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
+              this.lineasService.syncPostLineasToPromise(articulos).then(resp =>{
+                console.log('resp lineas', resp)
+                this.limpiarDatos();
               }, error =>{
                 console.log(error)
-                this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
+                this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
               });
-
-
-            }
-
-  
-         return
-  
-       
+            }, error =>{
+              console.log(error)
+              this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
+            });
           }
         }
       }, error =>{

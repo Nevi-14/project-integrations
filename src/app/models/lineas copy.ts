@@ -2,9 +2,11 @@ export class Lineas{
 
     constructor(
        public ORDEN_COMPRA:string,
+       public FECHA_REGISTRO: string,
        public   ORDEN_COMPRA_LINEA:number,
        public  ARTICULO:number,
        public BODEGA: string,
+       public LINEA_USUARIO: number,
        public DESCRIPCION: string,
        public CANTIDAD_ORDENADA: number,
        public  CANTIDAD_EMBARCADA: number,
@@ -15,11 +17,14 @@ export class Lineas{
        public  IMPUESTO2: number,
        public  PORC_DESCUENTO: number,
        public  MONTO_DESCUENTO: number,
+       public  FECHA: string,
        public  FACTOR_CONVERSION: number,
+       public FECHA_REQUERIDA: string,
        public CENTRO_COSTO: string,
        public CUENTA_CONTABLE: string,
        public TIPO_IMPUESTO1: string,
        public TIPO_TARIFA1: string,
-       public LOTE: string   
+       public PRD : string,
+       public ACCION :string
     ){}
 }
