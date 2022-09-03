@@ -79,6 +79,7 @@ export class ListaArticulosPage implements OnInit {
   }
 
   agregarArticulo(){
+    this.actualizarValores();
     this.articulosService.articulosPostArray.push(this.articuloPostArray);
     this.articulosService.subTotal += this.articuloPostArray.Total
     this.articulosService.total += this.articuloPostArray.Total
