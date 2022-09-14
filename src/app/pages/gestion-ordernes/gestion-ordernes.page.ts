@@ -547,14 +547,13 @@ export class GestionOrdernesPage implements OnInit {
 
         this.ordenCompra.ORDEN_COMPRA = ORDEN_COMPRA;
        }
-       let ultima_linea = null;
-        let articulos:Lineas[] = [];
+   
         let putArticulos =[];
         let postArticulos = [];
         for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
           this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA =  !this.actualizar ? this.ordenCompra.ORDEN_COMPRA : ORDEN_COMPRA;
 
-          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA  ? ultima_linea = this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA_LINEA : ultima_linea = i;
+
           if(  this.articulosService.articulosPostArray[i].accion == 'I'){
 
             postArticulos.push(this.articulosService.articulosPostArray[i].articulo);
@@ -579,12 +578,10 @@ export class GestionOrdernesPage implements OnInit {
               this.alertasService.message('ISLEÑA', 'Orden Actualizada ' + this.ordenCompra.ORDEN_COMPRA)
               if(postArticulos.length > 0){
 
-
+let index = putArticulos.length >0 ? putArticulos.length : 0;
                 for(let a = 0; a < postArticulos.length ; a++){
-
-
-          postArticulos[a].ORDEN_COMPRA_LINEA =   putArticulos.length > 0 ? putArticulos.length+1 : a+1;
-          
+                  index += 1;
+                  postArticulos[a].ORDEN_COMPRA_LINEA = putArticulos.length > 0 ? index : a+1 ;
                   if(a == postArticulos.length -1){
                     this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
                       console.log('resp lineas', resp)
