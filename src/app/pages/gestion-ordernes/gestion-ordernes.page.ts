@@ -225,7 +225,7 @@ export class GestionOrdernesPage implements OnInit {
       }
       let modal = await  this.modalCtrl.create({
         component:ListaArticulosPage,
-        cssClass: 'fullscreen-large-modal',
+        cssClass: 'items-modal',
      
       });
   

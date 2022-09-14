@@ -52,7 +52,7 @@ export class ListaArticulosPage implements OnInit {
 
 }
   textoBuscar = '';
-  
+  selected = null;
   fecha = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
 
   constructor(
@@ -71,15 +71,22 @@ export class ListaArticulosPage implements OnInit {
   }
 
 
-  retornarArticulo(articulo){
+  retornarArticulo(articulo, index){
     this.modalCtrl.dismiss({
       articulo:articulo
     })
     
   }
 
+  productInArray(articulo:Articulos){
+    let i =  this.articulosService.articulosPostArray.findIndex(item => item.articulo.ARTICULO == articulo.ARTICULO);
+    if(i >=0){
+     return true;
+    }
+  }
   agregarArticulo(){
     this.actualizarValores();
+ 
     this.articulosService.articulosPostArray.push(this.articuloPostArray);
     this.articulosService.subTotal += this.articuloPostArray.Total
     this.articulosService.total += this.articuloPostArray.Total
@@ -89,8 +96,8 @@ export class ListaArticulosPage implements OnInit {
     })
 
   }
-  seccionarArticulo(articulo:Articulos){
-
+  seccionarArticulo(articulo:Articulos, index:number){
+this.selected = index;
     
 this.articuloPostArray.articulo.CANTIDAD_ORDENADA = 1;
 this.articuloPostArray.articulo.ARTICULO = articulo.ARTICULO;

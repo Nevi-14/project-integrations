@@ -80,16 +80,7 @@ public ordenesService: OrdenCompraService
   }
 
 
-  ngOnInit() {
-
-
-
-
-
-    
-
-
-  }
+  ngOnInit() {}
 
   filtrarTransito(){
     
@@ -147,6 +138,11 @@ this.crearMapa();
           this.ordenesService.syncGetOrdenesCompraEstadoToPromise('E').then((transito:any)=>{
             this.ordenesEnTransito = transito;
        
+       
+            if(this.ordenesEnTransito.length == 0){
+              this.crearMapa();
+              return
+            }
             this.ordenesEnTransito.forEach((orden,counter2) =>{
               let index = this.paises.findIndex( pais=> pais.PAIS == orden.PAIS)
                this.paises[index].TOTAL += 1;
@@ -155,7 +151,7 @@ this.crearMapa();
               orden.LATITUD =  this.paises[index].LATITUD;
               if( counter2 == this.ordenesEnTransito.length -1 ){
   
-       console.log('ordenes en transito', transito)
+
        this.crearMapa();
               }
   
@@ -230,11 +226,25 @@ this.crearMapa();
 
   
 if(this.paises[p].TOTAL > 0){
-  const marker2 = new mapboxgl.Marker({
-    color:"#000000",
-    draggable: true
-  })
-//alert([orden.LONGITUD, orden.LATITUD])
+
+
+const el = document.createElement('div');
+const width = 60;
+const height = 60;
+el.className = 'marker';
+el.style.backgroundImage =   `url(assets/icons/ship.svg)`;
+el.style.width = `${width}px`;
+el.style.height = `${height}px`;
+el.style.backgroundSize = '100%';
+ 
+el.addEventListener('click', () => {
+
+//window.alert('La factura ya fue  entregada');
+
+
+});
+const marker2 = new mapboxgl.Marker(el)
+
 marker2.setLngLat([this.paises[p].LONGITUD, this.paises[p].LATITUD])
 .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false}).setText(
 

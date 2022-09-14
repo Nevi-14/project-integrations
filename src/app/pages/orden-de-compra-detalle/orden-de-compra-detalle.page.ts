@@ -2,8 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Lineas } from 'src/app/models/lineas';
 import { LineasService } from 'src/app/services/lineas.service';
 import { ModalController, PopoverController } from '@ionic/angular';
-import { CalendarioPopoverPage } from '../calendario-popover/calendario-popover.page';
-import { OrdenCompra } from 'src/app/models/ordencompra copy';
+import { OrdenCompra } from 'src/app/models/ordencompra';
 
 @Component({
   selector: 'app-orden-de-compra-detalle',

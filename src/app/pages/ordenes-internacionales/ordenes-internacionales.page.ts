@@ -3,7 +3,7 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { PaisesContientesSoftland } from 'src/app/models/paisescontientes';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { Ordenes } from '../../models/ordenes';
-import { OrdenCompra } from '../../models/ordencompra copy';
+import { OrdenCompra } from '../../models/ordencompra';
 import { AlertasService } from '../../services/alertas.service';
 import { OrdenComprasInternacionales } from 'src/app/models/ordenesComprasInternacionales';
 import { OrdenDeCompraDetallePage } from '../orden-de-compra-detalle/orden-de-compra-detalle.page';
