@@ -89,7 +89,7 @@
   
         <ion-col  size="12" size-md="4">
           <ion-label>Monto Imp.</ion-label>
-          <ion-input name="MONTO_DESCUENTO"   readonly="true"   type="text" placeholder="monto impuesto"  [ngModel]="articuloPostArray.montoImpuesto | colones" (ngModelChange)="articuloPostArray.montoImpuesto = $event"  >
+          <ion-input name="MONTO_DESCUENTO"   readonly="true"   type="text" placeholder="monto impuesto"  [ngModel]="montoImpuesto | colones" (ngModelChange)="montoImpuesto = $event"  >
           </ion-input>
         </ion-col>
         <ion-col  size="12" size-md="4">

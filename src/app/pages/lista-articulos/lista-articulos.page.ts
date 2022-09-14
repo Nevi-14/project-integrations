@@ -11,7 +11,6 @@ interface PostArticulos {
   Cajas:number,
   Total: number,
   precioDescuento:number,
-  montoImpuesto: number,
   accion:string
 }
 @Component({
@@ -47,12 +46,14 @@ export class ListaArticulosPage implements OnInit {
     Cajas:1,
     Total: 0,
     precioDescuento:0,
-    montoImpuesto: 0,
     accion:'I',
 
 }
+montoImpuesto = 0;
   textoBuscar = '';
   selected = null;
+  included = false;
+  articuloIndex = null;
   fecha = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
 
   constructor(
@@ -81,30 +82,55 @@ export class ListaArticulosPage implements OnInit {
   productInArray(articulo:Articulos){
     let i =  this.articulosService.articulosPostArray.findIndex(item => item.articulo.ARTICULO == articulo.ARTICULO);
     if(i >=0){
+
      return true;
     }
+
   }
   agregarArticulo(){
-    this.actualizarValores();
- 
-    this.articulosService.articulosPostArray.push(this.articuloPostArray);
+
     this.articulosService.subTotal += this.articuloPostArray.Total
     this.articulosService.total += this.articuloPostArray.Total
     
-    this.modalCtrl.dismiss({
-      articulo:this.articuloPostArray.articulo
-    })
+if(!this.included){
+  this.actualizarValores();
+  this.articulosService.articulosPostArray.push(this.articuloPostArray);
+
+  this.modalCtrl.dismiss({
+    articulo:this.articuloPostArray.articulo
+  })
+}else{
+  let i =  this.articulosService.articulosPostArray.findIndex(item => item.articulo.ARTICULO == this.articuloPostArray.articulo.ARTICULO);
+  this.articulosService.articulosPostArray[i].Unidades = this.articuloPostArray.Unidades;
+  this.articulosService.articulosPostArray[i].Cajas = this.articuloPostArray.Cajas;
+  this.articulosService.articulosPostArray[i].Total = this.articuloPostArray.Total;
+  this.articulosService.articulosPostArray[i].precioDescuento = this.articuloPostArray.precioDescuento;
+  this.modalCtrl.dismiss()
+}
 
   }
   seccionarArticulo(articulo:Articulos, index:number){
 this.selected = index;
-    
+let i =  this.articulosService.articulosPostArray.findIndex(item => item.articulo.ARTICULO == articulo.ARTICULO);
+if(i >=0){
+  this.articuloPostArray.Unidades =  this.articulosService.articulosPostArray[i].Unidades ;
+  this.articuloPostArray.Cajas = this.articulosService.articulosPostArray[i].Cajas;
+  this.articuloPostArray.Total =   this.articulosService.articulosPostArray[i].Total;
+  this.articuloPostArray.precioDescuento = this.articulosService.articulosPostArray[i].precioDescuento;
+  this.articuloPostArray.accion = this.articulosService.articulosPostArray[i].accion;
+  this.articuloIndex = i;
+  this.included = true;
+  this.articuloPostArray = this.articulosService.articulosPostArray[i];
+  this.montoImpuesto = this.articuloPostArray.articulo.IMPUESTO1 *  this.articuloPostArray.articulo.PRECIO_UNITARIO / 100;
+ return;
+}
+this.included = false;
 this.articuloPostArray.articulo.CANTIDAD_ORDENADA = 1;
 this.articuloPostArray.articulo.ARTICULO = articulo.ARTICULO;
 this.articuloPostArray.articulo.DESCRIPCION = articulo.DESCRIPCION;
 this.articuloPostArray.articulo.PRECIO_UNITARIO = articulo.ULT_PREC_UNITARIO;
 this.articuloPostArray.articulo.CANTIDAD_ORDENADA = articulo.FACTOR_CONVERSION;
-
+this.articuloPostArray.accion = "I";
 this.articuloPostArray.Total = this.articuloPostArray.articulo.PRECIO_UNITARIO * this.articuloPostArray.articulo.CANTIDAD_ORDENADA;
 }
 
@@ -117,8 +143,10 @@ this.articuloPostArray.Total = this.articuloPostArray.articulo.PRECIO_UNITARIO *
         if(this.articuloPostArray.articulo.PRECIO_UNITARIO > 0 && this.articuloPostArray.articulo.CANTIDAD_ORDENADA > 0) {
           this.articuloPostArray.Total = Number(this.articuloPostArray.articulo.CANTIDAD_ORDENADA) * Number(this.articuloPostArray.articulo.PRECIO_UNITARIO);
           this.articuloPostArray.articulo.MONTO_DESCUENTO = this.articuloPostArray.articulo.PORC_DESCUENTO *  this.articuloPostArray.articulo.PRECIO_UNITARIO / 100;
-          this.articuloPostArray.montoImpuesto = this.articuloPostArray.articulo.IMPUESTO1 *  this.articuloPostArray.articulo.PRECIO_UNITARIO / 100;
+          this.montoImpuesto = this.articuloPostArray.articulo.IMPUESTO1 *  this.articuloPostArray.articulo.PRECIO_UNITARIO / 100;
+         if(this.articuloPostArray.articulo.PORC_DESCUENTO > 0){
           this.articuloPostArray.precioDescuento =  this.articuloPostArray.articulo.PRECIO_UNITARIO - this.articuloPostArray.articulo.MONTO_DESCUENTO;
+         }
           this.cdr.detectChanges();
           console.log(this.articuloPostArray)
         }
