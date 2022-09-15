@@ -627,6 +627,10 @@ let index = putArticulos.length >0 ? putArticulos.length : 0;
 
                 if(postArticulos.length > 0){
 
+               for(let i = 0; i < postArticulos.length; i++){
+                postArticulos[i].ORDEN_COMPRA_LINEA = i+1;
+
+                if(i == postArticulos.length -1){
                   this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
                     console.log('resp lineas', resp)
                     this.limpiarDatos();
@@ -634,6 +638,9 @@ let index = putArticulos.length >0 ? putArticulos.length : 0;
                     console.log(error)
                     this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
                   });
+                }
+               }
+                
     
     
     
