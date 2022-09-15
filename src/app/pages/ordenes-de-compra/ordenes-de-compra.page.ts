@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OrdenCompraService } from 'src/app/services/ordencompra.service';
 import { ModalController } from '@ionic/angular';
 import { OrdenCompra } from '../../models/ordencompra';
@@ -10,6 +10,7 @@ import { OrdenCompra } from '../../models/ordencompra';
 })
 export class OrdenesDeCompraPage implements OnInit {
   textoBuscar = '';
+  @Input() estado: string
   constructor(
     public ordenescompraservice: OrdenCompraService,
     public modalCtrl:ModalController
@@ -19,7 +20,7 @@ export class OrdenesDeCompraPage implements OnInit {
 
   ) {
 
-    this.ordenescompraservice.syncGetOrdenesCompraEstado('A');
+    this.ordenescompraservice.syncGetOrdenesCompraEstado(this.estado);
 
     
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetButton, ActionSheetController, MenuController, ModalController, PopoverController, AlertController } from '@ionic/angular';
+import { ActionSheetButton, ActionSheetController, MenuController, ModalController, PopoverController } from '@ionic/angular';
 import { Proveedores } from 'src/app/models/proveedores';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
@@ -32,16 +32,7 @@ interface PostArticulos {
   styleUrls: ['./gestion-ordernes.page.scss'],
 })
 export class GestionOrdernesPage implements OnInit {
-   estados = [
-    {label:'Planeación',value:'A', checked:false},
-    {label:'Por aprobar',value:'B', checked:false},
-    {label:'No aprobada',value:'C', checked:false},
-    {label:'Transito',value:'E', checked:false},
-    {label:'Desalmacenaje',value:'D', checked:false},
-    {label:'Liquidada',value:'L', checked:false},
-    {label:'Cancelada',value:'X', checked:false},
-  
-  ]
+
   actualizar = false;
   ordenCompra:OrdenCompra =
   {
@@ -85,7 +76,6 @@ export class GestionOrdernesPage implements OnInit {
   textoBuscar = '';
   articulos:Articulos[]=[];
   modeOn = false;
-  estado = null;
   
     constructor(
       public modalCtrl: ModalController,
@@ -99,7 +89,6 @@ export class GestionOrdernesPage implements OnInit {
       public usuariosService:UsuariosService,
       public menu: MenuController,
       public bodegasService: BodegasService,
-      public alertCTrl: AlertController
     ) { }
   
     ngOnInit() {
@@ -140,58 +129,6 @@ export class GestionOrdernesPage implements OnInit {
       }
     }
   
-async actualizarEstado() {
-
-  let inputs = [];
-  let estado_actual  = '';
-for(let i = 1;  i < this.estados.length; i++){
-
-  if(this.ordenCompra.ESTADO == this.estados[i].value ){
-    estado_actual = this.estados[i].label
-    this.estados[i].checked = true
-  }
- if(i > 1){
-  inputs.push( {
-    label: this.estados[i].label,
-    type: 'radio',
-    value: this.estados[i].value,
-    checked:this.estados[i].checked
-  })
- }
-}
-    const alert = await this.alertCTrl.create({
-      header: 'Actualizar Estado Orden de Compra '+ this.ordenCompra.ORDEN_COMPRA,
-      subHeader:'Estado actual : '+ estado_actual ,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-      
-          },
-        },
-        {
-          text: 'OK',
-          role: 'confirm',
-          handler: (data) => {
-         console.log('data',data)
-         this.ordenCompra.ESTADO = data;
-         this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
-          console.log('orden de compra',[this.ordenCompra]);
-          this.alertasService.message('DIONE', 'El estado se actualizo con exito')
-          this.limpiarDatos();
-        }, error =>{
-          console.log(error)
-          this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
-        });
-          },
-        },
-      ],
-      inputs:inputs,
-    });
-
-    await alert.present();
-  }
     async  listaBodegas(){
       if(!this.proveedor){
         this.alertasService.message('ISLEÑA','Seleccionar Proveedor')
@@ -212,67 +149,18 @@ for(let i = 1;  i < this.estados.length; i++){
      }
          
        }
-       async consultarOrdenesEstado() {
-
-        let inputs = [];
-
-      for(let i = 0;  i < this.estados.length; i++){
-      
-        inputs.push( {
-          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
-          type: 'radio',
-          value: this.estados[i].value,
-          checked:this.estados[i].checked
-        })
-      }
-          const alert = await this.alertCTrl.create({
-            header: 'Consultar OC - Estado',
-            buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                handler: () => {
-              
-                },
-              },
-              {
-                text: 'OK',
-                role: 'confirm',
-                handler: (data) => {
-                  this.estado = data;
-                  this.ordenesDeCompra(data)
-               console.log('data',data)
-                },
-              },
-            ],
-            inputs:inputs,
-          });
-      
-          await alert.present();
-        }
-
-       async  ordenesDeCompra(estado){
+       async  ordenesDeCompra(){
        
         let modal = await  this.modalCtrl.create({
        component:OrdenesDeCompraPage,
        cssClass: 'large-modal',
-       componentProps:{
-        estado:estado
-       }
        
            });
            await modal.present();
            const { data } = await modal.onWillDismiss();
        if(data != undefined){
         this.ordenCompra = data.orden;
-        this.ordenCompra.ESTADO = estado;
-        if(this.ordenCompra.FECHA){
-          let fecha_orden = this.ordenCompra.FECHA;
-this.fecha = new Date(this.ordenCompra.FECHA);
-this.date =  new Date(fecha_orden).getDate();
-this.month =  new Date(fecha_orden).getMonth();
-this.year =  new Date(fecha_orden).getFullYear();
-        }
+        this.ordenCompra.ESTADO = 'A';
         this.actualizar = true;
    this.sincronizarOrdenDeEntregaExistente();
         
@@ -386,12 +274,7 @@ this.year =  new Date(fecha_orden).getFullYear();
         TOTAL_A_COMPRAR: 0,
         INSTRUCCIONES: null
       }
-      this.fecha = new Date();
       this.actualizar = false;
-      this.date = new Date().getDate();
-      this.month = new Date().getMonth();
-      this.year = new Date().getFullYear();
-      
     }
     
 
@@ -649,7 +532,10 @@ this.year =  new Date(fecha_orden).getFullYear();
         this.alertasService.message('ISLEÑA','La orden de compra no se encuentra completa aun.')
         return
       }
-
+  
+      this.fecha.setHours(0,0,0,0)
+      this.ordenCompra.FECHA = new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T00:00:00';
+      this.ordenCompra.FECHA =new Date().toJSON().slice(0, 10).replace(/[/]/g,'-')+'T'+ String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2, '0') +':'+String(new Date().getSeconds()).padStart(2, '0');
       this.alertasService.presentaLoading('Generando Consecutivo')
   
       this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
@@ -685,7 +571,7 @@ this.year =  new Date(fecha_orden).getFullYear();
             console.log('post',postArticulos);
             this.alertasService.loadingDissmiss();
 
-//return;
+
             if(this.actualizar){
                      this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
               console.log('orden de compra',[this.ordenCompra]);

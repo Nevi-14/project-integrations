@@ -1,15 +1,17 @@
 
  <ion-toolbar   >
 
-
-<ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0" slot="end" size="small" color="dark"  (click)="generarPost()">
+   <ion-fab-button *ngIf="actualizar" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
+      <ion-icon name="create-outline"></ion-icon>
+    </ion-fab-button>
+<ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0 && this.estado != 'B' && this.estado != 'C'  && this.estado != 'X' && this.estado != 'L' " slot="end" size="small" color="dark"  (click)="generarPost()">
   <ion-icon name="save"></ion-icon>
 </ion-fab-button>
 <ion-fab-button slot="end" size="small" color="dark" (click)="listaProveedores()">
   <ion-icon name="settings"></ion-icon>
 </ion-fab-button>
 
-<ion-fab-button *ngIf="usuariosService.usuario.UsuarioExactus == 'GCOMPRAS'" slot="end" size="small" color="dark" (click)="ordenesDeCompra()">
+<ion-fab-button *ngIf="usuariosService.usuario.UsuarioExactus == 'GCOMPRAS'" slot="end" size="small" color="dark" (click)="consultarOrdenesEstado()">
   <ion-icon name="search"></ion-icon>
 </ion-fab-button>
 
