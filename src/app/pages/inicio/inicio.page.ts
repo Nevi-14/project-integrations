@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, Platform } from '@ionic/angular';
+import { AppSettingsService } from 'src/app/services/app_settings';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -28,7 +29,8 @@ export class InicioPage implements OnInit {
     public router: Router,
     public menuCtrl: MenuController,
     public plt:Platform,
-    public usuariosService:UsuariosService
+    public usuariosService:UsuariosService,
+    public appSettingService: AppSettingsService
     
     
     

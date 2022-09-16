@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
+import { AppSettingsService } from 'src/app/services/app_settings';
 
 @Component({
   selector: 'app-encabezado',
@@ -11,13 +12,14 @@ export class EncabezadoComponent implements OnInit {
 fecha = new Date().toLocaleDateString();
   constructor(
     public menuCtrl: MenuController,
-    private plt:Platform
+    private plt:Platform,
+    public appSettingService: AppSettingsService
     
       ) {}
 
   ngOnInit() {}
   toggle(){
- //   this.class = true;
+ this.appSettingService.menu = !this.appSettingService.menu ;
     this.menuCtrl.toggle('myMenu');
   
   }

@@ -52,7 +52,7 @@ export class GestionOrdernesPage implements OnInit {
     CONDICION_PAGO: null,
     MONEDA: null,
     PAIS:  null,
-    ESTADO:  null,
+    ESTADO:  'A',
     FECHA:  null,
     FECHA_COTIZACION:  null,
     FECHA_REQUERIDA: null,
@@ -143,35 +143,76 @@ export class GestionOrdernesPage implements OnInit {
 async actualizarEstado() {
 
   let inputs = [];
-  let estado_actual  = '';
-for(let i = 1;  i < this.estados.length; i++){
+for(let i = 0;  i < this.estados.length; i++){
 
   if(this.ordenCompra.ESTADO == this.estados[i].value ){
-    estado_actual = this.estados[i].label
     this.estados[i].checked = true
   }
- if(i > 1){
-  inputs.push( {
-    label: this.estados[i].label,
-    type: 'radio',
-    value: this.estados[i].value,
-    checked:this.estados[i].checked
-  })
- }
+
+  switch(this.ordenCompra.ESTADO){
+    case 'A':
+      if(this.estados[i].value  == 'B'  || this.estados[i].value  == 'X' ){
+        inputs.push( {
+          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+          type: 'radio',
+          value: this.estados[i].value,
+          checked:this.estados[i].checked
+        })
+       }
+
+      break;
+    case 'B':
+      if(this.estados[i].value  == 'C'  || this.estados[i].value  == 'E' ){
+        inputs.push( {
+          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+          type: 'radio',
+          value: this.estados[i].value,
+          checked:this.estados[i].checked
+        })
+       }
+      break;
+
+      case 'E':
+        if(this.estados[i].value  == 'D' ){
+          inputs.push( {
+            label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+            type: 'radio',
+            value: this.estados[i].value,
+            checked:this.estados[i].checked
+          })
+         }
+        break;
+
+        case 'D':
+          if(this.estados[i].value  == 'L' ){
+            inputs.push( {
+              label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+              type: 'radio',
+              value: this.estados[i].value,
+              checked:this.estados[i].checked
+            })
+           }
+        break;
+    default:
+      
+  };
+
+
+
 }
     const alert = await this.alertCTrl.create({
-      header: 'Actualizar Estado Orden de Compra '+ this.ordenCompra.ORDEN_COMPRA,
-      subHeader:'Estado actual : '+ estado_actual ,
+      header: 'Actualizar Estado',
+      subHeader:'Orden de compra ' +this.ordenCompra.ORDEN_COMPRA,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelelar',
           role: 'cancel',
           handler: () => {
       
           },
         },
         {
-          text: 'OK',
+          text: 'Continuar',
           role: 'confirm',
           handler: (data) => {
          console.log('data',data)
@@ -191,6 +232,15 @@ for(let i = 1;  i < this.estados.length; i++){
     });
 
     await alert.present();
+  }
+
+  estadoOrden(){
+
+    let i = this.estados.findIndex(estado => estado.value == this.ordenCompra.ESTADO);
+
+    return '('+this.estados[i].value +')'+ this.estados[i].label
+
+
   }
     async  listaBodegas(){
       if(!this.proveedor){
@@ -213,30 +263,37 @@ for(let i = 1;  i < this.estados.length; i++){
          
        }
        async consultarOrdenesEstado() {
-
+  
+        if(localStorage.getItem('proveedores')){
+          this.proveedoresService.proveedores = JSON.parse(localStorage.getItem('proveedores'));
+        }
+        this.proveedoresService.syncGetProvedorestoPromise('').then(resp =>{
+          this.proveedoresService.proveedores = resp.slice(0);
+        })
+      
         let inputs = [];
 
       for(let i = 0;  i < this.estados.length; i++){
-      
+  
         inputs.push( {
           label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
           type: 'radio',
           value: this.estados[i].value,
-          checked:this.estados[i].checked
+          checked:false
         })
       }
           const alert = await this.alertCTrl.create({
             header: 'Consultar OC - Estado',
             buttons: [
               {
-                text: 'Cancel',
+                text: 'Cancelar',
                 role: 'cancel',
                 handler: () => {
               
                 },
               },
               {
-                text: 'OK',
+                text: 'Continuar',
                 role: 'confirm',
                 handler: (data) => {
                   this.estado = data;
@@ -366,7 +423,7 @@ this.year =  new Date(fecha_orden).getFullYear();
         CONDICION_PAGO: null,
         MONEDA: null,
         PAIS:  null,
-        ESTADO:  null,
+        ESTADO:  'A',
         FECHA:  null,
         FECHA_COTIZACION:  null,
         FECHA_REQUERIDA: null,

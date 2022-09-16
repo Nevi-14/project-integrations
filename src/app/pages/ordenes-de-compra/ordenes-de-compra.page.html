@@ -32,6 +32,16 @@
       
       </p>
       </ion-label>
+      <ion-label>
+        <h3><ion-icon   name="person-outline" style="margin-right: 0.5rem;"></ion-icon>{{ proveedor(orden.PROVEEDOR) }}</h3>
+       
+        <p>
+    
+        <ion-icon name="cash-outline" style="margin-right: 0.5rem;"></ion-icon>
+        {{orden.TOTAL_A_COMPRAR  | colones}}
+      
+      </p>
+      </ion-label>
 
     </ion-item>
   </ion-list>

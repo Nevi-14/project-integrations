@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OrdenCompraService } from 'src/app/services/ordencompra.service';
 import { ModalController } from '@ionic/angular';
 import { OrdenCompra } from '../../models/ordencompra';
+import { ProveedoresService } from '../../services/proveedores.service';
 
 @Component({
   selector: 'app-ordenes-de-compra',
@@ -13,16 +14,27 @@ export class OrdenesDeCompraPage implements OnInit {
   @Input() estado: string
   constructor(
     public ordenescompraservice: OrdenCompraService,
-    public modalCtrl:ModalController
+    public modalCtrl:ModalController,
+    public proveedoresService: ProveedoresService
   ) { }
 
   ngOnInit(
 
   ) {
+    
 
     this.ordenescompraservice.syncGetOrdenesCompraEstado(this.estado);
 
     
+  }
+  proveedor(ID){
+
+
+      let i = this.proveedoresService.proveedores.findIndex(provedor => provedor.ID == ID);
+      return this.proveedoresService.proveedores[i].NOMBRE
+    
+
+
   }
   onSearchChange(event){
 

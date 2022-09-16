@@ -1,72 +1,78 @@
 
  <ion-toolbar   >
-
-   <ion-fab-button *ngIf="actualizar" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
-      <ion-icon name="create-outline"></ion-icon>
-    </ion-fab-button>
-<ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0 && this.estado != 'B' && this.estado != 'C'  && this.estado != 'X' && this.estado != 'L' " slot="end" size="small" color="dark"  (click)="generarPost()">
-  <ion-icon name="save"></ion-icon>
-</ion-fab-button>
-<ion-fab-button slot="end" size="small" color="dark" (click)="listaProveedores()">
-  <ion-icon name="settings"></ion-icon>
-</ion-fab-button>
-
-<ion-fab-button *ngIf="usuariosService.usuario.UsuarioExactus == 'GCOMPRAS'" slot="end" size="small" color="dark" (click)="consultarOrdenesEstado()">
-  <ion-icon name="search"></ion-icon>
-</ion-fab-button>
-
-<ion-fab-button slot="end" size="small" color="dark" (click)="limpiarDatos()">
-  <ion-icon name="reload"></ion-icon>
-</ion-fab-button>
-<ion-fab-button slot="end" size="small" color="dark" (click)="salir()">
-  <ion-icon name="exit"></ion-icon>
-</ion-fab-button>
+   <ion-row>
+      <ion-col size="7">
+         <ion-row>
+            <ion-col size="6" class="ion-text-center">
+               <ion-item *ngIf="ordenCompra" lines="none">
+                  <ion-label><strong><h2>    ORDEN DE COMPRA </h2></strong></ion-label>
+                  <ion-badge    color="warning"  mode="ios">{{ordenCompra.ORDEN_COMPRA}}</ion-badge>
+               </ion-item>
+       <ion-item *ngIf="ordenCompra" lines="none">
+         <ion-label style="margin-right: 0.5rem;">ESTADO</ion-label>
+         <ion-badge color="dark"  mode="ios">{{estadoOrden()}}</ion-badge>
+       </ion-item>
+            </ion-col>
+   
+            <ion-col size="6">
+               <ion-row class="dark-header">
+                  <ion-col size="4">
+      Dia
+                  </ion-col>
+                  <ion-col size="4">
+                     Mes
+                  </ion-col>
+                  <ion-col size="4">
+                     Año
+                  </ion-col>
+               </ion-row>
+               <ion-row class="row-text-center">
+                  <ion-col size="4">
+      {{date}}
+                  </ion-col>
+                  <ion-col size="4">
+                     {{month}}
+                  </ion-col>
+                  <ion-col size="4">
+                     {{year}}
+                  </ion-col>
+               </ion-row>
+            </ion-col>
+         </ion-row>
+      </ion-col>
+   
+      <ion-col size="5">
+         
+   <ion-item lines="none">
+      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'A' || ordenCompra.ESTADO == 'B'  || ordenCompra.ESTADO == 'E' || ordenCompra.ESTADO == 'D'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
+         <ion-icon name="create-outline"></ion-icon>
+       </ion-fab-button>
+   <ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0 ||  ordenCompra.ESTADO == 'A' || ordenCompra.ESTADO == 'B'  ||ordenCompra.ESTADO == 'E' || ordenCompra.ESTADO == 'D' " slot="end" size="small" color="dark"  (click)="generarPost()">
+     <ion-icon name="save"></ion-icon>
+   </ion-fab-button>
+   <ion-fab-button slot="end" size="small" color="dark" (click)="listaProveedores()">
+     <ion-icon name="settings"></ion-icon>
+   </ion-fab-button>
+   
+   <ion-fab-button *ngIf="usuariosService.usuario.UsuarioExactus == 'GCOMPRAS'" slot="end" size="small" color="dark" (click)="consultarOrdenesEstado()">
+     <ion-icon name="search"></ion-icon>
+   </ion-fab-button>
+   
+   <ion-fab-button slot="end" size="small" color="dark" (click)="limpiarDatos()">
+     <ion-icon name="reload"></ion-icon>
+   </ion-fab-button>
+   <ion-fab-button slot="end" size="small" color="dark" (click)="salir()">
+     <ion-icon name="exit"></ion-icon>
+   </ion-fab-button>
+   </ion-item>
+      </ion-col>
+           
+   </ion-row>
 </ion-toolbar>
 
 
 
 <ion-content >
-  <ion-row>
-
-
-<ion-col size="6">
-   <ion-row>
-      <ion-col size="12">
-         <ion-label><strong><h2>    ORDEN DE COMPRA #</h2></strong></ion-label>
-         <ion-input readonly *ngIf="ordenCompra"  type="text" placeholder="Ingresar Orden de  compra" [(ngModel)]="ordenCompra.ORDEN_COMPRA"></ion-input>
-
-
-      </ion-col>
-      <ion-col size="12">
-         <ion-row class="dark-header">
-            <ion-col size="4">
-Dia
-            </ion-col>
-            <ion-col size="4">
-               Mes
-            </ion-col>
-            <ion-col size="4">
-               Año
-            </ion-col>
-         </ion-row>
-         <ion-row class="row-text-center">
-            <ion-col size="4">
-{{date}}
-            </ion-col>
-            <ion-col size="4">
-               {{month}}
-            </ion-col>
-            <ion-col size="4">
-               {{year}}
-            </ion-col>
-         </ion-row>
-      </ion-col>
-   </ion-row>
-</ion-col>
-     
-
-     
-  </ion-row>
 
   
    <ion-card  class="ion-margin" *ngIf="proveedor">
@@ -86,8 +92,7 @@ Dia
                <ion-row>
                  <ion-col size="12">
                     <ion-label><h2>Proveedor : {{proveedor.NOMBRE}}</h2></ion-label>
-                    <ion-label *ngIf="articulosService.articulosPostArray.length > 0">Total de Articulos :   <ion-badge  color="warning" mode="ios">{{articulosService.articulos.length}}</ion-badge></ion-label>
-           
+                 
                  </ion-col>
      
                 
@@ -293,7 +298,8 @@ Dia
  <ion-card style="margin-top: 6rem;" class="ion-margin">
 
   <ion-item color="dark"  >
-     <ion-label slot="start"><strong><h2>LISTA DE ARTICULOS</h2></strong></ion-label>
+     <ion-label slot="start"><strong><h2>LISTA DE ARTICULOS      <ion-badge  color="warning" mode="ios">{{articulosService.articulosPostArray.length}}</ion-badge></h2></strong></ion-label>
+
      <ion-searchbar color="light" class="ion-margin-top"   mode="ios" style="max-width:40vw"  inputmode="text"  debounce="250" placeholder="Buscar Articulo" (ionChange)="onSearchChange($event)" ></ion-searchbar>
      <ion-badge slot="end" color="primary" mode="ios" >ARTICULOS</ion-badge>
   <ion-fab-button slot="end"  (click)="listaArticulos()" color="primary" size="small">
