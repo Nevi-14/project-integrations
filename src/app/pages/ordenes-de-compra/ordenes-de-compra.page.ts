@@ -22,7 +22,7 @@ export class OrdenesDeCompraPage implements OnInit {
 
   ) {
     
-
+console.log('this.proveedoresService.proveedores',this.proveedoresService.proveedores)
     this.ordenescompraservice.syncGetOrdenesCompraEstado(this.estado);
 
     
@@ -31,9 +31,11 @@ export class OrdenesDeCompraPage implements OnInit {
 
 
       let i = this.proveedoresService.proveedores.findIndex(provedor => provedor.ID == ID);
-      return this.proveedoresService.proveedores[i].NOMBRE
+      if(i >=0){
+        return this.proveedoresService.proveedores[i].NOMBRE
+      }
     
-
+       
 
   }
   onSearchChange(event){

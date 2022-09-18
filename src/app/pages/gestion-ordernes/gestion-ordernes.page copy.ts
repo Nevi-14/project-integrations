@@ -149,18 +149,12 @@ export class GestionOrdernesPage implements OnInit {
       let inputs = [];
       let approvers:ONEOCAprob[] = [];
       for(let i = 0;  i < this.usuariosService.approvers.length; i++){
-        let a =  this.usuariosService.ocAppData.findIndex(aprob => aprob.Usuario == this.usuariosService.approvers[i].Usuario  &&  aprob.ORDEN_COMPRA == this.ordenCompra.ORDEN_COMPRA );
-        if(a < 0 ){
-          inputs.push( {
-            label: this.usuariosService.approvers[i].Usuario ,
-            type: 'checkbox',
-            value: this.usuariosService.approvers[i].Usuario,
-            checked:false
-          })
-
-        }
-
-  
+        inputs.push( {
+          label: this.usuariosService.approvers[i].Usuario ,
+          type: 'checkbox',
+          value: this.usuariosService.approvers[i].Usuario,
+          checked:false
+        })
   
       }
         const alert = await this.alertCTrl.create({
@@ -180,11 +174,11 @@ export class GestionOrdernesPage implements OnInit {
               handler: (data) => {
                 this.ordenCompra.ESTADO = this.estado
 
-            
+                return
                 data.forEach(user => {
                   approvers.push({
     ORDEN_COMPRA: this.ordenCompra.ORDEN_COMPRA,
-     Usuario: user,
+     Usuario: this.usuariosService.usuario.UsuarioExactus,
      Estatus: this.ordenCompra.ESTADO,
      Fecha: new Date().toISOString()
                   })
@@ -215,7 +209,25 @@ export class GestionOrdernesPage implements OnInit {
         await alert.present();
       }
 
- 
+      async postApprovers(approvers){
+        for(let i =0; i < approvers.length; i++){
+           this.usuariosService.syncPostONEOCAprobToPromise(approvers[i]).then(resp =>{
+          console.log(resp, 'test')
+
+          if(i == approvers.length -1){
+            this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
+              console.log('orden de compra',[this.ordenCompra]);
+              this.alertasService.message('DIONE', 'El estado se actualizo con exito')
+              this.limpiarDatos();
+            }, error =>{
+              console.log(error)
+              this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
+            });
+          }
+          });
+          
+                  }
+      }
 async actualizarEstado() {
 
   let inputs = [];
@@ -298,20 +310,18 @@ for(let i = 0;  i < this.estados.length; i++){
           this.approvers();
 
           return
-         }else{
-          this.ordenCompra.ESTADO = this.estado;
-          this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
-            console.log('orden de compra',[this.ordenCompra]);
-            this.alertasService.message('DIONE', 'El estado se actualizo con exito')
-         
-            this.limpiarDatos();
-          }, error =>{
-            console.log(error)
-            this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
-          });
          }
 
+            
+         this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
+          console.log('orden de compra',[this.ordenCompra]);
+          this.alertasService.message('DIONE', 'El estado se actualizo con exito')
          
+          this.limpiarDatos();
+        }, error =>{
+          console.log(error)
+          this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
+        });
         
    
           },

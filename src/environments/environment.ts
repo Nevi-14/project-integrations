@@ -22,6 +22,8 @@ export const environment = {
   idParam :'?ID=',
   numParam: '&Num= ',
   usuariosURL:    'ONE_Users/',
+  ONE_UserAprob:'ONE_UserAprob',
+  ONE_OCAprob:'ONE_OCAprob',
   idProvedorParam:'?IDProv=',
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
   
