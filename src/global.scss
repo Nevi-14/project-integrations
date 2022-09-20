@@ -484,3 +484,10 @@ ion-modal.fullscreen-large-modal {
 .alert-popup{
   z-index: 50123!important;
 }
+
+.custom-alert{
+  --backdrop-opacity: 0.8 !important;
+  --height:40%;
+  --width: 40%;
+  --max-width: 40%;
+}

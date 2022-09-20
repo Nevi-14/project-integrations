@@ -166,6 +166,7 @@ export class GestionOrdernesPage implements OnInit {
         const alert = await this.alertCTrl.create({
           header: 'Aprobador OC',
           subHeader:'Orden de compra ' +this.ordenCompra.ORDEN_COMPRA,
+          cssClass:'custom-alert',
           buttons: [
             {
               text: 'Cancelar',
