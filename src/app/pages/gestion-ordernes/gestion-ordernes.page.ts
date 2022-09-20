@@ -152,7 +152,7 @@ export class GestionOrdernesPage implements OnInit {
         let a =  this.usuariosService.ocAppData.findIndex(aprob => aprob.Usuario == this.usuariosService.approvers[i].Usuario  &&  aprob.ORDEN_COMPRA == this.ordenCompra.ORDEN_COMPRA );
         if(a < 0 ){
           inputs.push( {
-            label: this.usuariosService.approvers[i].Usuario ,
+            label: this.usuariosService.approvers[i].Posicion ,
             type: 'checkbox',
             value: this.usuariosService.approvers[i].Usuario,
             checked:false
