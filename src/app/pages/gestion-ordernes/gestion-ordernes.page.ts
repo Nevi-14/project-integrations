@@ -19,6 +19,7 @@ import { OrdenesDeCompraPage } from '../ordenes-de-compra/ordenes-de-compra.page
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BodegasService } from 'src/app/services/bodegas.service';
 import { ONEOCAprob } from 'src/app/models/ONEOCAprob';
+import { ONEUserAprob } from '../../models/ONEUserAprob';
 interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
@@ -87,6 +88,7 @@ export class GestionOrdernesPage implements OnInit {
   articulos:Articulos[]=[];
   modeOn = false;
   estado = null;
+  aprobadoresActuales:ONEOCAprob[]=[]
   
     constructor(
       public modalCtrl: ModalController,
@@ -179,6 +181,11 @@ export class GestionOrdernesPage implements OnInit {
               text: 'Continuar',
               role: 'confirm',
               handler: (data) => {
+
+                if(data.length == 0){
+                  this.alertasService.message('DIONE','Debes seleccionar 1 aprobador como minimo')
+                   return;
+                }
                 this.ordenCompra.ESTADO = this.estado
 
             
@@ -352,6 +359,7 @@ for(let i = 0;  i < this.estados.length; i++){
      }
          
        }
+
        async consultarOrdenesEstado() {
   
         if(localStorage.getItem('proveedores')){
@@ -388,6 +396,7 @@ for(let i = 0;  i < this.estados.length; i++){
                 handler: (data) => {
                   this.estado = data;
                   this.ordenesDeCompra(data)
+                
                console.log('data',data)
                 },
               },
@@ -426,9 +435,69 @@ this.year =  new Date(fecha_orden).getFullYear();
        }
            
          }
+
+
+         
+
+         async aprobadores(inputs){
+          console.log('aprobers', this.aprobadoresActuales)
+          const alert = await this.alertCTrl.create({
+            header: 'Aprobación Pendiente '+this.ordenCompra.ORDEN_COMPRA,
+            cssClass:'custom-alert',
+  
+            inputs:inputs,
+          });
+      
+          await alert.present();
+         }
+
+      async   consultarAprobadores(){
+        let inputs = [];
+        this.usuariosService.syncGetONEOCAprobToPromise(this.ordenCompra.ORDEN_COMPRA, "").then((data) => {
+
+          if(data.length == 0){
+            this.alertasService.message('DIONE', 'No hay datos que mostrar.')
+          }
+          
+for(let i =0; i < data.length; i++){
+  console.log('this.usuariosService.approvers',this.usuariosService.approvers)
+  console.log('data[i].Usuario',data[i].Usuario)
+  let a = this.usuariosService.approvers.findIndex(aprobador => aprobador.Usuario == data[i].Usuario );
+
+  if(a >=0){
+    inputs.push( {
+      label: this.usuariosService.approvers[a].Posicion ,
+      type: 'text',
+      value: this.usuariosService.approvers[a].Posicion,
+      disabled:true
+    })
+  }
+
+  if(i == data.length -1){
+    this.aprobadores(inputs);
+  }
+
+}
+     
+  
+          
+        }).catch((err) => {
+          
+        });
+
+          
+
+
+
+         }
   
   
+
+
+
          sincronizarOrdenDeEntregaExistente(){
+          this.alertasService.presentaLoading('Cargando datos...')
+    
           this.ordenCompra.FECHA = null;
           this.ordenCompra.USUARIO = this.usuariosService.usuario.UsuarioExactus;
           this.proveedoresService.proveedores = []
@@ -453,6 +522,7 @@ this.year =  new Date(fecha_orden).getFullYear();
                 this.lineasService.syncConsultarLineasOrdenCompra(this.ordenCompra.ORDEN_COMPRA).then(lineas =>{
                   console.log('lineas', lineas)
                   this.rellenarLineas(lineas);
+                  this.alertasService.dismissAllLoaders();
                               });
               })
   
@@ -497,7 +567,6 @@ this.year =  new Date(fecha_orden).getFullYear();
     
     limpiarDatos(){
       this.usuariosService.syncGetONEUserAprob();
-      this.usuariosService.syncGetONEOCAprob();
       this.articulosService.total = 0;
       this.articulosService.subTotal = 0;
       this.proveedor = null;

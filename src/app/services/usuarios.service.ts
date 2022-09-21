@@ -80,8 +80,10 @@ ocAppData:ONEOCAprob[]=[];
     return this.http.get<ONEUserAprob[]>(URL);
   }
 
-  private getONEOCAprob(){
-    let URL = this.getURLTest(environment.ONE_UserAprob);
+  private getONEOCAprob(ID,USUARIO){
+    let URL = this.getURLTest(environment.ONE_OCAprob);
+    URL = URL + environment.idParam+ID+environment.usuarioParam+USUARIO;
+    console.log('getOneCA', URL)
     return this.http.get<ONEOCAprob[]>(URL);
   }
   private postONEOCAprob(data:ONEOCAprob[]){
@@ -116,8 +118,8 @@ ocAppData:ONEOCAprob[]=[];
     )
     }
 
-    syncGetONEOCAprob(){
-      return  this.getONEOCAprob().subscribe(
+    syncGetONEOCAprob(ID,USUARIO){
+      return  this.getONEOCAprob(ID,USUARIO).subscribe(
     
         resp => {
     
@@ -133,6 +135,9 @@ ocAppData:ONEOCAprob[]=[];
         }
       )
       }
+      syncGetONEOCAprobToPromise(ID,USUARIO){
+        return  this.getONEOCAprob(ID,USUARIO).toPromise()
+        }
   syncGetONEUserAprobToPromise(){
     return  this.getONEUserAprob().toPromise();
     }

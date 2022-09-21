@@ -53,7 +53,10 @@
    <ion-fab-button  *ngIf="ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark" (click)="listaProveedores()">
      <ion-icon name="settings"></ion-icon>
    </ion-fab-button>
-   
+   <ion-fab-button  *ngIf="ordenCompra.ESTADO == 'B'" slot="end" size="small" color="dark" (click)="consultarAprobadores()">
+      <ion-icon name="people"></ion-icon>
+    </ion-fab-button>
+    
    <ion-fab-button *ngIf="usuariosService.usuario.UsuarioExactus == 'GCOMPRAS'" slot="end" size="small" color="dark" (click)="consultarOrdenesEstado()">
      <ion-icon name="search"></ion-icon>
    </ion-fab-button>

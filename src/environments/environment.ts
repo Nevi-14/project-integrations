@@ -21,6 +21,7 @@ export const environment = {
   ultimaOrdenCompraURL:'ONE_Consec',
   idParam :'?ID=',
   numParam: '&Num= ',
+  usuarioParam: '&Usuario= ',
   usuariosURL:    'ONE_Users/',
   ONE_UserAprob:'ONE_UserAprob',
   ONE_OCAprob:'ONE_OCAprob',
