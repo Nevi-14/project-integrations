@@ -439,57 +439,54 @@ this.year =  new Date(fecha_orden).getFullYear();
 
          
 
-         async aprobadores(inputs){
-          console.log('aprobers', this.aprobadoresActuales)
-          const alert = await this.alertCTrl.create({
-            header: 'Aprobación Pendiente '+this.ordenCompra.ORDEN_COMPRA,
-            cssClass:'custom-alert',
-  
-            inputs:inputs,
-          });
+  async aprobadores(inputs){
+    console.log('aprobers', this.aprobadoresActuales)
+    const alert = await this.alertCTrl.create({
+      header: 'Aprobación Pendiente '+this.ordenCompra.ORDEN_COMPRA,
+      cssClass:'custom-alert',
+      mode: 'ios',
+      buttons: ['OK'],
+      inputs:inputs,
+    });
       
-          await alert.present();
-         }
-
-      async   consultarAprobadores(){
-        let inputs = [];
-        this.usuariosService.syncGetONEOCAprobToPromise(this.ordenCompra.ORDEN_COMPRA, "").then((data) => {
-
-          if(data.length == 0){
-            this.alertasService.message('DIONE', 'No hay datos que mostrar.')
-          }
-          
-for(let i =0; i < data.length; i++){
-  console.log('this.usuariosService.approvers',this.usuariosService.approvers)
-  console.log('data[i].Usuario',data[i].Usuario)
-  let a = this.usuariosService.approvers.findIndex(aprobador => aprobador.Usuario == data[i].Usuario );
-
-  if(a >=0){
-    inputs.push( {
-      label: this.usuariosService.approvers[a].Posicion ,
-      type: 'text',
-      value: this.usuariosService.approvers[a].Posicion,
-      disabled:true
-    })
+    await alert.present();
   }
 
-  if(i == data.length -1){
-    this.aprobadores(inputs);
+  async   consultarAprobadores(){
+    let inputs = [];
+    let etiqueta = '';
+
+    this.usuariosService.syncGetONEOCAprobToPromise(this.ordenCompra.ORDEN_COMPRA, "").then((data) => {
+      if(data.length == 0){
+        this.alertasService.message('DIONE', 'No hay datos que mostrar.')
+      }
+          
+      for(let i =0; i < data.length; i++){
+        console.log('this.usuariosService.approvers',this.usuariosService.approvers)
+        console.log('data[i].Usuario',data[i].Usuario)
+        let a = this.usuariosService.approvers.findIndex(aprobador => aprobador.Usuario == data[i].Usuario );
+
+        if (data[i].Estatus === 'B'){
+          etiqueta = '(Por Aprobar) - ';
+        } else if (data[i].Estatus === 'E'){ 
+          etiqueta = '(Aprobada) - ';
+        } else if (data[i].Estatus === 'C'){ 
+          etiqueta = '(NO Aprobada) - ';
+        }
+        if(a >=0){
+          inputs.push( {
+            label: this.usuariosService.approvers[a].Posicion ,
+            type: 'text',
+            value: `${etiqueta}${this.usuariosService.approvers[a].Posicion}`,
+            disabled:true
+          })
+        }
+        if(i == data.length -1){
+          this.aprobadores(inputs);
+        }
+      } 
+    }).catch((err) => {});
   }
-
-}
-     
-  
-          
-        }).catch((err) => {
-          
-        });
-
-          
-
-
-
-         }
   
   
 
