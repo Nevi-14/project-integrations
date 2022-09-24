@@ -20,6 +20,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BodegasService } from 'src/app/services/bodegas.service';
 import { ONEOCAprob } from 'src/app/models/ONEOCAprob';
 import { ONEUserAprob } from '../../models/ONEUserAprob';
+import { PdfService } from 'src/app/services/pdf.service';
+
 interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
@@ -102,7 +104,8 @@ export class GestionOrdernesPage implements OnInit {
       public usuariosService:UsuariosService,
       public menu: MenuController,
       public bodegasService: BodegasService,
-      public alertCTrl: AlertController
+      public alertCTrl: AlertController,
+      public pdfSErvice:PdfService
     ) { }
   
     ngOnInit() {
@@ -121,7 +124,29 @@ export class GestionOrdernesPage implements OnInit {
       this.textoBuscar = event.detail.value;
     }
   
+    generatePDF(){
 
+      let header = [
+        'Proveedor: '+ this.proveedor.NOMBRE,
+        'Teléfono: '+ this.proveedor.TELEFONO1,
+        'Dirección: '+ this.proveedor.DIRECCION,
+        'Fax: '+ this.proveedor.FAX,
+        'País: '+ this.proveedor.PAIS,
+        'Condición de Pago: '+ this.proveedor.CONDICION_PAGO,
+        'Moneda: '+ this.proveedor.MONEDA,
+        'Dirección de Embarque: '+ this.proveedor.DIRECCION,
+        'Fecha de la Orden: '+ this.proveedor.DIRECCION,
+        'Fecha de Cotización: '+ this.ordenCompra.FECHA_COTIZACION,
+        'Fecha Requerida: '+ this.ordenCompra.FECHA_REQUERIDA
+
+      ]
+      let name = 'pdfTest'
+      let date = new Date(this.ordenCompra.FECHA);
+      let title = 'Orden de Compra';
+      let title2 = 'Número de Orden : ' + this.ordenCompra.ORDEN_COMPRA;
+
+      this.pdfSErvice.generatePDF(header,name,date,title,title2)
+    }
     salir(){
       this.route.navigate(['/inicio-sesion']);
     }
@@ -606,6 +631,7 @@ this.year =  new Date(fecha_orden).getFullYear();
       this.date = new Date().getDate();
       this.month = new Date().getMonth();
       this.year = new Date().getFullYear();
+      this.ordenCompra.FECHA = this.fecha.toISOString()
       
     }
     

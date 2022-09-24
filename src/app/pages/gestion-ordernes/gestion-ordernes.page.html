@@ -44,6 +44,9 @@
       <ion-col size="5">
          
    <ion-item lines="none">
+      <ion-fab-button *ngIf="actualizar" slot="end" size="small" color="dark"  (click)="generatePDF()">
+         <ion-icon name="document-outline"></ion-icon>
+      </ion-fab-button>
       <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
          <ion-icon name="create-outline"></ion-icon>
        </ion-fab-button>
