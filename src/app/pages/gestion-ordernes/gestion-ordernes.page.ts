@@ -145,7 +145,7 @@ export class GestionOrdernesPage implements OnInit {
       let title = 'Orden de Compra';
       let title2 = 'Número de Orden : ' + this.ordenCompra.ORDEN_COMPRA;
 
-      this.pdfSErvice.generatePDF(header,name,date,title,title2)
+      this.pdfSErvice.generatePDF(header,name,date,title,title2,this.articulosService.articulosPostArray, this.ordenCompra)
     }
     salir(){
       this.route.navigate(['/inicio-sesion']);
