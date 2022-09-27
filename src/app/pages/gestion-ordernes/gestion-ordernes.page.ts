@@ -137,14 +137,14 @@ export class GestionOrdernesPage implements OnInit {
         'Dirección de Embarque: '+ this.proveedor.DIRECCION,
         'Fecha de la Orden: '+ this.proveedor.DIRECCION,
         'Fecha de Cotización: '+ this.ordenCompra.FECHA_COTIZACION,
-        'Fecha Requerida: '+ this.ordenCompra.FECHA_REQUERIDA
+        'Fecha Requerida: '+ this.pdfSErvice.getFormattedDate(new Date(this.ordenCompra.FECHA_REQUERIDA))
 
       ]
-      let name = 'pdfTest'
-      let date = new Date(this.ordenCompra.FECHA);
+      let name = this.ordenCompra.ORDEN_COMPRA
+      let date = new Date(this.ordenCompra.FECHA_REQUERIDA);
       let title = 'Orden de Compra';
       let title2 = 'Número de Orden : ' + this.ordenCompra.ORDEN_COMPRA;
-
+console.log(this.ordenCompra);
       this.pdfSErvice.generatePDF(header,name,date,title,title2,this.articulosService.articulosPostArray, this.ordenCompra)
     }
     salir(){
@@ -451,7 +451,7 @@ for(let i = 0;  i < this.estados.length; i++){
           let fecha_orden = this.ordenCompra.FECHA;
 this.fecha = new Date(this.ordenCompra.FECHA);
 this.date =  new Date(fecha_orden).getDate();
-this.month =  new Date(fecha_orden).getMonth();
+this.month =  new Date(fecha_orden).getMonth()+1;
 this.year =  new Date(fecha_orden).getFullYear();
         }
         this.actualizar = true;

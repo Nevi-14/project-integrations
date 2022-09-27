@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Img, PdfMakeWrapper, Table, Txt} from 'pdfmake-wrapper';
+import {Img, PageReference, PdfMakeWrapper, Table, TextReference, Txt} from 'pdfmake-wrapper';
 import { OrdenCompra } from '../models/ordencompra';
-
+import { ColonesPipe } from '../pipes/colones.pipe';
 
 
 
@@ -31,9 +31,9 @@ export class PdfService {
     let header2 = null;
   
     pdf1.info({
-      title:'title',
-      author: 'author',
-      subject: 'subject',
+      title:ordenCompra.ORDEN_COMPRA,
+      author: ordenCompra.USUARIO,
+      subject: 'Orden de compra',
   });
 
 
@@ -56,27 +56,6 @@ export class PdfService {
 
 
 
-  
-
-/**
- *   let headerArray = [];
-  let headerContent =[]
-  for(let i =0; i < header.length; i++){
-    headerArray.push('*')
-    headerContent.push(new Txt(header[i]).end)
-    if(i == header.length -1){
-
-      header2 =  new Table([
-        headerContent
-      
-      ]).widths(headerArray).layout('noBorders').margin(4).end;
-
-    }
-  }
-
- */
-
-
 
 
 // Encabezados del PDF...
@@ -96,7 +75,7 @@ let data = [['Artículo','Descripción', 'Ordenada', 'Unitario', '%','Total']];
 
 for(let d =0; d < bodyData.length; d++){
 
-  data.push([ bodyData[d].articulo.ARTICULO,  bodyData[d].articulo.DESCRIPCION, bodyData[d].articulo.CANTIDAD_ORDENADA , bodyData[d].articulo.PRECIO_UNITARIO,  bodyData[d].articulo.IMPUESTO1, bodyData[d].articulo.PRECIO_UNITARIO * bodyData[d].articulo.CANTIDAD_ORDENADA])
+  data.push([ bodyData[d].articulo.ARTICULO,  bodyData[d].articulo.DESCRIPCION, bodyData[d].articulo.CANTIDAD_ORDENADA , ColonesPipe.prototype.transform(bodyData[d].articulo.PRECIO_UNITARIO),ColonesPipe.prototype.transform(bodyData[d].articulo.IMPUESTO1) ,  ColonesPipe.prototype.transform(bodyData[d].articulo.PRECIO_UNITARIO * bodyData[d].articulo.CANTIDAD_ORDENADA)])
 console.log('d',d,'bodyData.length', bodyData.length , ' bodyData.length -1',  bodyData.length -1)
   if(d == bodyData.length -1){
 
@@ -104,44 +83,48 @@ console.log('d',d,'bodyData.length', bodyData.length , ' bodyData.length -1',  b
       [
         '','', 'Cantidad', 'Precio', 'Descuento','Importe'
       ],
-    ]).widths(['*','*','*','*','*','*']).margin(0).layout('noBorders').end;
-    const body1 = new Table(data).widths(['*','*','*','*','*','*']).margin(4).layout('lightHorizontalLines').end;
+    ]).widths([60, 120,60,60, 60,60]).margin(0).layout('lightHorizontalLines').alignment('left').end;
+    const body1 = new Table(data).widths([60, 120,60,60, 60,60]).margin(4).layout('lightHorizontalLines').alignment('left').end;
+  
+    pdf1.add([new Txt('Lista Articulos').margin(4).bold().end,body0,body1]);
+     
     const body2 = new Table([
       [
-        '','', '', '', 'Total Mercadería:',ordenCompra.TOTAL_MERCADERIA
+        '','', '', '', 'Total Mercadería:', ColonesPipe.prototype.transform(ordenCompra.TOTAL_MERCADERIA) 
       ],
       [
-        '','', '', '', 'Descuento:',ordenCompra.MONTO_DESCUENTO
+        '','', '', '', 'Descuento:',ColonesPipe.prototype.transform(ordenCompra.MONTO_DESCUENTO) 
       ],
       [
-        '','', '', '', 'Impuesto1:',ordenCompra.TOTAL_IMPUESTO1
+        '','', '', '', 'Impuesto1:', ColonesPipe.prototype.transform(ordenCompra.TOTAL_IMPUESTO1) 
       ],
       [
-        '','', '', '', 'Impuesto2:','0.00'
+        '','', '', '', 'Impuesto2:', ColonesPipe.prototype.transform(0)  
       ],
       [
-        '','', '', '', 'SubTotal:','0.00'
+        '','', '', '', 'SubTotal:', ColonesPipe.prototype.transform(0)  
       ],
       [
-        '','', '', '', 'Flete:',ordenCompra.MONTO_FLETE
+        '','', '', '', 'Flete:', ColonesPipe.prototype.transform(ordenCompra.MONTO_FLETE) 
       ],
       [
-        '','', '', '', 'Seguro',ordenCompra.MONTO_SEGURO
+        '','', '', '', 'Seguro', ColonesPipe.prototype.transform(ordenCompra.MONTO_SEGURO)
       ],
       [
-        '','', '', '', 'Documentación:',ordenCompra.MONTO_DOCUMENTACIO
+        '','', '', '', 'Documentación:',ColonesPipe.prototype.transform(ordenCompra.MONTO_DOCUMENTACIO) 
       ],
       [
-        '','', '', '', 'Total:','0.00'
+        '','', '', '', 'Total:', ColonesPipe.prototype.transform(ordenCompra.TOTAL_A_COMPRAR)
       ],
       [
-        '','', '', '', 'Anticipo:',ordenCompra.MONTO_ANTICIPO
+        '','', '', '', 'Anticipo:', ColonesPipe.prototype.transform(ordenCompra.MONTO_ANTICIPO) 
       ],
       [
-        '','', '', '', 'Saldo:','0.00',
+        '','', '', '', 'Saldo:', ColonesPipe.prototype.transform(0)  
       ],
-    ]).widths(['*','*','*','*','*','*']).margin(0).layout('noBorders').end;
-    pdf1.add([new Txt('Lista Articulos').margin(4).bold().end,body0,body1,body2]);
+    ]).widths([60, 120,60,60, 60,60]).margin(4).layout('lightHorizontalLines').alignment('left').end;
+    pdf1.add(body2
+  );
     
     
     pdf1.add([new Txt('Instrucciones').bold().alignment('left').margin(4).end]);
