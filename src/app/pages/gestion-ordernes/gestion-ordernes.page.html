@@ -1,7 +1,7 @@
 
  <ion-toolbar   >
    <ion-row>
-      <ion-col size="7">
+      <ion-col size="6">
          <ion-row>
             <ion-col size="6" class="ion-text-center">
                <ion-item *ngIf="ordenCompra" lines="none">
@@ -41,13 +41,13 @@
          </ion-row>
       </ion-col>
    
-      <ion-col size="5">
+      <ion-col size="6">
          
    <ion-item lines="none">
-      <ion-fab-button *ngIf="actualizar" slot="end" size="small" color="dark"  (click)="generatePDF()">
+      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'E'" slot="end" size="small" color="dark"  (click)="generatePDF()">
          <ion-icon name="document-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
+      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'A' || ordenCompra.ESTADO == 'E'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
          <ion-icon name="create-outline"></ion-icon>
        </ion-fab-button>
    <ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0 &&  ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark"  (click)="generarPost()">

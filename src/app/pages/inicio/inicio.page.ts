@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuController, Platform } from '@ionic/angular';
 import { AppSettingsService } from 'src/app/services/app_settings';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
 
 @Component({
   selector: 'app-inicio',
@@ -33,12 +34,10 @@ export class InicioPage implements OnInit {
     public appSettingService: AppSettingsService
     
     
-    
     ) {}
 
   ngOnInit() {
 
-     
     //console.log( this.userService.usuarioActual.Foto)
       this.width = this.plt.width();
     this.toggleMenu()

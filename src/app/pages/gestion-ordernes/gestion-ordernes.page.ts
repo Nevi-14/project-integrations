@@ -21,6 +21,7 @@ import { BodegasService } from 'src/app/services/bodegas.service';
 import { ONEOCAprob } from 'src/app/models/ONEOCAprob';
 import { ONEUserAprob } from '../../models/ONEUserAprob';
 import { PdfService } from 'src/app/services/pdf.service';
+import { LocalizacionService } from '../../services/localizacion.service';
 
 interface PostArticulos {
   articulo:Lineas,
@@ -105,10 +106,12 @@ export class GestionOrdernesPage implements OnInit {
       public menu: MenuController,
       public bodegasService: BodegasService,
       public alertCTrl: AlertController,
-      public pdfSErvice:PdfService
+      public pdfSErvice:PdfService,
+      public localizationService: LocalizacionService
     ) { }
   
     ngOnInit() {
+
      
   
     }
@@ -126,26 +129,8 @@ export class GestionOrdernesPage implements OnInit {
   
     generatePDF(){
 
-      let header = [
-        'Proveedor: '+ this.proveedor.NOMBRE,
-        'Teléfono: '+ this.proveedor.TELEFONO1,
-        'Dirección: '+ this.proveedor.DIRECCION,
-        'Fax: '+ this.proveedor.FAX,
-        'País: '+ this.proveedor.PAIS,
-        'Condición de Pago: '+ this.proveedor.CONDICION_PAGO,
-        'Moneda: '+ this.proveedor.MONEDA,
-        'Dirección de Embarque: '+ this.proveedor.DIRECCION,
-        'Fecha de la Orden: '+ this.proveedor.DIRECCION,
-        'Fecha de Cotización: '+ this.ordenCompra.FECHA_COTIZACION,
-        'Fecha Requerida: '+ this.pdfSErvice.getFormattedDate(new Date(this.ordenCompra.FECHA_REQUERIDA))
-
-      ]
-      let name = this.ordenCompra.ORDEN_COMPRA
-      let date = new Date(this.ordenCompra.FECHA_REQUERIDA);
-      let title = 'Orden de Compra';
-      let title2 = 'Número de Orden : ' + this.ordenCompra.ORDEN_COMPRA;
-console.log(this.ordenCompra);
-      this.pdfSErvice.generatePDF(header,name,date,title,title2,this.articulosService.articulosPostArray, this.ordenCompra)
+     //this.pdfSErvice.generateFormat();
+    this.pdfSErvice.generatePDF(this.proveedor, this.ordenCompra,this.articulosService.articulosPostArray)
     }
     salir(){
       this.route.navigate(['/inicio-sesion']);
@@ -588,6 +573,15 @@ this.year =  new Date(fecha_orden).getFullYear();
     }
     
     limpiarDatos(){
+
+      
+    this.localizationService.syncPaisesContinentesToPromise().then(paises=>{
+      this.localizationService.continents  = paises;
+
+    })
+
+
+
       this.usuariosService.syncGetONEUserAprob();
       this.articulosService.total = 0;
       this.articulosService.subTotal = 0;

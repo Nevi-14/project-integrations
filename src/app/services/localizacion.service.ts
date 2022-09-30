@@ -8,7 +8,7 @@ import { PaisesContientesSoftland } from '../models/paisescontientes';
 })
 
 export class LocalizacionService {
-continents = [];
+continents:PaisesContientesSoftland[] = [];
   constructor(public http: HttpClient) { }
   private getContinentes(){
     let URL = 'assets/json/continents.json';

@@ -6,6 +6,7 @@ constructor(
     public Clave: string,
     public Email: string,
     public Nombre: string,
+    public Rol: string,
     public UsuarioExactus: string
     
 ){}
