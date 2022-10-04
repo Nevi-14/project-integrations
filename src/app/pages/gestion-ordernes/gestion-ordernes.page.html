@@ -47,7 +47,7 @@
       <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'E' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="generatePDF()">
          <ion-icon name="document-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'U' || ordenCompra.ESTADO == 'E'  && this.usuariosService.usuario.Rol == 'C' || actualizar && ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
+      <ion-fab-button *ngIf="ordenCompra.ESTADO == 'E'  && this.usuariosService.usuario.Rol == 'C' || actualizar && ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
          <ion-icon name="create-outline"></ion-icon>
        </ion-fab-button>
    <ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0 &&  ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark"  (click)="generarPost()">
