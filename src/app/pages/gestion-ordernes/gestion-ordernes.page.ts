@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetButton, ActionSheetController, MenuController, ModalController, PopoverController, AlertController } from '@ionic/angular';
 import { Proveedores } from 'src/app/models/proveedores';
@@ -22,6 +22,7 @@ import { ONEOCAprob } from 'src/app/models/ONEOCAprob';
 import { ONEUserAprob } from '../../models/ONEUserAprob';
 import { PdfService } from 'src/app/services/pdf.service';
 import { LocalizacionService } from '../../services/localizacion.service';
+
 
 interface PostArticulos {
   articulo:Lineas,
@@ -48,6 +49,7 @@ export class GestionOrdernesPage implements OnInit {
   
   ]
   actualizar = false;
+ color = '';
   ordenCompra:OrdenCompra =
   {
     ORDEN_COMPRA: null,
@@ -107,12 +109,13 @@ export class GestionOrdernesPage implements OnInit {
       public bodegasService: BodegasService,
       public alertCTrl: AlertController,
       public pdfSErvice:PdfService,
-      public localizationService: LocalizacionService
+      public localizationService: LocalizacionService,
+      private cd: ChangeDetectorRef,
     ) { }
   
     ngOnInit() {
 
-     
+    
   
     }
     openCustom() {
@@ -153,7 +156,6 @@ export class GestionOrdernesPage implements OnInit {
       }
     }
   
-
 
 
     async approvers() {
@@ -344,8 +346,46 @@ for(let i = 0;  i < this.estados.length; i++){
   estadoOrden(){
 
     let i = this.estados.findIndex(estado => estado.value == this.ordenCompra.ESTADO);
+ if(i >=0){
+  switch(this.estados[i].value){
 
-    return '('+this.estados[i].value +')'+ this.estados[i].label
+
+    case 'A' : 
+        this.color =  'secondary'
+       
+    break;
+    case 'B' : 
+
+    this.color =  'warning'
+
+    break;
+    case 'C' : 
+    this.color =  'danger'
+
+    break;
+      case 'E' : 
+      this.color =  'success'
+    
+    break;
+      case  'D' :
+      this.color=  'danger'
+
+    break;
+    case 'L' : 
+    this.color =  'medium'
+
+    break;
+    case 'X' : 
+
+    this.color =  'dark'
+
+    break;
+  
+ 
+
+  }
+  return '('+this.estados[i].value +')'+ this.estados[i].label
+ }
 
 
   }
@@ -383,12 +423,24 @@ for(let i = 0;  i < this.estados.length; i++){
 
       for(let i = 0;  i < this.estados.length; i++){
   
+      if(this.usuariosService.usuario.Rol == 'U' && this.estados[i].value != 'D' && this.estados[i].value != 'L' && this.estados[i].value != 'X'){
+
         inputs.push( {
           label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
           type: 'radio',
           value: this.estados[i].value,
           checked:false
         })
+      }else if (this.usuariosService.usuario.Rol == 'C'){
+        inputs.push( {
+          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+          type: 'radio',
+          value: this.estados[i].value,
+          checked:false
+        })
+
+        
+      }
       }
           const alert = await this.alertCTrl.create({
             header: 'Consultar OC - Estado',
@@ -408,6 +460,8 @@ for(let i = 0;  i < this.estados.length; i++){
                   this.ordenesDeCompra(data)
                 
                console.log('data',data)
+
+            
                 },
               },
             ],

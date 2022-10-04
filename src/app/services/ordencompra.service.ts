@@ -13,6 +13,7 @@ export class OrdenCompraService {
   ordenesDeCompra:OrdenCompra[]=[];
   ordenCompra:OrdenCompra = null;
   ultimaOrdenCompra:UltimaOrdenCompra = null;
+  estadoColor = null;
 
   constructor(
     private http: HttpClient,

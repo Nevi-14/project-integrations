@@ -6,11 +6,11 @@
             <ion-col size="6" class="ion-text-center">
                <ion-item *ngIf="ordenCompra" lines="none">
                   <ion-label><strong><h2>    ORDEN DE COMPRA </h2></strong></ion-label>
-                  <ion-badge    color="warning"  mode="ios">{{ordenCompra.ORDEN_COMPRA}}</ion-badge>
+                  <ion-badge    color="warning"  mode="ios" style="font-size: 1rem;">{{ordenCompra.ORDEN_COMPRA}}</ion-badge>
                </ion-item>
        <ion-item *ngIf="ordenCompra" lines="none">
-         <ion-label style="margin-right: 0.5rem;">ESTADO</ion-label>
-         <ion-badge color="dark"  mode="ios">{{estadoOrden()}}</ion-badge>
+         <ion-label style="margin-right: 0.5rem;">ESTADO  </ion-label>
+         <ion-badge color="{{color}}"  mode="ios">{{estadoOrden()}}</ion-badge>
        </ion-item>
             </ion-col>
    
@@ -44,10 +44,10 @@
       <ion-col size="6">
          
    <ion-item lines="none">
-      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'E'" slot="end" size="small" color="dark"  (click)="generatePDF()">
+      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'E' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="generatePDF()">
          <ion-icon name="document-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'A' || ordenCompra.ESTADO == 'E'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
+      <ion-fab-button *ngIf="actualizar && ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'U' || ordenCompra.ESTADO == 'E'  && this.usuariosService.usuario.Rol == 'C' || actualizar && ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
          <ion-icon name="create-outline"></ion-icon>
        </ion-fab-button>
    <ion-fab-button *ngIf="articulosService.articulosPostArray.length > 0 &&  ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark"  (click)="generarPost()">
@@ -60,7 +60,7 @@
       <ion-icon name="people"></ion-icon>
     </ion-fab-button>
     
-   <ion-fab-button *ngIf="usuariosService.usuario.UsuarioExactus == 'GCOMPRAS'" slot="end" size="small" color="dark" (click)="consultarOrdenesEstado()">
+   <ion-fab-button   slot="end" size="small" color="dark" (click)="consultarOrdenesEstado()">
      <ion-icon name="search"></ion-icon>
    </ion-fab-button>
    
@@ -72,6 +72,7 @@
    </ion-fab-button>
    </ion-item>
       </ion-col>
+     
            
    </ion-row>
 </ion-toolbar>
