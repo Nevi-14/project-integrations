@@ -27,6 +27,7 @@ export const environment = {
   ONE_OCAprob:'ONE_OCAprob',
   idProvedorParam:'?IDProv=',
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
+  emailApi:'http://api_isa.di-apps.co.cr/api/Email/',
   
   
   

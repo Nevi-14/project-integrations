@@ -22,8 +22,14 @@ import { ONEOCAprob } from 'src/app/models/ONEOCAprob';
 import { ONEUserAprob } from '../../models/ONEUserAprob';
 import { PdfService } from 'src/app/services/pdf.service';
 import { LocalizacionService } from '../../services/localizacion.service';
+import { EmailService } from 'src/app/services/email.service';
+import { ColonesPipe } from 'src/app/pipes/colones.pipe';
 
-
+interface email {
+  toEmail:string,
+  subject:string,
+  body:string
+}
 interface PostArticulos {
   articulo:Lineas,
   Unidades:number,
@@ -111,6 +117,7 @@ export class GestionOrdernesPage implements OnInit {
       public pdfSErvice:PdfService,
       public localizationService: LocalizacionService,
       private cd: ChangeDetectorRef,
+      public emailService:EmailService
     ) { }
   
     ngOnInit() {
@@ -1031,6 +1038,18 @@ let index = putArticulos.length >0 ? putArticulos.length : 0;
                 console.log('orden de compra',[this.ordenCompra]);
                 this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
 
+                let emailPost:email = {
+                  toEmail:'gcompras@di.cr',
+                  subject:'Nueva Orden de Compra ' + this.ordenCompra.ORDEN_COMPRA,
+                  body:'Se genero la solicitud de la orden de compra ' + this.ordenCompra.ORDEN_COMPRA +' del proveedor '+ this.proveedor.NOMBRE+' por un total de ' +ColonesPipe.prototype.transform(this.ordenCompra.TOTAL_A_COMPRAR)  
+                }
+
+
+                this.emailService.syncPostEmailToPromise(emailPost).then(resp =>{
+
+                  console.log('post email', resp)
+
+                });
                 if(postArticulos.length > 0){
 
                for(let i = 0; i < postArticulos.length; i++){
