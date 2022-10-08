@@ -82,47 +82,7 @@ return this.getArticulos(IDProv).toPromise();
 
 
 
-agregarArticulo(linea:Lineas){
 
-  let a = this.articulos.findIndex(articulo => articulo.ARTICULO == linea.ARTICULO);
-  this.articulos[a].SELECTED = true;
-  
-  let articuloPostArray: PostArticulos = {
-    articulo : {
-      ORDEN_COMPRA: linea.ORDEN_COMPRA,
-      ORDEN_COMPRA_LINEA:  linea.ORDEN_COMPRA_LINEA,
-      ARTICULO:  linea.ARTICULO,
-      BODEGA:  linea.BODEGA,
-      DESCRIPCION:  linea.DESCRIPCION,
-      CANTIDAD_ORDENADA:  linea.CANTIDAD_ORDENADA,
-      CANTIDAD_EMBARCADA:  linea.CANTIDAD_EMBARCADA,
-      CANTIDAD_RECIBIDA:  linea.CANTIDAD_RECIBIDA,
-      CANTIDAD_RECHAZADA: linea.CANTIDAD_RECHAZADA,
-      PRECIO_UNITARIO:  linea.PRECIO_UNITARIO,
-      IMPUESTO1:  linea.IMPUESTO2,
-      IMPUESTO2:  linea.IMPUESTO2,
-      PORC_DESCUENTO:  linea.PORC_DESCUENTO,
-      MONTO_DESCUENTO:  linea.MONTO_DESCUENTO,
-      FACTOR_CONVERSION:  linea.FACTOR_CONVERSION,
-      CENTRO_COSTO:  linea.CENTRO_COSTO,
-      CUENTA_CONTABLE:  linea.CUENTA_CONTABLE,
-      TIPO_IMPUESTO1:  linea.TIPO_IMPUESTO1,
-      TIPO_TARIFA1:  linea.TIPO_TARIFA1,
-      LOTE:  linea.LOTE,
-  },
-    Unidades:linea.CANTIDAD_ORDENADA,
-    Cajas:1,
-    Total: linea.PRECIO_UNITARIO * linea.CANTIDAD_ORDENADA,
-    precioDescuento: linea.MONTO_DESCUENTO,
-    accion:'M'
-
-}
-
-this.articulosPostArray.push(articuloPostArray);
-this.subTotal += articuloPostArray.Total
-this.total += articuloPostArray.Total
-console.log(this.articulosPostArray,'this.articulosPostArray')
-  }
 
 
 

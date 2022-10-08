@@ -76,7 +76,7 @@ ocAppData:ONEOCAprob[]=[];
 
 
   private getONEUserAprob(){
-    let URL = this.getURLTest(environment.ONE_UserAprob);
+    let URL = this.getURLTest(environment.ONE_ListUserAprob);
     return this.http.get<ONEUserAprob[]>(URL);
   }
 

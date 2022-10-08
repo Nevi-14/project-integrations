@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   maxCharCodigoProd: 6,
   preURL:'http://api_irp',
+  preURL2:'http://api_isa',
   TestURL:'_test',
   postURL:'.di-apps.co.cr/api/',
   prdMode: false,
@@ -27,8 +28,8 @@ export const environment = {
   ONE_OCAprob:'ONE_OCAprob',
   idProvedorParam:'?IDProv=',
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
-  emailApi:'http://api_isa.di-apps.co.cr/api/Email/',
-  
+  emailApi:'Email/',
+  ONE_ListUserAprob:'ONE_ListUserAprob',
   
   
 };

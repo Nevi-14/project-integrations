@@ -34,15 +34,15 @@
 
       <ion-list lines="none" class="fixed-content ">
 
-        <ion-item  (click)="seccionarArticulo(articulo, i)" [attr.color]="i === selected ? 'primary' : ''"  *ngFor="let articulo of articulosService.articulos | filtro: textoBuscar:'ARTICULO' let i = index;">
+        <ion-item  (click)="seccionarArticulo(articulo, i)" [attr.color]="i === selected ? 'primary' : ''"  *ngFor="let  articulo of articulosService.articulos | filtro: textoBuscar:'ARTICULO' let i = index;">
           <ion-label><ion-badge color="warning" mode="ios" class="ion-margin-right">{{articulo.ARTICULO}}</ion-badge> {{articulo.DESCRIPCION}} </ion-label>
-          <ion-icon color="warning" *ngIf="productInArray(articulo)" name="sparkles-outline"></ion-icon>
+          <ion-icon color="warning" *ngIf="productInArray(articulo.ARTICULO)" name="sparkles-outline"></ion-icon>
           
         </ion-item>
       </ion-list>
 
     </ion-col>
-    <ion-col size="6">
+    <ion-col size="6" *ngIf="articuloPostArray">
 
       <ion-row >
         <ion-col  size="12">
@@ -51,7 +51,7 @@
   
   
         </ion-col>
-        <ion-col  size="12" size-md="4">
+        <ion-col  size="12" size-md="4" >
   
           <ion-label>Articulo</ion-label>
                  <ion-input readonly="true" name="ARTICULO"  type="text" placeholder="articulo" [(ngModel)]="articuloPostArray.articulo.ARTICULO"></ion-input>
@@ -67,18 +67,18 @@
          
                <ion-col  size="12" size-md="4">
                  <ion-label>Unidades</ion-label>
-                 <ion-input  name="CANTIDAD_ORDENADA"    (change)="actualizarValores()"  type="number" placeholder="Unidades" [(ngModel)]="articuloPostArray.articulo.CANTIDAD_ORDENADA"></ion-input>
+                 <ion-input  name="CANTIDAD_ORDENADA"    (change)="actualizarValores()"   type="number" placeholder="Unidades" [(ngModel)]="articuloPostArray.articulo.CANTIDAD_ORDENADA"></ion-input>
                </ion-col>
          
          
                <ion-col  size="12" size-md="4">
           <ion-label>% Desc.</ion-label>
-          <ion-input name="PORC_DESCUENTO"  (change)="actualizarValores()"   type="number" placeholder="descuento" min="0"    [(ngModel)]="articuloPostArray.articulo.PORC_DESCUENTO"    ></ion-input>
+          <ion-input name="PORC_DESCUENTO" (change)="actualizarValores()"   type="number" placeholder="descuento" min="0"    [(ngModel)]="articuloPostArray.articulo.PORC_DESCUENTO"    ></ion-input>
   
         </ion-col>
         <ion-col  size="12" size-md="4">
           <ion-label>Monto Desc.</ion-label>
-          <ion-input name="MONTO_DESCUENTO"   readonly="true"   type="text" placeholder="monto descuento"  [ngModel]="articuloPostArray.articulo.MONTO_DESCUENTO | colones" (ngModelChange)="articuloPostArray.articulo.MONTO_DESCUENTO = $event"  >
+          <ion-input name="MONTO_DESCUENTO"   readonly="true"   type="text" placeholder="monto descuento"  [ngModel]="articuloPostArray.articulo.MONTO_DESCUENTO | colones : 2 : '.' : ',' : gestionOrdenesService.moneda" (ngModelChange)="articuloPostArray.articulo.MONTO_DESCUENTO = $event"  >
           </ion-input>
         </ion-col>
         <ion-col  size="12" size-md="4">
@@ -89,17 +89,17 @@
   
         <ion-col  size="12" size-md="4">
           <ion-label>Monto Imp.</ion-label>
-          <ion-input name="MONTO_DESCUENTO"   readonly="true"   type="text" placeholder="monto impuesto"  [ngModel]="montoImpuesto | colones" (ngModelChange)="montoImpuesto = $event"  >
+          <ion-input name="MONTO_DESCUENTO"   readonly="true"   type="text" placeholder="monto impuesto"  [ngModel]="articuloPostArray.totalImpuesto | colones : 2 : '.' : ',' : gestionOrdenesService.moneda" (ngModelChange)="articuloPostArray.totalImpuesto = $event"  >
           </ion-input>
         </ion-col>
         <ion-col  size="12" size-md="4">
-          <ion-label>Precio Desc.</ion-label>
-          <ion-input name="precioDescuento"   readonly="true"  type="text" placeholder="precio descuento"    [ngModel]="articuloPostArray.precioDescuento | colones" (ngModelChange)="articuloPostArray.precioDescuento = $event" ></ion-input>
+          <ion-label>Sub Total.</ion-label>
+          <ion-input name="precioDescuento"   readonly="true"  type="text" placeholder="precio descuento"    [ngModel]="articuloPostArray.montoSubTotal | colones : 2 : '.' : ',' : gestionOrdenesService.moneda" (ngModelChange)="articuloPostArray.montoSubTotal = $event" ></ion-input>
         </ion-col>
   
         <ion-col  size="12" size-md="4">
           <ion-label>Total</ion-label>
-          <ion-input name="Total"   readonly="true" type="text" placeholder="Total" [ngModel]="articuloPostArray.Total | colones" (ngModelChange)="articuloPostArray.Total = $event"  ></ion-input>
+          <ion-input name="Total"   readonly="true" type="text" placeholder="Total" [ngModel]="articuloPostArray.montoTotal | colones : 2 : '.' : ',' : gestionOrdenesService.moneda" (ngModelChange)="articuloPostArray.montoTotal = $event"  ></ion-input>
         </ion-col>
        
         <ion-col  >

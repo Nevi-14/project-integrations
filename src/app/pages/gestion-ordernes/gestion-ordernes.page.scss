@@ -1,4 +1,8 @@
+:host ::ng-deep{
 
+  --padding-start: 0px;
+  --padding-end: 0px;
+}
   
     .dark-header{
       background-color: #000; 
@@ -14,6 +18,13 @@
       letter-spacing: 0.5px;
       text-decoration: none;
     }
+ 
+    .theader{
+      font-size: 12px;
+      font-weight: bold;
+      border-bottom: 2px solid black;
+    
+    }
     .header-row{
   
       font-weight: 500;
@@ -24,14 +35,10 @@
     }
     .odd{
       background: #CCC;
-      margin-top: 0.4rem;
-      margin-bottom: 0.4rem;
     
     }
     .even{
       background-color: #D9E1F2;
-      margin-top: 0.4rem;
-      margin-bottom: 0.4rem;
   }
   
   
@@ -39,6 +46,12 @@
     font-size: 18px;
   
   
+  }
+
+  ion-row{
+    margin: 0;
+    padding: 0;
+    width: 100%;
   }
   hr {
     margin-top: 2rem;
@@ -59,7 +72,9 @@
     padding: 8px;
   }
   
-  
+.item-inner{
+    padding: 0!important;
+  }
   
   ion-card-content{
     --backkground:#f2f2f2;
@@ -74,9 +89,10 @@
     --background: #fff;
     
     } ion-item{
-  
+  margin: 0;
+  padding: 0;
        
-      --highlight-height:0px;
+    //  --highlight-height:0px;
      
     }
     ion-toggle::before {

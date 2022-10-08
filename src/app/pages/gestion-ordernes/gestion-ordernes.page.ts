@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {  ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetButton, ActionSheetController, MenuController, ModalController, PopoverController, AlertController } from '@ionic/angular';
+import {  MenuController, ModalController, PopoverController, AlertController } from '@ionic/angular';
 import { Proveedores } from 'src/app/models/proveedores';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
@@ -19,25 +19,11 @@ import { OrdenesDeCompraPage } from '../ordenes-de-compra/ordenes-de-compra.page
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BodegasService } from 'src/app/services/bodegas.service';
 import { ONEOCAprob } from 'src/app/models/ONEOCAprob';
-import { ONEUserAprob } from '../../models/ONEUserAprob';
 import { PdfService } from 'src/app/services/pdf.service';
 import { LocalizacionService } from '../../services/localizacion.service';
 import { EmailService } from 'src/app/services/email.service';
-import { ColonesPipe } from 'src/app/pipes/colones.pipe';
+import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
 
-interface email {
-  toEmail:string,
-  subject:string,
-  body:string
-}
-interface PostArticulos {
-  articulo:Lineas,
-  Unidades:number,
-  Cajas:number,
-  Total: number,
-  precioDescuento:number,
-  montoImpuesto:number
-}
 @Component({
   selector: 'app-gestion-ordernes',
   templateUrl: './gestion-ordernes.page.html',
@@ -56,38 +42,7 @@ export class GestionOrdernesPage implements OnInit {
   ]
   actualizar = false;
  color = '';
-  ordenCompra:OrdenCompra =
-  {
-    ORDEN_COMPRA: null,
-    USUARIO: null,
-    PROVEEDOR:  null,
-    BODEGA:  null,
-    CONDICION_PAGO: null,
-    MONEDA: null,
-    PAIS:  null,
-    ESTADO:  'A',
-    FECHA:  null,
-    FECHA_COTIZACION:  null,
-    FECHA_REQUERIDA: null,
-    FECHA_EMBARQUE: null,
-    FECHA_ARRIBO: null,
-    FECHA_APROBACION: null,
-    FECHA_DESALMACENAJE: null,
-    FECHA_CIERRE: null,
-    PORC_DESCUENTO:0,
-    MONTO_DESCUENTO:0,
-    TOTAL_MERCADERIA:0,
-    TOTAL_IMPUESTO1: 0,
-    MONTO_FLETE:0,
-    MONTO_SEGURO:0,
-    MONTO_DOCUMENTACIO:0,
-    MONTO_ANTICIPO: 0,
-    TOTAL_A_COMPRAR: 0,
-    INSTRUCCIONES: null
-  }
-  TOTAL_UNIDADES =  0;
-  proveedor:Proveedores;
-  bodega:Bodegas;
+
   fecha: Date = new Date();
   date = this.fecha.getDate();
   month = this.fecha.getMonth();
@@ -116,14 +71,15 @@ export class GestionOrdernesPage implements OnInit {
       public alertCTrl: AlertController,
       public pdfSErvice:PdfService,
       public localizationService: LocalizacionService,
-      private cd: ChangeDetectorRef,
-      public emailService:EmailService
+      public emailService:EmailService,
+      public gestionOrdenesService: GestionOrdenesService,
+      private cd: ChangeDetectorRef
     ) { }
   
     ngOnInit() {
 
-    
-  
+
+  //alert(this.gestionOrdenesService.ordenCompra.ESTADO == 'A')
     }
     openCustom() {
       this.menu.enable(true, 'custom');
@@ -140,7 +96,7 @@ export class GestionOrdernesPage implements OnInit {
     generatePDF(){
 
      //this.pdfSErvice.generateFormat();
-    this.pdfSErvice.generatePDF(this.proveedor, this.ordenCompra,this.articulosService.articulosPostArray)
+    this.pdfSErvice.generatePDF(this.gestionOrdenesService.proveedor, this.gestionOrdenesService.ordenCompra,this.articulosService.articulosPostArray)
     }
     salir(){
       this.route.navigate(['/inicio-sesion']);
@@ -156,13 +112,60 @@ export class GestionOrdernesPage implements OnInit {
       const { data } = await modal.onWillDismiss();
       if(data != undefined){
         this.limpiarDatos();
-        this.proveedor = data.proveedor;
+        this.gestionOrdenesService.proveedor = data.proveedor;
         this.articulosService.articulosProveedor = [];
-        this.rellenarOrdenCompra(data.proveedor);
-        this.articulosService.syncGetArticulos(this.proveedor.ID)
+        this.gestionOrdenesService.rellenarOrdenCompra(data.proveedor);
+        this.articulosService.syncGetArticulos(this.gestionOrdenesService.proveedor.ID)
       }
     }
   
+    async columnas() {
+
+      let inputs = [];
+      let columnas = [
+                { value:'articulo', display:'Articulo' },
+        { value:'procentajeDescuento', display:'% Descuento' },
+      
+        { value:'procentajeImpuesto', display:'% Impuesto' }
+      
+      
+      ]
+      for(let i = 0;  i < columnas.length; i++){
+        inputs.push( {
+          label: columnas[i].display ,
+          type: 'checkbox',
+          value: columnas[i].value,
+          checked:false
+        })
+  
+  
+      }
+        const alert = await this.alertCTrl.create({
+          header: 'DiOne',
+          subHeader:'Mostrar Columnas',
+          cssClass:'custom-alert',
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              handler: () => {
+          
+              },
+            },
+            {
+              text: 'Continuar',
+              role: 'confirm',
+              handler: (data) => {
+
+       
+              },
+            },
+          ],
+          inputs:inputs,
+        });
+    
+        await alert.present();
+      }
 
 
     async approvers() {
@@ -170,10 +173,10 @@ export class GestionOrdernesPage implements OnInit {
       let inputs = [];
       let approvers:ONEOCAprob[] = [];
       for(let i = 0;  i < this.usuariosService.approvers.length; i++){
-        let a =  this.usuariosService.ocAppData.findIndex(aprob => aprob.Usuario == this.usuariosService.approvers[i].Usuario  &&  aprob.ORDEN_COMPRA == this.ordenCompra.ORDEN_COMPRA );
+        let a =  this.usuariosService.ocAppData.findIndex(aprob => aprob.Usuario == this.usuariosService.approvers[i].Usuario  &&  aprob.ORDEN_COMPRA == this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA );
         if(a < 0 ){
           inputs.push( {
-            label: this.usuariosService.approvers[i].Posicion ,
+            label: this.usuariosService.approvers[i].Nombre ,
             type: 'checkbox',
             value: this.usuariosService.approvers[i].Usuario,
             checked:false
@@ -186,7 +189,7 @@ export class GestionOrdernesPage implements OnInit {
       }
         const alert = await this.alertCTrl.create({
           header: 'Aprobador OC',
-          subHeader:'Orden de compra ' +this.ordenCompra.ORDEN_COMPRA,
+          subHeader:'Orden de compra ' +this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
           cssClass:'custom-alert',
           buttons: [
             {
@@ -205,19 +208,19 @@ export class GestionOrdernesPage implements OnInit {
                   this.alertasService.message('DIONE','Debes seleccionar 1 aprobador como minimo')
                    return;
                 }
-                this.ordenCompra.ESTADO = this.estado
+                this.gestionOrdenesService.ordenCompra.ESTADO = this.estado
 
             
                 data.forEach(user => {
                   approvers.push({
-    ORDEN_COMPRA: this.ordenCompra.ORDEN_COMPRA,
+    ORDEN_COMPRA: this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
      Usuario: user,
-     Estatus: this.ordenCompra.ESTADO,
+     Estatus: this.gestionOrdenesService.ordenCompra.ESTADO,
      Fecha: new Date().toISOString()
                   })
                 });
-                this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
-                  console.log('orden de compra',[this.ordenCompra]);
+                this.gestionOrdenesService.ordenCompraService.syncPutOrdenCompraToPromise(this.gestionOrdenesService.ordenCompra).then(resp =>{
+                  console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
                   this.alertasService.message('DIONE', 'El estado se actualizo con exito')
                   this.usuariosService.syncPostONEOCAprobToPromise(approvers).then(resp =>{
                     console.log(resp, 'test')
@@ -248,11 +251,11 @@ async actualizarEstado() {
   let inputs = [];
 for(let i = 0;  i < this.estados.length; i++){
 
-  if(this.ordenCompra.ESTADO == this.estados[i].value ){
+  if(this.gestionOrdenesService.ordenCompra.ESTADO == this.estados[i].value ){
     this.estados[i].checked = true
   }
 
-  switch(this.ordenCompra.ESTADO){
+  switch(this.gestionOrdenesService.ordenCompra.ESTADO){
     case 'A':
       if(this.estados[i].value  == 'B'  || this.estados[i].value  == 'X' ){
         inputs.push( {
@@ -305,7 +308,7 @@ for(let i = 0;  i < this.estados.length; i++){
 }
     const alert = await this.alertCTrl.create({
       header: 'Actualizar Estado',
-      subHeader:'Orden de compra ' +this.ordenCompra.ORDEN_COMPRA,
+      subHeader:'Orden de compra ' +this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
       buttons: [
         {
           text: 'Cancelelar',
@@ -321,14 +324,14 @@ for(let i = 0;  i < this.estados.length; i++){
          console.log('data',data)
          this.estado = data;
 
-         if(this.ordenCompra.ESTADO == 'A' && data == 'B'){
+         if(this.gestionOrdenesService.ordenCompra.ESTADO == 'A' && data == 'B'){
           this.approvers();
 
           return
          }else{
-          this.ordenCompra.ESTADO = this.estado;
-          this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
-            console.log('orden de compra',[this.ordenCompra]);
+          this.gestionOrdenesService.ordenCompra.ESTADO = this.estado;
+          this.gestionOrdenesService.ordenCompraService.syncPutOrdenCompraToPromise(this.gestionOrdenesService.ordenCompra).then(resp =>{
+            console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
             this.alertasService.message('DIONE', 'El estado se actualizo con exito')
          
             this.limpiarDatos();
@@ -352,7 +355,7 @@ for(let i = 0;  i < this.estados.length; i++){
 
   estadoOrden(){
 
-    let i = this.estados.findIndex(estado => estado.value == this.ordenCompra.ESTADO);
+    let i = this.estados.findIndex(estado => estado.value == this.gestionOrdenesService.ordenCompra.ESTADO);
  if(i >=0){
   switch(this.estados[i].value){
 
@@ -391,13 +394,15 @@ for(let i = 0;  i < this.estados.length; i++){
  
 
   }
-  return '('+this.estados[i].value +')'+ this.estados[i].label
+   this.estado = '('+this.estados[i].value +')'+ this.estados[i].label;
+   this.cd.detectChanges();
+return
  }
 
 
   }
     async  listaBodegas(){
-      if(!this.proveedor){
+      if(!this.gestionOrdenesService.proveedor){
         this.alertasService.message('ISLEÑA','Seleccionar Proveedor')
               return
             }
@@ -410,8 +415,8 @@ for(let i = 0;  i < this.estados.length; i++){
          const { data } = await modal.onWillDismiss();
      if(data != undefined){
       console.log('bodega', data.bodega)
-       this.bodega = data.bodega;
-       this.ordenCompra.BODEGA = this.bodega.BODEGA;
+       this.gestionOrdenesService.bodega = data.bodega;
+       this.gestionOrdenesService.ordenCompra.BODEGA = this.gestionOrdenesService.bodega.BODEGA;
      
      }
          
@@ -491,11 +496,12 @@ for(let i = 0;  i < this.estados.length; i++){
            await modal.present();
            const { data } = await modal.onWillDismiss();
        if(data != undefined){
-        this.ordenCompra = data.orden;
-        this.ordenCompra.ESTADO = estado;
-        if(this.ordenCompra.FECHA){
-          let fecha_orden = this.ordenCompra.FECHA;
-this.fecha = new Date(this.ordenCompra.FECHA);
+        this.gestionOrdenesService.ordenCompra = data.orden;
+        this.gestionOrdenesService.ordenCompra.ESTADO = estado;
+        this.estadoOrden();
+        if(this.gestionOrdenesService.ordenCompra.FECHA){
+          let fecha_orden = this.gestionOrdenesService.ordenCompra.FECHA;
+this.fecha = new Date(this.gestionOrdenesService.ordenCompra.FECHA);
 this.date =  new Date(fecha_orden).getDate();
 this.month =  new Date(fecha_orden).getMonth()+1;
 this.year =  new Date(fecha_orden).getFullYear();
@@ -513,7 +519,7 @@ this.year =  new Date(fecha_orden).getFullYear();
   async aprobadores(inputs){
     console.log('aprobers', this.aprobadoresActuales)
     const alert = await this.alertCTrl.create({
-      header: 'Aprobación Pendiente '+this.ordenCompra.ORDEN_COMPRA,
+      header: 'Aprobación Pendiente '+this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
       cssClass:'custom-alert',
       mode: 'ios',
       buttons: ['OK'],
@@ -527,7 +533,7 @@ this.year =  new Date(fecha_orden).getFullYear();
     let inputs = [];
     let etiqueta = '';
 
-    this.usuariosService.syncGetONEOCAprobToPromise(this.ordenCompra.ORDEN_COMPRA, "").then((data) => {
+    this.usuariosService.syncGetONEOCAprobToPromise(this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA, "").then((data) => {
       if(data.length == 0){
         this.alertasService.message('DIONE', 'No hay datos que mostrar.')
       }
@@ -545,10 +551,11 @@ this.year =  new Date(fecha_orden).getFullYear();
           etiqueta = '(NO Aprobada) - ';
         }
         if(a >=0){
+          
           inputs.push( {
-            label: this.usuariosService.approvers[a].Posicion ,
+            label: this.usuariosService.approvers[a].Nombre ,
             type: 'text',
-            value: `${etiqueta}${this.usuariosService.approvers[a].Posicion}`,
+            value: `${etiqueta}${this.usuariosService.approvers[a].Nombre}`,
             disabled:true
           })
         }
@@ -560,34 +567,36 @@ this.year =  new Date(fecha_orden).getFullYear();
   }
   
   
+  
 
 
 
          sincronizarOrdenDeEntregaExistente(){
           this.alertasService.presentaLoading('Cargando datos...')
     
-          this.ordenCompra.FECHA = null;
-          this.ordenCompra.USUARIO = this.usuariosService.usuario.UsuarioExactus;
+          this.gestionOrdenesService.ordenCompra.FECHA = null;
+          this.gestionOrdenesService.ordenCompra.USUARIO = this.usuariosService.usuario.UsuarioExactus;
           this.proveedoresService.proveedores = []
-          this.proveedoresService.syncGetProvedorestoPromise(this.ordenCompra.PROVEEDOR).then(resp =>{
+          this.proveedoresService.syncGetProvedorestoPromise(this.gestionOrdenesService.ordenCompra.PROVEEDOR).then(resp =>{
             this.proveedoresService.proveedores = resp;
     
-            let p =    this.proveedoresService.proveedores.findIndex(proveedor => proveedor.ID == this.ordenCompra.PROVEEDOR);
-            this.proveedor = this.proveedoresService.proveedores[p];
+            let p =    this.proveedoresService.proveedores.findIndex(proveedor => proveedor.ID == this.gestionOrdenesService.ordenCompra.PROVEEDOR);
+            this.gestionOrdenesService.proveedor = this.proveedoresService.proveedores[p];
             console.log('res', resp)
             this.bodegasService.bodegas = [];
             this.bodegasService.syncGetBodegasToPromise().then(bodegas =>{
            this.bodegasService.bodegas = bodegas;
-              let b =  this.bodegasService.bodegas.findIndex(bodega => bodega.BODEGA == this.ordenCompra.BODEGA);
-              this.bodega = this.bodegasService.bodegas[b];
+              let b =  this.bodegasService.bodegas.findIndex(bodega => bodega.BODEGA == this.gestionOrdenesService.ordenCompra.BODEGA);
+              this.gestionOrdenesService.bodega = this.bodegasService.bodegas[b];
+              this.gestionOrdenesService.actualizar = true;
               this.articulosService.articulosPostArray = [];
               this.articulosService.articulos = [];
               this.articulos =[];
-              this.articulosService.syncGetArticulosToPromise(this.ordenCompra.PROVEEDOR).then(articulos =>{
+              this.articulosService.syncGetArticulosToPromise(this.gestionOrdenesService.ordenCompra.PROVEEDOR).then(articulos =>{
       this.articulosService.articulos = articulos;
                 this.articulos = articulos;
                 console.log('this.articulos', this.articulos)
-                this.lineasService.syncConsultarLineasOrdenCompra(this.ordenCompra.ORDEN_COMPRA).then(lineas =>{
+                this.lineasService.syncConsultarLineasOrdenCompra(this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA).then(lineas =>{
                   console.log('lineas', lineas)
                   this.rellenarLineas(lineas);
                   this.alertasService.dismissAllLoaders();
@@ -604,40 +613,80 @@ this.year =  new Date(fecha_orden).getFullYear();
   
   
          rellenarLineas(lineas:Lineas[]){
-          lineas.forEach(linea => {
-  
-            console.log(linea)
-  
-            this.articulosService.agregarArticulo(linea);
-            this.sumarTotales();
-  
-          })
-  
+          this.gestionOrdenesService.articulos = [];
+
+          for(let i =0; i < lineas.length; i++){
+            let articulo =  {
+              articulo  : {
+                ORDEN_COMPRA: lineas[i].ORDEN_COMPRA,
+                ORDEN_COMPRA_LINEA: lineas[i].ORDEN_COMPRA_LINEA,
+                ARTICULO: lineas[i].ARTICULO,
+                BODEGA: lineas[i].BODEGA,
+                DESCRIPCION: lineas[i].DESCRIPCION,
+                CANTIDAD_ORDENADA: lineas[i].CANTIDAD_ORDENADA,
+                CANTIDAD_EMBARCADA: lineas[i].CANTIDAD_EMBARCADA,
+                CANTIDAD_RECIBIDA: lineas[i].CANTIDAD_RECIBIDA,
+                CANTIDAD_RECHAZADA: lineas[i].CANTIDAD_RECHAZADA,
+                PRECIO_UNITARIO: lineas[i].PRECIO_UNITARIO,
+                IMPUESTO1: lineas[i].IMPUESTO1,
+                IMPUESTO2: lineas[i].IMPUESTO2,
+                PORC_DESCUENTO: lineas[i].PORC_DESCUENTO,
+                MONTO_DESCUENTO: lineas[i].MONTO_DESCUENTO,
+                FACTOR_CONVERSION: lineas[i].FACTOR_CONVERSION,
+                CENTRO_COSTO:lineas[i].CENTRO_COSTO,
+                CUENTA_CONTABLE: lineas[i].CUENTA_CONTABLE,
+                TIPO_IMPUESTO1: lineas[i].TIPO_IMPUESTO1,
+                TIPO_TARIFA1: lineas[i].TIPO_TARIFA1,
+                LOTE :lineas[i].LOTE
+            },
+            nombre:lineas[i].DESCRIPCION,
+            cajas:0,
+            totalDescuento: 0,
+            totalImpuesto:0,
+            montoSubTotal:lineas[i].PRECIO_UNITARIO*lineas[i].CANTIDAD_ORDENADA,
+            montoTotal:lineas[i].PRECIO_UNITARIO*lineas[i].CANTIDAD_ORDENADA,
+              accion:'M',
+              selected:false
+          
+          }
+          this.gestionOrdenesService.articulos.push(articulo)
+
+            if(i == lineas.length -1){
+
+              this.gestionOrdenesService.sumarTotales();
+            }
+          }
+     
          }
-    async  listaArticulos(){
+    async  listaArticulos(articulo?){
   
-      if(!this.bodega){
+      if(!this.gestionOrdenesService.bodega){
       this.alertasService.message('ISLEÑA','Seleccionar Bodega')
         return
       }
       let modal = await  this.modalCtrl.create({
         component:ListaArticulosPage,
         cssClass: 'items-modal',
+        componentProps:{
+          articulo:articulo
+        }
      
       });
   
       await modal.present();
       const { data } = await modal.onWillDismiss();
-      this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
-  
-      this.sumarTotales();
+      this.gestionOrdenesService.sumarTotales();
+    
     }
     
     limpiarDatos(){
 
-      
+      this.estadoOrden();
     this.localizationService.syncPaisesContinentesToPromise().then(paises=>{
       this.localizationService.continents  = paises;
+      this.gestionOrdenesService.articulos = [];
+      this.gestionOrdenesService.actualizar = false;
+      //this.gestionOrdenesService.ordenCompra = null;
 
     })
 
@@ -646,14 +695,14 @@ this.year =  new Date(fecha_orden).getFullYear();
       this.usuariosService.syncGetONEUserAprob();
       this.articulosService.total = 0;
       this.articulosService.subTotal = 0;
-      this.proveedor = null;
+      this.gestionOrdenesService.proveedor = null;
       this.proveedoresService.proveedores = [];
       this.articulosService.articulos = [];
       this.articulosService.articulosProveedor = [];
       this.articulosService.articulosPostArray = [];
-      this.TOTAL_UNIDADES = 0;
-      this.bodega = null;
-      this.ordenCompra = {
+      this.gestionOrdenesService.TOTAL_UNIDADES = 0;
+      this.gestionOrdenesService.bodega = null;
+      this.gestionOrdenesService.ordenCompra = {
         ORDEN_COMPRA: null,
         USUARIO: this.usuariosService.usuario.UsuarioExactus,
         PROVEEDOR:  null,
@@ -686,7 +735,7 @@ this.year =  new Date(fecha_orden).getFullYear();
       this.date = new Date().getDate();
       this.month = new Date().getMonth();
       this.year = new Date().getFullYear();
-      this.ordenCompra.FECHA = this.fecha.toISOString()
+      this.gestionOrdenesService.ordenCompra.FECHA = this.fecha.toISOString()
       
     }
     
@@ -694,7 +743,7 @@ this.year =  new Date(fecha_orden).getFullYear();
   
   async fechaOrdenCompra(ordenCompra:OrdenCompra, property:string) {
 
-  if(this.ordenCompra.ESTADO != 'A' && this.actualizar){
+  if(this.gestionOrdenesService.ordenCompra.ESTADO != 'A' && this.actualizar){
     return
   }
     console.log('ordenCompra[property]', ordenCompra[property], property)
@@ -718,7 +767,8 @@ this.year =  new Date(fecha_orden).getFullYear();
         weekday: 'short',
         day: 'numeric',
       });
-      this.ordenCompra[property] = data.fecha;
+      
+      this.gestionOrdenesService.ordenCompra[property] = data.fecha;
   
     }
   }
@@ -728,400 +778,79 @@ this.year =  new Date(fecha_orden).getFullYear();
   return date.toLocaleDateString()
   }
   
-  setPrecio($event, articulo:PostArticulos){
-    let value = $event.target.value;
-  
-    this.articulosService.subTotal = 0;
-    this.articulosService.total = 0;
-  
-    articulo.articulo.PRECIO_UNITARIO = Number(value);
-    articulo.Total = 0;
-    articulo.Cajas = 0;
-    articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-   
-    // actualizamos monto descuento 
-    articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-      // actualizamos precio descuento 
-      // actualizamos precio descuento 
-      articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-    // actualizamos total
-    let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-    articulo.montoImpuesto = montoImpuesto;
-    articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-    this.sumarTotales();
-  
-  
-    
-  }
-  
-  setFlete($event){
-  
-    if(!this.proveedor){
-      this.ordenCompra.MONTO_FLETE = 0;
-      this.alertasService.message('ISLEÑA','Seleccionar proveedor')
-            return
-          }
-    let value = $event.target.value;
-  
-  
-   this.ordenCompra.MONTO_FLETE = Number(value);
-  
-  
-  
-  this.sumarTotales();
-    
-  
-  }
-  
-  setSeguro($event){
-    if(!this.proveedor){
-      this.ordenCompra.MONTO_SEGURO = 0;
-      this.alertasService.message('ISLEÑA','Seleccionar proveedor')
-            return
-          }
-  let value = $event.target.value;
-  this.ordenCompra.MONTO_SEGURO = Number(value);
-  this.sumarTotales();
-    
-  
-  }
-    setAnticipo($event){
-      if(!this.proveedor){
-        this.ordenCompra.MONTO_ANTICIPO = 0;
-        this.alertasService.message('ISLEÑA','Seleccionar proveedor')
-              return
-      }
-      let value = $event.target.value;
-      this.ordenCompra.MONTO_ANTICIPO = Number(value);
-      this.sumarTotales();
-    }
-  
-    sumarTotales(){
-      
-      this.TOTAL_UNIDADES  = 0;
-      this.articulosService.subTotal = 0;
-      this.articulosService.total = 0;
-      this.ordenCompra.TOTAL_MERCADERIA = 0;
-      this.ordenCompra.TOTAL_IMPUESTO1 = 0;
-      this.ordenCompra.TOTAL_A_COMPRAR = 0;
-      this.articulosService.total +=this.ordenCompra.MONTO_FLETE;
-      this.articulosService.total += this.ordenCompra.MONTO_SEGURO;
-      this.ordenCompra.TOTAL_A_COMPRAR  =  this.articulosService.total
-      for(let i =0; i< this.articulosService.articulosPostArray.length; i++){
-        this.TOTAL_UNIDADES   +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA)
-  
-        this.articulosService.articulosPostArray[i].articulo.BODEGA = this.ordenCompra.BODEGA
-        this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA = this.ordenCompra.ORDEN_COMPRA;
-        this.articulosService.subTotal += this.articulosService.articulosPostArray[i].Total
-        this.articulosService.total += this.articulosService.articulosPostArray[i].Total
-        this.ordenCompra.TOTAL_MERCADERIA +=Number( this.articulosService.articulosPostArray[i].articulo.CANTIDAD_ORDENADA) * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO )
-        this.ordenCompra.TOTAL_IMPUESTO1 += Number(this.articulosService.articulosPostArray[i].Unidades) * (this.articulosService.articulosPostArray[i].articulo.PRECIO_UNITARIO / 100) *this.articulosService.articulosPostArray[i].articulo.IMPUESTO1;
-        if(i == this.articulosService.articulosPostArray.length -1){
-  
-        this.ordenCompra.TOTAL_A_COMPRAR  =   this.ordenCompra.TOTAL_MERCADERIA + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO
-        
-        }
-      }
-    }
   
     onInputChange(event: string) {
       return Number.parseFloat(event).toFixed(2);
     }
   
-    setUnidades($event, articulo:PostArticulos){
-  
-      let value = $event.target.value;
-      this.articulosService.subTotal = 0;
-      this.articulosService.total = 0;
-      articulo.articulo.CANTIDAD_ORDENADA = 0;
-      articulo.articulo.CANTIDAD_ORDENADA = Number(value);
-      articulo.Total = 0;
-      articulo.Cajas = 0;
-      articulo.Cajas = articulo.articulo.CANTIDAD_ORDENADA * articulo.articulo.FACTOR_CONVERSION;
-    // actualizamos monto descuento 
-    articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-      // actualizamos precio descuento 
-      // actualizamos precio descuento 
-      articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-      // actualizamos total
-      let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-      articulo.montoImpuesto = montoImpuesto;
-      articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-  
-      this.sumarTotales();
-    }
-  
-    setDescuento($event, articulo:PostArticulos){
-      let value = $event.target.value;
-      this.articulosService.subTotal = 0;
-      this.articulosService.total = 0;
+   
+    async currency(){
+      let inputs = [];
+      for(let i =0; i < this.gestionOrdenesService.monedas.length; i++){
+      
+        if(this.gestionOrdenesService.moneda == this.gestionOrdenesService.monedas[i].value ){
+          inputs.push( {
+            label: this.gestionOrdenesService.monedas[i].value ,
+            type: 'radio',
+            value: `${this.gestionOrdenesService.monedas[i].value}`,
+            checked:true
+          })
+
+        }else{
+          inputs.push( {
+            label: this.gestionOrdenesService.monedas[i].display ,
+            type: 'radio',
+            value: {value:this.gestionOrdenesService.monedas[i].value,display:this.gestionOrdenesService.monedas[i].display},
+            checked:false
+          })
+
+
+        }
+   
+
+        if(i == this.gestionOrdenesService.monedas.length -1){
+        
+          const alert = await this.alertCTrl.create({
+            header: 'Tipo de Moneda',
+            mode: 'ios',
+            buttons: [
+              {
+                text: 'Cancelar',
+                role: 'cancel',
+                handler: () => {
+              
+                },
+              },
+              {
+                text: 'Continuar',
+                role: 'confirm',
+                handler: (data) => {
     
-      articulo.articulo.PORC_DESCUENTO = Number(value);
-      articulo.Total = 0;
-      articulo.Cajas = 0;
-      articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-    // actualizamos monto descuento 
-    articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-      // actualizamos precio descuento 
-         // actualizamos precio descuento 
-         articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-      // actualizamos total
-      let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-      articulo.montoImpuesto = montoImpuesto;
-      articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-      this.sumarTotales();
-      
-    }
-  
-    setDescuentoOrden($event){
-  
-    if(this.articulosService.articulosPostArray.length  == 0){
-      $event.target.value = 0;
-      this.ordenCompra.MONTO_DESCUENTO = 0;
-      this.alertasService.message('ISLEÑA', 'Debes de agregar al menos un producto.')
-      return
-    }
-      let value = $event.target.value;
-      this.ordenCompra.PORC_DESCUENTO = value;
-    this.ordenCompra.MONTO_DESCUENTO = (this.ordenCompra.TOTAL_A_COMPRAR / 100) *value
-      this.sumarTotales();
-      
-    }
-  
-    setImpuesto($event, articulo:PostArticulos){
-      let value = $event.target.value;
-      this.articulosService.subTotal = 0;
-      this.articulosService.total = 0;
-  
-      articulo.articulo.IMPUESTO1 = Number(value);
-      articulo.Total = 0;
-      articulo.Cajas = 0;
-      articulo.Cajas = articulo.Unidades * articulo.articulo.FACTOR_CONVERSION;
-    // actualizamos monto descuento 
-    articulo.articulo.MONTO_DESCUENTO = articulo.articulo.PORC_DESCUENTO ?  articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-      // actualizamos precio descuento 
-      articulo.precioDescuento  = articulo.articulo.MONTO_DESCUENTO > 0 ?   (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.PORC_DESCUENTO : 0;
-      // actualizamos total
-      let montoImpuesto = articulo.Unidades * (articulo.articulo.PRECIO_UNITARIO / 100) *articulo.articulo.IMPUESTO1;
-      articulo.montoImpuesto = montoImpuesto;
-      articulo.Total =  (articulo.articulo.CANTIDAD_ORDENADA *   articulo.articulo.PRECIO_UNITARIO) - (articulo.articulo.MONTO_DESCUENTO * articulo.articulo.CANTIDAD_ORDENADA) + montoImpuesto ;
-      this.sumarTotales();
-    }
-  
-    borrarArticulo(index, articulo:PostArticulos){
-    let i =  this.articulosService.articulos.findIndex(item => item.ARTICULO == articulo.articulo.ARTICULO);
-    this.articulosService.articulos[i].SELECTED = false;
-      this.articulosService.subTotal -= articulo.Total
-      this.articulosService.total -= articulo.Total
-      this.ordenCompra.TOTAL_A_COMPRAR   -= articulo.Total;
-      this.articulosService.articulosPostArray.splice(index,1);
-    }
-  
-    rellenarOrdenCompra(proveedor:Proveedores){
-      this.ordenCompra.FECHA = null;
-      this.ordenCompra.ORDEN_COMPRA = null;
-      this.ordenCompra.ORDEN_COMPRA = null;
-      this.ordenCompra.USUARIO = this.usuariosService.usuario.UsuarioExactus;
-      this.ordenCompra.PROVEEDOR = proveedor.ID;
-      this.ordenCompra.BODEGA = null;
-      this.ordenCompra.CONDICION_PAGO = proveedor.CONDICION_PAGO;
-      this.ordenCompra.MONEDA = proveedor.MONEDA;
-      this.ordenCompra.PAIS = proveedor.PAIS;
-      this.ordenCompra.ESTADO = 'A';
-      this.ordenCompra.FECHA = this.formatoFecha;
-      this.ordenCompra.FECHA_REQUERIDA = this.formatoFecha;
-      this.ordenCompra.PORC_DESCUENTO = 0;
-      this.ordenCompra.MONTO_DESCUENTO = 0;
-      this.ordenCompra.TOTAL_MERCADERIA = 0;
-      this.ordenCompra.TOTAL_IMPUESTO1 = 0;
-      this.ordenCompra.MONTO_FLETE = 0;
-      this.ordenCompra.MONTO_SEGURO = 0;
-      this.ordenCompra.MONTO_DOCUMENTACIO = 0;
-      this.ordenCompra.MONTO_ANTICIPO = 0;
-      this.ordenCompra.TOTAL_A_COMPRAR = 0;
-  
+               console.log('data',data)
+               this.gestionOrdenesService.moneda = data.display;
+               this.gestionOrdenesService.ordenCompra.MONEDA = data.value;
+            
+                },
+              }
+              ],
+            inputs:inputs,
+          });
+            
+          await alert.present();
+
+
+        }
+      }
+    
+ 
+
+
+      console.log(this.gestionOrdenesService.moneda)
     }
   
     generarPost(){
-  
-      if(!this.proveedor || !this.bodega || !this.ordenCompra || this.articulosService.articulosPostArray.length == 0    || this.ordenCompra.USUARIO == null){
-        this.alertasService.message('ISLEÑA','La orden de compra no se encuentra completa aun.')
-        return
-      }
-
-      this.alertasService.presentaLoading('Generando Consecutivo')
-  
-      this.ordenCompraService.syncUltimaOrdenCompraToPromise().then(resp =>{
-      this.ordenCompraService.ultimaOrdenCompra = resp[0];
-      let ORDEN_COMPRA =  this.ordenCompra.ORDEN_COMPRA;
-      if(!this.actualizar && this.ordenCompra.ORDEN_COMPRA == null){
-        ORDEN_COMPRA =  this.nextConsecutivo(this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA)
-        console.log('ORDEN_COMPRA',ORDEN_COMPRA)
-
-        this.ordenCompra.ORDEN_COMPRA = ORDEN_COMPRA;
-       }
-   
-        let putArticulos =[];
-        let postArticulos = [];
-        for(let i = 0; i < this.articulosService.articulosPostArray.length; i++){
-          this.articulosService.articulosPostArray[i].articulo.ORDEN_COMPRA =  !this.actualizar ? this.ordenCompra.ORDEN_COMPRA : ORDEN_COMPRA;
-
-
-          if(  this.articulosService.articulosPostArray[i].accion == 'I'){
-
-            postArticulos.push(this.articulosService.articulosPostArray[i].articulo);
-          }else{
-
-            putArticulos.push(this.articulosService.articulosPostArray[i].articulo);
-          }
-      
-
-          if(i === this.articulosService.articulosPostArray.length -1){
-        
-            console.log('consecutivo',this.ordenCompraService.ultimaOrdenCompra.ULT_ORDEN_COMPRA);
-            console.log('orden de compra',this.ordenCompra);
-            console.log('put',putArticulos);
-            console.log('post',postArticulos);
-            this.alertasService.loadingDissmiss();
-
-//return;
-            if(this.actualizar){
-                     this.ordenCompraService.syncPutOrdenCompraToPromise(this.ordenCompra).then(resp =>{
-              console.log('orden de compra',[this.ordenCompra]);
-              this.alertasService.message('ISLEÑA', 'Orden Actualizada ' + this.ordenCompra.ORDEN_COMPRA)
-              if(postArticulos.length > 0){
-
-let index = putArticulos.length >0 ? putArticulos.length : 0;
-                for(let a = 0; a < postArticulos.length ; a++){
-                  index += 1;
-                  postArticulos[a].ORDEN_COMPRA_LINEA = putArticulos.length > 0 ? index : a+1 ;
-                  if(a == postArticulos.length -1){
-                    this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
-                      console.log('resp lineas', resp)
-                      this.limpiarDatos();
-                    }, error =>{
-                      console.log(error)
-                      this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
-                    });
-
-                  }
-                }
-           
-  
-  
-  
-              }
-  
-              if(putArticulos.length > 0 ){
-  
-                putArticulos.forEach(articulo =>{
-                  this.lineasService.syncPutLineasToPromise(articulo).then(resp =>{
-                    console.log('resp linea put', resp)
-                    this.limpiarDatos();
-                  }, error =>{
-                    console.log(error)
-                    this.alertasService.message('ISLEÑA', 'Error guardando lineas put .')
-                  });
-                });
-              }
-    
-       
-         
-            }, error =>{
-              console.log(error)
-              this.alertasService.message('ISLEÑA', 'Error guardando orden entrega put .')
-            });
-            }else{
-
-        
-              this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
-                console.log('orden de compra',[this.ordenCompra]);
-                this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
-
-                let emailPost:email = {
-                  toEmail:'gcompras@di.cr',
-                  subject:'Nueva Orden de Compra ' + this.ordenCompra.ORDEN_COMPRA,
-                  body:'Se genero la solicitud de la orden de compra ' + this.ordenCompra.ORDEN_COMPRA +' del proveedor '+ this.proveedor.NOMBRE+' por un total de ' +ColonesPipe.prototype.transform(this.ordenCompra.TOTAL_A_COMPRAR)  
-                }
-
-
-                this.emailService.syncPostEmailToPromise(emailPost).then(resp =>{
-
-                  console.log('post email', resp)
-
-                });
-                if(postArticulos.length > 0){
-
-               for(let i = 0; i < postArticulos.length; i++){
-                postArticulos[i].ORDEN_COMPRA_LINEA = i+1;
-
-                if(i == postArticulos.length -1){
-                  this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
-                    console.log('resp lineas', resp)
-                    this.limpiarDatos();
-                  }, error =>{
-                    console.log(error)
-                    this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
-                  });
-                }
-               }
-                
-    
-    
-    
-                }
-    
-                if(putArticulos.length > 0 ){
-    
-                  putArticulos.forEach(articulo =>{
-                    this.lineasService.syncPutLineasToPromise(articulo).then(resp =>{
-                      console.log('resp linea put', resp)
-                      this.limpiarDatos();
-                    }, error =>{
-                      console.log(error)
-                      this.alertasService.message('ISLEÑA', 'Error guardando lineas put .')
-                    });
-                  });
-                }
-      
-         
-         
-              }, error =>{
-                console.log(error)
-                this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
-              });
-
-
-            }
-
-  
-         return
-  
-       
-          }
-        }
-      }, error =>{
-        console.log('error',error);
-        this.alertasService.loadingDissmiss();
-      });
-  
+      this.gestionOrdenesService.generarPost();
     }
   
-    nextConsecutivo( consecutivoAnterior){
-      let consecutivo: number = 0;
-      let arreglo: string;
-      let preArreglo: string;
-      let tamDigitos: number = 6;
-      let nuevoConsecutivo  = '';
-  
-      arreglo = '';
-      preArreglo = consecutivoAnterior.slice(0,2);
-      consecutivo = +consecutivoAnterior.slice(2) + 1;
-      for (let i = 0; i < tamDigitos - consecutivo.toString().length; i++) {
-        arreglo = arreglo + '0';
-      }
-      return nuevoConsecutivo = preArreglo + arreglo + consecutivo.toString()
-    
-    }
 
 }
