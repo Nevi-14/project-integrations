@@ -30,18 +30,8 @@ import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
   styleUrls: ['./gestion-ordernes.page.scss'],
 })
 export class GestionOrdernesPage implements OnInit {
-   estados = [
-    {label:'Planeación',value:'A', checked:false},
-    {label:'Por aprobar',value:'B', checked:false},
-    {label:'No aprobada',value:'C', checked:false},
-    {label:'Transito',value:'E', checked:false},
-    {label:'Desalmacenaje',value:'D', checked:false},
-    {label:'Liquidada',value:'L', checked:false},
-    {label:'Cancelada',value:'X', checked:false},
-  
-  ]
+
   actualizar = false;
- color = '';
 
   fecha: Date = new Date();
   date = this.fecha.getDate();
@@ -53,7 +43,6 @@ export class GestionOrdernesPage implements OnInit {
   textoBuscar = '';
   articulos:Articulos[]=[];
   modeOn = false;
-  estado = null;
   aprobadoresActuales:ONEOCAprob[]=[]
   
     constructor(
@@ -86,7 +75,7 @@ export class GestionOrdernesPage implements OnInit {
       this.menu.open('custom');
     }
     ionViewWillEnter(){
-      this.limpiarDatos();
+      this.gestionOrdenesService.limpiarDatos();
     }
   
     onSearchChange(event){
@@ -111,7 +100,7 @@ export class GestionOrdernesPage implements OnInit {
       await modal.present();
       const { data } = await modal.onWillDismiss();
       if(data != undefined){
-        this.limpiarDatos();
+        this.gestionOrdenesService.limpiarDatos();
         this.gestionOrdenesService.proveedor = data.proveedor;
         this.articulosService.articulosProveedor = [];
         this.gestionOrdenesService.rellenarOrdenCompra(data.proveedor);
@@ -208,7 +197,7 @@ export class GestionOrdernesPage implements OnInit {
                   this.alertasService.message('DIONE','Debes seleccionar 1 aprobador como minimo')
                    return;
                 }
-                this.gestionOrdenesService.ordenCompra.ESTADO = this.estado
+                this.gestionOrdenesService.ordenCompra.ESTADO = this.gestionOrdenesService.estado
 
             
                 data.forEach(user => {
@@ -227,7 +216,7 @@ export class GestionOrdernesPage implements OnInit {
           
                
                     });
-                  this.limpiarDatos();
+                  this.gestionOrdenesService.limpiarDatos();
                 }, error =>{
                   console.log(error)
                   this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
@@ -249,53 +238,53 @@ export class GestionOrdernesPage implements OnInit {
 async actualizarEstado() {
 
   let inputs = [];
-for(let i = 0;  i < this.estados.length; i++){
+for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
 
-  if(this.gestionOrdenesService.ordenCompra.ESTADO == this.estados[i].value ){
-    this.estados[i].checked = true
+  if(this.gestionOrdenesService.ordenCompra.ESTADO == this.gestionOrdenesService.estados[i].value ){
+    this.gestionOrdenesService.estados[i].checked = true
   }
 
   switch(this.gestionOrdenesService.ordenCompra.ESTADO){
     case 'A':
-      if(this.estados[i].value  == 'B'  || this.estados[i].value  == 'X' ){
+      if(this.gestionOrdenesService.estados[i].value  == 'B'  || this.gestionOrdenesService.estados[i].value  == 'X' ){
         inputs.push( {
-          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+          label: '(' +this.gestionOrdenesService.estados[i].value + ') '+this.gestionOrdenesService.estados[i].label ,
           type: 'radio',
-          value: this.estados[i].value,
-          checked:this.estados[i].checked
+          value: this.gestionOrdenesService.estados[i].value,
+          checked:this.gestionOrdenesService.estados[i].checked
         })
        }
 
       break;
     case 'B':
-      if(this.estados[i].value  == 'C'  || this.estados[i].value  == 'E' ){
+      if(this.gestionOrdenesService.estados[i].value  == 'C'  || this.gestionOrdenesService.estados[i].value  == 'E' ){
         inputs.push( {
-          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+          label: '(' +this.gestionOrdenesService.estados[i].value + ') '+this.gestionOrdenesService.estados[i].label ,
           type: 'radio',
-          value: this.estados[i].value,
-          checked:this.estados[i].checked
+          value: this.gestionOrdenesService.estados[i].value,
+          checked:this.gestionOrdenesService.estados[i].checked
         })
        }
       break;
 
       case 'E':
-        if(this.estados[i].value  == 'D' ){
+        if(this.gestionOrdenesService.estados[i].value  == 'D' ){
           inputs.push( {
-            label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+            label: '(' +this.gestionOrdenesService.estados[i].value + ') '+this.gestionOrdenesService.estados[i].label ,
             type: 'radio',
-            value: this.estados[i].value,
-            checked:this.estados[i].checked
+            value: this.gestionOrdenesService.estados[i].value,
+            checked:this.gestionOrdenesService.estados[i].checked
           })
          }
         break;
 
         case 'D':
-          if(this.estados[i].value  == 'L' ){
+          if(this.gestionOrdenesService.estados[i].value  == 'L' ){
             inputs.push( {
-              label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+              label: '(' +this.gestionOrdenesService.estados[i].value + ') '+this.gestionOrdenesService.estados[i].label ,
               type: 'radio',
-              value: this.estados[i].value,
-              checked:this.estados[i].checked
+              value: this.gestionOrdenesService.estados[i].value,
+              checked:this.gestionOrdenesService.estados[i].checked
             })
            }
         break;
@@ -322,19 +311,19 @@ for(let i = 0;  i < this.estados.length; i++){
           role: 'confirm',
           handler: (data) => {
          console.log('data',data)
-         this.estado = data;
+         this.gestionOrdenesService.estado = data;
 
          if(this.gestionOrdenesService.ordenCompra.ESTADO == 'A' && data == 'B'){
           this.approvers();
 
           return
          }else{
-          this.gestionOrdenesService.ordenCompra.ESTADO = this.estado;
+          this.gestionOrdenesService.ordenCompra.ESTADO = this.gestionOrdenesService.estado;
           this.gestionOrdenesService.ordenCompraService.syncPutOrdenCompraToPromise(this.gestionOrdenesService.ordenCompra).then(resp =>{
             console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
             this.alertasService.message('DIONE', 'El estado se actualizo con exito')
          
-            this.limpiarDatos();
+            this.gestionOrdenesService.limpiarDatos();
           }, error =>{
             console.log(error)
             this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
@@ -353,54 +342,7 @@ for(let i = 0;  i < this.estados.length; i++){
     await alert.present();
   }
 
-  estadoOrden(){
 
-    let i = this.estados.findIndex(estado => estado.value == this.gestionOrdenesService.ordenCompra.ESTADO);
- if(i >=0){
-  switch(this.estados[i].value){
-
-
-    case 'A' : 
-        this.color =  'secondary'
-       
-    break;
-    case 'B' : 
-
-    this.color =  'warning'
-
-    break;
-    case 'C' : 
-    this.color =  'danger'
-
-    break;
-      case 'E' : 
-      this.color =  'success'
-    
-    break;
-      case  'D' :
-      this.color=  'danger'
-
-    break;
-    case 'L' : 
-    this.color =  'medium'
-
-    break;
-    case 'X' : 
-
-    this.color =  'dark'
-
-    break;
-  
- 
-
-  }
-   this.estado = '('+this.estados[i].value +')'+ this.estados[i].label;
-   this.cd.detectChanges();
-return
- }
-
-
-  }
     async  listaBodegas(){
       if(!this.gestionOrdenesService.proveedor){
         this.alertasService.message('ISLEÑA','Seleccionar Proveedor')
@@ -433,21 +375,21 @@ return
       
         let inputs = [];
 
-      for(let i = 0;  i < this.estados.length; i++){
+      for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
   
-      if(this.usuariosService.usuario.Rol == 'U' && this.estados[i].value != 'D' && this.estados[i].value != 'L' && this.estados[i].value != 'X'){
+      if(this.usuariosService.usuario.Rol == 'U' && this.gestionOrdenesService.estados[i].value != 'D' && this.gestionOrdenesService.estados[i].value != 'L' && this.gestionOrdenesService.estados[i].value != 'X'){
 
         inputs.push( {
-          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+          label: '(' +this.gestionOrdenesService.estados[i].value + ') '+this.gestionOrdenesService.estados[i].label ,
           type: 'radio',
-          value: this.estados[i].value,
+          value: this.gestionOrdenesService.estados[i].value,
           checked:false
         })
       }else if (this.usuariosService.usuario.Rol == 'C'){
         inputs.push( {
-          label: '(' +this.estados[i].value + ') '+this.estados[i].label ,
+          label: '(' +this.gestionOrdenesService.estados[i].value + ') '+this.gestionOrdenesService.estados[i].label ,
           type: 'radio',
-          value: this.estados[i].value,
+          value: this.gestionOrdenesService.estados[i].value,
           checked:false
         })
 
@@ -468,7 +410,7 @@ return
                 text: 'Continuar',
                 role: 'confirm',
                 handler: (data) => {
-                  this.estado = data;
+                  this.gestionOrdenesService.estado = data;
                   this.ordenesDeCompra(data)
                 
                console.log('data',data)
@@ -498,7 +440,7 @@ return
        if(data != undefined){
         this.gestionOrdenesService.ordenCompra = data.orden;
         this.gestionOrdenesService.ordenCompra.ESTADO = estado;
-        this.estadoOrden();
+        this.gestionOrdenesService.estadoOrden();
         if(this.gestionOrdenesService.ordenCompra.FECHA){
           let fecha_orden = this.gestionOrdenesService.ordenCompra.FECHA;
 this.fecha = new Date(this.gestionOrdenesService.ordenCompra.FECHA);
@@ -677,65 +619,7 @@ this.year =  new Date(fecha_orden).getFullYear();
       const { data } = await modal.onWillDismiss();
       this.gestionOrdenesService.sumarTotales();
     
-    }
-    
-    limpiarDatos(){
-
-      this.estadoOrden();
-    this.localizationService.syncPaisesContinentesToPromise().then(paises=>{
-      this.localizationService.continents  = paises;
-      this.gestionOrdenesService.articulos = [];
-      this.gestionOrdenesService.actualizar = false;
-      //this.gestionOrdenesService.ordenCompra = null;
-
-    })
-
-
-
-      this.usuariosService.syncGetONEUserAprob();
-      this.articulosService.total = 0;
-      this.articulosService.subTotal = 0;
-      this.gestionOrdenesService.proveedor = null;
-      this.proveedoresService.proveedores = [];
-      this.articulosService.articulos = [];
-      this.articulosService.articulosProveedor = [];
-      this.articulosService.articulosPostArray = [];
-      this.gestionOrdenesService.TOTAL_UNIDADES = 0;
-      this.gestionOrdenesService.bodega = null;
-      this.gestionOrdenesService.ordenCompra = {
-        ORDEN_COMPRA: null,
-        USUARIO: this.usuariosService.usuario.UsuarioExactus,
-        PROVEEDOR:  null,
-        BODEGA:  null,
-        CONDICION_PAGO: null,
-        MONEDA: null,
-        PAIS:  null,
-        ESTADO:  'A',
-        FECHA:  null,
-        FECHA_COTIZACION:  null,
-        FECHA_REQUERIDA: null,
-        FECHA_EMBARQUE: null,
-        FECHA_ARRIBO: null,
-        FECHA_APROBACION: null,
-        FECHA_DESALMACENAJE: null,
-        FECHA_CIERRE: null,
-        PORC_DESCUENTO:0,
-        MONTO_DESCUENTO:0,
-        TOTAL_MERCADERIA:0,
-        TOTAL_IMPUESTO1: 0,
-        MONTO_FLETE:0,
-        MONTO_SEGURO:0,
-        MONTO_DOCUMENTACIO:0,
-        MONTO_ANTICIPO: 0,
-        TOTAL_A_COMPRAR: 0,
-        INSTRUCCIONES: null
-      }
-      this.fecha = new Date();
-      this.actualizar = false;
-      this.date = new Date().getDate();
-      this.month = new Date().getMonth();
-      this.year = new Date().getFullYear();
-      this.gestionOrdenesService.ordenCompra.FECHA = this.fecha.toISOString()
+  
       
     }
     

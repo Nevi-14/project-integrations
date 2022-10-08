@@ -8,7 +8,7 @@
   <ion-col size="6">
     <ion-searchbar    mode="ios" placeholder="Buscar articulo" inputmode="text" (ionChange)="onSearchChange($event)"  debounce="250" ></ion-searchbar>
   </ion-col>
-  <ion-col size="6">
+  <ion-col size="6" *ngIf="articuloPostArray">
     <ion-label style="margin-right: 0.5rem;">Este simbolo</ion-label>
     <ion-icon color="warning"  name="sparkles-outline"></ion-icon>
     <ion-label style="margin-left: 0.5rem;">significa que el producto se encuentra en nuestra lista de articulos a solicitar.</ion-label>
@@ -104,7 +104,7 @@
        
         <ion-col  >
           <ion-button (click)="agregarArticulo()" expand="block" color="dark">
-            Agregar Producto
+            {{articulo ? 'Actualizar' : 'Agregar'}} Producto
           </ion-button>
  
         </ion-col>

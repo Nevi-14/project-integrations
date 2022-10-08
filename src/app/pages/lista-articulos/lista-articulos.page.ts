@@ -152,14 +152,16 @@ montoImpuesto = 0;
     let i =  this.gestionOrdenesService.articulos.findIndex(item => item.articulo.ARTICULO == this.articuloPostArray.articulo.ARTICULO);
     if(i < 0){
       this.gestionOrdenesService.articulos.push(this.articuloPostArray);
-      
+      this.gestionOrdenesService.sumarTotales();
       this.alertasService.message('DIONE', 'El articulo se agrego con Exito');
  
     }else{
       this.gestionOrdenesService.articulos[i] = this.articuloPostArray;
+      this.gestionOrdenesService.sumarTotales();
       this.alertasService.message('DIONE', 'El articulo se actualizo con Exito');
     }
-    this.gestionOrdenesService.sumarTotales();
+
+    
   } 
   seccionarArticulo(articulos:any, selected){
     this.selected = selected;

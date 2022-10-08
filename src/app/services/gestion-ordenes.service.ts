@@ -10,6 +10,7 @@ import { LineasService } from './lineas.service';
 import { OrdenCompraService } from './ordencompra.service';
 import { ColonesPipe } from 'src/app/pipes/colones.pipe';
 import { UsuariosService } from './usuarios.service';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
 
 
 interface email {
@@ -48,6 +49,18 @@ export class GestionOrdenesService {
   { id:1, display: '$' ,value:'USD'}
   
 ]
+estados = [
+  {label:'Planeación',value:'A', checked:false},
+  {label:'Por aprobar',value:'B', checked:false},
+  {label:'No aprobada',value:'C', checked:false},
+  {label:'Transito',value:'E', checked:false},
+  {label:'Desalmacenaje',value:'D', checked:false},
+  {label:'Liquidada',value:'L', checked:false},
+  {label:'Cancelada',value:'X', checked:false},
+
+]
+estado = null;
+color = '';
 moneda = '¢';
 bodega:Bodegas;
 ordenCompra:OrdenCompra = {
@@ -89,7 +102,8 @@ public articulosService:ArticulosService,
 public emailService: EmailService,
 public lineasService: LineasService,
 public ordenCompraService: OrdenCompraService,
-public usuariosService: UsuariosService
+public usuariosService: UsuariosService,
+public localizationService: LocalizacionService
 
   ) { }
 
@@ -404,9 +418,10 @@ console.log('ultima oc', resp)
     if(i == postArticulos.length -1){
       this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
         console.log('resp lineas', resp)
+      
         this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
         this.enviarCorreo();
-       //this.limpiarDatos();
+       this.limpiarDatos();
       }, error =>{
         console.log(error)
         this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
@@ -442,7 +457,7 @@ let index = putArticulos.length >0 ? putArticulos.length : 0;
           if(a == postArticulos.length -1){
             this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
               console.log('resp lineas', resp)
-              //this.limpiarDatos();
+            this.limpiarDatos();
             }, error =>{
               console.log(error)
               this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
@@ -458,7 +473,7 @@ let index = putArticulos.length >0 ? putArticulos.length : 0;
         putArticulos.forEach(articulo =>{
           this.lineasService.syncPutLineasToPromise(articulo).then(resp =>{
             console.log('resp linea put', resp)
-            //this.limpiarDatos();
+            this.limpiarDatos();
           }, error =>{
             console.log(error)
             this.alertasService.message('ISLEÑA', 'Error guardando lineas put .')
@@ -472,7 +487,99 @@ let index = putArticulos.length >0 ? putArticulos.length : 0;
     });
   }
 
+  estadoOrden(){
 
+    let i = this.estados.findIndex(estado => estado.value == this.ordenCompra.ESTADO);
+ if(i >=0){
+  switch(this.estados[i].value){
+
+
+    case 'A' : 
+        this.color =  'secondary'
+       
+    break;
+    case 'B' : 
+
+    this.color =  'warning'
+
+    break;
+    case 'C' : 
+    this.color =  'danger'
+
+    break;
+      case 'E' : 
+      this.color =  'success'
+    
+    break;
+      case  'D' :
+      this.color=  'danger'
+
+    break;
+    case 'L' : 
+    this.color =  'medium'
+
+    break;
+    case 'X' : 
+
+    this.color =  'dark'
+
+    break;
+  
+ 
+
+  }
+   this.estado = '('+this.estados[i].value +')'+ this.estados[i].label;
+
+return
+ }
+
+
+  }
+
+
+  limpiarDatos(){
+    this.ordenCompra = {
+      ORDEN_COMPRA: null,
+      USUARIO: this.usuariosService.usuario.UsuarioExactus,
+      PROVEEDOR:  null,
+      BODEGA:  null,
+      CONDICION_PAGO: null,
+      MONEDA: null,
+      PAIS:  null,
+      ESTADO:  'A',
+      FECHA:  null,
+      FECHA_COTIZACION:  null,
+      FECHA_REQUERIDA: null,
+      FECHA_EMBARQUE: null,
+      FECHA_ARRIBO: null,
+      FECHA_APROBACION: null,
+      FECHA_DESALMACENAJE: null,
+      FECHA_CIERRE: null,
+      PORC_DESCUENTO:0,
+      MONTO_DESCUENTO:0,
+      TOTAL_MERCADERIA:0,
+      TOTAL_IMPUESTO1: 0,
+      MONTO_FLETE:0,
+      MONTO_SEGURO:0,
+      MONTO_DOCUMENTACIO:0,
+      MONTO_ANTICIPO: 0,
+      TOTAL_A_COMPRAR: 0,
+      INSTRUCCIONES: null
+    };
+
+   this.estadoOrden();
+  this.localizationService.syncPaisesContinentesToPromise().then(paises=>{
+    this.localizationService.continents  = paises;
+    this.articulos = [];
+    this.actualizar = false;
+    this.TOTAL_UNIDADES = 0;
+    this.proveedor = null;
+    this.bodega = null;
+    this.moneda = '¢';
+    //this.gestionOrdenesService.ordenCompra = null;
+
+  })
+}
   enviarCorreo(){
 
     let emailPost:email = {
