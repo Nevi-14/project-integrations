@@ -85,7 +85,7 @@ export class GestionOrdernesPage implements OnInit {
     generatePDF(){
 
      //this.pdfSErvice.generateFormat();
-    this.pdfSErvice.generatePDF(this.gestionOrdenesService.proveedor, this.gestionOrdenesService.ordenCompra,this.articulosService.articulosPostArray)
+    this.pdfSErvice.generatePDF(this.gestionOrdenesService.proveedor, this.gestionOrdenesService.ordenCompra,this.gestionOrdenesService.articulos)
     }
     salir(){
       this.route.navigate(['/inicio-sesion']);
