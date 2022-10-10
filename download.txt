@@ -1,0 +1,1 @@
+http://api_irp_test.di-apps.co.cr/api/descargar-archivo?ID=D1000024&Tipo=txt&Nombre=oc.txt

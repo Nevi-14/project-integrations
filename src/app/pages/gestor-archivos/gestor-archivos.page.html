@@ -72,15 +72,21 @@
 
       <ion-list class="fixed-content" >
 
-        <ion-col size="12" *ngIf="gestorArchivosService.archivos.length == 0">
-          <img height="100" width="100" src="../assets/icons/folder.svg" alt="">
+      <ion-row *ngIf="gestorArchivosService.archivos.length == 0" >
+        <ion-col size="12"  class="ion-text-center ion-padding">
+
+        
+          <img style="margin: 0 auto;" height="100" width="100" src="../assets/icons/folder.svg" alt="">
+
+          <h1>No hay Archivos que Mostrar</h1>
         </ion-col>
+      </ion-row>
 
 
         <ion-item lines="full"    *ngFor="let archivo of gestorArchivosService.archivos | filtro: textoBuscar:'Nombre'; let i = index">
           <ion-badge slot="start" color="dark" mode="ios">{{archivo.Tipo}}</ion-badge>
           <ion-label class="ion-text-wrap"> {{archivo.Nombre}} </ion-label>
-          <a slot="end"   href="{{url+archivo.Folder+'/'+archivo.Nombre}}" target="_blank" download> 
+          <a slot="end"   href="{{url+archivo.ORDEN_COMPRA+'&Tipo='+archivo.Tipo+'&Nombre='+archivo.Nombre}}" target="_blank" download> 
             <ion-fab-button  *ngIf="archivo.Estado =='A'"  size="small"  (click)="descargarArchivo()">
           
               <ion-icon name="cloud-download-outline">
