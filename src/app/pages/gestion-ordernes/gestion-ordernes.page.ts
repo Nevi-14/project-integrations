@@ -23,6 +23,8 @@ import { PdfService } from 'src/app/services/pdf.service';
 import { LocalizacionService } from '../../services/localizacion.service';
 import { EmailService } from 'src/app/services/email.service';
 import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
+import { GestorArchivosPage } from '../gestor-archivos/gestor-archivos.page';
+import { GestorArchivosService } from 'src/app/services/gestor-archivos.service';
 
 @Component({
   selector: 'app-gestion-ordernes',
@@ -62,7 +64,8 @@ export class GestionOrdernesPage implements OnInit {
       public localizationService: LocalizacionService,
       public emailService:EmailService,
       public gestionOrdenesService: GestionOrdenesService,
-      private cd: ChangeDetectorRef
+      private cd: ChangeDetectorRef,
+      public gestorArchivosService: GestorArchivosService
     ) { }
   
     ngOnInit() {
@@ -75,9 +78,14 @@ export class GestionOrdernesPage implements OnInit {
       this.menu.open('custom');
     }
     ionViewWillEnter(){
-      this.gestionOrdenesService.limpiarDatos();
+      this.limpiarDatos();
     }
   
+    limpiarDatos(){
+this.gestorArchivosService.archivos = [];
+this.cd.detectChanges();
+      this.gestionOrdenesService.limpiarDatos();
+    }
     onSearchChange(event){
       this.textoBuscar = event.detail.value;
     }
@@ -87,9 +95,7 @@ export class GestionOrdernesPage implements OnInit {
      //this.pdfSErvice.generateFormat();
     this.pdfSErvice.generatePDF(this.gestionOrdenesService.proveedor, this.gestionOrdenesService.ordenCompra,this.gestionOrdenesService.articulos)
     }
-    salir(){
-      this.route.navigate(['/inicio-sesion']);
-    }
+   
   
     async  listaProveedores(){
       let modal = await  this.modalCtrl.create({
@@ -100,8 +106,16 @@ export class GestionOrdernesPage implements OnInit {
       await modal.present();
       const { data } = await modal.onWillDismiss();
       if(data != undefined){
-        this.gestionOrdenesService.limpiarDatos();
+
+     
         this.gestionOrdenesService.proveedor = data.proveedor;
+
+
+        let i = this.gestionOrdenesService.monedas.findIndex(moneda => moneda.value == this.gestionOrdenesService.proveedor.MONEDA);
+
+   if(i >=0){
+    this.gestionOrdenesService.moneda = this.gestionOrdenesService.monedas[i].display;
+   }
         this.articulosService.articulosProveedor = [];
         this.gestionOrdenesService.rellenarOrdenCompra(data.proveedor);
         this.articulosService.syncGetArticulos(this.gestionOrdenesService.proveedor.ID)
@@ -216,7 +230,7 @@ export class GestionOrdernesPage implements OnInit {
           
                
                     });
-                  this.gestionOrdenesService.limpiarDatos();
+                    this.limpiarDatos();
                 }, error =>{
                   console.log(error)
                   this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
@@ -323,7 +337,7 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
             console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
             this.alertasService.message('DIONE', 'El estado se actualizo con exito')
          
-            this.gestionOrdenesService.limpiarDatos();
+            this.limpiarDatos();
           }, error =>{
             console.log(error)
             this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
@@ -523,7 +537,15 @@ this.year =  new Date(fecha_orden).getFullYear();
             this.proveedoresService.proveedores = resp;
     
             let p =    this.proveedoresService.proveedores.findIndex(proveedor => proveedor.ID == this.gestionOrdenesService.ordenCompra.PROVEEDOR);
-            this.gestionOrdenesService.proveedor = this.proveedoresService.proveedores[p];
+            if(p >=0){
+              this.gestionOrdenesService.proveedor = this.proveedoresService.proveedores[p];
+            }
+
+            let i = this.gestionOrdenesService.monedas.findIndex(moneda => moneda.value == this.gestionOrdenesService.proveedor.MONEDA);
+
+            if(i >=0){
+             this.gestionOrdenesService.moneda = this.gestionOrdenesService.monedas[i].display;
+            }
             console.log('res', resp)
             this.bodegasService.bodegas = [];
             this.bodegasService.syncGetBodegasToPromise().then(bodegas =>{
@@ -553,7 +575,36 @@ this.year =  new Date(fecha_orden).getFullYear();
   
          }
   
-  
+         async  GestorArchivos(){
+          let modal = await  this.modalCtrl.create({
+            component:GestorArchivosPage,
+            cssClass: 'large-modal',
+          });
+      
+          await modal.present();
+          const { data } = await modal.onWillDismiss();
+          if(data != undefined){
+    
+          }
+     
+         }
+
+         cargarArchivos(){
+          this.gestorArchivosService.archivos = [];
+          this.gestorArchivosService.syncGetArchivosToPromise(this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA).then(resp => {
+           console.log('archivos get resp' , resp)
+        
+            if(resp.length > 0){
+      
+      this.gestorArchivosService.archivos = resp;
+      this.cd.detectChanges();
+            }
+          }, error =>{
+      
+           console.log(error, 'error')
+          
+          });
+        }
          rellenarLineas(lineas:Lineas[]){
           this.gestionOrdenesService.articulos = [];
 
@@ -596,6 +647,7 @@ this.year =  new Date(fecha_orden).getFullYear();
             if(i == lineas.length -1){
 
               this.gestionOrdenesService.sumarTotales();
+              this.cargarArchivos();
             }
           }
      

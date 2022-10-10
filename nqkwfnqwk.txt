@@ -1,0 +1,98 @@
+
+    for(let d =0; d < data2.length; d++){
+      
+  let value = data.findIndex(process => process.id == data2[d].process_id);
+  if(value >=0){
+
+    table2.table.body.push( [data[value].name,data2[d].doc1,data2[d].doc2,data2[d].doc3,data2[d].doc4, data2[d].date] )
+
+
+  }
+
+
+      let p = dataBeforePdf.findIndex(process => process.id == data2[d].process_id )
+      if(d >=0){
+        dataBeforePdf[p].doc1 += data2[d].doc1;
+        dataBeforePdf[p].doc2+= data2[d].doc2;
+        dataBeforePdf[p].doc3 += data2[d].doc3;
+        dataBeforePdf[p].doc4 += data2[d].doc4;
+      }
+
+      if(d == data2.length -1){
+        for(let r =0; r < dataBeforePdf.length ; r++){
+          table.table.body.push( 
+            [
+              dataBeforePdf[r].name,
+              dataBeforePdf[r].doc1,
+              dataBeforePdf[r].doc2,
+              dataBeforePdf[r].doc3,
+              dataBeforePdf[r].doc4
+            ] 
+            
+            )
+          if(r == dataBeforePdf.length -1){
+
+            
+      console.log(table.table.widths)
+      
+      var dd = [       
+        header,                         // MARGIN LEFT TOP RIGHT BOTTOM
+        { text: 'Lista de Procesos',alignment: 'left',margin: [0, 10, 0, 10] },
+          table
+      
+      ]
+
+      
+
+
+  //  rellenar datos
+console.log('data', data);
+console.log('data2', data2)
+console.log('dataBeforePdf',dataBeforePdf)
+console.log('table',table)
+
+      if(data2.length > 0 && details){
+        let pageBreak:any = { text: '', pageBreak: 'after' };
+        dd.push(pageBreak)
+        dd.push({ text: 'Desgloce mensual',alignment: 'left',margin: [0, 10, 0, 10] })
+        dd.push(table2)
+       }
+
+
+
+    
+    // Encabezados del PDF...
+    
+    
+    
+    
+      pdf.add(
+        
+        dd
+    
+      );
+    //  pdf.create().download(name);
+
+         
+    /**
+     * 
+           if(data2.length > 0){
+            let body2Table = new Table(body2).widths(['*',50,50,50,50,70]).margin(4).layout('lightHorizontalLines').end;
+            pdf.add([new Txt('Detalle Procesos').margin(4).bold().end, body2Table]);
+           }
+     */
+           pdf.create().getBase64( async base64 =>{
+            if(this.platform.is('mobileweb')) {
+              pdf.create().download(name);
+          
+            }else{
+              this.save(base64)
+            }
+          });
+    
+          }
+        }
+
+      }
+    }
+

@@ -438,6 +438,19 @@ ion-modal.large-modal {
     
  
 }
+ion-modal.medium-modal {
+
+  --backdrop-opacity: 0.8 !important;
+  align-items: center;
+  justify-content: center; 
+  &::part(content){
+    width: 70%;
+    height: 65%; 
+  }
+
+    
+ 
+}
 
 ion-modal.items-modal {
 

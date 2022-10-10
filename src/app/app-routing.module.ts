@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'orden-de-compra-detalle',
     loadChildren: () => import('./pages/orden-de-compra-detalle/orden-de-compra-detalle.module').then( m => m.OrdenDeCompraDetallePageModule)
   },
+  {
+    path: 'gestor-archivos',
+    loadChildren: () => import('./pages/gestor-archivos/gestor-archivos.module').then( m => m.GestorArchivosPageModule)
+  },
 
 
 

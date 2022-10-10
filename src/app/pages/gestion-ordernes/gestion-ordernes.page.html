@@ -4,14 +4,18 @@
       <ion-col size="5">
          <ion-row>
             <ion-col size="6" class="ion-text-center">
-               <ion-item *ngIf="gestionOrdenesService.ordenCompra" lines="none">
-                  <ion-label><strong><h2>    ORDEN DE COMPRA </h2></strong></ion-label>
-                  <ion-badge    color="warning"  mode="ios" style="font-size: 1rem;">{{gestionOrdenesService.ordenCompra.ORDEN_COMPRA}}</ion-badge>
-               </ion-item>
-       <ion-item *ngIf="gestionOrdenesService.ordenCompra" lines="none">
-         <ion-label style="margin-right: 0.5rem;">ESTADO  </ion-label>
-         <ion-badge color="{{gestionOrdenesService.color}}"  mode="ios">{{gestionOrdenesService.estado}}</ion-badge>
-       </ion-item>
+<ion-row *ngIf="gestionOrdenesService.ordenCompra">
+   <ion-col size="12" >
+
+      <ion-label><strong><h1>  {{ gestionOrdenesService.ordenCompra.ORDEN_COMPRA }}</h1></strong>
+         <ion-badge color="{{gestionOrdenesService.color}}"  mode="ios">{{gestionOrdenesService.estado}} 
+           </ion-badge>
+      </ion-label>
+   </ion-col>
+
+ 
+
+</ion-row>
             </ion-col>
    
             <ion-col size="6">
@@ -45,10 +49,10 @@
       <ion-col size="7">
          
    <ion-item lines="none">
-      <ion-fab-button *ngIf="actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'E' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="generatePDF()">
+      <ion-fab-button *ngIf="gestionOrdenesService.actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'E' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="generatePDF()">
          <ion-icon name="document-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'E'  && this.usuariosService.usuario.Rol == 'C' || actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
+      <ion-fab-button *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'E'  && this.usuariosService.usuario.Rol == 'C' || gestionOrdenesService.actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="actualizarEstado()">
          <ion-icon name="create-outline"></ion-icon>
        </ion-fab-button>
    <ion-fab-button *ngIf="gestionOrdenesService.articulos.length > 0 &&  gestionOrdenesService.ordenCompra.ESTADO" slot="end" size="small" color="dark"  (click)="generarPost()">
@@ -57,6 +61,15 @@
    <ion-fab-button  *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark" (click)="listaProveedores()">
      <ion-icon name="settings"></ion-icon>
    </ion-fab-button>
+<span slot="end" style="position:relative;" *ngIf="gestionOrdenesService.actualizar">
+   <ion-fab-button  size="small" color="dark" (click)="GestorArchivos()">
+      <ion-icon name="folder-open-outline"></ion-icon>
+
+      
+          </ion-fab-button>
+          <ion-badge  style="position: absolute; top:0; right:0px"  color="primary" mode="ios">{{gestorArchivosService.archivos.length}}</ion-badge>
+</span>
+  
    <ion-fab-button slot="end" size="small" color="dark" (click)="currency()">
 <span style="font-size: 1.5rem;font-weight:bold">      {{gestionOrdenesService.moneda}}</span>
     </ion-fab-button>
@@ -67,13 +80,14 @@
    <ion-fab-button   slot="end" size="small" color="dark" (click)="consultarOrdenesEstado()">
      <ion-icon name="search"></ion-icon>
    </ion-fab-button>
+
    
-   <ion-fab-button slot="end" size="small" color="dark" (click)="gestionOrdenesService.limpiarDatos()">
+ 
+   
+   <ion-fab-button slot="end" size="small" color="dark" (click)="limpiarDatos()">
      <ion-icon name="reload"></ion-icon>
    </ion-fab-button>
-   <ion-fab-button slot="end" size="small" color="dark" (click)="salir()">
-     <ion-icon name="exit"></ion-icon>
-   </ion-fab-button>
+
    </ion-item>
       </ion-col>
      

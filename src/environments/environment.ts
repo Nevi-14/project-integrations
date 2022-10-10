@@ -30,6 +30,11 @@ export const environment = {
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
   emailApi:'Email/',
   ONE_ListUserAprob:'ONE_ListUserAprob',
+  gestorArchivos:'cargar-archivo',
+  tipoParam:'?tipo=',
+  tipoParam2:'&Tipo=',
+  nombreParam:'&Nombre=',
+  ONE_GestorArch:'ONE_GestorArch'
   
   
 };

@@ -41,7 +41,7 @@ interface PostArticulos {
 export class GestionOrdenesService {
   TOTAL_UNIDADES = 0;
   date  =   new Date().getDate();
-  month = new Date().getMonth();
+  month = new Date().getMonth()+1;
   year  =  new Date().getFullYear();
   monedas = [
 
@@ -195,7 +195,7 @@ actualizarValores(articulos:PostArticulos){
 
   setDescuentoOrden($event){
 
-  if(this.articulosService.articulosPostArray.length  == 0){
+  if(this.articulos.length  == 0){
     $event.target.value = 0;
     this.ordenCompra.MONTO_DESCUENTO = 0;
     this.alertasService.message('ISLEÑA', 'Debes de agregar al menos un producto.')
@@ -204,6 +204,7 @@ actualizarValores(articulos:PostArticulos){
     let value = $event.target.value;
     this.ordenCompra.PORC_DESCUENTO = value;
     this.ordenCompra.MONTO_DESCUENTO = (this.ordenCompra.TOTAL_A_COMPRAR / 100) *value
+    console.log(' this.ordenCompra.MONTO_DESCUENTO', this.ordenCompra.MONTO_DESCUENTO)
     this.sumarTotales();
     
   }
@@ -267,13 +268,15 @@ actualizarValores(articulos:PostArticulos){
       totalDescuento += this.articulos[i].totalDescuento;
       subtotal += this.articulos[i].montoSubTotal;
       total += this.articulos[i].montoTotal;
+      this.ordenCompra.TOTAL_IMPUESTO1 += totalImpuesto1;
+      this.ordenCompra.MONTO_DESCUENTO += totalDescuento;
+     
+
       
       if(i == this.articulos.length -1){
   this.TOTAL_UNIDADES = totalUnidades;
-  this.ordenCompra.TOTAL_IMPUESTO1 = totalImpuesto1;
-  this.ordenCompra.MONTO_DESCUENTO = totalDescuento;
   this.ordenCompra.TOTAL_MERCADERIA = subtotal;
-  this.ordenCompra.TOTAL_A_COMPRAR = total;
+  this.ordenCompra.TOTAL_A_COMPRAR = total + this.ordenCompra.TOTAL_IMPUESTO1 - this.ordenCompra.MONTO_DESCUENTO + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO +this.ordenCompra.MONTO_ANTICIPO;
 
       }
     }
@@ -576,7 +579,8 @@ return
     this.proveedor = null;
     this.bodega = null;
     this.moneda = '¢';
-    //this.gestionOrdenesService.ordenCompra = null;
+    this.actualizar = false;
+
 
   })
 }
