@@ -117,6 +117,19 @@ generatePDF(proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
       widths: ['*', 'auto', '*', '*','*','*'],
       body: [
         ['','', '', '',  { text: 'Total: ', bold: true},''],
+        ['','', '', '',  { text: 'Mercadería: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.TOTAL_MERCADERIA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Descuento: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.MONTO_DESCUENTO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Impuesto1: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.TOTAL_IMPUESTO1, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Impuesto2: ', bold: true},ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'SubTotal: ', bold: true},ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Flete: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.MONTO_FLETE, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Seguro: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.MONTO_SEGURO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Documentación: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.MONTO_DOCUMENTACIO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Total: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.TOTAL_A_COMPRAR, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Anticipo: ', bold: true},ColonesPipe.prototype.transform(ordenCompra.MONTO_ANTICIPO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        ['','', '', '',  { text: 'Saldo: ', bold: true},ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)],
+        [{ text: 'Instrucciones: ', bold: true},'', '', '',  '',''],
+        [{ text: ordenCompra.INSTRUCCIONES},'', '', '',  '',''],
       ]
     }
     }
@@ -128,23 +141,7 @@ generatePDF(proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
 
       body.table.body.push([ articulos[a].articulo.ARTICULO, {text: articulos[a].articulo.DESCRIPCION, alignment: 'left',fontSize: 10 } , articulos[a].articulo.CANTIDAD_ORDENADA , ColonesPipe.prototype.transform(articulos[a].articulo.PRECIO_UNITARIO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda),ColonesPipe.prototype.transform(articulos[a].articulo.IMPUESTO1, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) ,  ColonesPipe.prototype.transform(articulos[a].articulo.PRECIO_UNITARIO * articulos[a].articulo.CANTIDAD_ORDENADA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
       if( a == articulos.length -1){
-    
-  
-        montos.table.body.push([ '','', '', '', 'Mercadería:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_MERCADERIA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Descuento:',ColonesPipe.prototype.transform(ordenCompra.MONTO_DESCUENTO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Impuesto1:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_IMPUESTO1, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Impuesto2:',ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'SubTotal:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_MERCADERIA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Flete:',ColonesPipe.prototype.transform(ordenCompra.MONTO_FLETE, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Seguro:',ColonesPipe.prototype.transform(ordenCompra.MONTO_SEGURO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Documentación:',ColonesPipe.prototype.transform(ordenCompra.MONTO_DOCUMENTACIO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Total:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_A_COMPRAR, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Anticipo:',ColonesPipe.prototype.transform(ordenCompra.MONTO_ANTICIPO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-        montos.table.body.push([ '','', '', '', 'Saldo:',ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)]),
-        montos.table.body.push([ '','', '', '', '',''])
-        montos.table.body.push([ 'Instrucciones','', '', '', '',''])
-        montos.table.body.push([ ordenCompra.INSTRUCCIONES,'', '', '', '',''])
-        console.log('data', data)
+
         pdf.add(
           [
           header,
