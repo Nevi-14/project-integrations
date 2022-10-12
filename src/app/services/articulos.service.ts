@@ -30,7 +30,7 @@ getURL(api){
 
   let test : string = '';
 
-  if(!environment.TestURL){
+  if(!environment.prdMode){
 
     test = environment.TestURL;
   }

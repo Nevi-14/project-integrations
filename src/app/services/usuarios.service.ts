@@ -25,7 +25,7 @@ ocAppData:ONEOCAprob[]=[];
 
     let test : string = '';
   
-    if(!environment.TestURL){
+    if(!environment.prdMode){
   
       test = environment.TestURL;
     }
@@ -44,16 +44,18 @@ ocAppData:ONEOCAprob[]=[];
   return URL;
     }
   
- private  getUsers(usuario: string){
+ private  getUsers(usuario: string, clave:string){
     let  URL = this.getURL(environment.usuariosURL);
-    URL = URL + `?User=${usuario}`;
+    URL = URL + environment.usuarioAuthParam+ usuario + environment.claveParam + clave;
+
+    console.log('users url', URL)
     return this.http.get<Usuarios[]>(URL);
   }
 
-  syngGetUsers(usuario){
+  syngGetUsers(usuario: string, clave:string){
     this.usuarios = [];
     this.alertasService.presentaLoading('Cargando datos...')
-    this.getUsers(usuario).subscribe(
+    this.getUsers(usuario, clave).subscribe(
   
       resp => {
   
@@ -69,8 +71,8 @@ ocAppData:ONEOCAprob[]=[];
       }
     )
   }
-  syngGetUsersToPromise(usuario){
-  return  this.getUsers(usuario).toPromise();
+  syngGetUsersToPromise(usuario: string, clave:string){
+  return  this.getUsers(usuario, clave).toPromise();
   }
   
 

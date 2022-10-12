@@ -82,6 +82,7 @@ export class GestionOrdernesPage implements OnInit {
     }
   
     limpiarDatos(){
+      this.usuariosService.syncGetONEUserAprob();
 this.gestorArchivosService.archivos = [];
 this.cd.detectChanges();
       this.gestionOrdenesService.limpiarDatos();
@@ -171,82 +172,85 @@ this.cd.detectChanges();
       }
 
 
-    async approvers() {
+      async approvers(estado) {
+     
 
-      let inputs = [];
-      let approvers:ONEOCAprob[] = [];
-      for(let i = 0;  i < this.usuariosService.approvers.length; i++){
-        let a =  this.usuariosService.ocAppData.findIndex(aprob => aprob.Usuario == this.usuariosService.approvers[i].Usuario  &&  aprob.ORDEN_COMPRA == this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA );
-        if(a < 0 ){
-          inputs.push( {
-            label: this.usuariosService.approvers[i].Nombre ,
-            type: 'checkbox',
-            value: this.usuariosService.approvers[i].Usuario,
-            checked:false
-          })
-
-        }
-
+        let inputs = [];
+        let approvers:ONEOCAprob[] = [];
+        for(let i = 0;  i < this.usuariosService.approvers.length; i++){
+          let a =  this.usuariosService.ocAppData.findIndex(aprob => aprob.Usuario == this.usuariosService.approvers[i].Usuario  &&  aprob.ORDEN_COMPRA == this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA );
+          if(a < 0 ){
+            inputs.push( {
+              label: this.usuariosService.approvers[i].Nombre ,
+              type: 'checkbox',
+              value: this.usuariosService.approvers[i].Usuario,
+              checked:false
+            })
   
+          }
   
-      }
-        const alert = await this.alertCTrl.create({
-          header: 'Aprobador OC',
-          subHeader:'Orden de compra ' +this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
-          cssClass:'custom-alert',
-          buttons: [
-            {
-              text: 'Cancelar',
-              role: 'cancel',
-              handler: () => {
-          
-              },
-            },
-            {
-              text: 'Continuar',
-              role: 'confirm',
-              handler: (data) => {
-
-                if(data.length == 0){
-                  this.alertasService.message('DIONE','Debes seleccionar 1 aprobador como minimo')
-                   return;
-                }
-                this.gestionOrdenesService.ordenCompra.ESTADO = this.gestionOrdenesService.estado
-
-            
-                data.forEach(user => {
-                  approvers.push({
-    ORDEN_COMPRA: this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
-     Usuario: user,
-     Estatus: this.gestionOrdenesService.ordenCompra.ESTADO,
-     Fecha: new Date().toISOString()
-                  })
-                });
-                this.gestionOrdenesService.ordenCompraService.syncPutOrdenCompraToPromise(this.gestionOrdenesService.ordenCompra).then(resp =>{
-                  console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
-                  this.alertasService.message('DIONE', 'El estado se actualizo con exito')
-                  this.usuariosService.syncPostONEOCAprobToPromise(approvers).then(resp =>{
-                    console.log(resp, 'test')
-          
-               
-                    });
-                    this.limpiarDatos();
-                }, error =>{
-                  console.log(error)
-                  this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
-                });
-             console.log('approvers',approvers)
-           
-
-       
-              },
-            },
-          ],
-          inputs:inputs,
-        });
     
-        await alert.present();
-      }
+    
+        }
+          const alert = await this.alertCTrl.create({
+            header: 'Aprobador OC',
+            subHeader:'Orden de compra ' +this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
+            cssClass:'custom-alert',
+            buttons: [
+              {
+                text: 'Cancelar',
+                role: 'cancel',
+                handler: () => {
+            
+                },
+              },
+              {
+                text: 'Continuar',
+                role: 'confirm',
+                handler: (data) => {
+  
+                  if(data.length == 0){
+                    this.alertasService.message('DIONE','Debes seleccionar 1 aprobador como minimo')
+                     return;
+                  }
+                  this.gestionOrdenesService.ordenCompra.ESTADO = estado;
+  
+              
+                  data.forEach(user => {
+                    approvers.push({
+      ORDEN_COMPRA: this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
+       Usuario: user,
+       Estatus: this.gestionOrdenesService.ordenCompra.ESTADO,
+       Fecha: new Date().toISOString()
+                    })
+                  });
+                
+                  this.ordenCompraService.syncPutOrdenCompraToPromise(this.gestionOrdenesService.ordenCompra).then(resp =>{
+                    console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
+                    this.alertasService.message('DIONE', 'El estado se actualizo con exito')
+                    this.usuariosService.syncPostONEOCAprobToPromise(approvers).then(resp =>{
+                      console.log(resp, 'test')
+            
+                 
+                      });
+                    this.limpiarDatos();
+                  }, error =>{
+                    console.log(error)
+                    this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
+                  });
+               console.log('approvers',approvers)
+             
+  
+         
+                },
+              },
+            ],
+            inputs:inputs,
+          });
+      
+          await alert.present();
+        }
+  
 
  
 async actualizarEstado() {
@@ -325,15 +329,16 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
           role: 'confirm',
           handler: (data) => {
          console.log('data',data)
-         this.gestionOrdenesService.estado = data;
-
+      
          if(this.gestionOrdenesService.ordenCompra.ESTADO == 'A' && data == 'B'){
-          this.approvers();
+          this.approvers(data);
 
           return
          }else{
           this.gestionOrdenesService.ordenCompra.ESTADO = this.gestionOrdenesService.estado;
           this.gestionOrdenesService.ordenCompraService.syncPutOrdenCompraToPromise(this.gestionOrdenesService.ordenCompra).then(resp =>{
+            this.gestionOrdenesService.estado = data;
+
             console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
             this.alertasService.message('DIONE', 'El estado se actualizo con exito')
          
@@ -424,6 +429,7 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
                 text: 'Continuar',
                 role: 'confirm',
                 handler: (data) => {
+                  
                   this.gestionOrdenesService.estado = data;
                   this.ordenesDeCompra(data)
                 

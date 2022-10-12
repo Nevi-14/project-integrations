@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Archivos } from 'src/app/models/archivos';
 import { GestorArchivosService } from 'src/app/services/gestor-archivos.service';
@@ -48,7 +48,8 @@ public modalCtrl: ModalController,
 public gestorArchivosService: GestorArchivosService,
 public alertasService: AlertasService,
 public gestionOrdenesService: GestionOrdenesService,
-public usuariosService:UsuariosService
+public usuariosService:UsuariosService,
+private cd: ChangeDetectorRef
 
   ) { }
 
@@ -57,13 +58,14 @@ this.cargarArchivos();
   }
 
   cargarArchivos(){
-    this.gestorArchivosService.archivos = [];
+   
     this.gestorArchivosService.syncGetArchivosToPromise(this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA).then(resp => {
      console.log('archivos get resp' , resp)
   
       if(resp.length > 0){
 
 this.gestorArchivosService.archivos = resp;
+this.cd.detectChanges();
       } else{
         this.alertasService.message('DiOne', 'No se ha guardado ningun arcivo')
       }

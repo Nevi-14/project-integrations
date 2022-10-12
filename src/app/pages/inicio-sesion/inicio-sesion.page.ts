@@ -13,8 +13,8 @@ export class InicioSesionPage implements OnInit {
 
   image = '../assets/islena.png';
   showPass = false;
-  usuario: string = '';
-  clave: string = '';
+  usuario: string = null;
+  clave: string = null;
 
   constructor( public route: Router,
                private usuariosService: UsuariosService,
@@ -28,7 +28,7 @@ export class InicioSesionPage implements OnInit {
     console.log(this.clave);
 this.usuariosService.usuario = null;
     this.alertas.presentaLoading('Espere x favor...');
-    this.usuariosService.syngGetUsersToPromise(this.usuario).then(
+    this.usuariosService.syngGetUsersToPromise(this.usuario, this.clave).then(
       resp => {
         this.alertas.loadingDissmiss();
         if (resp.length > 0){

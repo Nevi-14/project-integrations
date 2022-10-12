@@ -1,0 +1,19 @@
+tipo de compra
+codigo
+tipo compra
+descripcion
+
+ingresa el usuario tipo U puede hacer una solicitud de orden de compra > revisar sie sta autorizado a comprar
+
+tipo de compra, usuarios tipos de compra
+
+no existe bodega
+despues lista de productos
+
+pais no, fecha de embarque no,fecha de desamanaje
+
+
+prodcutos
+precio si, unidades, impuesto, descuento, total
+
+SDE1

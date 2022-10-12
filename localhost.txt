@@ -1,0 +1,8 @@
+linux
+services automatic
+cron tab en linux :  crontab -e
+
+3 servicios : 
+
+@rebot para que inicie el api y agent
+*** carga el api cada cierto tiempo

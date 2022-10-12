@@ -73,7 +73,7 @@
    <ion-fab-button slot="end" size="small" color="dark" (click)="currency()">
 <span style="font-size: 1.5rem;font-weight:bold">      {{gestionOrdenesService.moneda}}</span>
     </ion-fab-button>
-   <ion-fab-button  *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'B' || gestionOrdenesService.ordenCompra.ESTADO == 'C' || gestionOrdenesService.ordenCompra.ESTADO == 'E'" slot="end" size="small" color="dark" (click)="consultarAprobadores()">
+   <ion-fab-button  *ngIf="gestionOrdenesService.ordenCompra && gestionOrdenesService.ordenCompra.ESTADO == 'B'" slot="end" size="small" color="dark" (click)="consultarAprobadores()">
       <ion-icon name="people"></ion-icon>
     </ion-fab-button>
     

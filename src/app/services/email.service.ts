@@ -18,9 +18,23 @@ export class EmailService {
     public alertasService: AlertasService
   ) { }
 
+  getURL(api){
 
+    let test : string = '';
+    
+    if(!environment.prdMode){
+    
+    test = environment.TestURL;
+    
+    }
+    
+    const URL = environment.preURL2 + test + environment.postURL + api;
+    
+    return URL;
+      
+    }
 private postEmailApi (email:email){
-  const URL = environment.emailApi;
+  const URL =  this.getURL(environment.emailApi);
   const options = {
     headers: {
         'Content-Type': 'application/json',
