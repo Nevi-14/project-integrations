@@ -547,9 +547,10 @@ this.year =  new Date(fecha_orden).getFullYear();
               this.gestionOrdenesService.proveedor = this.proveedoresService.proveedores[p];
             }
 
-            let i = this.gestionOrdenesService.monedas.findIndex(moneda => moneda.value == this.gestionOrdenesService.proveedor.MONEDA);
+            let i = this.gestionOrdenesService.monedas.findIndex(moneda => moneda.value == this.gestionOrdenesService.ordenCompra.MONEDA);
 
             if(i >=0){
+              console.log(this.gestionOrdenesService.moneda[i], 'this.gestionOrdenesService.moneda[i]')
              this.gestionOrdenesService.moneda = this.gestionOrdenesService.monedas[i].display;
             }
             console.log('res', resp)

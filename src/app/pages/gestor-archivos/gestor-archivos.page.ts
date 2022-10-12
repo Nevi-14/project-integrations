@@ -67,7 +67,7 @@ this.cargarArchivos();
 this.gestorArchivosService.archivos = resp;
 this.cd.detectChanges();
       } else{
-        this.alertasService.message('DiOne', 'No se ha guardado ningun arcivo')
+        this.alertasService.message('DiOne', 'No se ha guardado ningun Archivo.')
       }
     }, error =>{
 

@@ -5,6 +5,7 @@ import { Proveedores } from '../models/proveedores';
 import { ColonesPipe } from '../pipes/colones.pipe';
 import { LocalizacionService } from './localizacion.service';
 import { GestionOrdenesService } from './gestion-ordenes.service';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -15,7 +16,8 @@ export class PdfService {
 
   constructor(
 public localizationService: LocalizacionService,
-public gestionOrdenesService: GestionOrdenesService
+public gestionOrdenesService: GestionOrdenesService,
+public http: HttpClient
 
   ) { }
 
@@ -30,205 +32,139 @@ public gestionOrdenesService: GestionOrdenesService
 }
 
 
+generatePDF(proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
+
+  this.http.get('../assets/icon/isa.png', { responseType: 'blob' })
+  .subscribe(res => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      var base64data = reader.result;                
+          console.log(base64data);
+ 
+         this.rellenarpdf(base64data,proveedor, ordenCompra, articulos)
+    }
+
+    reader.readAsDataURL(res); 
+    console.log(res);
+  });
+
+ 
+}
 
 
+  async rellenarpdf(image,proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
 
-  async generatePDF(proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
+    let i =  this.localizationService.continents.findIndex(pais => pais.PAIS == ordenCompra.PAIS);
 
- let i =  this.localizationService.continents.findIndex(pais => pais.PAIS == ordenCompra.PAIS);
+    const pdf = new PdfMakeWrapper();
+    pdf.pageMargins(20);
 
-
-    let pdf1 = new PdfMakeWrapper();
-    let header = null;
-  
-    pdf1.info({
+    pdf.info({
       title:ordenCompra.ORDEN_COMPRA,
       author: ordenCompra.USUARIO,
       subject: 'Orden de compra',
   });
 
+    let data = [];
 
 
+    let header = {
+      layout: 'noBorders', // optional
+      table: {
+      headerRows: 1,
+      widths: [ '*', 'auto', 100, '*' ],
+      body: [
+        [ { image: image,width: 100}, [
 
-  const header1 = new Table([
-    [
-        await new Img('../assets/icon/isa.png').fit(
-            [100, 100]
-        ).build(),
-   [
-  [new Txt('Distribuidora Isleña de Alimentos S.A.').end],
-  [new Txt('400 Mtr N. Embotelladora Pepsi').end],
-  [new Txt('Barreal de Heredia').end],
-  [new Txt('22930609').end]
-],
-        this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA))
-    ]
-  ]).widths([120, '*',100]).layout('noBorders').end;
+          { text: 'Distribuidora Isleña de Alimentos S.A.'},
+          { text: '400 Mtr N. Embotelladora Pepsi'},
+          { text: 'Barreal de Heredia'},
+          { text: '22930609'}
 
-  pdf1.pageSize({
-    width: 595.28,
-    height: 'auto'
-  })
-
-  pdf1.add(header1);
-pdf1.add('\n');
-
-
-
-// Encabezados del PDF...
-
-const header2 = new Table([
-  [
-    'Proveedor:',proveedor.NOMBRE,''
-  ],
-  [
-    'Teléfono:',proveedor.TELEFONO1,'Fax : ' + proveedor.FAX
-  ],
-  [
-    'Dirección:',proveedor.DIRECCION,''
-  ],
-  [
-    'País:', i >=0 ? this.localizationService.continents[i].NOMBRE : '',''
-  ],
-  [
-    'Condición de Pago:',proveedor.CONDICION_PAGO +'  días',''
-  ],
-  [
-    'Moneda:',proveedor.MONEDA,''
-  ],
-  [
-    'Dirección de Embarque:',proveedor.DIRECCION,''
-  ],
-  [
-    'Fecha de la Orden:',this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)),''
-  ],
-  [
-    'Fecha de Cotización:',this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)),''
-  ],
-  [
-    'Fecha Requerida:',this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)),''
-  ],
-]).widths([100, '*','*']).margin(6).layout('noBorders').alignment('left').end;
-pdf1.add(header2); 
-
-let data = [['Artículo','Descripción', 'Ordenada', 'Unitario', '%','Total']];
-
-
-for(let d =0; d < articulos.length; d++){
-
-  data.push([ articulos[d].articulo.ARTICULO,  articulos[d].articulo.DESCRIPCION, articulos[d].articulo.CANTIDAD_ORDENADA , ColonesPipe.prototype.transform(articulos[d].articulo.PRECIO_UNITARIO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda),ColonesPipe.prototype.transform(articulos[d].articulo.IMPUESTO1, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) ,  ColonesPipe.prototype.transform(articulos[d].articulo.PRECIO_UNITARIO * articulos[d].articulo.CANTIDAD_ORDENADA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
-console.log('d',d,'bodyData.length', articulos.length , ' bodyData.length -1',  articulos.length -1)
-  if(d == articulos.length -1){
-
-    const body0 = new Table([
-      [
-        '','', 'Cantidad', 'Precio', 'Descuento','Importe'
-      ],
-    ]).widths([60, 120,60,60, 90,60]).margin(0).layout('lightHorizontalLines').alignment('left').end;
-    const body1 = new Table(data).widths([60, 120,60,60, 90,60]).layout('lightHorizontalLines').alignment('left').end;
-  
-    pdf1.add([new Txt('Lista Articulos').margin(6).bold().end,body0,body1]);
-  
-
-
-
-
-
-
-    const body2 = new Table([
-      [
-        '','', '', '',new Txt('Total').alignment('left').bold().end, ''
-      ],
-      [
-        '','', '', '',new Txt('Mercadería:').alignment('left').bold().end, ColonesPipe.prototype.transform(ordenCompra.TOTAL_MERCADERIA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) 
-      ],
-      [
-        '','', '', '',  new Txt('Descuento:').alignment('left').bold().end,ColonesPipe.prototype.transform(ordenCompra.MONTO_DESCUENTO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) 
-      ],
-      [
-        '','', '', '', new Txt('Impuesto1:').alignment('left').bold().end, ColonesPipe.prototype.transform(ordenCompra.TOTAL_IMPUESTO1, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) 
-      ],
-      [
-        '','', '', '', new Txt('Impuesto2:').alignment('left').bold().end , ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)  
-      ],
-      [
-        '','', '', '', new Txt('SubTotal:').alignment('left').bold().end , ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)  
-      ],
-      [
-        '','', '', '', new Txt('Flete:').alignment('left').bold().end , ColonesPipe.prototype.transform(ordenCompra.MONTO_FLETE, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) 
-      ],
-      [
-        '','', '', '', new Txt('Seguro:').alignment('left').bold().end , ColonesPipe.prototype.transform(ordenCompra.MONTO_SEGURO)
-      ],
-      [
-        '','', '', '', new Txt('Documentación:').alignment('left').bold().end,ColonesPipe.prototype.transform(ordenCompra.MONTO_DOCUMENTACIO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) 
-      ],
-      [
-        '','', '', '',new Txt('Total:').alignment('left').bold().end , ColonesPipe.prototype.transform(ordenCompra.TOTAL_A_COMPRAR, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)
-      ],
-      [
-        '','', '', '', new Txt('Anticipo:').alignment('left').bold().end , ColonesPipe.prototype.transform(ordenCompra.MONTO_ANTICIPO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) 
-      ],
-      [
-        '','', '', '',new Txt('Saldo:').alignment('left').bold().end , ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)  
-      ],
-    ]).widths([55, 115,60,60, 90,60]).layout('lightHorizontalLines').alignment('right').end;
-    pdf1.add(body2
-  );
+        ], '', this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)) ],
+        [{ text: '', margin: [ 10, 10, 10, 10 ]} , '' , '' , '', ],
+        [   { text: 'Proveedor: ', bold: true} , proveedor.NOMBRE , '' , '', ],
+        [   { text: 'Teléfono:', bold: true} , proveedor.TELEFONO1 , 'Fax:' , proveedor.FAX, ],
+        [   { text: 'Dirección:', bold: true} , proveedor.DIRECCION , '' , '', ],
+        [   { text: 'País:', bold: true} , i >=0 ? this.localizationService.continents[i].NOMBRE : '' , '' , '', ],
+        [   { text: 'Condición de Pago:', bold: true} ,proveedor.CONDICION_PAGO +'  días' , '' , '', ],
+        [   { text: 'Moneda:', bold: true} , ordenCompra.MONEDA , '' , '', ],
+        [   { text: 'Dirección de Embarque:', bold: true} , proveedor.DIRECCION , '' , '', ],
+        [   { text:'Fecha de la Orden:', bold: true} , this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)) , '' , '', ],
+        [   { text: 'Fecha de Cotización:', bold: true} , this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)) , '' , '', ],
+        [   { text: 'Fecha Requerida:', bold: true} , this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)) , '' , '', ],
     
+        [     { text: 'Lista de Articulos',alignment: 'left',margin: [0, 10, 0, 10],bold: true}, '', '', '' ]
+      ]
+    }
+    }
+
+    let body = {
+      layout: 'lightHorizontalLines', // optional
+      table: {
+      headerRows: 1,
+      widths: [55, 115,60,60, 90,60 ],
+      body: [
+        ['','', 'Cantidad', 'Precio', 'Descuento','Importe'],
+        ['Artículo','Descripción', 'Ordenada', 'Unitario', '%','Total']
+      ]
+    }
+    }
+    let montos = {
+      layout: 'noBorders', // optional
+      table: {
+      headerRows: 1,
+      widths: ['*', 'auto', '*', '*','*','*'],
+      body: [
+        ['','', '', '',  { text: 'Total: ', bold: true},''],
+      ]
+    }
+    }
+
+
+
+
+    for(let a =0; a < articulos.length ; a++){
+
+      body.table.body.push([ articulos[a].articulo.ARTICULO, {text: articulos[a].articulo.DESCRIPCION, alignment: 'left',fontSize: 10 } , articulos[a].articulo.CANTIDAD_ORDENADA , ColonesPipe.prototype.transform(articulos[a].articulo.PRECIO_UNITARIO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda),ColonesPipe.prototype.transform(articulos[a].articulo.IMPUESTO1, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda) ,  ColonesPipe.prototype.transform(articulos[a].articulo.PRECIO_UNITARIO * articulos[a].articulo.CANTIDAD_ORDENADA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+      if( a == articulos.length -1){
     
-    pdf1.add([new Txt('Instrucciones').bold().alignment('left').margin(6).end]);
-    pdf1.add([new Txt('').alignment('left').margin(6).end]);
-    pdf1.create().download(ordenCompra.ORDEN_COMPRA);
-
-  }
-}
-
-
-
-  }
-  async generateFormat() {
-    let imageOne!: any;
-    let imageTwo!: any;
-    let ancho!: '85';
-    let alto!: '54';
-
-    const pdf = new PdfMakeWrapper();
-
-
-    var dd = [
-      { text: 'Page 1' },
-      
-      { table: {
-        // headers are automatically repeated if the table spans over multiple pages
-        // you can declare how many rows should be treated as headers
-        headerRows: 1,
-        widths: [ '*', 'auto', 100, '*' ],
-
-        body: [
-          [ 'First', 'Second', 'Third', 'The last one' ],
-          [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
-          [ { text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4' ]
+  
+        montos.table.body.push([ '','', '', '', 'Mercadería:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_MERCADERIA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Descuento:',ColonesPipe.prototype.transform(ordenCompra.MONTO_DESCUENTO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Impuesto1:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_IMPUESTO1, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Impuesto2:',ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'SubTotal:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_MERCADERIA, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Flete:',ColonesPipe.prototype.transform(ordenCompra.MONTO_FLETE, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Seguro:',ColonesPipe.prototype.transform(ordenCompra.MONTO_SEGURO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Documentación:',ColonesPipe.prototype.transform(ordenCompra.MONTO_DOCUMENTACIO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Total:',ColonesPipe.prototype.transform(ordenCompra.TOTAL_A_COMPRAR, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Anticipo:',ColonesPipe.prototype.transform(ordenCompra.MONTO_ANTICIPO, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)])
+        montos.table.body.push([ '','', '', '', 'Saldo:',ColonesPipe.prototype.transform(0, 2 , '.' , ',' ,  this.gestionOrdenesService.moneda)]),
+        montos.table.body.push([ '','', '', '', '',''])
+        montos.table.body.push([ 'Instrucciones','', '', '', '',''])
+        montos.table.body.push([ ordenCompra.INSTRUCCIONES,'', '', '', '',''])
+        console.log('data', data)
+        pdf.add(
+          [
+          header,
+          body,
+          montos
         ]
-      }},
-      { text: 'Cool thing', linkToDestination: 'cool', margin: [0, 20, 0, 0] },
-      { text: 'But what I want to be able to do is to also somehow get the page number from that id, so it looks like (for example) this:', margin: [0, 20, 0, 0] },
-      { text: 'See: Cool thing (page 2)', linkToDestination: 'cool', margin: [0, 20, 0, 0] },
-      { text: '', pageBreak: 'after' },
-      { text: 'Page 2' },
-      { text: 'An item of interest', id: 'interest', margin: [0, 20, 0, 0] },
-      { text: 'Something cool', id: 'cool', margin: [0, 20, 0, 0] },
-      { text: '', pageBreak: 'after' },
-      { text: 'Page 3' },
-      { text: 'Link to an interesting thing', linkToDestination: 'interest', margin: [0, 20, 0, 0] },
-    ]
+      
+        );
+        pdf.create().download(ordenCompra.ORDEN_COMPRA);
     
-     
-    pdf.add(
-      dd
 
-    );
-    pdf.create().download('test');
+      }
+    }
+
+
+    return
+
+
+
   }
+
 
 }

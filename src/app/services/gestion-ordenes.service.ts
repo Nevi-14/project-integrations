@@ -387,9 +387,10 @@ console.log('ultima oc', resp)
           console.log('orden de compra',this.ordenCompra);
           console.log('put',putArticulos);
           console.log('post',postArticulos);
+          console.log('moneda',this.moneda);
           this.alertasService.loadingDissmiss();
 
-
+//return
           if(this.actualizar){
        this.actualizarOrdeDeCompra(postArticulos,putArticulos);
           }else{
@@ -589,7 +590,7 @@ return
     let emailPost:email = {
       toEmail:'gcompras@di.cr',
       subject:'Nueva Orden de Compra ' + this.ordenCompra.ORDEN_COMPRA,
-      body:'Se genero la solicitud de la orden de compra ' + this.ordenCompra.ORDEN_COMPRA +' del proveedor '+ this.proveedor.NOMBRE+' por un total de ' +ColonesPipe.prototype.transform(this.ordenCompra.TOTAL_A_COMPRAR)  
+      body:'Se genero la solicitud de la orden de compra ' + this.ordenCompra.ORDEN_COMPRA +' del proveedor '+ this.proveedor.NOMBRE+' por un total de ' + ColonesPipe.prototype.transform(this.ordenCompra.TOTAL_A_COMPRAR, 2 , '.' , ',' ,  this.moneda)
     }
 
 
