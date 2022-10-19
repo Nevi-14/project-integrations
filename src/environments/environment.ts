@@ -9,7 +9,7 @@ export const environment = {
   preURL2:'http://api_isa',
   TestURL:'_test',
   postURL:'.di-apps.co.cr/api/',
-  prdMode: false,
+  prdMode: true,
   articulosURL:'ONE_ArtProv/',
   bodegasURL:'ONE_Bodega',
   lineasPostURL:'ONE_OCLin',
