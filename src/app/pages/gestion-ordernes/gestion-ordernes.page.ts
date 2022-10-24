@@ -26,6 +26,8 @@ import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
 import { GestorArchivosPage } from '../gestor-archivos/gestor-archivos.page';
 import { GestorArchivosService } from 'src/app/services/gestor-archivos.service';
 import { BulkPage } from '../bulk/bulk.page';
+
+import * as XLSX from 'xlsx';  // Convierte excel a objeto
 interface PostArticulos {
 
   articulo:Lineas,
@@ -105,16 +107,55 @@ this.cd.detectChanges();
       this.textoBuscar = event.detail.value;
     }
 
+    editBulk(){
+  let filename = this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA;
+  let data = [];
+for(let a = 0; a <   this.gestionOrdenesService.articulos.length; a++){
+
+  let item = {
+    Codigo_Producto : this.gestionOrdenesService.articulos[a].articulo.ARTICULO,
+    Unidades : this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA,
+    Descripcion : this.gestionOrdenesService.articulos[a].articulo.DESCRIPCION,
+    Precio : this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO
+
+
+
+
+  }
+
+  data.push(item)
+  if(a ==   this.gestionOrdenesService.articulos.length -1){
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, filename);
+   // console.log('XLSX',XLSX.writeFile(wb, filename + '.xlsx'))
+   console.log('XLSX',XLSX)
+
+   XLSX.writeFile(wb, filename + '.xlsx')
+
+
+  }
+
+}
+
+      
+    }
     async bulk(){
-      this.gestionOrdenesService.limpiarDatos();
+     
+
       let modal = await  this.modalCtrl.create({
         component:BulkPage,
-        cssClass: 'fullscreen-large-modal',
+        cssClass: 'alert-modal',
+        componentProps:{
+          bodega:this.gestionOrdenesService.bodega,
+          proveedor:this.gestionOrdenesService.proveedor,
+          update: this.gestionOrdenesService.bodega && this.gestionOrdenesService.proveedor ? true : false
+        }
       });
   
       await modal.present();
     }
-
+ 
 
 
   

@@ -517,3 +517,21 @@ ion-modal.fullscreen-large-modal {
     
  
 }
+
+
+ion-modal.alert-modal {
+  --border-radius: 0px!important;
+   .modal-wrapper {
+     --background: rgba(44, 39, 45, 0.2);
+ }
+   --backdrop-opacity: 0.8 !important;
+   align-items: start;
+   justify-content: center; 
+   &::part(content){
+     position: fixed;
+     width: 50vw;
+     height: 100vh; 
+   }
+
+ 
+ }

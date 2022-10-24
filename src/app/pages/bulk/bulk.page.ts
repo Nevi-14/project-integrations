@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as XLSX from 'xlsx';  // Convierte excel a objeto
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
@@ -25,7 +25,8 @@ interface PostArticulos {
 interface ArticulosA {
   Codigo_Producto:number,
   Descripcion?: string,
-  Unidades:number
+  Unidades:number,
+  Precio?:number
 }
 @Component({
   selector: 'app-bulk',
@@ -36,10 +37,15 @@ export class BulkPage implements OnInit {
   array:PostArticulos [] =[]
    myArray:ArticulosA[] = [];
    import:ArticulosA[] = [];
+   @ViewChild('myInput')
+   myInputVariable: ElementRef;   
    file:any  = null;
-   proveedor:Proveedores = null
-   bodega:Bodegas  = null
-   textoBuscar = '';
+   @Input()  proveedor:Proveedores
+   @Input() bodega:Bodegas
+   @Input() update:boolean
+   textoBuscarProveedor = '';
+   textoBuscarArticulo = '';
+   textoBuscarBodega = '';
   constructor(
 public proveedoresService: ProveedoresService,
 public gestionOrdenesService: GestionOrdenesService,
@@ -51,24 +57,59 @@ public modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
-    this.proveedoresService.proveedores = [];
-    this.bodegasService.syncGetProvedores();
-    if(localStorage.getItem('proveedores')){
-      this.proveedoresService.proveedores = JSON.parse(localStorage.getItem('proveedores'));
 
-      return
-     // this.proveedoresService.syncGetProvedores('');
+    if(this.update){
+     
+    }else{
+   
     }
-    this.proveedoresService.syncGetProvedores('');
  
+    if(!this.proveedor && !this.bodega){
+      this.gestionOrdenesService.limpiarDatos();
+          }
 
+          this.proveedoresService.proveedores = [];
+          this.proveedoresService.syncGetProvedorestoPromise('').then(resp =>{
+      
+            this.proveedoresService.proveedores = resp;
+            this.bodegasService.bodegas = [];
+            this.bodegasService.syncGetBodegasToPromise().then(resp =>{
+      
+         this.bodegasService.bodegas = resp;
+      
+  
+        
+      
+              
+            }, error =>{
+        
+              console.log('error', error)
+            });
+      
+          });
+      
+       
 
   }
 
-  onSearchChange(event){
 
-    this.textoBuscar = event.detail.value;
+
+
+  onSearchChangeProveedor(event){
+
+    this.textoBuscarProveedor = event.detail.value;
       }
+
+      onSearchChangeBodega(event){
+
+        this.textoBuscarBodega = event.detail.value;
+          }
+
+
+          onSearchChangeArticulo(event){
+
+            this.textoBuscarArticulo = event.detail.value;
+              }
 
   cerrarModal(){
     this.modalCtrl.dismiss();
@@ -87,6 +128,40 @@ public modalCtrl: ModalController
 }
   }
 
+  editarArticulosBULK(){
+    
+for(let i =0; i < this.import.length; i++){
+let a = this.gestionOrdenesService.articulos.findIndex(articulo => articulo.articulo.ARTICULO == this.import[i].Codigo_Producto  );
+
+if(a >=0){
+  this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA = this.import[i].Unidades
+  this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO = this.import[i].Precio
+
+  this.gestionOrdenesService.articulos[a].montoSubTotal = this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO * this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA
+  this.gestionOrdenesService.articulos[a].articulo.MONTO_DESCUENTO =  this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO  *  this.gestionOrdenesService.articulos[a].articulo.PORC_DESCUENTO / 100
+  this.gestionOrdenesService.articulos[a].totalDescuento =  this.gestionOrdenesService.articulos[a].articulo.MONTO_DESCUENTO * this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA;
+ 
+
+  this.gestionOrdenesService.articulos[a].totalImpuesto =  this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO  *  this.gestionOrdenesService.articulos[a].articulo.IMPUESTO1 / 100 * this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA
+
+  this.gestionOrdenesService.articulos[a].montoTotal =  this.gestionOrdenesService.articulos[a]. montoSubTotal + this.gestionOrdenesService.articulos[a].totalImpuesto -  this.gestionOrdenesService.articulos[a].totalDescuento
+
+ 
+}
+  if(i == this.import.length -1){
+this.gestionOrdenesService.sumarTotales();
+this.cerrarModal();
+  }
+}
+/**
+ * console.log(this.bodega)
+console.log(this.proveedor)  
+this.file = null;
+this.array  = [];
+this.myArray  = [];
+this.import = [];
+ */
+      }
   agregarArticulosBULK(){
 this.gestionOrdenesService.bodega = this.bodega;
 this.gestionOrdenesService.proveedor = this.proveedor;
@@ -174,13 +249,17 @@ this.modalCtrl.dismiss();
         }
                 
                     if(i == this.import.length -1){
-
-             if(notFound.length >0){
+                      console.log('articulos',this.array)
+                      if(this.array.length == 0){
+ 
+                        this.alertasService.message('DIONE', 'Verifica que sea el proveedor correcto, no se encontrarona rticulos asociados.')
+                      }
+             if(notFound.length >0  && this.array.length > 0){
 
               this.exportToExcel(notFound,'Productos No encontrados ' + this.proveedor.ID);
 
              }
-                      console.log('articulos',this.array)
+                     
         
                     }
                   }

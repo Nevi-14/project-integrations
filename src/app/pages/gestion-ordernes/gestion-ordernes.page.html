@@ -49,9 +49,7 @@
       <ion-col size="7">
       
    <ion-item lines="none">
-      <ion-fab-button  (click)="bulk()" size="small" color="dark" slot="end" >
-         <ion-icon name="cloud-upload-outline"></ion-icon>
-      </ion-fab-button>
+ 
       <ion-fab-button *ngIf="gestionOrdenesService.actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'E' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="generatePDF()">
          <ion-icon name="document-outline"></ion-icon>
       </ion-fab-button>
@@ -106,8 +104,16 @@
          <ion-col size="12">
             <ion-toolbar class="ion-no-padding"  >
                <ion-title class="container-title">Detalle del Proveedor</ion-title>
-               <ion-fab-button  *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark" (click)="listaProveedores()">
-                  <ion-icon name="settings"></ion-icon>
+              
+               <ion-fab-button *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'E'  && this.usuariosService.usuario.Rol == 'C' || gestionOrdenesService.actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'C'" color="dark"  (click)="editBulk()" size="small"  slot="end" >
+                  <ion-icon name="cloud-download-outline"></ion-icon>
+               </ion-fab-button>
+               <ion-fab-button color="dark"  (click)="bulk()" size="small"  slot="end" >
+                  <ion-icon name="cloud-upload-outline"></ion-icon>
+               </ion-fab-button>
+
+               <ion-fab-button color="dark"  *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'A'" slot="end" size="small" color="dark" (click)="listaProveedores()">
+                  <ion-icon name="add-outline"></ion-icon>
                 </ion-fab-button>
             </ion-toolbar>
          </ion-col>
@@ -175,7 +181,7 @@
          <ion-col size="12">
             <ion-toolbar class="ion-no-padding"  >
                <ion-title class="container-title">Detalle De La Orden</ion-title>
-               <ion-fab-button *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'A'" slot="end"  (click)="listaBodegas()" color="primary" size="small">
+               <ion-fab-button color="dark" *ngIf="gestionOrdenesService.ordenCompra.ESTADO == 'A'" slot="end"  (click)="listaBodegas()"   size="small">
                   <ion-icon name="add"></ion-icon>
                </ion-fab-button>
             </ion-toolbar>

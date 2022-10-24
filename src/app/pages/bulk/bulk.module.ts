@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { BulkPageRoutingModule } from './bulk-routing.module';
 
 import { BulkPage } from './bulk.page';
-import { PipesModule } from '../../pipes/pipes/pipes.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [

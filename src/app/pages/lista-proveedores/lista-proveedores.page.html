@@ -20,7 +20,7 @@
 <ion-content>
   <ion-list  >
     <ion-item lines="full"  (click)="retornarProvedor(proveedor)" *ngFor="let proveedor of proveedoresService.proveedores | filtro: textoBuscar:'NOMBRE'">
-      <ion-label>{{proveedor.ID}}</ion-label>
+     
       <ion-label>{{proveedor.NOMBRE}}</ion-label>
     </ion-item>
   </ion-list>

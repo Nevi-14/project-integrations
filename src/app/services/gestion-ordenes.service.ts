@@ -264,7 +264,7 @@ actualizarValores(articulos:PostArticulos){
     this.ordenCompra.TOTAL_A_COMPRAR =0;
     this.ordenCompra.TOTAL_MERCADERIA  = 0;
     this.ordenCompra.TOTAL_IMPUESTO1 = 0;
-    this.ordenCompra.MONTO_DESCUENTO = 0;
+ 
 
 
     for(let i = 0 ; i < this.articulos.length; i++){
@@ -284,7 +284,7 @@ actualizarValores(articulos:PostArticulos){
         this.TOTAL_UNIDADES = totalUnidades;
         this.ordenCompra.TOTAL_MERCADERIA  = subtotal;
         this.ordenCompra.TOTAL_IMPUESTO1 = totalImpuesto1;
-        this.ordenCompra.MONTO_DESCUENTO = totalDescuento;
+      
 
         this.ordenCompra.TOTAL_A_COMPRAR = subtotal + this.ordenCompra.TOTAL_IMPUESTO1  + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO +this.ordenCompra.MONTO_ANTICIPO - this.ordenCompra.MONTO_DESCUENTO ;
 
