@@ -201,11 +201,16 @@ actualizarValores(articulos:PostArticulos){
     this.alertasService.message('ISLEÑA', 'Debes de agregar al menos un producto.')
     return
   }
-    let value = $event.target.value;
+  let value = $event.target.value;
+  console.log('this.ordenCompra.TOTAL_A_COMPRAR ', this.ordenCompra.TOTAL_A_COMPRAR )
+  
+  console.log('value', value )
+
     this.ordenCompra.PORC_DESCUENTO = value;
-    this.ordenCompra.MONTO_DESCUENTO = (this.ordenCompra.TOTAL_A_COMPRAR / 100) *value
+
+
     console.log(' this.ordenCompra.MONTO_DESCUENTO', this.ordenCompra.MONTO_DESCUENTO)
-    this.sumarTotales();
+   this.sumarTotales();
     
   }
 
@@ -264,7 +269,7 @@ actualizarValores(articulos:PostArticulos){
     this.ordenCompra.TOTAL_A_COMPRAR =0;
     this.ordenCompra.TOTAL_MERCADERIA  = 0;
     this.ordenCompra.TOTAL_IMPUESTO1 = 0;
- 
+    this.ordenCompra.MONTO_DESCUENTO = 0;
 
 
     for(let i = 0 ; i < this.articulos.length; i++){
@@ -286,10 +291,10 @@ actualizarValores(articulos:PostArticulos){
         this.ordenCompra.TOTAL_IMPUESTO1 = totalImpuesto1;
       
 
-        this.ordenCompra.TOTAL_A_COMPRAR = subtotal + this.ordenCompra.TOTAL_IMPUESTO1  + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO +this.ordenCompra.MONTO_ANTICIPO - this.ordenCompra.MONTO_DESCUENTO ;
+        this.ordenCompra.TOTAL_A_COMPRAR = subtotal + this.ordenCompra.TOTAL_IMPUESTO1  + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO +this.ordenCompra.MONTO_ANTICIPO ;
 
-
-
+        this.ordenCompra.MONTO_DESCUENTO =   +((subtotal * this.ordenCompra.PORC_DESCUENTO ) / 100).toFixed(2)
+        this.ordenCompra.TOTAL_A_COMPRAR =    this.ordenCompra.TOTAL_A_COMPRAR -  this.ordenCompra.MONTO_DESCUENTO
       }
     }
 
@@ -422,6 +427,7 @@ console.log('ultima oc', resp)
   }
 
   generarOrdenDeCompra(postArticulos){
+
     
   this.ordenCompraService.syncPostOrdenCompraToPromise([this.ordenCompra]).then(resp =>{
     console.log('orden de compra',[this.ordenCompra]);
@@ -432,13 +438,15 @@ console.log('ultima oc', resp)
     postArticulos[i].ORDEN_COMPRA_LINEA = i+1;
 
     if(i == postArticulos.length -1){
+      this.alertasService.presentaLoading('Guardando Orden...')
       this.lineasService.syncPostLineasToPromise(postArticulos).then(resp =>{
         console.log('resp lineas', resp)
-      
+      this.alertasService.loadingDissmiss();
         this.alertasService.message('ISLEÑA', 'Orden Generada ' + this.ordenCompra.ORDEN_COMPRA)
         this.enviarCorreo();
        this.limpiarDatos();
       }, error =>{
+        this.alertasService.loadingDissmiss();
         console.log(error)
         this.alertasService.message('ISLEÑA', 'Error guardando lineas .')
       });
@@ -455,6 +463,7 @@ console.log('ultima oc', resp)
 
 
   }, error =>{
+ 
     console.log(error)
     this.alertasService.message('ISLEÑA', 'Error guardando orden entrega .')
   });
@@ -498,6 +507,7 @@ let index = putArticulos.length >0 ? putArticulos.length : 0;
       }
  
     }, error =>{
+      this.alertasService.loadingDissmiss();
       console.log(error)
       this.alertasService.message('ISLEÑA', 'Error guardando orden entrega put .')
     });

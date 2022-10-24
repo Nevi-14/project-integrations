@@ -68,6 +68,7 @@ public modalCtrl: ModalController
       this.gestionOrdenesService.limpiarDatos();
           }
 
+      this.alertasService.presentaLoading('Cargando datos..')
           this.proveedoresService.proveedores = [];
           this.proveedoresService.syncGetProvedorestoPromise('').then(resp =>{
       
@@ -77,15 +78,17 @@ public modalCtrl: ModalController
       
          this.bodegasService.bodegas = resp;
       
-  
+         this.alertasService.loadingDissmiss();
         
       
               
             }, error =>{
-        
+        this.alertasService.loadingDissmiss();
               console.log('error', error)
             });
       
+          }, error =>{
+            this.alertasService.loadingDissmiss();
           });
       
        
@@ -251,7 +254,7 @@ this.modalCtrl.dismiss();
                     if(i == this.import.length -1){
                       console.log('articulos',this.array)
                       if(this.array.length == 0){
- 
+    this.file = null;
                         this.alertasService.message('DIONE', 'Verifica que sea el proveedor correcto, no se encontrarona rticulos asociados.')
                       }
              if(notFound.length >0  && this.array.length > 0){
@@ -277,9 +280,9 @@ this.modalCtrl.dismiss();
 
   
     console.log(event.target.files)
-    const selectedFile = event.target.files[0];
-    const fileReader = new FileReader();
-    fileReader.readAsBinaryString(selectedFile);
+    this.file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(this.file);
     fileReader.onload = (event) =>{
       console.log(event);
       let binaryData = event.target.result;
