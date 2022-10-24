@@ -38,7 +38,7 @@
         <p>
     
         <ion-icon name="cash-outline" style="margin-right: 0.5rem;"></ion-icon>
-        {{orden.TOTAL_A_COMPRAR  | colones}}
+        {{orden.TOTAL_A_COMPRAR  | colones : 2 : '.' : ',' :  moneda(orden.MONEDA)}}
       
       </p>
       </ion-label>

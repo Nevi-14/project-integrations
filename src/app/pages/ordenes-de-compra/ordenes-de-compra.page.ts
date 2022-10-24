@@ -3,6 +3,7 @@ import { OrdenCompraService } from 'src/app/services/ordencompra.service';
 import { ModalController } from '@ionic/angular';
 import { OrdenCompra } from '../../models/ordencompra';
 import { ProveedoresService } from '../../services/proveedores.service';
+import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
 
 @Component({
   selector: 'app-ordenes-de-compra',
@@ -15,8 +16,21 @@ export class OrdenesDeCompraPage implements OnInit {
   constructor(
     public ordenescompraservice: OrdenCompraService,
     public modalCtrl:ModalController,
-    public proveedoresService: ProveedoresService
+    public proveedoresService: ProveedoresService,
+    public gestionOrdenesService:GestionOrdenesService
   ) { }
+
+
+  
+  moneda(currency:any){
+
+    let i = this.gestionOrdenesService.monedas.findIndex(moneda => moneda.value == currency);
+
+    if(i >=0){
+ return this.gestionOrdenesService.monedas[i].display;
+    }
+  }
+
 
   ngOnInit(
 

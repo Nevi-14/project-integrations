@@ -54,6 +54,10 @@ const routes: Routes = [
     path: 'gestor-archivos',
     loadChildren: () => import('./pages/gestor-archivos/gestor-archivos.module').then( m => m.GestorArchivosPageModule)
   },
+  {
+    path: 'bulk',
+    loadChildren: () => import('./pages/bulk/bulk.module').then( m => m.BulkPageModule)
+  },
 
 
 

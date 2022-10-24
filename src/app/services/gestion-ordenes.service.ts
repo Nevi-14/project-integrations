@@ -260,6 +260,12 @@ actualizarValores(articulos:PostArticulos){
     let totalDescuento = 0;
     let subtotal = 0;
     let total = 0;
+    this.TOTAL_UNIDADES = 0;
+    this.ordenCompra.TOTAL_A_COMPRAR =0;
+    this.ordenCompra.TOTAL_MERCADERIA  = 0;
+    this.ordenCompra.TOTAL_IMPUESTO1 = 0;
+    this.ordenCompra.MONTO_DESCUENTO = 0;
+
 
     for(let i = 0 ; i < this.articulos.length; i++){
 
@@ -268,15 +274,21 @@ actualizarValores(articulos:PostArticulos){
       totalDescuento += this.articulos[i].totalDescuento;
       subtotal += this.articulos[i].montoSubTotal;
       total += this.articulos[i].montoTotal;
-      this.ordenCompra.TOTAL_IMPUESTO1 += totalImpuesto1;
-      this.ordenCompra.MONTO_DESCUENTO += totalDescuento;
+       totalImpuesto1 +=this.ordenCompra.TOTAL_IMPUESTO1;
+
      
 
       
       if(i == this.articulos.length -1){
-  this.TOTAL_UNIDADES = totalUnidades;
-  this.ordenCompra.TOTAL_MERCADERIA = subtotal;
-  this.ordenCompra.TOTAL_A_COMPRAR = total + this.ordenCompra.TOTAL_IMPUESTO1 - this.ordenCompra.MONTO_DESCUENTO + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO +this.ordenCompra.MONTO_ANTICIPO;
+
+        this.TOTAL_UNIDADES = totalUnidades;
+        this.ordenCompra.TOTAL_MERCADERIA  = subtotal;
+        this.ordenCompra.TOTAL_IMPUESTO1 = totalImpuesto1;
+        this.ordenCompra.MONTO_DESCUENTO = totalDescuento;
+
+        this.ordenCompra.TOTAL_A_COMPRAR = subtotal + this.ordenCompra.TOTAL_IMPUESTO1  + this.ordenCompra.MONTO_FLETE + this.ordenCompra.MONTO_SEGURO +this.ordenCompra.MONTO_ANTICIPO - this.ordenCompra.MONTO_DESCUENTO ;
+
+
 
       }
     }

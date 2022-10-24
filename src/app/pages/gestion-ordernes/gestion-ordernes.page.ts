@@ -25,6 +25,19 @@ import { EmailService } from 'src/app/services/email.service';
 import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
 import { GestorArchivosPage } from '../gestor-archivos/gestor-archivos.page';
 import { GestorArchivosService } from 'src/app/services/gestor-archivos.service';
+import { BulkPage } from '../bulk/bulk.page';
+interface PostArticulos {
+
+  articulo:Lineas,
+  nombre:string,
+  cajas:number,
+  totalDescuento:number,
+  totalImpuesto:number,
+  montoSubTotal:number
+  montoTotal: number,
+  accion:string,
+  selected:boolean
+}
 
 @Component({
   selector: 'app-gestion-ordernes',
@@ -46,7 +59,7 @@ export class GestionOrdernesPage implements OnInit {
   articulos:Articulos[]=[];
   modeOn = false;
   aprobadoresActuales:ONEOCAprob[]=[]
-  
+
     constructor(
       public modalCtrl: ModalController,
       public proveedoresService:ProveedoresService,
@@ -81,6 +94,7 @@ export class GestionOrdernesPage implements OnInit {
       this.limpiarDatos();
     }
   
+
     limpiarDatos(){
       this.usuariosService.syncGetONEUserAprob();
 this.gestorArchivosService.archivos = [];
@@ -90,6 +104,19 @@ this.cd.detectChanges();
     onSearchChange(event){
       this.textoBuscar = event.detail.value;
     }
+
+    async bulk(){
+      this.gestionOrdenesService.limpiarDatos();
+      let modal = await  this.modalCtrl.create({
+        component:BulkPage,
+        cssClass: 'fullscreen-large-modal',
+      });
+  
+      await modal.present();
+    }
+
+
+
   
     generatePDF(){
 
@@ -430,7 +457,7 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
                 role: 'confirm',
                 handler: (data) => {
                   
-                  this.gestionOrdenesService.estado = data;
+                
                   this.ordenesDeCompra(data)
                 
                console.log('data',data)
@@ -445,36 +472,39 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
           await alert.present();
         }
 
-       async  ordenesDeCompra(estado){
+        async  ordenesDeCompra(estado){
        
-        let modal = await  this.modalCtrl.create({
-       component:OrdenesDeCompraPage,
-       cssClass: 'large-modal',
-       componentProps:{
-        estado:estado
-       }
-       
-           });
-           await modal.present();
-           const { data } = await modal.onWillDismiss();
-       if(data != undefined){
-        this.gestionOrdenesService.ordenCompra = data.orden;
-        this.gestionOrdenesService.ordenCompra.ESTADO = estado;
-        this.gestionOrdenesService.estadoOrden();
-        if(this.gestionOrdenesService.ordenCompra.FECHA){
-          let fecha_orden = this.gestionOrdenesService.ordenCompra.FECHA;
-this.fecha = new Date(this.gestionOrdenesService.ordenCompra.FECHA);
-this.date =  new Date(fecha_orden).getDate();
-this.month =  new Date(fecha_orden).getMonth()+1;
-this.year =  new Date(fecha_orden).getFullYear();
-        }
-        this.actualizar = true;
-   this.sincronizarOrdenDeEntregaExistente();
-        
-       }
-           
+          let modal = await  this.modalCtrl.create({
+         component:OrdenesDeCompraPage,
+         cssClass: 'large-modal',
+         componentProps:{
+          estado:estado
          }
-
+         
+             });
+             await modal.present();
+             const { data } = await modal.onWillDismiss();
+         if(data != undefined){
+          console.log('data',data)
+          this.gestionOrdenesService.estado = estado;
+          this.gestionOrdenesService.ordenCompra = data.orden;
+          this.gestionOrdenesService.ordenCompra.ESTADO = estado;
+          this.gestionOrdenesService.estadoOrden();
+          if(this.gestionOrdenesService.ordenCompra.FECHA){
+            let fecha_orden = this.gestionOrdenesService.ordenCompra.FECHA;
+  this.fecha = new Date(this.gestionOrdenesService.ordenCompra.FECHA);
+  this.date =  new Date(fecha_orden).getDate();
+  this.month =  new Date(fecha_orden).getMonth()+1;
+  this.year =  new Date(fecha_orden).getFullYear();
+          }
+          this.actualizar = true;
+  
+         
+     this.sincronizarOrdenDeEntregaExistente();
+          
+         }
+             
+           }
 
          
 
@@ -616,8 +646,9 @@ this.year =  new Date(fecha_orden).getFullYear();
           this.gestionOrdenesService.articulos = [];
 
           for(let i =0; i < lineas.length; i++){
-            let articulo =  {
-              articulo  : {
+            let articulo:PostArticulos
+            articulo  =  {
+              articulo : {
                 ORDEN_COMPRA: lineas[i].ORDEN_COMPRA,
                 ORDEN_COMPRA_LINEA: lineas[i].ORDEN_COMPRA_LINEA,
                 ARTICULO: lineas[i].ARTICULO,
@@ -641,10 +672,10 @@ this.year =  new Date(fecha_orden).getFullYear();
             },
             nombre:lineas[i].DESCRIPCION,
             cajas:0,
-            totalDescuento: 0,
-            totalImpuesto:0,
+            totalDescuento: lineas[i].PRECIO_UNITARIO  *  lineas[i].CANTIDAD_ORDENADA * lineas[i].PORC_DESCUENTO  / 100,
+            totalImpuesto: lineas[i].PRECIO_UNITARIO  *  lineas[i].IMPUESTO1 / 100,
             montoSubTotal:lineas[i].PRECIO_UNITARIO*lineas[i].CANTIDAD_ORDENADA,
-            montoTotal:lineas[i].PRECIO_UNITARIO*lineas[i].CANTIDAD_ORDENADA,
+            montoTotal:lineas[i].PRECIO_UNITARIO*lineas[i].CANTIDAD_ORDENADA + lineas[i].PRECIO_UNITARIO  *  lineas[i].IMPUESTO1 / 100 -lineas[i].PRECIO_UNITARIO  *  lineas[i].CANTIDAD_ORDENADA * lineas[i].PORC_DESCUENTO  / 100,
               accion:'M',
               selected:false
           
@@ -676,7 +707,7 @@ this.year =  new Date(fecha_orden).getFullYear();
   
       await modal.present();
       const { data } = await modal.onWillDismiss();
-      this.gestionOrdenesService.sumarTotales();
+     
     
   
       

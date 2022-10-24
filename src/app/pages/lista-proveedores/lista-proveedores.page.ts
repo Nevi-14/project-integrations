@@ -28,6 +28,11 @@ console.log(localStorage.getItem('proveedores'), 'provedores storage');
     }
     this.proveedoresService.syncGetProvedores('');
   }
+
+  exportarProovedores(){
+
+    this.proveedoresService.exportarProovedores();
+  }
   onSearchChange(event){
 
     this.textoBuscar = event.detail.value;

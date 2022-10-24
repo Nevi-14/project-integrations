@@ -20,6 +20,7 @@
 <ion-content>
   <ion-list  >
     <ion-item lines="full"  (click)="retornarProvedor(proveedor)" *ngFor="let proveedor of proveedoresService.proveedores | filtro: textoBuscar:'NOMBRE'">
+      <ion-label>{{proveedor.ID}}</ion-label>
       <ion-label>{{proveedor.NOMBRE}}</ion-label>
     </ion-item>
   </ion-list>
@@ -29,4 +30,9 @@
   <ion-fab-button (click)="cerrarModal()" size="small" color="danger"> 
     <ion-icon name="close-outline"></ion-icon>
   </ion-fab-button>
+
+  <ion-fab-button (click)="exportarProovedores()" size="small" color="danger"> 
+    <ion-icon name="cloud-outline"></ion-icon>
+  </ion-fab-button>
 </ion-fab>
+
