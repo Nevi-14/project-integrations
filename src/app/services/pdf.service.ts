@@ -32,27 +32,33 @@ public http: HttpClient
 }
 
 
-generatePDF(proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
+async  generatePDF(titulo,proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
 
-  this.http.get('../assets/icon/isa.png', { responseType: 'blob' })
-  .subscribe(res => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      var base64data = reader.result;                
-          console.log(base64data);
+  let img = await this.http.get('../assets/icon/isa.png', { responseType: 'blob' }).toPromise();
+  const reader = new FileReader();
+  reader.readAsDataURL(img); 
+
  
-         this.rellenarpdf(base64data,proveedor, ordenCompra, articulos)
-    }
+ reader.onloadend =  () => {
+  var base64data = reader.result;                
+  this.rellenarpdf(titulo,base64data,proveedor, ordenCompra, articulos).then(resp =>{
 
-    reader.readAsDataURL(res); 
-    console.log(res);
-  });
+    console.log('resp pdf', resp.create().download(ordenCompra.ORDEN_COMPRA))
+  })
+  
+
+};
+
+
+
+  
+ 
 
  
 }
 
 
-  async rellenarpdf(image,proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
+  async rellenarpdf(titulo,image,proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
 
     let i =  this.localizationService.continents.findIndex(pais => pais.PAIS == ordenCompra.PAIS);
 
@@ -62,7 +68,7 @@ generatePDF(proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
     pdf.info({
       title:ordenCompra.ORDEN_COMPRA,
       author: ordenCompra.USUARIO,
-      subject: 'Orden de compra',
+      subject: titulo +' de compra',
   });
 
     let data = [];
@@ -150,7 +156,7 @@ generatePDF(proveedor:Proveedores, ordenCompra:OrdenCompra, articulos:any[]){
         ]
       
         );
-        pdf.create().download(ordenCompra.ORDEN_COMPRA);
+       return  pdf;
     
 
       }

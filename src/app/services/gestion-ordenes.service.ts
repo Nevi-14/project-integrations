@@ -15,6 +15,7 @@ import { LocalizacionService } from 'src/app/services/localizacion.service';
 
 interface email {
   toEmail:string,
+  file:string,
   subject:string,
   body:string
 }
@@ -611,6 +612,7 @@ return
 
     let emailPost:email = {
       toEmail:'gcompras@di.cr',
+      file:null,
       subject:'Nueva Orden de Compra ' + this.ordenCompra.ORDEN_COMPRA,
       body:'Se genero la solicitud de la orden de compra ' + this.ordenCompra.ORDEN_COMPRA +' del proveedor '+ this.proveedor.NOMBRE+' por un total de ' + ColonesPipe.prototype.transform(this.ordenCompra.TOTAL_A_COMPRAR, 2 , '.' , ',' ,  this.moneda)
     }
@@ -619,7 +621,7 @@ return
     this.emailService.syncPostEmailToPromise(emailPost).then(resp =>{
 
       console.log('post email', resp)
-
+   
     })
   }
 

@@ -28,6 +28,14 @@ import { GestorArchivosService } from 'src/app/services/gestor-archivos.service'
 import { BulkPage } from '../bulk/bulk.page';
 
 import * as XLSX from 'xlsx';  // Convierte excel a objeto
+import { HttpClient } from '@angular/common/http';
+
+interface email {
+  toEmail:string,
+  file:string,
+  subject:string,
+  body:string
+}
 interface PostArticulos {
 
   articulo:Lineas,
@@ -80,7 +88,8 @@ export class GestionOrdernesPage implements OnInit {
       public emailService:EmailService,
       public gestionOrdenesService: GestionOrdenesService,
       private cd: ChangeDetectorRef,
-      public gestorArchivosService: GestorArchivosService
+      public gestorArchivosService: GestorArchivosService,
+      public http: HttpClient
     ) { }
   
     ngOnInit() {
@@ -158,11 +167,152 @@ for(let a = 0; a <   this.gestionOrdenesService.articulos.length; a++){
  
 
 
-  
-    generatePDF(){
 
-     //this.pdfSErvice.generateFormat();
-    this.pdfSErvice.generatePDF(this.gestionOrdenesService.proveedor, this.gestionOrdenesService.ordenCompra,this.gestionOrdenesService.articulos)
+
+    async enviarCorreos(){
+
+      if(!this.gestionOrdenesService.proveedor.E_MAIL){
+        this.alertasService.message('SDE RP ', 'El proveedor no tiene un correo asociado')
+        return
+      }
+      let titulo = 'Orden';
+let proveedor = this.gestionOrdenesService.proveedor;
+let OC  = this.gestionOrdenesService.ordenCompra;
+let articulos = this.gestionOrdenesService.articulos
+    let img = await this.http.get('../assets/icon/isa.png', { responseType: 'blob' }).toPromise();
+    const reader = new FileReader();
+    reader.readAsDataURL(img); 
+  
+   
+   reader.onloadend =  () => {
+    var base64data = reader.result;                
+    this.pdfSErvice.rellenarpdf(titulo,base64data,proveedor, OC, articulos).then(resp =>{
+      resp.create().getBlob(resp =>{
+let file = resp;
+    console.log('resp', resp)
+
+    let name = this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA + new Date().getTime();
+   let  archivo = {
+      ORDEN_COMPRA:this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
+      Tipo:'pdf',
+      Nombre: name+'.pdf',
+      Fecha:new Date(),
+      Usuario: this.usuariosService.usuario.Usuario,
+      Folder: 'Files',
+      Estado: this.gestionOrdenesService.ordenCompra.ESTADO
+    }
+
+    this.gestorArchivosService.syncPostArchivosToPromise(archivo).then(resp =>{
+      const formData = new FormData();
+      formData.append('file', file, name+'.pdf');
+    console.log(resp, archivo)
+    this.gestorArchivosService.syncCargarArchivoPost('file', formData).then(resp =>{
+console.log('ima',resp)
+
+let emailPostProveedorPlaneacion:email = {
+  toEmail:this.gestionOrdenesService.proveedor.E_MAIL,
+  file:name+'.pdf',
+  subject:'Solicitud de Cotizacion '+' '+ this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
+  body:'Se adjunta la solicitud de cotizacion '+' ' + this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA +' favor enviar la proforma a la siguiente email' +'<br>' +
+  'amora@di.cr' + '<br>'  +
+  'acabezas@di.cr' + '<br>'  +
+  'The request for quotation is attached.'+ '<br>'  +
+  'please send the proforma to the following e-mail' + '<br>'  +
+  'amora@di.cr' + '<br>'  +
+  'acabezas@di.cr'
+}
+let emailPostProveedorTransito:email = {
+  toEmail:this.gestionOrdenesService.proveedor.E_MAIL,
+  file:name+'.pdf',
+  subject:'Orden de Compra ' +' '+ this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
+  body:'Esta es una nueva orden de compra,  Favor revisar y confirmar las cantidades, requisitos, así como las fechas de entrega.' +'<br>' +
+  'si tiene alguna duda, favor contactar a'+'<br>' +
+  'Alonso Mora amora@di.cr' + '<br>'  +
+  'Ana Yancy acabezas@di.cr' + '<br>'  +
+  'Abraham Murillo amurillo@di.cr' + '<br>'  +
+  'This is a new purchase order, please review and confirm the quantities, requirements, as well as delivery dates.'+ '<br>'  +
+  'If you have any questions, please contact' + '<br>'  +
+  'Alonso Mora amora@di.cr' + '<br>'  +
+  'Ana Yancy acabezas@di.cr' + '<br>'  +
+  'Abraham Murillo amurillo@di.cr'
+}
+
+
+switch(this.gestionOrdenesService.ordenCompra.ESTADO){
+
+  case 'A':
+    this.alertasService.presentaLoading('Enviando correo...')
+    this.emailService.syncPostEmailToPromise(emailPostProveedorPlaneacion).then(resp =>{
+      this.alertasService.loadingDissmiss();
+      this.cargarArchivos();
+      this.alertasService.message('SDE RP ', 'Correo Enviado')
+            console.log('post emailPostProveedor', resp)
+
+          }, error =>{
+            console.log('error', error, emailPostProveedorPlaneacion)
+            this.alertasService.loadingDissmiss();
+            this.alertasService.message('SDE RP ', 'Error enviando el correo')
+    
+          })
+  break;
+
+  case  'E':
+    this.alertasService.presentaLoading('Enviando correo...')
+    this.emailService.syncPostEmailToPromise(emailPostProveedorTransito).then(resp =>{
+      this.alertasService.loadingDissmiss();
+      this.cargarArchivos();
+      this.alertasService.message('SDE RP ', 'Correo Enviado')
+            console.log('post emailPostProveedor', resp)
+      
+          }, error =>{
+            console.log('error', error,emailPostProveedorTransito)
+            this.alertasService.loadingDissmiss();
+            this.alertasService.message('SDE RP ', 'Error enviando el correo')
+    
+          })
+  break;
+}
+    })
+    })
+
+ 
+
+      })
+    })
+    
+  
+  };
+
+
+
+
+
+    }
+
+  
+   async  generatePDF(){
+ 
+let titulo = 'Orden';
+let proveedor = this.gestionOrdenesService.proveedor;
+let OC  = this.gestionOrdenesService.ordenCompra;
+let articulos = this.gestionOrdenesService.articulos
+    let img = await this.http.get('../assets/icon/isa.png', { responseType: 'blob' }).toPromise();
+    const reader = new FileReader();
+    reader.readAsDataURL(img); 
+  
+   
+   reader.onloadend =  () => {
+    var base64data = reader.result;                
+    this.pdfSErvice.rellenarpdf(titulo,base64data,proveedor, OC, articulos).then(resp =>{
+  
+      console.log('resp pdf', resp.create().download(OC.ORDEN_COMPRA))
+    })
+    
+  
+  };
+
+
+
     }
    
   
