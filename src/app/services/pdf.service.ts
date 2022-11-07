@@ -87,7 +87,13 @@ async  generatePDF(titulo,proveedor:Proveedores, ordenCompra:OrdenCompra, articu
           { text: 'Barreal de Heredia'},
           { text: '22930609'}
 
-        ], '', this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA)) ],
+        ],'',[
+
+         { text: titulo, bold: true},
+          { text: this.getFormattedDate(new Date(ordenCompra.FECHA_REQUERIDA))}
+
+
+        ] ],
         [{ text: '', margin: [ 10, 10, 10, 10 ]} , '' , '' , '', ],
         [   { text: 'Proveedor: ', bold: true} , proveedor.NOMBRE , '' , '', ],
         [   { text: 'Teléfono:', bold: true} , proveedor.TELEFONO1 , 'Fax:' , proveedor.FAX, ],

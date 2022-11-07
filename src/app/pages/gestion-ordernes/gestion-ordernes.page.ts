@@ -175,7 +175,7 @@ for(let a = 0; a <   this.gestionOrdenesService.articulos.length; a++){
         this.alertasService.message('SDE RP ', 'El proveedor no tiene un correo asociado')
         return
       }
-      let titulo = 'Orden';
+      let titulo = this.gestionOrdenesService.ordenCompra.ESTADO  == 'A' ? 'Solicitud de Cotización'  : 'Orden de Compra '+this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA;
 let proveedor = this.gestionOrdenesService.proveedor;
 let OC  = this.gestionOrdenesService.ordenCompra;
 let articulos = this.gestionOrdenesService.articulos
@@ -292,7 +292,7 @@ switch(this.gestionOrdenesService.ordenCompra.ESTADO){
   
    async  generatePDF(){
  
-let titulo = 'Orden';
+let titulo = 'Orden de Compra '+this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA;
 let proveedor = this.gestionOrdenesService.proveedor;
 let OC  = this.gestionOrdenesService.ordenCompra;
 let articulos = this.gestionOrdenesService.articulos
