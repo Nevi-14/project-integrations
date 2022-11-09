@@ -392,16 +392,18 @@
                <ion-col size="1">
                   ARTICULO
                </ion-col>
-               <ion-col size="3">
+               <ion-col size="2">
                   DESCRIPCION
                </ion-col>
                <ion-col size="1">
                   PRECIO
                </ion-col>
                <ion-col size="1">
-                  UNIDADES
+                  CAJAS
                </ion-col>
-           
+               <ion-col size="1">
+                 U x CAJA
+               </ion-col>
                <ion-col size="1"   >
                 IMPUESTO
                </ion-col>
@@ -442,14 +444,20 @@
              <ion-col size="1" >
                 {{articulo.articulo.ARTICULO}}
              </ion-col>
-             <ion-col size="3">
+             <ion-col size="2">
                 {{articulo.nombre}}
              </ion-col>
              <ion-col size="1">
              {{   articulo.articulo.PRECIO_UNITARIO | colones : 2 : '.' : ',' :  gestionOrdenesService.moneda}}
              </ion-col>
              <ion-col size="1">
-                {{articulo.articulo.CANTIDAD_ORDENADA}}
+               
+
+               {{articulo.articulo.CANTIDAD_ORDENADA}}
+             </ion-col>
+
+             <ion-col size="1">
+               {{ 1 * articulo.articulo.FACTOR_CONVERSION}}
              </ion-col>
          
              <ion-col size="1">
@@ -488,11 +496,15 @@
      <ion-grid class="container-montos">
       <ion-row>
             
-         <ion-col size="5">
+         <ion-col size="4">
             <strong>Totales</strong>
          </ion-col>
             <ion-col size="12" size-md="1">
                {{gestionOrdenesService.TOTAL_UNIDADES}}
+        
+            </ion-col>
+            <ion-col size="12" size-md="1">
+                
         
             </ion-col>
             <ion-col size="12" size-md="1">

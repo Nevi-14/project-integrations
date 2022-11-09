@@ -8,7 +8,7 @@
   <ion-col size="6">
     <ion-searchbar    mode="ios" placeholder="Buscar articulo" inputmode="text" (ionChange)="onSearchChange($event)"  debounce="250" ></ion-searchbar>
   </ion-col>
-  <ion-col size="6" *ngIf="articuloPostArray">
+  <ion-col size="6">
     <ion-label style="margin-right: 0.5rem;">Este simbolo</ion-label>
     <ion-icon color="warning"  name="sparkles-outline"></ion-icon>
     <ion-label style="margin-left: 0.5rem;">significa que el producto se encuentra en nuestra lista de articulos a solicitar.</ion-label>
@@ -30,7 +30,7 @@
 
 
       <ion-row  style="height: 100%;">
-    <ion-col size="6">
+    <ion-col size="{{articuloPostArray ? 6 : 12}}">
 
       <ion-list lines="none" class="fixed-content ">
 
@@ -60,16 +60,20 @@
          
        
          
-               <ion-col  size="12" size-md="4">
+               <ion-col  size="12" size-md="3">
                  <ion-label>Precio</ion-label>
                  <ion-input name="PRECIO_UNITARIO"   (change)="actualizarValores()"   type="number" placeholder="precio" [(ngModel)]="articuloPostArray.articulo.PRECIO_UNITARIO"></ion-input>
                </ion-col>
          
-               <ion-col  size="12" size-md="4">
-                 <ion-label>Unidades</ion-label>
+               <ion-col  size="12" size-md="3">
+                 <ion-label>Cajas</ion-label>
                  <ion-input  name="CANTIDAD_ORDENADA"    (change)="actualizarValores()"   type="number" placeholder="Unidades" [(ngModel)]="articuloPostArray.articulo.CANTIDAD_ORDENADA"></ion-input>
                </ion-col>
-         
+               <ion-col  size="12" size-md="2">
+                <ion-label>U x Cajas</ion-label>
+                <ion-input readonly name="CANTIDAD_ORDENADA"    (change)="actualizarValores()"   type="text" placeholder="Unidades" value="{{ 1 * articuloPostArray.articulo.FACTOR_CONVERSION}}"></ion-input>
+              </ion-col>
+        
          
                <ion-col  size="12" size-md="4">
           <ion-label>% Desc.</ion-label>

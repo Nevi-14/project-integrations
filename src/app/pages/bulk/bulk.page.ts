@@ -25,7 +25,7 @@ interface PostArticulos {
 interface ArticulosA {
   Codigo_Producto:number,
   Descripcion?: string,
-  Unidades:number,
+  Cajas:number,
   Precio?:number
 }
 @Component({
@@ -133,12 +133,13 @@ public modalCtrl: ModalController
 
   editarArticulosBULK(){
     
-for(let i =0; i < this.import.length; i++){
-let a = this.gestionOrdenesService.articulos.findIndex(articulo => articulo.articulo.ARTICULO == this.import[i].Codigo_Producto  );
+for(let i =0; i < this.array.length; i++){
+let a = this.gestionOrdenesService.articulos.findIndex(articulo => articulo.articulo.ARTICULO == this.array[i].articulo.ARTICULO  );
 
 if(a >=0){
-  this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA = this.import[i].Unidades
-  this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO = this.import[i].Precio
+
+  this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA += this.array[i].articulo.CANTIDAD_ORDENADA
+  this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO = this.array[i].articulo.PRECIO_UNITARIO
 
   this.gestionOrdenesService.articulos[a].montoSubTotal = this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO * this.gestionOrdenesService.articulos[a].articulo.CANTIDAD_ORDENADA
   this.gestionOrdenesService.articulos[a].articulo.MONTO_DESCUENTO =  this.gestionOrdenesService.articulos[a].articulo.PRECIO_UNITARIO  *  this.gestionOrdenesService.articulos[a].articulo.PORC_DESCUENTO / 100
@@ -150,8 +151,58 @@ if(a >=0){
   this.gestionOrdenesService.articulos[a].montoTotal =  this.gestionOrdenesService.articulos[a]. montoSubTotal + this.gestionOrdenesService.articulos[a].totalImpuesto -  this.gestionOrdenesService.articulos[a].totalDescuento
 
  
+}else{
+
+let arti =  this.articulosService.articulos.findIndex( producto => producto.ARTICULO == this.array[i].articulo.ARTICULO)
+
+if(arti >= 0){
+  let articulo =  {
+    articulo  : {
+      ORDEN_COMPRA: null,
+      ORDEN_COMPRA_LINEA: null,
+      ARTICULO: this.articulosService.articulos[arti].ARTICULO,
+      BODEGA: null,
+      DESCRIPCION: this.articulosService.articulos[arti].DESCRIPCION,
+      CANTIDAD_ORDENADA: 1,
+      CANTIDAD_EMBARCADA: 0,
+      CANTIDAD_RECIBIDA: 0,
+      CANTIDAD_RECHAZADA: 0,
+      PRECIO_UNITARIO: this.articulosService.articulos[arti].ULT_PREC_UNITARIO,
+      IMPUESTO1: 0,
+      IMPUESTO2: 0,
+      PORC_DESCUENTO: 0,
+      MONTO_DESCUENTO: 0,
+      FACTOR_CONVERSION: this.articulosService.articulos[arti].FACTOR_CONVERSION,
+      CENTRO_COSTO: "001-001-01-01",
+      CUENTA_CONTABLE: "00003",
+      TIPO_IMPUESTO1: "01",
+      TIPO_TARIFA1: "08",
+      LOTE :null
+  },
+  nombre:this.articulosService.articulos[arti].DESCRIPCION,
+  cajas:0,
+  totalDescuento: 0,
+  totalImpuesto:0,
+  montoSubTotal:0,
+  montoTotal:0,
+    accion:'I',
+    selected:false
+
+
 }
-  if(i == this.import.length -1){
+
+console.log('arti',articulo )
+
+  this.gestionOrdenesService.articulos.push(articulo)
+
+}
+
+}
+
+console.log('arti',this.array[i])
+  if(i == this.array.length -1){
+
+    console.log(' this.gestionOrdenesService.articulos',  this.gestionOrdenesService.articulos)
 this.gestionOrdenesService.sumarTotales();
 this.cerrarModal();
   }
@@ -179,7 +230,7 @@ this.gestionOrdenesService.ordenCompra.FECHA =  new Date().toDateString();
 
 
 for(let i = 0; i <   this.array.length; i++){
-
+console.log('this.array[i]',this.array[i])
   this.array[i].articulo.BODEGA = this.bodega.BODEGA
   this.gestionOrdenesService.articulos.push(this.array[i])
   this.gestionOrdenesService.TOTAL_UNIDADES += this.array[i].articulo.CANTIDAD_ORDENADA

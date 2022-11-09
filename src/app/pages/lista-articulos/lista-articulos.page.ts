@@ -184,7 +184,7 @@ montoImpuesto = 0;
         IMPUESTO2: 0,
         PORC_DESCUENTO: 0,
         MONTO_DESCUENTO: 0,
-        FACTOR_CONVERSION: null,
+        FACTOR_CONVERSION: articulos.FACTOR_CONVERSION,
         CENTRO_COSTO: "001-001-01-01",
         CUENTA_CONTABLE: "00003",
         TIPO_IMPUESTO1: "01",
