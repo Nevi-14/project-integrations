@@ -250,13 +250,13 @@ switch(this.gestionOrdenesService.ordenCompra.ESTADO){
     this.alertasService.presentaLoading('Enviando correo...')
 
     for(let i =0; i < email.length ; i++){
-       
+    // 
       emailPostProveedorPlaneacion.toEmail = email[i]
 
       this.emailService.syncPostEmailToPromise(emailPostProveedorPlaneacion).then(resp =>{
         this.alertasService.loadingDissmiss();
         this.cargarArchivos();
-        this.alertasService.message('SDE RP ', 'Correo Enviado')
+        
               console.log('post emailPostProveedor', resp)
   
             }, error =>{
@@ -266,7 +266,8 @@ switch(this.gestionOrdenesService.ordenCompra.ESTADO){
       
             })
       if(i == email.length -1){
-
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('SDE RP ', 'Correo Enviado')
 
 
       }
@@ -275,15 +276,15 @@ switch(this.gestionOrdenesService.ordenCompra.ESTADO){
   break;
 
   case  'E':
-
+    this.alertasService.presentaLoading('Enviando correo...')
     for(let i =0; i < email.length ; i++){
       let sender:any =  email[i];
       emailPostProveedorTransito.toEmail  = email[i]
-      this.alertasService.presentaLoading('Enviando correo...')
+     
       this.emailService.syncPostEmailToPromise(emailPostProveedorTransito).then(resp =>{
-        this.alertasService.loadingDissmiss();
+       
         this.cargarArchivos();
-        this.alertasService.message('SDE RP ', 'Correo Enviado')
+   
               console.log('post emailPostProveedor', resp)
         
             }, error =>{
@@ -293,8 +294,8 @@ switch(this.gestionOrdenesService.ordenCompra.ESTADO){
       
             })
       if(i == email.length -1){
-
-
+        this.alertasService.message('SDE RP ', 'Correo Enviado')
+        this.alertasService.loadingDissmiss();
 
       }
     }
