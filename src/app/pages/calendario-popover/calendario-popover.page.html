@@ -5,7 +5,7 @@
  [value]="fecha"
         #popoverDatetime2
         presentation="date"
-        
-        (ionChange)=" formatDate(popoverDatetime2.value)"
+        [max]="max"
+        (ionChange)="formatDate(popoverDatetime2.value)"
       ></ion-datetime>
 </ion-content>

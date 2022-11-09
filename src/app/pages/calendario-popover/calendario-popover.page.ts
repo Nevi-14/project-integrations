@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-calendario-popover',
@@ -9,12 +11,14 @@ import { PopoverController } from '@ionic/angular';
 export class CalendarioPopoverPage implements OnInit {
   @Input() fecha: Date;
 
+ max = new Date().getFullYear() +3
   constructor(
     public popOverCtrl: PopoverController,
     private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+    alert(this.max)
 console.log('test', this.fecha)
 
   }

@@ -171,6 +171,11 @@ for(let a = 0; a <   this.gestionOrdenesService.articulos.length; a++){
 
     async enviarCorreos(){
 
+    
+     let  email:any =  this.gestionOrdenesService.proveedor.E_MAIL;
+   email =  email.replace(",", ";")
+   email =  email.split(";")
+ 
       if(!this.gestionOrdenesService.proveedor.E_MAIL){
         this.alertasService.message('SDE RP ', 'El proveedor no tiene un correo asociado')
         return
@@ -200,6 +205,7 @@ let file = resp;
       Usuario: this.usuariosService.usuario.Usuario,
       Folder: 'Files',
       Estado: this.gestionOrdenesService.ordenCompra.ESTADO
+
     }
 
     this.gestorArchivosService.syncPostArchivosToPromise(archivo).then(resp =>{
@@ -210,7 +216,7 @@ let file = resp;
 console.log('ima',resp)
 
 let emailPostProveedorPlaneacion:email = {
-  toEmail:this.gestionOrdenesService.proveedor.E_MAIL,
+  toEmail:null,
   file:name+'.pdf',
   subject:'Solicitud de Cotizacion '+' '+ this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
   body:'Se adjunta la solicitud de cotizacion '+' ' + this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA +' favor enviar la proforma a la siguiente email' +'<br>' +
@@ -222,7 +228,7 @@ let emailPostProveedorPlaneacion:email = {
   'acabezas@di.cr'
 }
 let emailPostProveedorTransito:email = {
-  toEmail:this.gestionOrdenesService.proveedor.E_MAIL,
+  toEmail:null,
   file:name+'.pdf',
   subject:'Orden de Compra ' +' '+ this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
   body:'Esta es una nueva orden de compra,  Favor revisar y confirmar las cantidades, requisitos, así como las fechas de entrega.' +'<br>' +
@@ -242,34 +248,59 @@ switch(this.gestionOrdenesService.ordenCompra.ESTADO){
 
   case 'A':
     this.alertasService.presentaLoading('Enviando correo...')
-    this.emailService.syncPostEmailToPromise(emailPostProveedorPlaneacion).then(resp =>{
-      this.alertasService.loadingDissmiss();
-      this.cargarArchivos();
-      this.alertasService.message('SDE RP ', 'Correo Enviado')
-            console.log('post emailPostProveedor', resp)
 
-          }, error =>{
-            console.log('error', error, emailPostProveedorPlaneacion)
-            this.alertasService.loadingDissmiss();
-            this.alertasService.message('SDE RP ', 'Error enviando el correo')
-    
-          })
+    for(let i =0; i < email.length ; i++){
+       
+      emailPostProveedorPlaneacion.toEmail = email[i]
+
+      this.emailService.syncPostEmailToPromise(emailPostProveedorPlaneacion).then(resp =>{
+        this.alertasService.loadingDissmiss();
+        this.cargarArchivos();
+        this.alertasService.message('SDE RP ', 'Correo Enviado')
+              console.log('post emailPostProveedor', resp)
+  
+            }, error =>{
+              console.log('error', error, emailPostProveedorPlaneacion)
+              this.alertasService.loadingDissmiss();
+              this.alertasService.message('SDE RP ', 'Error enviando el correo')
+      
+            })
+      if(i == email.length -1){
+
+
+
+      }
+    }
+  
   break;
 
   case  'E':
-    this.alertasService.presentaLoading('Enviando correo...')
-    this.emailService.syncPostEmailToPromise(emailPostProveedorTransito).then(resp =>{
-      this.alertasService.loadingDissmiss();
-      this.cargarArchivos();
-      this.alertasService.message('SDE RP ', 'Correo Enviado')
-            console.log('post emailPostProveedor', resp)
+
+    for(let i =0; i < email.length ; i++){
+      let sender:any =  email[i];
+      emailPostProveedorTransito.toEmail  = email[i]
+      this.alertasService.presentaLoading('Enviando correo...')
+      this.emailService.syncPostEmailToPromise(emailPostProveedorTransito).then(resp =>{
+        this.alertasService.loadingDissmiss();
+        this.cargarArchivos();
+        this.alertasService.message('SDE RP ', 'Correo Enviado')
+              console.log('post emailPostProveedor', resp)
+        
+            }, error =>{
+              console.log('error', error,emailPostProveedorTransito)
+              this.alertasService.loadingDissmiss();
+              this.alertasService.message('SDE RP ', 'Error enviando el correo')
       
-          }, error =>{
-            console.log('error', error,emailPostProveedorTransito)
-            this.alertasService.loadingDissmiss();
-            this.alertasService.message('SDE RP ', 'Error enviando el correo')
-    
-          })
+            })
+      if(i == email.length -1){
+
+
+
+      }
+    }
+
+
+ 
   break;
 }
     })
