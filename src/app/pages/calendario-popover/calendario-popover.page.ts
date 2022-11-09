@@ -18,8 +18,8 @@ export class CalendarioPopoverPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    alert(this.max)
-console.log('test', this.fecha)
+   
+ 
 
   }
  async formatDate(value: string) {
