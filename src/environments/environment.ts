@@ -3,13 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   maxCharCodigoProd: 6,
   preURL:'https://api_irp',
   preURL2:'https://api_isa',
   TestURL:'_test',
   postURL:'.di-apps.co.cr/api/',
-  prdMode: false,
+  prdMode: true,
   articulosURL:'ONE_ArtProv/',
   bodegasURL:'ONE_Bodega',
   lineasPostURL:'ONE_OCLin',
