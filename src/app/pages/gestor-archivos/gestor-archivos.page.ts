@@ -16,7 +16,7 @@ export class GestorArchivosPage implements OnInit {
   myInputVariable: ElementRef;
 
 textoBuscar = '';
-url = 'http://api_irp_test.di-apps.co.cr/api/descargar-archivo?ID='
+url = 'http://api_irp.di-apps.co.cr/api/descargar-archivo?ID='
 archivo:Archivos = {
   ORDEN_COMPRA:this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
   Tipo:null,
