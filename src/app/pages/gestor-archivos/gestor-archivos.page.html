@@ -87,7 +87,7 @@
           <ion-badge slot="start" color="dark" mode="ios">{{archivo.Tipo}}</ion-badge>
           <ion-label class="ion-text-wrap"> {{archivo.Nombre}} </ion-label>
           <a slot="end"   href="{{url+archivo.ORDEN_COMPRA+'&Tipo='+archivo.Tipo+'&Nombre='+archivo.Nombre}}" target="_blank" download> 
-            <ion-fab-button  *ngIf="archivo.Estado =='A' || archivo.Estado =='E'"  size="small"  (click)="descargarArchivo()">
+            <ion-fab-button  *ngIf="archivo.Estado =='A' || archivo.Estado =='E'"  size="small" >
           
               <ion-icon name="cloud-download-outline">
            
