@@ -433,7 +433,7 @@ let articulos = this.gestionOrdenesService.articulos
             inputs.push( {
               label: this.usuariosService.approvers[i].Nombre ,
               type: 'checkbox',
-              value: this.usuariosService.approvers[i].Usuario,
+              value: {usuario:this.usuariosService.approvers[i].Usuario, correo:this.usuariosService.approvers[i].Email},
               checked:false
             })
   
@@ -469,7 +469,7 @@ let articulos = this.gestionOrdenesService.articulos
                   data.forEach(user => {
                     approvers.push({
       ORDEN_COMPRA: this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
-       Usuario: user,
+       Usuario: user.usuario,
        Estatus: this.gestionOrdenesService.ordenCompra.ESTADO,
        Fecha: new Date().toISOString()
                     })
@@ -480,10 +480,33 @@ let articulos = this.gestionOrdenesService.articulos
                     this.alertasService.message('DIONE', 'El estado se actualizo con exito')
                     this.usuariosService.syncPostONEOCAprobToPromise(approvers).then(resp =>{
                       console.log(resp, 'test')
-            
+
+                      for(let a =0; a <data.length; a++){
+                        let emailto:email = {
+                          toEmail:data[a].correo,
+                          file:null,
+                          subject:'Orden de Compra ' +' '+ this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
+                          body:'Se ha generado una solicitud de aprobación para  la orden de compra ' + this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA
+                          
+                        }
+                        this.emailService.syncPostEmailToPromise(emailto).then(resp =>{
+       
+                
+                   
+                          console.log('post emailPostProveedor', resp)
+                          this.limpiarDatos();
+                        }, error =>{
+                          console.log('error', error,emailto)
+                          this.alertasService.loadingDissmiss();
+                          this.alertasService.message('SDE RP ', 'Error enviando el correo')
+                  
+                        })
+
+                      }
+                    
                  
                       });
-                    this.limpiarDatos();
+              
                   }, error =>{
                     console.log(error)
                     this.alertasService.message('DIONE', 'Error Actualizando el estado de la orden')
