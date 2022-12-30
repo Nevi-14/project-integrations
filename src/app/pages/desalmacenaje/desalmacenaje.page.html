@@ -88,7 +88,7 @@
                 
               </ion-col>
               <ion-col size="2"  class="ion-text-center">
-                <ion-input value="0" type="text" placeholder="cantidad recibida"></ion-input>
+                <ion-input [value]="obtenerValorCantidadRecibida(articulo)"  (ionChange)="actualizarCantidadRecibida($event, articulo)"   type="text" placeholder="cantidad recibida"></ion-input>
               </ion-col>
  
               <ion-col size="2"  class="ion-text-center">

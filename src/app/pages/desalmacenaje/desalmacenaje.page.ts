@@ -34,26 +34,25 @@ export class DesalmacenajePage implements OnInit {
     this.desalmacenajeService.syncGetArticulosToPromise(this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA).then(resp => {
       this.desalmacenajeService.articulosDesalmacenados = [];
 
-      resp.forEach(articulo => {
-
-
-        const i = this.desalmacenajeService.articulosDesalmacenados.findIndex(a => a.ARTICULO == articulo.ARTICULO);
+ 
+      for(let a =0; a < resp.length;a++){
+        const i = this.desalmacenajeService.articulosDesalmacenados.findIndex(ar => ar.ARTICULO == resp[a].ARTICULO);
 
         if (i >= 0) {
           this.desalmacenajeService.articulosDesalmacenados[i].nuevo = false;
-          this.desalmacenajeService.articulosDesalmacenados[i].CANTIDAD_DESALMACENADA = articulo.CANTIDAD_DESALMACENADA;
-          this.desalmacenajeService.articulosDesalmacenados[i].SALDO = articulo.SALDO;
+          this.desalmacenajeService.articulosDesalmacenados[i].CANTIDAD_DESALMACENADA = resp[a].CANTIDAD_DESALMACENADA;
+          this.desalmacenajeService.articulosDesalmacenados[i].SALDO = resp[a].SALDO;
 
         } else {
-          articulo.nuevo = false;
-          this.desalmacenajeService.articulosDesalmacenados.push(articulo);
+          resp[a].nuevo = false;
+          this.desalmacenajeService.articulosDesalmacenados.push(resp[a]);
         }
-
-        console.log(this.desalmacenajeService.articulosDesalmacenados)
-
-      })
+      
+      }
 
 
+    }, error =>{
+ 
     })
   }
   cerrarModal() {
@@ -68,7 +67,29 @@ export class DesalmacenajePage implements OnInit {
     this.desalmacenajeService.agregarActualizarArticulo(articulo.articulo, cantidad);
 
   }
+  obtenerValorCantidadRecibida(articulo){
+    const i = this.desalmacenajeService.articulosDesalmacenados.findIndex(a => a.ARTICULO == articulo.articulo.ARTICULO);
 
+    if (i >= 0) {
+
+
+      return this.desalmacenajeService.articulosDesalmacenados[i].CANTIDAD_RECIBIDA;
+    }
+  
+    return 0;
+  }
+
+  actualizarCantidadRecibida($event, articulo){
+    const cantidad = $event.detail.value;
+    const i = this.desalmacenajeService.articulosDesalmacenados.findIndex(a => a.ARTICULO == articulo.articulo.ARTICULO);
+
+    if (i >= 0) {
+
+
+      return this.desalmacenajeService.articulosDesalmacenados[i].CANTIDAD_RECIBIDA = cantidad;
+    }
+    articulo.articulo.CANTIDAD_RECIBIDA = cantidad;
+  }
   obtenerValor(articulo) {
 
 
@@ -90,6 +111,8 @@ export class DesalmacenajePage implements OnInit {
     const postArray = [];
 
     for (let i = 0; i < this.desalmacenajeService.articulosDesalmacenados.length; i++) {
+
+      this.desalmacenajeService.articulosDesalmacenados[i].SALDO = this.desalmacenajeService.articulosDesalmacenados[i].CANTIDAD_RECIBIDA - this.desalmacenajeService.articulosDesalmacenados[i].CANTIDAD_DESALMACENADA;
 
       if (this.desalmacenajeService.articulosDesalmacenados[i].nuevo) {
 
