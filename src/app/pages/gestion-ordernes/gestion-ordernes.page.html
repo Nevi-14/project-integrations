@@ -62,6 +62,12 @@
      <ion-icon name="save"></ion-icon>
    </ion-fab-button>
 
+
+   <ion-fab-button *ngIf="gestionOrdenesService.articulos.length > 0 &&  gestionOrdenesService.ordenCompra.ESTADO == 'D'" slot="end" size="small" color="dark"  (click)="desalmanaje()">
+    <ion-icon name="bus-outline"></ion-icon>
+    </ion-fab-button>
+   
+    
 <span slot="end" style="position:relative;" *ngIf="gestionOrdenesService.actualizar">
    <ion-fab-button  size="small" color="dark" (click)="GestorArchivos()">
       <ion-icon name="folder-open-outline"></ion-icon>

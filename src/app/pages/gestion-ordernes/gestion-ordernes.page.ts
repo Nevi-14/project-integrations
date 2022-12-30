@@ -29,6 +29,9 @@ import { BulkPage } from '../bulk/bulk.page';
 
 import * as XLSX from 'xlsx';  // Convierte excel a objeto
 import { HttpClient } from '@angular/common/http';
+import { DesalmacenajePage } from '../desalmacenaje/desalmacenaje.page';
+import { DesalmacenajeService } from '../../services/desalmacenaje.service';
+
 
 interface email {
   toEmail:string,
@@ -89,7 +92,8 @@ export class GestionOrdernesPage implements OnInit {
       public gestionOrdenesService: GestionOrdenesService,
       private cd: ChangeDetectorRef,
       public gestorArchivosService: GestorArchivosService,
-      public http: HttpClient
+      public http: HttpClient,
+      public desalmacenajeService : DesalmacenajeService
     ) { }
   
     ngOnInit() {
@@ -870,6 +874,27 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
     
           }
      
+         }
+
+
+         async desalmanaje(){
+
+     
+          this.desalmacenajeService.articulosDesalmacenados = [];
+          let modal = await this.modalCtrl.create({
+            component:DesalmacenajePage,
+            cssClass:'alert-modal'
+
+          });
+     
+          await modal.present();
+
+          const { data } = await modal.onWillDismiss();
+
+          if(data != undefined){
+
+            console.log('perform action')
+          }
          }
 
          cargarArchivos(){

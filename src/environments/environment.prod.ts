@@ -36,8 +36,8 @@ export const environment = {
   tipoParam:'?tipo=',
   tipoParam2:'&Tipo=',
   nombreParam:'&Nombre=',
-  ONE_GestorArch:'ONE_GestorArch'
-  
+  ONE_GestorArch:'ONE_GestorArch',
+  ONE_Desalmacenaje:'ONE_Desalmacenaje'
   
 };
 

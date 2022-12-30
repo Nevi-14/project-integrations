@@ -46,7 +46,8 @@ const routes: Routes = [
   {
     path: 'lista-paises',
     loadChildren: () => import('./pages/lista-paises/lista-paises.module').then( m => m.ListaPaisesPageModule)
-  },  {
+  },
+  {
     path: 'orden-de-compra-detalle',
     loadChildren: () => import('./pages/orden-de-compra-detalle/orden-de-compra-detalle.module').then( m => m.OrdenDeCompraDetallePageModule)
   },
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: 'bulk',
     loadChildren: () => import('./pages/bulk/bulk.module').then( m => m.BulkPageModule)
+  },
+  {
+    path: 'desalmacenaje',
+    loadChildren: () => import('./pages/desalmacenaje/desalmacenaje.module').then( m => m.DesalmacenajePageModule)
   },
 
 

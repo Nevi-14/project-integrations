@@ -1,0 +1,121 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button slot="start" (click)="cerrarModal()"   fill="clear"   color="dark">
+      <ion-icon size="large" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Desalmacenaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid >
+
+  <ion-row *ngIf="gestionOrdenesService.articulos.length == 0">
+    <ion-col size="12" class="ion-text-center">
+ 
+       <img height="100"  class="ion-margin" src="assets/empty-cart.svg" alt="" >
+    </ion-col>
+ </ion-row>
+  <ion-row *ngIf="gestionOrdenesService.articulos.length > 0"> 
+    <ion-col size="12" class="container-products-content">
+      <ion-item    lines="full" >
+        <ion-grid >
+          <ion-row  >
+            <ion-col size="2" >
+          
+            </ion-col>
+            <ion-col size="4">
+         
+            </ion-col>
+
+            <ion-col size="2">
+              
+        Cant. 
+             
+              
+            </ion-col>
+            <ion-col size="2">
+            Cant. 
+            </ion-col>
+
+            <ion-col size="2">
+              Cant. 
+              </ion-col>
+         
+         </ion-row>
+         <ion-row  >
+            <ion-col size="2" >
+           <ion-badge color="primary" mode="ios">Codigo</ion-badge>
+            </ion-col>
+            <ion-col size="4">
+             Articulo
+            </ion-col>
+
+            <ion-col size="2">
+              
+       Ordenada
+             
+              
+            </ion-col>
+            <ion-col size="2">
+          Recibida
+            </ion-col>
+
+            <ion-col size="2">
+              Desalmacenada
+              </ion-col>
+         
+         </ion-row>
+        </ion-grid>
+   
+        </ion-item>
+
+       <ion-item class="data-row" [ngStyle]="{'background': odd ? '#1e2023' : '#92949c'}"  lines="full"   button *ngFor="let articulo of gestionOrdenesService.articulos   ; let odd = odd; let i = index; ">
+          <ion-grid >
+           <ion-row >
+              <ion-col size="2" >
+                 {{articulo.articulo.ARTICULO}}
+              </ion-col>
+              <ion-col size="4">
+                 {{articulo.nombre}}
+              </ion-col>
+
+              <ion-col size="2" class="ion-text-center">
+                
+                <ion-input value=" {{articulo.articulo.CANTIDAD_ORDENADA}}" type="text" placeholder="cantidad ordenada"></ion-input>
+               
+                
+              </ion-col>
+              <ion-col size="2"  class="ion-text-center">
+                <ion-input value="0" type="text" placeholder="cantidad recibida"></ion-input>
+              </ion-col>
+ 
+              <ion-col size="2"  class="ion-text-center">
+                <ion-input [value]="obtenerValor(articulo)"  (ionChange)="agregarArticulo($event, articulo)"   type="text" placeholder="cantidad desalmacenada"></ion-input>
+              </ion-col>
+ 
+         
+           
+           </ion-row>
+          </ion-grid>
+    
+          </ion-item>
+         
+ 
+    </ion-col>
+ 
+ 
+  </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+<ion-footer  class="ion-padding" *ngIf="desalmacenajeService.articulosDesalmacenados.length > 0">
+  <ion-toolbar >
+  <ion-button (click)="generarPost()" expand="block" fill="solid" color="dark">
+   Guardar Cambios
+  </ion-button>
+  </ion-toolbar>
+</ion-footer>
