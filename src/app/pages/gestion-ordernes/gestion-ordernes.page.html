@@ -49,9 +49,21 @@
       <ion-col size="7">
       
    <ion-item lines="none">
+
+
+      <ion-fab-button *ngIf="gestionOrdenesService.ordenCompra.ORDEN_COMPRA" (click)="facturas()" slot="end" size="small" color="dark">
+         <ion-icon name="receipt-outline"></ion-icon>
+       </ion-fab-button>
+
+
+
+
  <ion-fab-button (click)="enviarCorreos()" *ngIf="gestionOrdenesService.actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'A' && this.usuariosService.usuario.Rol == 'C'  || gestionOrdenesService.ordenCompra.ESTADO == 'E' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark">
    <ion-icon name="mail-outline"></ion-icon>
  </ion-fab-button>
+
+
+
       <ion-fab-button *ngIf="gestionOrdenesService.actualizar && gestionOrdenesService.ordenCompra.ESTADO == 'E' && this.usuariosService.usuario.Rol == 'C'" slot="end" size="small" color="dark"  (click)="generatePDF()">
          <ion-icon name="document-outline"></ion-icon>
       </ion-fab-button>

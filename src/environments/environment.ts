@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   maxCharCodigoProd: 6,
-  preURL:'https://api_irp',
+  preURL:'https://apiirp',
   preURL2:'https://api_isa',
-  TestURL:'_test',
+  TestURL:'test',
   postURL:'.di-apps.co.cr/api/',
   prdMode: false,
   articulosURL:'ONE_ArtProv/',
@@ -37,7 +37,8 @@ export const environment = {
   tipoParam2:'&Tipo=',
   nombreParam:'&Nombre=',
   ONE_GestorArch:'ONE_GestorArch',
-  ONE_Desalmacenaje:'ONE_Desalmacenaje'
+  ONE_Desalmacenaje:'ONE_Desalmacenaje',
+  ONE_Liquidacion:'ONE_Liquidaciones',
   
   
 };

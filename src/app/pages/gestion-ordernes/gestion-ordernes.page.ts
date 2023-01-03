@@ -1,4 +1,4 @@
-import {  ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {  MenuController, ModalController, PopoverController, AlertController } from '@ionic/angular';
 import { Proveedores } from 'src/app/models/proveedores';
@@ -31,6 +31,7 @@ import * as XLSX from 'xlsx';  // Convierte excel a objeto
 import { HttpClient } from '@angular/common/http';
 import { DesalmacenajePage } from '../desalmacenaje/desalmacenaje.page';
 import { DesalmacenajeService } from '../../services/desalmacenaje.service';
+import { FacturaPage } from '../factura/factura.page';
 
 
 interface email {
@@ -58,9 +59,9 @@ interface PostArticulos {
   styleUrls: ['./gestion-ordernes.page.scss'],
 })
 export class GestionOrdernesPage implements OnInit {
-
+  @ViewChild('popover') popover;
   actualizar = false;
-
+  isOpen = false;
   fecha: Date = new Date();
   date = this.fecha.getDate();
   month = this.fecha.getMonth();
@@ -97,9 +98,28 @@ export class GestionOrdernesPage implements OnInit {
     ) { }
   
     ngOnInit() {
+ 
+    }
 
 
-  //alert(this.gestionOrdenesService.ordenCompra.ESTADO == 'A')
+
+ 
+    async  facturas(){
+      let modal = await  this.modalCtrl.create({
+        component:FacturaPage,
+        cssClass: 'alert-modal',
+      });
+  
+      await modal.present();
+      const { data } = await modal.onWillDismiss();
+      if(data != undefined){
+
+ 
+      }
+    }
+    presentPopover(e: Event) {
+      this.popover.event = e;
+      this.isOpen = true;
     }
     openCustom() {
       this.menu.enable(true, 'custom');
@@ -109,7 +129,7 @@ export class GestionOrdernesPage implements OnInit {
       this.limpiarDatos();
     }
   
-
+ 
     limpiarDatos(){
       this.usuariosService.syncGetONEUserAprob();
 this.gestorArchivosService.archivos = [];
@@ -956,6 +976,7 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
             if(i == lineas.length -1){
 
               this.gestionOrdenesService.sumarTotales();
+             
               this.cargarArchivos();
             }
           }

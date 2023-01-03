@@ -1,0 +1,44 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button slot="start" (click)="cerrarModal()"   fill="clear"   color="dark">
+      <ion-icon size="large" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Detalle Factura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item>
+       <ion-label>ORDEN_COMPRA : {{factura.ORDEN_COMPRA}} </ion-label>
+    </ion-item>
+    <ion-item>
+       <ion-label># FACTURA :  {{factura.FACTURA}}</ion-label>
+    </ion-item>
+    <ion-item>
+       <ion-label>FECHA :  {{factura.FECHA}}</ion-label>
+    </ion-item>
+  
+      <ion-item>
+        <ion-label>DESCRIPCIÓN :  {{factura.DESCRIPCION}}</ion-label>
+     </ion-item>
+     <ion-item>
+       <ion-label>MONTO :  {{factura.MONTO}} </ion-label>
+    </ion-item>
+    <ion-item>
+       <ion-label>MONEDA :  {{factura.MONEDA}} </ion-label>
+    </ion-item>
+
+ </ion-list>
+
+</ion-content>
+
+
+<ion-footer >
+  <ion-toolbar >
+  <ion-button (click)="generarPost()" expand="block" fill="solid" color="dark">
+   {{actualizar ? 'Actualizar' : 'Guardar'}} Factura
+  </ion-button>
+  </ion-toolbar>
+</ion-footer>

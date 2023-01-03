@@ -62,7 +62,11 @@ const routes: Routes = [
   {
     path: 'desalmacenaje',
     loadChildren: () => import('./pages/desalmacenaje/desalmacenaje.module').then( m => m.DesalmacenajePageModule)
+  },  {
+    path: 'factura',
+    loadChildren: () => import('./pages/factura/factura.module').then( m => m.FacturaPageModule)
   },
+
 
 
 
