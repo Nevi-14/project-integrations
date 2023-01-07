@@ -6,7 +6,7 @@ export const environment = {
   production: true,
   maxCharCodigoProd: 6,
   preURL:'https://apiirp',
-  preURL2:'https://api_isa',
+  preURL2:'https://apiisa',
   TestURL:'test',
   postURL:'.di-apps.co.cr/api/',
   prdMode: true,

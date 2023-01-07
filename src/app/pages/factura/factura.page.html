@@ -7,30 +7,59 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content class="ion-padding">
 
-    <ion-item>
-       <ion-label>ORDEN_COMPRA : {{factura.ORDEN_COMPRA}} </ion-label>
-    </ion-item>
-    <ion-item>
-       <ion-label># FACTURA :  {{factura.FACTURA}}</ion-label>
-    </ion-item>
-    <ion-item>
-       <ion-label>FECHA :  {{factura.FECHA}}</ion-label>
-    </ion-item>
-  
-      <ion-item>
-        <ion-label>DESCRIPCIÓN :  {{factura.DESCRIPCION}}</ion-label>
-     </ion-item>
-     <ion-item>
-       <ion-label>MONTO :  {{factura.MONTO}} </ion-label>
-    </ion-item>
-    <ion-item>
-       <ion-label>MONEDA :  {{factura.MONEDA}} </ion-label>
-    </ion-item>
+  <ion-grid >
+    <ion-row>
+      <ion-col size="6">
+        <ion-label>ORDEN COMPRA</ion-label>
+        <ion-item lines="none" class="ion-item">
+           <ion-input readonly  type="text" placeholder=">ORDEN COMPRA" [(ngModel)]="factura.ORDEN_COMPRA"></ion-input>
+          </ion-item>
+      </ion-col>
 
- </ion-list>
+      <ion-col size="6">
+        <ion-label># FACTURA</ion-label>
+        <ion-item lines="none" class="ion-item">
+           <ion-input readonly  type="text" placeholder="# FACTURA" [(ngModel)]="factura.FACTURA"></ion-input>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-label>FECHA</ion-label>
+        <ion-item lines="none" class="ion-item">
+           <ion-input readonly  type="text" placeholder="FECHA" [(ngModel)]="factura.FECHA"></ion-input>
+          </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-label>DESCRIPCIÓN</ion-label>
+        <ion-item lines="none" class="ion-item">
+           <ion-input readonly  type="text" placeholder="DESCRIPCIÓN" [(ngModel)]="factura.DESCRIPCION"></ion-input>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-label>MONTO</ion-label>
+        <ion-item lines="none" class="ion-item">
+           <ion-input readonly  type="text" placeholder="proveedor" [ngModel]="factura.MONTO | colones : 2 : '.' : ',' : factura.MONEDA == 'CRC' ? '₡' :'$'"></ion-input>
+          </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-label>MONEDA</ion-label>
+        <ion-item lines="none" class="ion-item">
+           <ion-input readonly  type="text" placeholder="proveedor" [(ngModel)]="factura.MONEDA"></ion-input>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
 
 </ion-content>
 

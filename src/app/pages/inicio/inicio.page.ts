@@ -1,9 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, Platform } from '@ionic/angular';
-import { AppSettingsService } from 'src/app/services/app_settings';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
+import { ConfiguracionesService } from '../../services/configuraciones';
 
 @Component({
   selector: 'app-inicio',
@@ -31,7 +31,7 @@ export class InicioPage implements OnInit {
     public menuCtrl: MenuController,
     public plt:Platform,
     public usuariosService:UsuariosService,
-    public appSettingService: AppSettingsService
+    public configuracionesService: ConfiguracionesService
     
     
     ) {}

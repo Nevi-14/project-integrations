@@ -5,6 +5,7 @@ import { GestorArchivosService } from 'src/app/services/gestor-archivos.service'
 import { AlertasService } from '../../services/alertas.service';
 import { GestionOrdenesService } from '../../services/gestion-ordenes.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { ConfiguracionesService } from '../../services/configuraciones';
 
 @Component({
   selector: 'app-gestor-archivos',
@@ -16,7 +17,8 @@ export class GestorArchivosPage implements OnInit {
   myInputVariable: ElementRef;
 
 textoBuscar = '';
-url = 'https://api_irp.di-apps.co.cr/api/descargar-archivo?ID='
+url = this.configuracionesService.url+'descargar-archivo?ID='   
+//url = 'https://apiirptest.di-apps.co.cr/api/descargar-archivo?ID='
 archivo:Archivos = {
   ORDEN_COMPRA:this.gestionOrdenesService.ordenCompra.ORDEN_COMPRA,
   Tipo:null,
@@ -49,7 +51,8 @@ public gestorArchivosService: GestorArchivosService,
 public alertasService: AlertasService,
 public gestionOrdenesService: GestionOrdenesService,
 public usuariosService:UsuariosService,
-private cd: ChangeDetectorRef
+private cd: ChangeDetectorRef,
+public configuracionesService: ConfiguracionesService
 
   ) { }
 
