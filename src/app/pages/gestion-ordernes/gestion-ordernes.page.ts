@@ -632,9 +632,10 @@ for(let i = 0;  i < this.gestionOrdenesService.estados.length; i++){
 
           return
          }else{
+          this.gestionOrdenesService.estado = data;
           this.gestionOrdenesService.ordenCompra.ESTADO = this.gestionOrdenesService.estado;
           this.gestionOrdenesService.ordenCompraService.syncPutOrdenCompraToPromise(this.gestionOrdenesService.ordenCompra).then(resp =>{
-            this.gestionOrdenesService.estado = data;
+      
 
             console.log('orden de compra',[this.gestionOrdenesService.ordenCompra]);
             this.alertasService.message('DIONE', 'El estado se actualizo con exito')
