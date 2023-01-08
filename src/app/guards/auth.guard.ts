@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
 import { AlertasService } from '../services/alertas.service';
-import { UsuariosService } from '../services/usuarios.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { UsuariosService } from '../services/usuarios.service';
 export class AuthGuard implements CanLoad {
 
   constructor(
-    public usuariosService: UsuariosService,
+  
     public router: Router,
     public alertasService:AlertasService
   ){
@@ -17,8 +17,10 @@ export class AuthGuard implements CanLoad {
   }
   canLoad()
     {
-     const isAuthenticated = this.usuariosService.usuario;
+     const isAuthenticated = null; // this.usuariosService.usuario
      const navigation = this.router.getCurrentNavigation();
+      
+     return true
      if(isAuthenticated){
 
    

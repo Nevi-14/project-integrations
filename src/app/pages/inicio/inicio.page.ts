@@ -1,8 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, Platform } from '@ionic/angular';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { ConfiguracionesService } from '../../services/configuraciones';
 
 @Component({
@@ -12,9 +10,7 @@ import { ConfiguracionesService } from '../../services/configuraciones';
 })
 export class InicioPage implements OnInit {
   public appPages = [
-    { title: 'Inicio', url: '/inicio/detalle', icon: 'home' },
-    { title: 'Ordenes de Compra', url: '/inicio/gestion-ordernes', icon: 'bag' },
-    { title: 'Compras Internacionales', url: '/inicio/compras-internacionales', icon: 'boat' },
+    { title: 'Inicio', url: '/inicio/detalle', icon: 'home' }
    
   ];
 
@@ -30,7 +26,6 @@ export class InicioPage implements OnInit {
     public router: Router,
     public menuCtrl: MenuController,
     public plt:Platform,
-    public usuariosService:UsuariosService,
     public configuracionesService: ConfiguracionesService
     
     
@@ -45,17 +40,17 @@ export class InicioPage implements OnInit {
 
   // REMVOE MENU ON BIGGER SCREENS
   toggleMenu(){
-   
+ 
     if(this.width > 768){
       this.large = true;
       this.small = false;
       //this.class = true;
      // this.menuCtrl.toggle('myMenu');
-  
+     this.small = false;
     }else{
       this.class = false;
       this.large = false;
-   //   this.small = true;
+      this.small = true;
        // this.menuCtrl.toggle('myMenu');
 
      
@@ -68,6 +63,8 @@ export class InicioPage implements OnInit {
     toggle(){
       this.class = true;
       this.menuCtrl.toggle('myMenu');
+      
+      this.configuracionesService.menu = !this.configuracionesService.menu;
 
     }
   // CHECKS SCREEN RESIZE LIVE
@@ -87,7 +84,7 @@ this.titulo = titulo;
 
 }
 cerrarSesion(){
-  this.usuariosService.usuario = null;
+ 
   this.router.navigate(['/inicio-sesion']);
 }
 }

@@ -16,15 +16,7 @@ const routes: Routes = [
       {
         path: 'detalle',
         loadChildren: () => import('../detalle/detalle.module').then( m => m.DetallePageModule)
-      },
-       {
-        path: 'compras-internacionales',
-        loadChildren: () => import('../compras-internacionales/compras-internacionales.module').then( m => m.ComprasInternacionalesPageModule)
-      },
-      {
-        path: 'gestion-ordernes',
-        loadChildren: () => import('../gestion-ordernes/gestion-ordernes.module').then( m => m.GestionOrdernesPageModule)
-      },
+      }
     ]
   },
   

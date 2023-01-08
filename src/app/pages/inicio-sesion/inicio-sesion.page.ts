@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProveedoresService } from '../../services/proveedores.service';
 import { AlertasService } from '../../services/alertas.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -11,13 +10,12 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 export class InicioSesionPage implements OnInit {
 
-  image = '../assets/islena.png';
+  image = '../assets/imgs/devCodingLogo.svg';
   showPass = false;
   usuario: string = null;
   clave: string = null;
 
   constructor( public route: Router,
-               private usuariosService: UsuariosService,
                private alertas: AlertasService ) { }
 
   ngOnInit() {
@@ -26,8 +24,14 @@ export class InicioSesionPage implements OnInit {
   loginMethod(){
     console.log(this.usuario);
     console.log(this.clave);
-this.usuariosService.usuario = null;
+
     this.alertas.presentaLoading('Espere x favor...');
+
+    this.route.navigate(['/inicio']);
+    this.alertas.loadingDissmiss();
+
+/**
+ * 
     this.usuariosService.syngGetUsersToPromise(this.usuario, this.clave).then(
       resp => {
         this.alertas.loadingDissmiss();
@@ -47,6 +51,7 @@ this.usuariosService.usuario = null;
         this.alertas.message('Error', `No se puede acceder a la BD. ${error.message}`);
       }
     )
+ */
 
     //this.route.navigate(['/inicio']);
   }

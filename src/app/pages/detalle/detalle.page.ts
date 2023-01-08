@@ -6,10 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detalle.page.scss'],
 })
 export class DetallePage implements OnInit {
-  image = '../assets/islena.png';
+  image = '../assets/imgs/devCodingLogo.svg';
   public appPages = [
-    { title: 'Ordenes de Compra', url: '/inicio/gestion-ordernes', icon: 'bag' },
-    { title: 'Compras Internacionales', url: '/inicio/compras-internacionales', icon: 'boat' },
+    { title: 'Inicio', url: '/inicio/detalle', icon: 'home' }
    
   ];
   constructor() { }
