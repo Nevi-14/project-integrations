@@ -10,26 +10,27 @@
    
                  <div class="login-section" >
                    <div class="heading ion-padding ion-text-uppercase ion-text-center"   >
-                     <h3 class="ion-text-left">Dev-Coding</h3>
+                     <h3 class="ion-text-left">Control-Viáticos</h3>
                    </div>
                    
              
                    <div class="login-form ion-padding">
              
                      <div class="form-input" lines="none">
-                       
-                       <ion-item>
+                      <ion-label  position="stacked"><ion-icon  name="mail-outline"></ion-icon>Usuario</ion-label>
+                       <ion-item lines="none" class="ion-item" >
                  
-                         <ion-label  position="stacked"><ion-icon  name="mail-outline"></ion-icon>Usuario</ion-label>
+                        
                          <ion-input type="number" placeholder="Usuario" name="usuario" [(ngModel)]="usuario"></ion-input>
                        </ion-item>
                      </div>
              
                      <div class="form-input">
-                       <ion-item>
+                      <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
+                       <ion-item class="ion-item" lines="none">
              
                 
-                           <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
+                         
                        
                          <ion-input type="password" name="contrasena" autocomplete="off"  type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña" [(ngModel)]="clave"></ion-input>
                          <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>

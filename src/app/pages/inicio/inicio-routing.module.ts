@@ -16,6 +16,10 @@ const routes: Routes = [
       {
         path: 'detalle',
         loadChildren: () => import('../detalle/detalle.module').then( m => m.DetallePageModule)
+      },
+      {
+        path: 'control-viaticos',
+        loadChildren: () => import('../control-viaticos/control-viaticos.module').then( m => m.ControlViaticosPageModule)
       }
     ]
   },

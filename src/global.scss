@@ -535,3 +535,19 @@ ion-modal.alert-modal {
 
  
  }
+
+ .ion-item{
+
+  border-radius: 50px;
+  box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.08);
+  --hightlight-height:0px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+ion-input, ion-select{
+  font-size: 18px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  --padding-start:5px;
+}

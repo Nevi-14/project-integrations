@@ -15,11 +15,11 @@
       
         </ion-toolbar>
       </ion-header>
-            <ion-content>
+      <ion-content class="ion-padding">
             
              
               <ion-list id="inbox-list" lines="none">
-                <ion-item button  >
+                <ion-item (click)="perfil()" button  >
                   <ion-icon [ngStyle]="{'margin': !configuracionesService.menu ? '0 auto' : ''}" slot="{{configuracionesService.menu ? 'start':''}}" name="person"></ion-icon>
                   
                   <ion-label *ngIf="configuracionesService.menu">Perfil</ion-label>

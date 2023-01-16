@@ -1,7 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, Platform } from '@ionic/angular';
+import { MenuController, Platform, ModalController } from '@ionic/angular';
 import { ConfiguracionesService } from '../../services/configuraciones';
+import { PerfilPage } from '../perfil/perfil.page';
 
 @Component({
   selector: 'app-inicio',
@@ -10,7 +11,8 @@ import { ConfiguracionesService } from '../../services/configuraciones';
 })
 export class InicioPage implements OnInit {
   public appPages = [
-    { title: 'Inicio', url: '/inicio/detalle', icon: 'home' }
+    { title: 'Inicio', url: '/inicio/detalle', icon: 'home' },
+    { title: 'Control Viáticos', url: '/inicio/control-viaticos', icon: 'cash' }
    
   ];
 
@@ -22,11 +24,13 @@ export class InicioPage implements OnInit {
   large:boolean;
   small:boolean;
   image = '../assets/islena.png';
+  isOpen = false;
   constructor(
     public router: Router,
     public menuCtrl: MenuController,
     public plt:Platform,
-    public configuracionesService: ConfiguracionesService
+    public configuracionesService: ConfiguracionesService,
+    public modalCtrl: ModalController
     
     
     ) {}
@@ -78,7 +82,29 @@ export class InicioPage implements OnInit {
     this.toggleMenu();
 
   }
-
+  async perfil(){
+    this.isOpen = true;
+    
+    
+          const modal = await this.modalCtrl.create({
+     component:PerfilPage,
+     cssClass:'alert-modal'
+          });
+    
+    if(this.isOpen){
+    
+      modal.present();
+      const {data} = await modal.onWillDismiss();
+      this.isOpen = false;
+      if(data != undefined){
+    
+         
+      }
+    }
+    
+        
+    
+         }
 setTitle(titulo){
 this.titulo = titulo;
 
