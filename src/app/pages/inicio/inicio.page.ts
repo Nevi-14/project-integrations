@@ -12,6 +12,7 @@ import { PerfilPage } from '../perfil/perfil.page';
 export class InicioPage implements OnInit {
   public appPages = [
     { title: 'Inicio', url: '/inicio/detalle', icon: 'home' },
+    { title: 'Dashboard', url: '/inicio/dashboard', icon: 'analytics' },
     { title: 'Control Viáticos', url: '/inicio/control-viaticos', icon: 'cash' }
    
   ];

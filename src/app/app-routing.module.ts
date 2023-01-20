@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'filtrar-gastos',
     loadChildren: () => import('./pages/filtrar-gastos/filtrar-gastos.module').then( m => m.FiltrarGastosPageModule)
+  },  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   }
+
 
 
 

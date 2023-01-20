@@ -20,6 +20,10 @@ const routes: Routes = [
       {
         path: 'control-viaticos',
         loadChildren: () => import('../control-viaticos/control-viaticos.module').then( m => m.ControlViaticosPageModule)
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('../dashboard/dashboard.module').then( m => m.DashboardPageModule)
       }
     ]
   },

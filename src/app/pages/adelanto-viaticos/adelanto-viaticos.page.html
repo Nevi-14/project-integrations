@@ -9,47 +9,69 @@
 
 <ion-content class="ion-padding">
 
-
-  <ion-col size="6">
-    <ion-label>Colaborador </ion-label>
- <ion-item class="ion-item" lines="none">
-   
-  <ion-select   placeholder="Colaborador">
-    <ion-select-option value="nelson">Nelson Morera</ion-select-option>
-    <ion-select-option value="mauricio">Mauricio Herra</ion-select-option>
-  </ion-select>
- </ion-item>
-    
-  </ion-col>
-  <ion-col size="6">
-
-    <ion-label>Fecha</ion-label>
-    <ion-item class="ion-item" lines="none">
-     <ion-input type="text" placeholder="Fecha"></ion-input>
-    </ion-item>
-  </ion-col>
-
-  <ion-col size="12">
-
-    <ion-label>Monto</ion-label>
-    <ion-item class="ion-item" lines="none">
-     <ion-input type="number" placeholder="Monto"></ion-input>
-    </ion-item>
-  </ion-col>
-  <ion-col size="12">
-    <ion-label>Archivo</ion-label>
-    <ion-item class="ion-item" lines="none">
-
-        <ion-input placeholder="Archivo" ></ion-input>
-        <ion-fab-button size="small" slot="end" >
-          <label for="input" style="font-size: 20pt; padding: 20px" >
-            <ion-icon name="cloud-upload-outline"></ion-icon>
-          </label>
-          <input id="input" type="file" class="hideInput" (change)="changeListener($event)">
-        </ion-fab-button>
+<ion-grid >
+  <ion-row>
+    <ion-col size="6">
+  
+      <ion-label>Fecha</ion-label>
+      <ion-item class="ion-item" lines="none">
+       <ion-input type="text" placeholder="Fecha"></ion-input>
       </ion-item>
-   
-  </ion-col>
+    </ion-col>
+  
+    <ion-col size="6">
+  
+      <ion-label>Monto</ion-label>
+      <ion-item class="ion-item" lines="none">
+       <ion-input type="number" placeholder="Monto"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12">
+      <ion-label>Archivo</ion-label>
+      <ion-item class="ion-item" lines="none">
+  
+          <ion-input placeholder="Archivo" ></ion-input>
+          <ion-fab-button size="small" slot="end" >
+            <label for="input" style="font-size: 20pt; padding: 20px" >
+              <ion-icon name="cloud-upload-outline"></ion-icon>
+            </label>
+            <input id="input" type="file" class="hideInput" (change)="changeListener($event)">
+          </ion-fab-button>
+        </ion-item>
+     
+    </ion-col>
+
+    <ion-col size="12">
+      <ion-list>
+        <ion-list-header>
+   <ion-searchbar mode="ios" placeholder="Buscar Usuario"  type="text"   [debounce]="250"  ></ion-searchbar>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Usuario 1</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Usuario 2</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+  
+  
+        <ion-item>
+          <ion-label>Usuario 3</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+  
+  
+        <ion-item>
+          <ion-label>Usuario 4</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+      
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>
 
 <ion-footer class="ion-no-border">
