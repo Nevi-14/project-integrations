@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
-import { ConfiguracionesService } from 'src/app/services/configuraciones';
+import { SettingsService } from '../../services/settings.service';
+
 
 
 @Component({
@@ -14,13 +15,13 @@ fecha = new Date().toLocaleDateString();
   constructor(
     public menuCtrl: MenuController,
     private plt:Platform,
-    public configuracionesService: ConfiguracionesService
+    public settingsService: SettingsService
     
       ) {}
 
   ngOnInit() {}
   toggle(){
- this.configuracionesService.menu = !this.configuracionesService.menu ;
+ this.settingsService.menu = !this.settingsService.menu ;
     this.menuCtrl.toggle('myMenu');
   
   }

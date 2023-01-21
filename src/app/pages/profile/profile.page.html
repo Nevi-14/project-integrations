@@ -1,0 +1,127 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-padding">
+    <ion-title class="ion-text-capitalize" class="title"><strong>My Profile</strong></ion-title>
+    <ion-button slot="end" color="danger" fill="outline" shape="round">
+      Delete Account
+       </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+<ion-grid >
+  <ion-row>
+
+    <ion-col size="12" size-md="6" class="ion-margin-bottom">
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-avatar  class="height">
+            <img src="assets/avatars/{{avatarActual}}" onerror="this.src='assets/imgs/user.svg'" />
+          </ion-avatar>
+         
+        </ion-col>
+   
+        <ion-col    size="3" size-md="2"  style="display:flex;justify-content:center;align-items:center;">
+          <ion-fab-button size="small"  (click)="slidePrev()" color="dark" *ngIf="index > 0">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </ion-fab-button>
+        
+           
+        </ion-col>
+        <ion-col size="6" size-md="8">
+          <ion-slides mode="ios"    (ionSlideDidChange)="slideChange()"  [options]="avatarSlide" >
+            <ion-slide  *ngFor="let img of imgs; let i = index;">
+            <ion-img  class="pick-avatar" 
+                    src="assets/avatars/{{img.img}}"
+                    [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
+            
+            
+            
+            
+            </ion-slide>
+            </ion-slides>
+        </ion-col>
+        <ion-col    size="3" size-md="2"   style="display:flex;justify-content:center;align-items:center;">
+                       
+            <ion-fab-button size="small"  *ngIf="index < imgs.length -3"  (click)="slideNext()" color="dark">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </ion-fab-button>
+                </ion-col>
+      </ion-row>
+      
+    </ion-col>
+
+
+    <ion-col size="12" size-md="6">
+      <ion-row>
+ 
+        <ion-col size="6">
+
+          <ion-label>Name</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="name"></ion-input>
+          </ion-item>
+        </ion-col>
+    
+        <ion-col size="6">
+    
+          <ion-label>Last Name</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="last name"></ion-input>
+          </ion-item>
+        </ion-col>
+    
+    
+        <ion-col size="6">
+    
+          <ion-label>Rol</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="Rol"></ion-input>
+          </ion-item>
+        </ion-col>
+    
+        <ion-col size="6">
+    
+          <ion-label>Username</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="username"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+    
+          <ion-label>Email</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="email"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+    
+          <ion-label>Phone</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="phone"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button    fill="solid" shape="round" color="dark">
+            Save Changes
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-col>
+
+
+
+
+  
+  </ion-row>
+</ion-grid>
+
+
+
+</ion-content>
+ 

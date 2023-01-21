@@ -1,48 +1,30 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes, CanLoad } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { ProfilePageModule } from './pages/profile/profile.module';
 
 const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'inicio-sesion',
+    redirectTo: 'log-in',
     pathMatch: 'full'
   },
   {
-    path: 'calendario-popover',
-    loadChildren: () => import('./pages/calendario-popover/calendario-popover.module').then( m => m.CalendarioPopoverPageModule)
+    path: 'calendar-popover',
+    loadChildren: () => import('./pages/calendar-popover/calendar-popover.module').then( m => m.CalendarPopoverPageModule)
   },
 
   {
-    path: 'inicio-sesion',
-    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
+    path: 'log-in',
+    loadChildren: () => import('./pages/log-in/log-in.module').then( m => m.LogInPageModule)
   },
   {
-    path: 'inicio',
-    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule),
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
     canLoad:[AuthGuard]
   },
   {
-    path: 'control-viaticos',
-    loadChildren: () => import('./pages/control-viaticos/control-viaticos.module').then( m => m.ControlViaticosPageModule)
-  },
-  {
-    path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
-  },
-  {
-    path: 'adelanto-viaticos',
-    loadChildren: () => import('./pages/adelanto-viaticos/adelanto-viaticos.module').then( m => m.AdelantoViaticosPageModule)
-  },
-  {
-    path: 'estado-cuenta',
-    loadChildren: () => import('./pages/estado-cuenta/estado-cuenta.module').then( m => m.EstadoCuentaPageModule)
-  },
-  {
-    path: 'filtrar-gastos',
-    loadChildren: () => import('./pages/filtrar-gastos/filtrar-gastos.module').then( m => m.FiltrarGastosPageModule)
-  },  {
     path: 'dashboard',
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   }

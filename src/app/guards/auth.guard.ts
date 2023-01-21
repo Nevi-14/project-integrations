@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
-import { AlertasService } from '../services/alertas.service';
+import { AlertService } from '../services/alert.service';
+ 
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class AuthGuard implements CanLoad {
   constructor(
   
     public router: Router,
-    public alertasService:AlertasService
+    public alertService:AlertService
   ){
 
   }
@@ -29,7 +30,7 @@ export class AuthGuard implements CanLoad {
       if(navigation){
         let url = navigation.extractedUrl.toString();
         this.router.navigateByUrl('inicio-sesion');
-        this.alertasService.message('ISLEÑA','Inicia Sesión para continuar ..')
+        this.alertService.message('ISLEÑA','Inicia Sesión para continuar ..')
       }
 
 return false

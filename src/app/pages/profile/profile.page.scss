@@ -1,0 +1,23 @@
+.height{
+
+    height: 200px;
+    width:200px;
+    margin: 0 auto;
+   margin-bottom: 3rem;
+}
+
+ion-img {
+   height: 100px;
+   width: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .pick-avatar {
+   
+    opacity: 0.3;
+  }
+  .pick-avatar-seleccionado {
+    transition: opacity 0.5s linear;
+    opacity: 1 !important;
+  }

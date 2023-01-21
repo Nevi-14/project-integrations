@@ -3,13 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   maxCharCodigoProd: 6,
   preURL:'https://api',
   preURL2:'https://api',
   TestURL:'_test',
   postURL:'.dev-coding.com/api/',
-  prdMode: false,
+  prdMode: true,
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
  
   

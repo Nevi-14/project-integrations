@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as  mapboxgl from 'mapbox-gl';
-import { environment } from 'src/environments/environment';;
-import { ConfiguracionesService } from './services/configuraciones';
+import { environment } from 'src/environments/environment';import { SettingsService } from './services/settings.service';
+;
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -9,13 +9,13 @@ import { ConfiguracionesService } from './services/configuraciones';
 })
 export class AppComponent {
   constructor(
-public configuracionesService: ConfiguracionesService
+    public settingsService: SettingsService
 
   ) {}
 
   ngOnInit(){
  
-this.configuracionesService.getURL();
+this.settingsService.getCurrentURL();
     (mapboxgl as any ).accessToken = environment.mapboxKey;
  
   
