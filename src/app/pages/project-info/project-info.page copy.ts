@@ -11,7 +11,7 @@ export class ProjectInfoPage implements OnInit {
   public appPages = [
     { title: 'Project-Info', url: '/home/project-info', icon: 'home' },
     { title: 'Profile', url: '/home/profile', icon: 'person' },
-    { title: 'Dashboards', url: '/home/dashboards', icon: 'analytics' }
+    { title: 'Dashboard', url: '/home/dashboard', icon: 'analytics' }
    
   ];
   constructor(

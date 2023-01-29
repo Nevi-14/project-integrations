@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardPage } from './dashboard.page';
+ 
+ 
 // installing dashboard
 // https://www.udemy.com/course/angular-fernando-herrera/learn/lecture/24268852#overview
 //  https://valor-software.com/ng2-charts/

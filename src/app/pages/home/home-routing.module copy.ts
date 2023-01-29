@@ -26,7 +26,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('../dashboard/dashboard.module').then( m => m.DashboardPageModule)
-        
+      },
+      {
+        path: 'dashboards',
+        loadChildren: () => import('../../dashboards/dashboards.module').then( m => m.DashboardsModule)
       }
     ]
   },
@@ -35,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes),],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class HomePageRoutingModule {}

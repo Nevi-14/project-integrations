@@ -7,15 +7,22 @@ import { MapaComponent } from './mapa/mapa.component';
 
 
 
+
 @NgModule({
-  declarations: [EncabezadoComponent,MapaComponent],
+  declarations: [
+    
+    EncabezadoComponent,
+    MapaComponent
+  
+  ],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule
   ],
   exports: [
-    EncabezadoComponent,MapaComponent
+    EncabezadoComponent,
+    MapaComponent,
   ]
 })
 export class ComponentModule { }
