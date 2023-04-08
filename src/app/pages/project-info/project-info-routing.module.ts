@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { ProjectInfoPage } from './project-info.page';
 
- 
 const routes: Routes = [
   {
     path: '',

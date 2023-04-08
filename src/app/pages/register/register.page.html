@@ -1,0 +1,140 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="cerrarModal()"  fill="clear" slot="start">
+      <ion-icon color="dark" size="large" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"RegistrationForm" | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+  <ion-grid  >
+    <ion-row >
+      <ion-col size="12">
+
+      </ion-col>
+      <ion-col size="12" size-md="6">
+<ion-row>
+  <ion-col size="12">
+    <ion-label>{{"FirstName" | translate}}</ion-label>
+  </ion-col>
+
+  <ion-col size="12">
+    <ion-input name="name" [(ngModel)]="user.name" type="text" placeholder="{{'FirstName' | translate}}"></ion-input>
+  </ion-col>
+</ion-row>
+
+ 
+    
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-row>
+          <ion-col size="12">
+            <ion-label>{{"LastName" | translate}}</ion-label>
+          </ion-col>
+        
+          <ion-col size="12">
+            <ion-input  name="lastname"  [(ngModel)]="user.lastname"  type="text" placeholder="{{'LastName' | translate}}"></ion-input>
+          </ion-col>
+        </ion-row>
+ 
+    
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+
+        <ion-row>
+          <ion-col size="12">
+                
+            <ion-label>{{"Email" | translate}}</ion-label>
+          </ion-col>
+        
+          <ion-col size="12">
+            <ion-input name="email" [(ngModel)]="user.email"   type="email" placeholder="{{'Email' | translate}}"></ion-input>
+          </ion-col>
+        </ion-row>
+
+ 
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-row>
+          <ion-col size="12">
+            <ion-label>{{"Passsword" | translate}}</ion-label>
+          </ion-col>
+        
+          <ion-col size="12">
+            <ion-input name="password"  type="password" [(ngModel)]="user.password"   placeholder="{{'Passsword' | translate}}"></ion-input>
+          </ion-col>
+        </ion-row>
+
+      
+    
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="12">
+        
+      <h6 class="ion-text-wrap">
+        <strong>{{"CompanyInformartion" | translate}}</strong>
+        </h6> 
+          </ion-col>
+       
+        </ion-row>
+      
+      
+      </ion-col>
+      
+            <ion-col size="12" size-md="6">
+      
+              <ion-row>
+                <ion-col size="12">
+                  <ion-label>{{"CompanyName" | translate}}</ion-label>
+                </ion-col>
+              
+                <ion-col size="12">
+                  <ion-input name="company_name" [(ngModel)]="company.name"   type="text" placeholder="{{'CompanyName' | translate}}"></ion-input>  
+                </ion-col>
+              </ion-row>
+      
+      
+      
+          
+       
+            </ion-col>
+            <ion-col size="12" size-md="6">
+      
+      
+              <ion-row> 
+                <ion-col size="12">
+                  <ion-label>{{"CompanyDescription" | translate}}</ion-label>
+                </ion-col>
+              
+                <ion-col size="12">
+                  <ion-input class="description" name="companyDescription" [(ngModel)]="company.description"  placeholder="{{'CompanyDescription' | translate}}"></ion-input>
+                </ion-col>
+              </ion-row>
+      
+      
+      
+       
+            </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button  (click)="register()" expand="block" fill="solid" color="dark">
+      {{"ContinueWithRegistration" | translate}}
+      </ion-button>
+  </ion-toolbar>
+</ion-footer>
+ 

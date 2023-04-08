@@ -1,25 +1,55 @@
 
 
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+    <ion-title class="ion-text-capitalize" class="title"><strong>Project Information</strong></ion-title>
+ 
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
 
 <ion-grid >
 <ion-row>
   <ion-col size="12" size-md="6">
     <ion-row>
- 
-      <ion-col size="12">
-       <h1><strong>Project-Info</strong></h1>
+
+      <ion-col size="12" class="ion-text-left">
+        <img style="height: 12rem;width: 12rem;"  src="assets/imgs/devCodingLogo.svg" />
       </ion-col>
+      
+
+      <ion-col size="12" *ngIf="companiesService.company.name">
+        <ion-label>Company : <strong>{{companiesService.company.name}}</strong></ion-label>
+     </ion-col>
+     <ion-col size="12" *ngIf="companiesService.company.description">
+      <ion-label>Description : <strong> {{companiesService.company.description}}</strong></ion-label>
+   </ion-col>
+      <ion-col size="12">
+        <ion-label>Developer : Nelson Nevil Morera Fernández</ion-label>
+     </ion-col>
+      <ion-col size="12">
+        <ion-label>Tel : <span>
+          <a href="tel:+50662962461" target="_blank">+50662962461</a>
   
-      <ion-col size="12">
-         <ion-label>Tel: (506) xxx-xxx</ion-label>
-      </ion-col>
- 
-      <ion-col size="12">
-         <ion-label>Address:xxxxxxx</ion-label>
+          
+          </span></ion-label>
       </ion-col>
       <ion-col size="12">
-         <ion-label><a href="https://" target="_blank">https://</a></ion-label>
+        <ion-label>Email : <span  >
+          <a href = "mailto:workemailnelson@gmail.com" target="_blank">
+            workemailnelson@gmail.com
+          
+          
+          </a>
+         
+          </span></ion-label>
+     </ion-col>
+
+      <ion-col size="12">
+         <ion-label>Address:Heredia, Costa Rica</ion-label>
+      </ion-col>
+      <ion-col size="12">
+         <ion-label><a href="https://dev-coding.com" target="_blank">https://dev-coding.com</a></ion-label>
       </ion-col>
     </ion-row>
   </ion-col>
@@ -30,7 +60,7 @@
       </ion-item>
 
       <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-        <ion-item button (click)="setTitle(p.title)"    style="margin-top:0.5rem" [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item"    routerLinkActive="selected" detail>
+        <ion-item button (click)="setTitle(p.title)"    [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item"    routerLinkActive="selected" detail>
           <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
           <ion-label  >{{ p.title }}</ion-label>
         </ion-item>
@@ -40,8 +70,4 @@
 </ion-row>
 </ion-grid>
 </ion-content>
-<ion-footer class="ion-no-border">
-  <ion-toolbar class="ion-text-center">
-    <ion-title>Project-Info</ion-title>
-  </ion-toolbar>
-</ion-footer>
+<app-footer></app-footer>

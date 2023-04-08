@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-hide-md-down">
+ 
+  
+    <ion-icon style="font-size: 1.4rem;"    icon="icon-only"  slot="end"   name="language-outline"></ion-icon>
+      <ion-select slot="end" name="language" [(ngModel)]="lng"   placeholder="Select Laguage" (ionChange)="changeLang($event)">
+        <ion-select-option *ngFor="let item of langs" [value]="item">{{item}}</ion-select-option>
+
+      </ion-select>
+     
+<ion-button (click)="register()" slot="end"   fill="outline" color="primary" shape="round">
+  <ion-icon slot="start" name="rocket-outline"></ion-icon>
+{{ "StartToday" | translate }}</ion-button>
+<ion-button (click)="logIn()" slot="end"   fill="solid" color="primary" shape="round">
+ {{ "Login" | translate }}</ion-button>
+
+  </ion-toolbar>
+
+
+  <ion-toolbar class="ion-hide-md-up">
+ 
+  
+  
+
+<ion-button size="small" (click)="register()" slot="end"   fill="outline" color="primary" shape="round">
+  <ion-icon slot="start" name="rocket-outline"></ion-icon>
+{{ "StartToday" | translate }}</ion-button>
+<ion-button size="small" (click)="logIn()" slot="end"   fill="solid" color="primary" shape="round">
+ {{ "Login" | translate }}</ion-button>
+
+  </ion-toolbar>
+<ion-toolbar  class="ion-hide-md-up">
+  <ion-icon style="font-size: 1.4rem;"    icon="icon-only"  slot="end"   name="language-outline"></ion-icon>
+  <ion-select slot="end" name="language" [(ngModel)]="lng"   placeholder="Select Laguage" (ionChange)="changeLang($event)">
+    <ion-select-option *ngFor="let item of langs" [value]="item">{{item}}</ion-select-option>
+
+  </ion-select>
+ 
+</ion-toolbar>
+ 
+   <img  class="logo"   src="../assets/imgs/devCodingLogo.svg" />
+
+</ion-header>
+<ion-content >
+  <ion-slides pager="false" [options]="slideOpts">
+    <ion-slide>
+
+      <img     src="../assets/data/banner/banner.png" />
+    </ion-slide>
+    
+  </ion-slides>
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-text-center">
+    <ion-title><strong>{{ "AppName" | translate}} &copy; {{date}}</strong></ion-title>
+  </ion-toolbar>
+</ion-footer>

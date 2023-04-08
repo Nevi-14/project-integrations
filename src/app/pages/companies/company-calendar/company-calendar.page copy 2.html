@@ -1,0 +1,42 @@
+
+
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-padding">
+    <ion-title class="ion-text-capitalize" class="title"><strong>Company Calendar</strong></ion-title>
+ 
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid >
+    <ion-row>
+      <ion-col size="6">
+<app-ionic2-calendar></app-ionic2-calendar>
+
+      </ion-col>
+      <ion-col size="6">
+
+<ion-row>
+  <ion-col size="12">
+    <ion-toolbar>
+      <ion-title>Appointments</ion-title>
+      <ion-fab-button slot="end" color="dark" size="small">
+        <ion-icon  icon="icon-only" name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-toolbar>
+  </ion-col>
+  <ion-col size="12">
+    <ion-list>
+      <ion-item *ngFor="let item of [1,1,1,1]">
+        <ion-label>Awesome Label</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-col>
+</ion-row>
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
+</ion-content>
+ 

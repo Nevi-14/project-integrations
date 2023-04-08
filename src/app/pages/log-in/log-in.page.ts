@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
+import { LogInService } from 'src/app/services/log-in.service';
+import { UsersService } from 'src/app/services/users.service';
+import { Users } from 'src/app/models/users';
+import { CompaniesService } from 'src/app/services/companies.service';
+import { CompanyUsersService } from 'src/app/services/company-users.service';
 
 
 @Component({
@@ -12,23 +17,59 @@ export class LogInPage implements OnInit {
 
   image = '../assets/imgs/devCodingLogo.svg';
   showPass = false;
-  usuario: string = null;
-  clave: string = null;
+  username: string = null;
+  password: string = null;
 
   constructor( public route: Router,
-               private alertService: AlertService ) { }
+               private alertService: AlertService,
+               public logingService:LogInService,
+               public usersService:UsersService,
+               public companiesService:CompaniesService,
+               public companyUsersService:CompanyUsersService
+               
+               ) { }
 
   ngOnInit() {
   }
 
   loginMethod(){
-    console.log(this.usuario);
-    console.log(this.clave);
+    console.log(this.username);
+    console.log(this.password);
+    this.alertService.presentaLoading('Loading Data');
+    this.logingService.syncGetLogInToPromise(this.username).then( (user:Users[]) => {
+ 
+      if(user.length > 0){
+        this.usersService.user = user[0];
+        console.log('user[0]', user[0].id)
+        this.logingService.syncGetCompanyUserToPromise(user[0].id).then( company_user =>{
+          console.log('company_user[0]',company_user[0])
+          this.logingService.syncGetCompanyToPromise(company_user[0].iD_COMPANY).then( company =>{
+            this.alertService.loadingDissmiss();
+this.companiesService.company = company[0];
+this.route.navigate(['/home']);
 
-    this.alertService.presentaLoading('Espere x favor...');
+          }, error =>{
+            this.alertService.loadingDissmiss();
+            this.alertService.message('Dev-Coding', 'Sorry, Something Went Wrong!.');
+          })
+        }, error =>{
+          this.alertService.loadingDissmiss();
+          this.alertService.message('Dev-Coding', 'Sorry, Something Went Wrong!.');
+        })
+      }else{
+        this.alertService.loadingDissmiss();
+        this.alertService.message('Dev-Coding', 'Sorry, Something Went Wrong!.');
+      }
 
-    this.route.navigate(['/home']);
-    this.alertService.loadingDissmiss();
+
+    }, error =>{
+      this.alertService.loadingDissmiss();
+      this.alertService.message('Dev-Coding', 'Sorry, Something Went Wrong!.');
+    })
+
+
+
+
 
 /**
  * 

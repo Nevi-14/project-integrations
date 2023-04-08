@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CompaniesService } from 'src/app/services/companies.service';
 import { SettingsService } from 'src/app/services/settings.service';
  
 @Component({
@@ -9,13 +10,17 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class ProjectInfoPage implements OnInit {
   image = '../assets/imgs/devCodingLogo.svg';
   public appPages = [
-    { title: 'Project-Info', url: '/home/project-info', icon: 'home' },
-    { title: 'Profile', url: '/home/profile', icon: 'person' },
-    { title: 'Dashboards', url: '/home/dashboards', icon: 'analytics' }
+    { title: 'Modules', url: '/home/project-info', icon: 'alert-circle' },
+    { title: 'Dashboard', url: '/home/dashboard', icon: 'pie-chart' },
+    { title: 'Users', url: '/home/users', icon: 'people' },
+    { title: 'Customers', url: '/home/customers', icon: 'briefcase' },
+    { title: 'Products', url: '/home/products', icon: 'layers' },
+    { title: 'Invoices', url: '/home/invoices', icon: 'receipt' }
    
   ];
   constructor(
-public settingsService: SettingsService
+public settingsService: SettingsService,
+public companiesService:CompaniesService
 
   ) { }
 
@@ -24,13 +29,13 @@ public settingsService: SettingsService
  
   }
   ionViewWillEnter(){
-    this.settingsService.getCurrentURL();
+   
 
   }
 
   setTitle(title){
     this.settingsService.title = title;
-    this.settingsService.getCurrentURL();
+  
     
     }
 }

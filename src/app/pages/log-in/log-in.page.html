@@ -21,7 +21,7 @@
                        <ion-item lines="none" class="ion-item" >
                  
                         
-                         <ion-input type="number" placeholder="username" name="usuario" [(ngModel)]="usuario"></ion-input>
+                         <ion-input type="text" placeholder="username" name="usuario" [(ngModel)]="username"></ion-input>
                        </ion-item>
                      </div>
              
@@ -32,7 +32,7 @@
                 
                          
                        
-                         <ion-input type="password" name="contrasena" autocomplete="off"  type="{{showPass ? 'text' : 'password'}}" placeholder="password" [(ngModel)]="clave"></ion-input>
+                         <ion-input type="password" name="contrasena" autocomplete="off"  type="{{showPass ? 'text' : 'password'}}" placeholder="password" [(ngModel)]="password"></ion-input>
                          <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
                        </ion-item>
                      </div>

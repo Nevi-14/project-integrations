@@ -1,0 +1,172 @@
+[
+    {
+        "id": 1,
+        "english": "AEROSPACE",
+        "spanish":"AEROESPACIAL",
+        "image":"../assets/industries/aerospace.svg"
+    },
+    {
+        "id": 2,
+        "english": "AGRICULTURE AND ALLIED INDUSTRIES",
+        "spanish":"AGRICULTURA",
+        "image":"../assets/industries/harvest.svg"
+    },
+    {
+        "id": 3,
+        "english": "AUTOMOBILES",
+        "spanish":"AUTOMÓVILES",
+        "image":"../assets/industries/car.svg"
+    },
+    {
+        "id": 4,
+        "english": "AUTO COMPONENTS",
+        "spanish":"COMPONENTES AUTOMÁTICOS",
+        "image":"../assets/industries/mechanic.svg"
+    },
+    {
+        "id": 5,
+        "english": "AVIATION",
+        "spanish":"AVIACIÓN",
+        "image":"../assets/industries/airport.svg"
+    },
+    {
+        "id": 6,
+        "english": "BANKING"
+    },
+    {
+        "id": 7,
+        "english": "CEMENT"
+    },
+    {
+        "id": 8,
+        "english": "CONSUMER DURABLES"
+    },
+    {
+        "id": 9,
+        "english": "ECOMMERCE"
+    },
+    {
+        "id": 10,
+        "english": "EDUCATION AND TRAINING"
+    },
+    {
+        "id": 11,
+        "english": "ENERGY"
+    },
+    {
+        "id": 12,
+        "english": "ENGINEERING AND CAPITAL GOODS"
+    },
+    {
+        "id": 13,
+        "english": "FINANCIAL SERVICES"
+    },
+    {
+        "id": 14,
+        "english": "FOOD"
+    },
+    {
+        "id": 15,
+        "english": "GEMS AND JEWELLERY"
+    },
+    {
+        "id": 16,
+        "english": "HEALTHCARE"
+    },
+    {
+        "id": 17,
+        "english": "INFRASTRUCTURE"
+    },
+    {
+        "id": 18,
+        "english": "INSURANCE"
+    },
+    {
+        "id": 19,
+        "english": "IT HARDWARE"
+    },
+    {
+        "id": 20,
+        "english": "IT SOFTWARE"
+    },
+    {
+        "id": 21,
+        "english": "MANUFACTURING"
+    },
+    {
+        "id": 22,
+        "english": "MEDIA AND ENTERTAINMENT"
+    },
+    {
+        "id": 23,
+        "english": "METALS AND MINING"
+    },
+    {
+        "id": 24,
+        "english": "OIL AND GAS"
+    },
+    {
+        "id": 25,
+        "english": "PHARMACEUTICALS"
+    },
+    {
+        "id": 26,
+        "english": "PORTS"
+    },
+    {
+        "id": 27,
+        "english": "POWER"
+    },
+    {
+        "id": 28,
+        "english": "RAILWAYS"
+    },
+    {
+        "id": 29,
+        "english": "REAL ESTATE"
+    },
+    {
+        "id": 30,
+        "english": "RENEWABLE ENERGY"
+    },
+    {
+        "id": 31,
+        "english": "RETAIL"
+    },
+    {
+        "id": 32,
+        "english": "ROADS"
+    },
+    {
+        "id": 33,
+        "english": "SCIENCE AND TECHNOLOGY"
+    },
+    {
+        "id": 34,
+        "english": "SERVICES"
+    },
+    {
+        "id": 35,
+        "english": "STEEL"
+    },
+    {
+        "id": 36,
+        "english": "TELECOMMUNICATIONS"
+    },
+    {
+        "id": 37,
+        "english": "TEXTILES"
+    },
+    {
+        "id": 38,
+        "english": "TOURISM AND HOSPITALITY"
+    },
+    {
+        "id": 39,
+        "english": "TRANSPORT"
+    },
+    {
+        "id": 40,
+        "english": "OTHER"
+    }
+]

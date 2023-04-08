@@ -1,0 +1,81 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="closeModal()"   fill="clear"  slot="start">
+     <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-title>Edit product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid >
+    <ion-row>
+  
+      <ion-col size="12">
+  <ion-row>
+    <ion-col size="12">
+      <ion-label class="ion-margin-bottom">Name</ion-label>
+    </ion-col>
+    <ion-col size="12">
+      <ion-input name="name" [(ngModel)]="product.name"    type="text" placeholder="name"></ion-input>
+    </ion-col>
+  </ion-row>
+      </ion-col>
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="12">
+            <ion-label class="ion-margin-bottom">Image URL</ion-label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input name="image" [(ngModel)]="product.image"   type="text" placeholder="url"></ion-input>
+          </ion-col>
+        </ion-row>
+            </ion-col>
+            <ion-col size="6">
+              <ion-row>
+                <ion-col size="12">
+                  <ion-label class="ion-margin-bottom">Price</ion-label>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-input  name="price" [(ngModel)]="product.price"  type="number" placeholder="price"></ion-input>
+                </ion-col>
+   
+              </ion-row>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-row>
+                      <ion-col size="12">
+                        <ion-label class="ion-margin-bottom">Units</ion-label>
+                      </ion-col>
+                      <ion-col size="12">
+                        <ion-input type="number"  name="units" [(ngModel)]="product.units" placeholder="units"></ion-input>
+                      </ion-col>
+         
+                    </ion-row>
+                        </ion-col>
+  
+                  <ion-col size="12">
+                    <ion-row>
+                      <ion-col size="12">
+                        <ion-label class="ion-margin-bottom">Description</ion-label>
+                      </ion-col>
+                     
+                      <ion-col size="12">
+                        <ion-input name="description" [(ngModel)]="product.description"  class="description" type="text" placeholder="description"></ion-input>
+                      </ion-col>
+                    </ion-row>
+                        </ion-col>
+   
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+ 
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-padding">
+    <ion-button (click)="putProduct()"      color="dark" shape="round">
+      Update Product
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

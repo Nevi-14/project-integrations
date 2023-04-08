@@ -1,0 +1,49 @@
+<ion-header class="ion-no-padding ion-no-border">
+  <ion-toolbar  >
+ 
+  
+    <ion-icon style="font-size: 1.4rem;"    icon="icon-only"  slot="end"   name="language-outline"></ion-icon>
+      <ion-select slot="end" name="language" [(ngModel)]="lng"   placeholder="Select Laguage" (ionChange)="changeLang($event)">
+        <ion-select-option *ngFor="let item of langs" [value]="item">{{item}}</ion-select-option>
+
+      </ion-select>
+     
+<ion-button (click)="register()" slot="end"   fill="outline" color="primary" shape="round">
+  <ion-icon slot="start" name="rocket-outline"></ion-icon>
+{{ "StartToday" | translate }}</ion-button>
+<ion-button (click)="logIn()" slot="end"   fill="solid" color="primary" shape="round">
+ {{ "Login" | translate }}</ion-button>
+
+  </ion-toolbar>
+ 
+   <img  class="logo"   src="../assets/imgs/devCodingLogo.svg" />
+
+</ion-header>
+<ion-content   >
+ 
+
+      <div class="banner">
+        <div id="triangle-topleft"></div>
+        <ion-label class="ion-padding" style="color: white;font-size: 1.5rem;">
+          <strong style="font-size: 1.8rem; color: white;">
+            
+            <ion-label>{{"Welcome" | translate}}</ion-label>
+            to Dev For Business</strong> is the first application created for any company, it is easy to use and provides a great digital transformation. We will create a basic company Department structure guidance based on <strong>Agile</strong> and best <strong>Management Practices.</strong>
+          <br>
+         
+          <span  style="margin-top: 2rem;">
+            You will also be able to create custom organization structures, create teams, grant permissions, manage partners,clients and even get extra services such as online stores, have your own customize landing page, enjoy free templates, services and even more. <br> 
+            We provide affortable plans which makes us a great choice for those who want to go on a next level with their companies
+          </span>
+                </ion-label>
+
+        
+      </div>
+
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-text-center">
+    <ion-title><strong>Dev For Business - Developed By Dev-Coding</strong></ion-title>
+  </ion-toolbar>
+</ion-footer>

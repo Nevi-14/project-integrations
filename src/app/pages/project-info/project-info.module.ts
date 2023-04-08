@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProjectInfoPageRoutingModule } from './project-info-routing.module';
 import { ProjectInfoPage } from './project-info.page';
+import { ComponentModule } from 'src/app/components/component.module';
 
  
 
@@ -13,7 +14,8 @@ import { ProjectInfoPage } from './project-info.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ProjectInfoPageRoutingModule
+    ProjectInfoPageRoutingModule,
+    ComponentModule
   ],
   declarations: [ProjectInfoPage]
 })

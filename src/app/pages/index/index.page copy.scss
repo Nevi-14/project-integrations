@@ -1,0 +1,161 @@
+ ion-toolbar{
+  --background: white ;
+ }
+  
+  .logo {
+  
+    position: absolute;
+    top: -1.2rem;
+    left: 1rem;
+    z-index: 9999;
+    height: 120px;
+  }
+
+  .svg {
+    position: absolute!important;
+    top: 0rem;
+  }
+ 
+  .banner2{
+ 
+    height: 80vh;
+    width: 100vw;
+    position: relative;
+   background: url("../../../assets/data/banner/banner.png") 0 0/100% 100% no-repeat;
+    /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+    
+  }
+  @media screen and (min-width: 650px){
+  .banner{
+    height: 60vh;
+    width: 60vw;
+    background: url("../../../assets/data/banner/banner.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+}
+ion-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  @media screen and (max-width: 650px){
+
+    ion-col{
+      img{
+        height: 40vh;
+        width: 100vw;
+      }
+    }
+    .banner{
+      height:  600px;
+      width: 100%;
+      background-image: url("../../../assets/data/banner/banner.png"); 
+      background-repeat: no-repeat;
+      background-size: 100%;
+      
+    }
+
+    .logo {
+  
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      z-index: 9999;
+      height: 90px;
+    }
+
+
+  }
+  .active-category {
+  
+    color : #fff;
+    padding: 10px;
+    border-radius:30px;
+  font-size: 1rem;
+    background-color: #3171e0;
+  }
+
+  ion-slides {
+    height: 50vh;
+  
+  
+  }
+  
+  .swiper-slide {
+    display: block;
+  
+  }
+  
+  .swiper-slide h2 {
+  
+    margin-top: 2.8rem;
+  }
+  
+  .swiper-slide img {
+    max-height: 50%;
+    max-width: 80%;
+    margin: 60px 0 40px;
+    pointer-events: none;
+  }
+  
+  .swiper-pagination {
+  
+    bottom: 66% !important;
+  }
+  
+  b {
+    font-weight: 500;
+  }
+  
+  p {
+    padding: 0 40px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--ion-color-step-600, #60646b);
+  }
+  
+  p b {
+    color: var(--ion-text-color, #000000);
+  }
+  
+  .no-scroll {
+    scroll-content {
+      overflow-y: hidden;
+    }
+  }
+  
+  .divider {
+  
+    height: 50vh;
+    display: grid;
+    place-content: center;
+  
+  
+  }
+  
+  div.scroll-content {
+    overflow-y: hidden;
+  }
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge add Firefox */
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* Firefox */
+  }
+  

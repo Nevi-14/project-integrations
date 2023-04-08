@@ -1,0 +1,157 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="cerrarModal()"  fill="clear" slot="start">
+      <ion-icon color="dark" size="large" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"RegistrationForm" | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+  <ion-grid  >
+    <ion-row >
+      <ion-col size="12">
+
+      </ion-col>
+      <ion-col size="12" size-md="6">
+<ion-row>
+  <ion-col size="12">
+    <ion-label>{{"FirstName" | translate}}</ion-label>
+  </ion-col>
+
+  <ion-col size="12">
+    <ion-input name="firstName" [(ngModel)]="registrationService.userInformation.firstName" type="text" placeholder="{{'FirstName' | translate}}"></ion-input>
+  </ion-col>
+</ion-row>
+
+ 
+    
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-row>
+          <ion-col size="12">
+            <ion-label>{{"LastName" | translate}}</ion-label>
+          </ion-col>
+        
+          <ion-col size="12">
+            <ion-input  name="lastName" [(ngModel)]="registrationService.userInformation.lastName"  type="text" placeholder="{{'LastName' | translate}}"></ion-input>
+          </ion-col>
+        </ion-row>
+ 
+    
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+
+        <ion-row>
+          <ion-col size="12">
+                
+            <ion-label>{{"Email" | translate}}</ion-label>
+          </ion-col>
+        
+          <ion-col size="12">
+            <ion-input name="email" [(ngModel)]="registrationService.userInformation.email"   type="email" placeholder="{{'Email' | translate}}"></ion-input>
+          </ion-col>
+        </ion-row>
+
+ 
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-row>
+          <ion-col size="12">
+            <ion-label>{{"PhoneNumber" | translate}}</ion-label>
+          </ion-col>
+        
+          <ion-col size="12">
+            <ion-input name="phoneNumber" [(ngModel)]="registrationService.userInformation.phoneNumber"   type="tel" placeholder="{{'PhoneNumber' | translate}}"></ion-input>
+          </ion-col>
+        </ion-row>
+
+      
+    
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-col size="12">
+          <ion-row>
+            <ion-col size="12">
+          
+        <h6 class="ion-text-wrap">
+          <strong>{{"CompanyInformartion" | translate}}</strong>
+          </h6> 
+            </ion-col>
+         
+          </ion-row>
+        
+        
+        </ion-col>
+        
+              <ion-col size="12" size-md="6">
+        
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-label>{{"CompanyName" | translate}}</ion-label>
+                  </ion-col>
+                
+                  <ion-col size="12">
+                    <ion-input name="companyInformation" [(ngModel)]="registrationService.companyInformation.companyName"   type="text" placeholder="{{'CompanyName' | translate}}"></ion-input>  
+                  </ion-col>
+                </ion-row>
+        
+        
+        
+            
+         
+              </ion-col>
+              <ion-col size="12" size-md="6">
+        
+        
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-label>{{"CompanyDescription" | translate}}</ion-label>
+                  </ion-col>
+                
+                  <ion-col size="12">
+                    <ion-input class="description" name="companyDescription" [(ngModel)]="registrationService.companyInformation.companyDescription"  placeholder="{{'CompanyDescription' | translate}}"></ion-input>
+                  </ion-col>
+                </ion-row>
+        
+        
+        
+         
+              </ion-col>
+              <ion-col size="12" class="ion-text-center">
+         <ion-label class="ion-text-wrap"><strong>Select the Industry or Industries that matches your company services.</strong></ion-label>
+              </ion-col>
+              <ion-col size="12">
+                <ion-searchbar  placeholder="Filter Industry"  type="text" (ionChange)="onSearchChange($event)" [debounce]="250"  mode="ios"></ion-searchbar>
+              </ion-col>
+        <ion-col size="12">
+          <ion-list style="height: 40vh;overflow: auto;">
+         
+            <ion-item *ngFor="let industry of industries">
+              <ion-avatar slot="start">
+                <img src="{{industry.image}}" />
+              </ion-avatar>
+              <ion-label class="ion-text-wrap">{{ settingsService.language == 'English' ? industry.english : industry.spanish}}</ion-label>
+              <ion-checkbox (ionChange)="chooseIndustry($event)" [value]="industry" slot="end"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col size="12" >
+          <ion-button class="ion-margin" (click)="register()" expand="block" fill="solid" color="dark">
+            {{"ContinueWithRegistration" | translate}}
+            </ion-button>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>
+ 

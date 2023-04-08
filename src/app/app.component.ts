@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as  mapboxgl from 'mapbox-gl';
-import { environment } from 'src/environments/environment';import { SettingsService } from './services/settings.service';
-;
+import { environment } from 'src/environments/environment';
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -9,13 +9,14 @@ import { environment } from 'src/environments/environment';import { SettingsServ
 })
 export class AppComponent {
   constructor(
-    public settingsService: SettingsService
+    private translateService: TranslateService
 
-  ) {}
+  ) {
+    this.translateService.setDefaultLang('English');
+    this.translateService.addLangs(['English','Spanish']);
+  }
 
   ngOnInit(){
- 
-this.settingsService.getCurrentURL();
     (mapboxgl as any ).accessToken = environment.mapboxKey;
  
   

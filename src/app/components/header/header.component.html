@@ -1,0 +1,22 @@
+<ion-header>
+ 
+  <ion-toolbar color="dark">
+
+    
+    <ion-button  slot="start" contentId="main-content"  (click)="toggle()"  fill="clear" >
+      <ion-icon color="light" name="menu" size="large"></ion-icon>
+    </ion-button>
+        
+
+  <span slot="end"   style="position: relative;">
+    <ion-button   fill="clear" >
+      <ion-icon color="light" name="notifications-outline"></ion-icon>
+    </ion-button>
+    <ion-badge style="position: absolute;top: 0rem;right: -0.5rem;" color="primary" mode="ios">0</ion-badge>
+  </span>
+  <ion-button (click)="settings()"   fill="clear" slot="end"  style="margin-right: 1rem;">
+    <ion-icon   color="light" name="settings-outline"></ion-icon>
+  </ion-button>
+  </ion-toolbar>
+ 
+</ion-header>

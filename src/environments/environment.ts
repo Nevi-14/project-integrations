@@ -5,13 +5,37 @@
 export const environment = {
   production: true,
   maxCharCodigoProd: 6,
-  preURL:'https://api',
-  preURL2:'https://api',
+  preURL:'https://',
+  preURL2:'https://dev-coding.com/cabys/api',
   TestURL:'_test',
-  postURL:'.dev-coding.com/api/',
-  prdMode: true,
+  postURL:'dev-coding.com/cabys/api/',
+  prdMode: false,
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
- 
+  getLoginAPI:'get/log/in?username=',
+  getCompaniesAPI:'get/companies',
+  getUsersAPI:'get/users/company?id=',
+  getCompanyUsersAPI:'get/company/users',
+  getCompanyAPI:'get/company?id=',
+  getCustomersAPI:'get/customers/company?id=',
+  getProductsAPI:'get/products/company?id=',
+  postCompanyAPI:'post/company',
+  postUserAPI:'post/user',
+  postCompanyUserAPI:'post/company/user',
+  getCompanyUserAPI:'get/company/user?id=',
+  postCustomerAPI:'post/customer',
+  postProductsAPI:'post/product',
+  postEmail:'post/send/email',
+  putCompanyAPI:'put/company?id=',
+  putUserAPI:'put/user?id=',
+  putCompanyUserAPI:'put/company/user?id=',
+  putCustomerAPI:'put/customer?id=',
+  putProductAPI:'put/product?id=',
+  deleteCompanyAPI:'delete/company?id=',
+  deleteUserAPI:'delete/user?id=',
+  deleteCompanyUserAPI:'delete/company/user?id=',
+  deleteCustomerAPI:'delete/customer?id=',
+  deleteProductAPI:'delete/product?id='
+
   
   
 };

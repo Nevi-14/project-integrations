@@ -1,0 +1,66 @@
+<ion-content>
+   
+
+ 
+    <ion-grid style="height: 100%;">
+     <ion-row style="height: 100%;">
+       <ion-col size="12" size-md="8" [ngSwitch]="view">
+   
+ 
+           <mwl-calendar-month-view  locale="es"
+             *ngSwitchCase="CalendarView.Month"
+             [viewDate]="viewDate"
+             [events]="events"
+             [refresh]="refresh"
+             [activeDayIsOpen]="activeDayIsOpen"
+             (dayClicked)="dayClicked($event.day)"
+             (eventClicked)="handleEvent('Clicked', $event.event)"
+             (eventTimesChanged)="eventTimesChanged($event)"
+           >
+           </mwl-calendar-month-view>
+           <mwl-calendar-week-view  locale="es"
+             *ngSwitchCase="CalendarView.Week"
+             [viewDate]="viewDate"
+             [events]="events"
+             [refresh]="refresh"
+             (eventClicked)="handleEvent('Clicked', $event.event)"
+             (eventTimesChanged)="eventTimesChanged($event)"
+           >
+           </mwl-calendar-week-view>
+           <mwl-calendar-day-view  locale="es"
+             *ngSwitchCase="CalendarView.Day"
+             [viewDate]="viewDate"
+             [events]="events"
+             [refresh]="refresh"
+             (eventClicked)="handleEvent('Clicked', $event.event)"
+             (eventTimesChanged)="eventTimesChanged($event)"
+           >
+           </mwl-calendar-day-view>
+   
+        
+   
+       </ion-col>
+       <ion-col size="12" size-md="4">
+<ion-list>
+    <ion-list-header>
+        <ion-label>Edit events</ion-label>
+        <ion-button (click)="addEvent()">Add new</ion-button>
+    </ion-list-header>
+    <ion-item *ngFor="let event of events"> 
+        <ion-label>{{event.title}}</ion-label>
+      
+        <ion-button (click)="deleteEvent(event)"   fill="clear" slot="end">
+           <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+    </ion-item>
+</ion-list>
+ 
+  
+         
+       
+       </ion-col>
+   
+     </ion-row>
+    </ion-grid>
+    
+   </ion-content>

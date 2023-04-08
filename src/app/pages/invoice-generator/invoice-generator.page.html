@@ -1,0 +1,254 @@
+
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+    <ion-grid >
+      <ion-row>
+        <ion-col size="12" size-md="12" style="display: flex;justify-content: center;align-items: center;">
+          <ion-title class="ion-text-capitalize" class="title">
+            <strong>Invoice Generator</strong>
+          </ion-title>
+        </ion-col>
+         
+      </ion-row>
+    </ion-grid>
+   </ion-toolbar>
+  
+</ion-header>
+
+
+
+  <ion-content class="ion-padding">
+
+    <ion-grid   >
+      <ion-row >
+        <ion-col size="3">
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Titulo</ion-label>
+            </ion-col>
+            <ion-col size="12">
+              <ion-input type="text" placeholder="Awesome Input"></ion-input>
+            </ion-col>
+          
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="9">
+          <ion-row>
+            <ion-col size="5">
+              <ion-label>Fecha Inicio</ion-label> 
+            </ion-col>
+            <ion-col size="5">
+              <ion-label>Fecha Fin</ion-label> 
+            </ion-col>
+            <ion-col size="2" ></ion-col>
+            <ion-col size="5">
+              <ion-input type="text" placeholder="Name"></ion-input>
+            </ion-col>
+            <ion-col size="5">
+              <ion-input type="text" placeholder="Name"></ion-input>
+            </ion-col>
+            <ion-col size="2" >
+               
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="3">
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Numero Factura</ion-label>
+            </ion-col>
+            <ion-col size="12">
+              <ion-input type="text" placeholder="Awesome Input"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="9">
+          <ion-row>
+            <ion-col size="5">
+              <ion-label>Cliente</ion-label> 
+            </ion-col>
+            <ion-col size="5">
+              <ion-label>Apellido</ion-label> 
+            </ion-col>
+            <ion-col size="2" ></ion-col>
+            <ion-col size="5">
+              <ion-input type="text" placeholder="Name"></ion-input>
+            </ion-col>
+            <ion-col size="5">
+              <ion-input type="text" placeholder="Lastname"></ion-input>
+            </ion-col>
+            <ion-col size="2" >
+              <ion-fab-button style="position: absolute;top: -0.2rem;" size="small" color="dark">
+                <ion-icon name="search"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="3">
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Correo</ion-label>
+            </ion-col>
+            <ion-col size="12">
+              <ion-input type="text" placeholder="Awesome Input"></ion-input>
+            </ion-col>
+          
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="9">
+          <ion-row>
+            <ion-col size="5">
+              <ion-label>Telefono</ion-label> 
+            </ion-col>
+            <ion-col size="5">
+              <ion-label>Descripcion</ion-label> 
+            </ion-col>
+            <ion-col size="2" ></ion-col>
+            <ion-col size="5">
+              <ion-input type="text" placeholder="Name"></ion-input>
+            </ion-col>
+            <ion-col size="5">
+              <ion-input class="description" type="text" placeholder="Lastname"></ion-input>
+            </ion-col>
+            <ion-col size="2" >
+               
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+       
+     </ion-row>
+     <ion-row >
+      <ion-col size="12">
+      
+        <ion-header class="ion-no-border">
+          <ion-toolbar>
+        
+            <ion-grid >
+              <ion-row>
+                <ion-col size="12" size-md="6" style="display: flex;justify-content: center;align-items: center;">
+                  <ion-title class="ion-text-capitalize" class="title">
+                    <strong>Products</strong>
+                  </ion-title>
+                </ion-col>
+                <ion-col size="9" size-md="4" style="display: flex;justify-content: center;align-items: center;">
+                  <ion-searchbar style="margin-top: 1rem;" placeholder="search"  type="text"    [debounce]="250"  mode="ios"></ion-searchbar>
+        
+                </ion-col>
+                <ion-col size="3" size-md="2" style="display: flex;justify-content: center;align-items: center;">
+                     
+            <ion-fab-button  color="dark" size="small" >
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button   color="dark" size="small" >
+              <ion-icon name="save"></ion-icon>
+            </ion-fab-button>
+                </ion-col>
+              </ion-row>
+        
+              
+            </ion-grid>
+           </ion-toolbar>
+          
+        </ion-header>
+        
+                </ion-col>
+                <ion-col size="12">
+                  <ion-item >
+                    <ion-grid >
+                      <ion-row>
+                        <ion-col   class="ion-hide-md-down"><strong>Product</strong></ion-col>
+                        <ion-col  class="ion-hide-md-down"><strong>Description</strong></ion-col>
+                        <ion-col ><strong>Units</strong></ion-col>
+                        <ion-col  class="ion-hide-md-down"><strong>Price</strong></ion-col>
+                        <ion-col  class="ion-hide-md-down"><strong>SubTotal</strong></ion-col>
+                        <ion-col  class="ion-hide-md-down"><strong>Tax</strong></ion-col>
+                        <ion-col><strong>Options</strong></ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    </ion-item>
+                </ion-col>
+        <ion-col size="12">
+        <ion-list style="height: 40vh;overflow: auto;">
+          <ion-item *ngFor="let item of [1,1,1,1,1,1,1,1,1]">
+            <ion-grid >
+              <ion-row>
+                <ion-col   class="ion-hide-md-down">Rice</ion-col>
+                <ion-col  class="ion-hide-md-down">Rice</ion-col>
+                <ion-col >25</ion-col>
+                <ion-col  class="ion-hide-md-down">$2400</ion-col>
+                <ion-col  class="ion-hide-md-down">$2400</ion-col>
+                <ion-col  class="ion-hide-md-down">13%</ion-col>
+                <ion-col  style="display: flex;">
+        
+                  <ion-fab-button  size="small"   color="dark">
+                    <ion-icon name="create"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button   size="small"  color="danger">
+                    <ion-icon name="trash"></ion-icon>
+                  </ion-fab-button>  
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            </ion-item>
+        </ion-list>
+        
+        </ion-col>
+        
+        <ion-col size="12">
+          <ion-item >
+            <ion-grid >
+             <ion-row>
+              <ion-col size="8">
+                
+              </ion-col>
+               <ion-col size="2">
+                <ion-row>
+                  <ion-col size="12">
+                    <strong>Tax Amount</strong>
+                  </ion-col>
+                  <ion-col size="12">
+                   <strong>Total</strong>
+                 </ion-col>
+                </ion-row>
+               </ion-col>
+               <ion-col size="2">
+                 <ion-row>
+                   <ion-col size="12">
+                     <strong>$2400</strong>
+                   </ion-col>
+                   <ion-col size="12">
+                    <strong>$2400</strong>
+                  </ion-col>
+                 </ion-row>
+               </ion-col>
+
+               <ion-col size="12">
+              
+<signature-pad #sigPad></signature-pad>
+ 
+<b>value:</b>
+<pre>
+  {{sigPad.value | json}}
+</pre>
+ 
+<button (click)="sigPad.clear()">Clear</button>
+               </ion-col>
+     </ion-row>
+    </ion-grid>
+       </ion-item>
+</ion-col>
+
+
+   
+        
+      </ion-row>
+    </ion-grid>
+
+</ion-content>
+
+<app-footer></app-footer>

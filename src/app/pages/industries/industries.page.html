@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="cerrarModal()"  fill="clear" slot="start">
+      <ion-icon color="dark" size="large" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Company Industry</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-title class="ion-text-wrap ion-margin-top">Select the Industry or Industries that matches your company services</ion-title>
+    <ion-searchbar style="width:90%;margin:0 auto;margin-top:1rem;" placeholder="Filter Industry"  type="text" (ionChange)="onSearchChange($event)" [debounce]="250"  mode="ios"></ion-searchbar>
+  </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+      <ion-list>
+ 
+        <ion-item *ngFor="let industry of industries">
+          <ion-avatar slot="start">
+            <img src="{{industry.image}}" />
+          </ion-avatar>
+          <ion-label class="ion-text-wrap">{{ settingsService.language == 'English' ? industry.english : industry.spanish}}</ion-label>
+          <ion-checkbox (ionChange)="chooseIndustry($event)" [value]="industry" slot="end"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+
+</ion-content>
+
+ 
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+<ion-button (click)="companyBuilder()" expand="block" fill="solid" color="dark">
+Continue with registration
+</ion-button>
+  </ion-toolbar>
+</ion-footer>

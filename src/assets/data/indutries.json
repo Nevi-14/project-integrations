@@ -1,0 +1,242 @@
+[
+    {
+        "id": 1,
+        "english": "AEROSPACE",
+        "spanish": "AEROESPACIAL",
+        "image": "../assets/industries/aerospace.svg"
+    },
+    {
+        "id": 2,
+        "english": "AGRICULTURE AND ALLIED INDUSTRIES",
+        "spanish": "AGRICULTURA",
+        "image": "../assets/industries/harvest.svg"
+    },
+    {
+        "id": 3,
+        "english": "AUTOMOBILES",
+        "spanish": "AUTOMÓVILES",
+        "image": "../assets/industries/car.svg"
+    },
+    {
+        "id": 4,
+        "english": "AUTO COMPONENTS",
+        "spanish": "COMPONENTES AUTOMÁTICOS",
+        "image": "../assets/industries/mechanic.svg"
+    },
+    {
+        "id": 5,
+        "english": "AVIATION",
+        "spanish": "AVIACIÓN",
+        "image": "../assets/industries/airport.svg"
+    },
+    {
+        "id": 6,
+        "english": "BANKING",
+        "spanish": "BANCARIA",
+        "image": "../assets/industries/cement.svg"
+    },
+    {
+        "id": 7,
+        "english": "CEMENT",
+        "spanish": "CEMENTO",
+        "image": "../assets/industries/bank.svg"
+    },
+    {
+        "id": 8,
+        "english": "CONSUMER DURABLES",
+        "spanish": "BIENES DE CONSUMO DURADEROS",
+        "image": "../assets/industries/product-durability.svg"
+    },
+    {
+        "id": 9,
+        "english": "ECOMMERCE",
+        "spanish": "COMERCIO ELECTRÓNICO",
+        "image": "../assets/industries/online-shop.svg"
+    },
+    {
+        "id": 10,
+        "english": "EDUCATION AND TRAINING",
+        "spanish": "EDUCACIÓN Y ENTRENAMIENTO",
+        "image": "../assets/industries/video-conference.svg"
+    },
+    {
+        "id": 11,
+        "english": "ENERGY",
+        "spanish": "ENERGÍA",
+        "image": "../assets/industries/lighting.svg"
+    },
+    {
+        "id": 12,
+        "english": "ENGINEERING AND CAPITAL GOODS",
+        "spanish": "INGENIERÍA Y BIENES DE EQUIPO",
+        "image": "../assets/industries/engineering.svg"
+    },
+    {
+        "id": 13,
+        "english": "FINANCIAL SERVICES",
+        "spanish": "SERVICIOS FINANCIEROS",
+        "image": "../assets/industries/financial.svg"
+    },
+    {
+        "id": 14,
+        "english": "FOOD",
+        "spanish": "ALIMENTO",
+        "image": "../assets/industries/burger.svg"
+    },
+    {
+        "id": 15,
+        "english": "GEMS AND JEWELLERY",
+        "spanish": "GEMAS Y JOYERÍA",
+        "image": "../assets/industries/diamond.svg"
+    },
+    {
+        "id": 16,
+        "english": "HEALTHCARE",
+        "spanish": "CUIDADO DE LA SALUD",
+        "image": "../assets/industries/healthcare.svg"
+    },
+    {
+        "id": 17,
+        "english": "INFRASTRUCTURE",
+        "spanish": "INFRAESTRUCTURA",
+        "image": "../assets/industries/infrastructure.svg"
+    },
+    {
+        "id": 18,
+        "english": "INSURANCE",
+        "spanish": "SEGURO",
+        "image": "../assets/industries/insurance.svg"
+    },
+    {
+        "id": 19,
+        "english": "IT HARDWARE",
+        "spanish": "HARDWARE TI",
+        "image": "../assets/industries/cloud-computing.svg"
+    },
+    {
+        "id": 20,
+        "english": "IT SOFTWARE",
+        "spanish": "SOFTWARE TI",
+        "image": "../assets/industries/web-services.svg"
+    },
+    {
+        "id": 21,
+        "english": "MANUFACTURING",
+        "spanish": "MANUFACTURA",
+        "image": "../assets/industries/manufacturing.svg"
+    },
+    {
+        "id": 22,
+        "english": "MEDIA AND ENTERTAINMENT",
+        "spanish": "MEDIOS Y ENTRETENIMIENTO",
+        "image": "../assets/industries/smartphone.svg"
+    },
+    {
+        "id": 23,
+        "english": "METALS AND MINING",
+        "spanish": "METALES Y MINERÍA",
+        "image": "../assets/industries/mining.svg"
+    },
+    {
+        "id": 24,
+        "english": "OIL AND GAS",
+        "spanish": "PETRÓLEO Y GAS",
+        "image": "../assets/industries/oil-rig.svg"
+    },
+    {
+        "id": 25,
+        "english": "PHARMACEUTICALS",
+        "spanish": "FARMACÉUTICAS",
+        "image": "../assets/industries/pharmaceutical.svg"
+    },
+    {
+        "id": 26,
+        "english": "PORTS",
+        "spanish": "SECTOR PORTUARIO",
+        "image": "../assets/industries/port.svg"
+    },
+    {
+        "id": 27,
+        "english": "POWER",
+        "spanish": "SECTOR ELÉCTRICO",
+        "image": "../assets/industries/electricity.svg"
+    },
+    {
+        "id": 28,
+        "english": "RAILWAYS",
+        "spanish": "FERROVIARIA",
+        "image": "../assets/industries/train-station.svg"
+    },
+    {
+        "id": 29,
+        "english": "REAL ESTATE",
+        "spanish": "BIENES RAÍCES",
+        "image": "../assets/industries/real-estate.svg"
+    },
+    {
+        "id": 30,
+        "english": "RENEWABLE ENERGY",
+        "spanish": "ENERGÍA RENOVABLE",
+        "image": "../assets/industries/renewable-energy.svg"
+    },
+    {
+        "id": 31,
+        "english": "RETAIL",
+        "spanish": "MINORISTA",
+        "image": "../assets/industries/supermarket.svg"
+    },
+    {
+        "id": 32,
+        "english": "ROADS",
+        "spanish": "CARRETERAS",
+        "image": "../assets/industries/road.svg"
+    },
+    {
+        "id": 33,
+        "english": "SCIENCE AND TECHNOLOGY",
+        "spanish": "CIENCIA Y TECNOLOGÍA",
+        "image": "../assets/industries/innovation.svg"
+    },
+    {
+        "id": 34,
+        "english": "SERVICES",
+        "spanish": "SERVICIOS",
+        "image": "../assets/industries/customer-service.svg"
+    },
+    {
+        "id": 35,
+        "english": "STEEL",
+        "spanish": "ACERO",
+        "image": "../assets/industries/steel.svg"
+    },
+    {
+        "id": 36,
+        "english": "TELECOMMUNICATIONS",
+        "spanish": "TELECOMUNICACIONES",
+        "image": "../assets/industries/antenna.svg"
+    },
+    {
+        "id": 37,
+        "english": "TEXTILES",
+        "spanish": "TEXTILES",
+        "image": "../assets/industries/fabric.svg"
+    },
+    {
+        "id": 38,
+        "english": "TOURISM AND HOSPITALITY",
+        "spanish": "TURISMO Y HOSPITALIDAD",
+        "image": "../assets/industries/flight.svg"
+    },
+    {
+        "id": 39,
+        "english": "TRANSPORT",
+        "spanish": "TRANSPORTE",
+        "image": "../assets/industries/vehicles.svg"
+    },
+    {
+        "id": 40,
+        "english": "OTHER",
+        "spanish":"OTRO",
+        "image":"../assets/industries/question-mark.svg"
+    }
+]

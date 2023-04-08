@@ -25,7 +25,7 @@ export class ProfilePage implements OnInit {
     },
     // when window width is >= 480px
     480: {
-      slidesPerView: 2,
+      slidesPerView: 1,
       spaceBetween: 30
     },
     // when window width is >= 640px
@@ -44,7 +44,7 @@ export class ProfilePage implements OnInit {
   },
   }
   imgs = avatarArray;
-  avatarActual = null;
+  avatarActual = this.imgs[0].img;
   index = 0;
   constructor(
 public modalCtrl: ModalController

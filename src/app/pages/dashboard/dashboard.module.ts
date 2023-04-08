@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardPage } from './dashboard.page';
+import { ComponentModule } from 'src/app/components/component.module';
  
  
 // installing dashboard
@@ -20,7 +21,8 @@ import { DashboardPage } from './dashboard.page';
     FormsModule,
     IonicModule,
     DashboardPageRoutingModule,
-    NgChartsModule
+    NgChartsModule,
+    ComponentModule
   ],
   declarations: [DashboardPage],
  

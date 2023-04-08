@@ -1,0 +1,116 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-padding">
+    <ion-title class="ion-text-capitalize" class="title"><strong>My Profile</strong></ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+<ion-grid  style="height: 100%;">
+  <ion-row style="height: 100%;">
+
+    <ion-col size="12" size-md="6" >
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-avatar  class="height">
+            <img src="assets/avatars/{{avatarActual}}" onerror="this.src='assets/imgs/user.svg'" />
+          </ion-avatar>
+         
+        </ion-col>
+   
+        <ion-col size="12" class="ion-text-center">
+          <ion-button  color="dark" fill="clear" shape="round">
+            <ion-icon slot="start" name="people-outline"></ion-icon>
+            Select Avatar
+             </ion-button>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button  color="danger" fill="clear" shape="round">
+            <ion-icon slot="start" name="trash-outline"></ion-icon>
+            Delete Account
+             </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-col>
+
+   
+
+    <ion-col size="12" size-md="6">
+      <ion-row>
+ 
+        <ion-col size="6">
+
+          <ion-label>Name</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="name"></ion-input>
+          </ion-item>
+        </ion-col>
+    
+        <ion-col size="6">
+    
+          <ion-label>Last Name</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="last name"></ion-input>
+          </ion-item>
+        </ion-col>
+    
+    
+        <ion-col size="6">
+    
+          <ion-label>Rol</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="Rol"></ion-input>
+          </ion-item>
+        </ion-col>
+    
+        <ion-col size="6">
+    
+          <ion-label>Username</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="username"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+    
+          <ion-label>Email</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="email"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+    
+          <ion-label>Phone</ion-label>
+          <ion-item class="ion-item" lines="none">
+           <ion-input type="text" placeholder="phone"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button    fill="solid" shape="round" color="dark">
+            Save Changes
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-col>
+
+
+
+
+  
+  </ion-row>
+</ion-grid>
+
+
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-text-center">
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-footer>

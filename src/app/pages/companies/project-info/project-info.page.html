@@ -1,0 +1,51 @@
+
+
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-padding">
+    <ion-title class="ion-text-capitalize" class="title"><strong>Project Information</strong></ion-title>
+ 
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+<ion-grid >
+<ion-row>
+  <ion-col size="12" size-md="6">
+    <ion-row>
+
+      <ion-col size="12" class="ion-text-left">
+        <img style="height: 12rem;width: 12rem;"  src="assets/imgs/devCodingLogo.svg" />
+      </ion-col>
+  
+      <ion-col size="12">
+         <ion-label>Tel: +(506) 6296-2461</ion-label>
+      </ion-col>
+      <ion-col size="12">
+        <ion-label>Email: workemailnelson@gmail.com</ion-label>
+     </ion-col>
+
+      <ion-col size="12">
+         <ion-label>Address:Heredia, Costa Rica</ion-label>
+      </ion-col>
+      <ion-col size="12">
+         <ion-label><a href="https://dev-coding.com" target="_blank">https://dev-coding.com</a></ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-col>
+  <ion-col size="12" size-md="6">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-label class="ion-text-uppercase"><strong>Included Modules</strong></ion-label>
+      </ion-item>
+
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+        <ion-item button (click)="setTitle(p.title)"    style="margin-top:0.5rem" [routerLink]="p.url" routerDirection="root" routerLinkActive="active-item"    routerLinkActive="selected" detail>
+          <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label  >{{ p.title }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>

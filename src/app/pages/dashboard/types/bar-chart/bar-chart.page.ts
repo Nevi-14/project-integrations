@@ -45,13 +45,7 @@ export class BarChartPage implements OnInit {
     DatalabelsPlugin
   ];
 
-  public barChartData: ChartData<'bar'> = {
-    labels: [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ],
-    datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
-      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' }
-    ]
-  };
+  public barChartData: ChartData<'bar'> = null;
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
@@ -62,24 +56,28 @@ export class BarChartPage implements OnInit {
     console.log(event, active);
   }
 
-  public randomize(): void {
-    // Only Change 3 values
-    this.barChartData.datasets[0].data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      Math.round(Math.random() * 100),
-      56,
-      Math.round(Math.random() * 100),
-      40 ];
-
-    this.chart?.update();
-  }
-  ionViewWillEnter() {
-  
  
+  ionViewWillEnter() {
+    this.alertService.presentaLoading('Loading data...')
+    this.barChartData = null;
     this.width = this.plt.width();
     this.toggleMenu()
+
+let labels = [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ];
+let datasets = [
+  { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
+  { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' }
+]
+
+setTimeout(()=>{
+  this.alertService.loadingDissmiss();
+  this.barChartData = {
+    labels: labels ,
+    datasets:  datasets
+  };
+  this.chart?.update();
+},1000)
+
   }
   ngOnInit() {
   }
