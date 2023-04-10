@@ -4,10 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InvoicesPageRoutingModule } from './invoices-routing.module';
+import { ProductsListPageRoutingModule } from './products-list-routing.module';
 
-import { InvoicesPage } from './invoices.page';
-import { ComponentModule } from 'src/app/components/component.module';
+import { ProductsListPage } from './products-list.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
@@ -15,10 +14,9 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    InvoicesPageRoutingModule,
-    ComponentModule,
+    ProductsListPageRoutingModule,
     PipesModule
   ],
-  declarations: [InvoicesPage]
+  declarations: [ProductsListPage]
 })
-export class InvoicesPageModule {}
+export class ProductsListPageModule {}

@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'colones'
+  name: 'currency'
 })
-export class ColonesPipe implements PipeTransform {
+export class CurrencyPipe implements PipeTransform {
 
   transform(amount, decimalCount = 2, decimal = ".", thousands = ",", moneda = "¢"): string {
     decimalCount = Math.abs(decimalCount);

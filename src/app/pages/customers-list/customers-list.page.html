@@ -1,0 +1,24 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="closeModal()"   fill="clear"  slot="start">
+     <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-title>Customer´s List</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="search"   type="text"  [debounce]="250"  mode="ios"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item button (click)="selectCustomer(customer)"  *ngFor="let customer of customerService.customers " detail>
+      <ion-avatar style="height: 2.5rem;width:2.5rem;" slot="start">
+        <img  style="height: 2.5rem;width:2.5rem;" src="assets/imgs/user.svg" />
+      </ion-avatar>
+      <ion-label>{{customer.name}} {{customer.lastname}}</ion-label>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

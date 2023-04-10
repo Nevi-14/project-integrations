@@ -107,7 +107,23 @@ const routes: Routes = [
   {
     path: 'add-customer',
     loadChildren: () => import('./pages/add-customer/add-customer.module').then( m => m.AddCustomerPageModule)
+  },  {
+    path: 'products-list',
+    loadChildren: () => import('./pages/products-list/products-list.module').then( m => m.ProductsListPageModule)
   },
+  {
+    path: 'customers-list',
+    loadChildren: () => import('./pages/customers-list/customers-list.module').then( m => m.CustomersListPageModule)
+  },
+  {
+    path: 'invoice-details',
+    loadChildren: () => import('./pages/invoice-details/invoice-details.module').then( m => m.InvoiceDetailsPageModule)
+  },
+  {
+    path: 'add-signature',
+    loadChildren: () => import('./pages/add-signature/add-signature.module').then( m => m.AddSignaturePageModule)
+  },
+
 
 
 

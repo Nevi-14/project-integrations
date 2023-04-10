@@ -5,7 +5,7 @@ public id_company:number,
 public name:string,
 public image:string,
 public units:number,
-public price:string,
+public price:number,
 public description:string,    
 ){}
 

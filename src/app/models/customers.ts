@@ -7,7 +7,8 @@ public name:string,
 public lastname:string,
 public email:string,
 public phone:string,
-public description:string,    
+public description:string,  
+public address:string,    
 ){}
 
 }

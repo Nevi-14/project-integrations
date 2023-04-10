@@ -19,7 +19,8 @@ export class AddCustomerPage implements OnInit {
     lastname:null,
     email:null,
     phone:null,
-    description:null
+    description:null,
+    address:null
   }
   constructor(
   public modalCtrl: ModalController,

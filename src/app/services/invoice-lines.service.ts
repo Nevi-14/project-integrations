@@ -2,24 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertService } from './alert.service';
-import { Customers } from '../models/customers';
 import { CompaniesService } from './companies.service';
+import { InvoiceLines } from '../models/invoice_lines';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomersService {
-  customers:Customers[]=[];
-  customer:Customers = {
+export class InvoiceLinesService {
+  invoices:InvoiceLines[]=[];
+  invoice : InvoiceLines = {
     id:null,
-    id_company:this.companiesService.company.id,
-    active:true,
-    name:null,
-    lastname:null,
-    email:null,
-    phone:null,
+    id_invoice:null,
+    id_product:null,
     description:null,
-    address:null
+    price:null,
+    units:null,
+    tax_id:null,
+    tax_description:null,
+    tax_amount:null,
+    sub_total:null,
+    total : null
+
   }
   constructor(
    private http: HttpClient,
@@ -34,15 +37,15 @@ export class CustomersService {
     return URL;
   }
 
-  private getCustomers(id:number){
-    let URL = this.getAPI(environment.getCustomersAPI);
+  private getInvoicesLines(id:number){
+    let URL = this.getAPI(environment.getInvoicesLinesAPI);
         URL = URL + id;
     console.log('URL', URL)
-    return this.http.get<Customers[]>(URL);
+    return this.http.get<InvoiceLines[]>(URL);
   }
   
-  private postCustomer(customer:Customers){
-    const URL = this.getAPI(environment.postCustomerAPI);
+  private postInvoiceLine(invoiceLine:InvoiceLines){
+    const URL = this.getAPI(environment.postInvoiceLineAPI);
     const options = {
       headers: {
         'Content-Type':'application/json',
@@ -50,14 +53,14 @@ export class CustomersService {
         'Access-Control':'*'
       }
     }
-    return this.http.post(URL, customer, options);
+    return this.http.post(URL, invoiceLine, options);
   
   }
   
   
-  private putCustomer(customer:Customers){
-    let URL = this.getAPI(environment.putCustomerAPI);
-        URL = URL + customer.id
+  private putInvoiceLine(invoiceLine:InvoiceLines){
+    let URL = this.getAPI(environment.putInvoiceLineAPI);
+        URL = URL + invoiceLine.id
     const options = {
       headers:{
         'Content-Type': 'application/json',
@@ -66,12 +69,12 @@ export class CustomersService {
       }
     }
     console.log(URL)
-    console.log(customer)
-    return this.http.put(URL,customer,options);
+    console.log(invoiceLine)
+    return this.http.put(URL,invoiceLine,options);
   }
   
-  private deleteCustomer(id:number){
-    let URL = this.getAPI(environment.deleteCustomerAPI);
+  private deleteInvoiceLine(id:number){
+    let URL = this.getAPI(environment.deleteInvoiceLineAPI);
         URL = URL + id;
         const options = {
           headers:{
@@ -84,18 +87,18 @@ export class CustomersService {
   }
   
   
-  syncGetCustomersToPromise(id:number){
-   return  this.getCustomers(id).toPromise();
+  syncGetInvoicesLinesToPromise(id:number){
+   return  this.getInvoicesLines(id).toPromise();
   }
   
-  syncPostCustomerToPromise(customer:Customers){
-    return this.postCustomer(customer).toPromise();
+  syncPostInvoiceLineToPromise(invoiceLine:InvoiceLines){
+    return this.postInvoiceLine(invoiceLine).toPromise();
   }
-  syncPutCustomerToPromise(customer:Customers){
-    return this.putCustomer(customer).toPromise();
+  syncPutInvoiceLineToPromise(invoiceLine:InvoiceLines){
+    return this.putInvoiceLine(invoiceLine).toPromise();
   }
   
-  syncDeleteCustomerToPromise(id:number){
-    return this.deleteCustomer(id).toPromise();
+  syncDeleteInvoiceLineToPromise(id:number){
+    return this.deleteInvoiceLine(id).toPromise();
   }
 }

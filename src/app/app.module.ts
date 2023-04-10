@@ -15,7 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CalendarModule } from 'angular-calendar';
 import { DateAdapter } from 'angular-calendar/date-adapters/date-adapter';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { AngularSignaturePadModule } from 'angular-signature-pad';
+
 // set font to PDF
 export function HttpLoaderFactory(httpClient:HttpClient){
   return new TranslateHttpLoader(httpClient, "../assets/i18n/", ".json");
@@ -38,7 +38,6 @@ PdfMakeWrapper.setFonts(pdfFonts);
 
         }
       }),
-      AngularSignaturePadModule.forRoot(),
       CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory,

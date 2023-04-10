@@ -1,0 +1,23 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="closeModal()"   fill="clear"  slot="start">
+     <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-title>Product´s List</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="search"   type="text"  [debounce]="250"  mode="ios"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item (click)="addProduct(product)" button *ngFor="let product of productsService.products " detail>
+      <ion-label>{{product.name}}
+        <p style="margin-top: 0.5rem;">Available units <ion-badge color="warning" mode="ios">{{ product.units }}</ion-badge></p>
+      </ion-label>
+      <ion-label slot="end"  style="margin-right: 0.5rem;">{{product.price | currency : 2 : '.' : ',' :  '₡' }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

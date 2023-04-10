@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { InvoiceGeneratorPageRoutingModule } from './invoice-generator-routing.module';
 
 import { InvoiceGeneratorPage } from './invoice-generator.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InvoiceGeneratorPageRoutingModule
+    InvoiceGeneratorPageRoutingModule,
+    PipesModule
   ],
   declarations: [InvoiceGeneratorPage]
 })

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>add-signature</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+<ion-grid >
+  <ion-row>
+    <ion-col size="12">
+      <strong>Digital Signature</strong>
+        </ion-col>
+    
+        <ion-col size="12" style="height: 300px;width: 100%;">
+    <canvas #canvas></canvas>
+    
+        </ion-col>
+        <ion-col size="6">
+          <ion-button (click)="clear()" expand="block" fill="clear" shape="round">
+          Clear
+          </ion-button>
+                 </ion-col>
+                 <ion-col size="6">
+                   <ion-button (click)="print()" expand="block" fill="clear" shape="round">
+                get
+                   </ion-button>
+                 </ion-col>
+                 <ion-col  size="12">
+               <div #svgSignature></div>
+                 </ion-col>
+        
+
+  </ion-row>
+</ion-grid>
+</ion-content>
