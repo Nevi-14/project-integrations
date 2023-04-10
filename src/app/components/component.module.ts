@@ -7,7 +7,6 @@ import { PieChartComponent } from './dashboards/ng2-charts/pie-chart/pie-chart.c
 import { FormsModule } from '@angular/forms';
 import { BarChartComponent } from './dashboards/ng2-charts/bar-chart/bar-chart.component';
 import { MapboxComponent } from './maps/mapbox/mapbox.component';
-import { Ionic2CalendarComponent } from './calendars/ionic2-calendar/ionic2-calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AngularCanlendarComponent } from './calendars/angular-canlendar/angular-canlendar.component';
@@ -19,7 +18,6 @@ import { FooterComponent } from './footer/footer.component';
     PieChartComponent,
     BarChartComponent,
     MapboxComponent,
-    Ionic2CalendarComponent,
     AngularCanlendarComponent,
     HeaderComponent,
     FooterComponent
@@ -41,7 +39,6 @@ import { FooterComponent } from './footer/footer.component';
     PieChartComponent,
     BarChartComponent,
     MapboxComponent,
-    Ionic2CalendarComponent,
     AngularCanlendarComponent,
     HeaderComponent,
     FooterComponent

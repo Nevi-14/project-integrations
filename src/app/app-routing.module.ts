@@ -107,7 +107,8 @@ const routes: Routes = [
   {
     path: 'add-customer',
     loadChildren: () => import('./pages/add-customer/add-customer.module').then( m => m.AddCustomerPageModule)
-  },  {
+  },
+  {
     path: 'products-list',
     loadChildren: () => import('./pages/products-list/products-list.module').then( m => m.ProductsListPageModule)
   },
@@ -124,6 +125,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-signature/add-signature.module').then( m => m.AddSignaturePageModule)
   },
 
+  
 
 
 

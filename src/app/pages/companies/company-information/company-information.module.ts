@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CompanyInformationPageRoutingModule } from './company-information-routing.module';
 
 import { CompanyInformationPage } from './company-information.page';
+import { ComponentModule } from 'src/app/components/component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CompanyInformationPageRoutingModule
+    CompanyInformationPageRoutingModule,
+    ComponentModule
   ],
   declarations: [CompanyInformationPage]
 })

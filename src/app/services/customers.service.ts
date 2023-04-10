@@ -40,7 +40,12 @@ export class CustomersService {
     console.log('URL', URL)
     return this.http.get<Customers[]>(URL);
   }
-  
+  private getCustomerByID(id:number){
+    let URL = this.getAPI(environment.getCustomersAPI);
+        URL = URL + id;
+    console.log('URL', URL)
+    return this.http.get<Customers[]>(URL);
+  }
   private postCustomer(customer:Customers){
     const URL = this.getAPI(environment.postCustomerAPI);
     const options = {
@@ -87,6 +92,9 @@ export class CustomersService {
   syncGetCustomersToPromise(id:number){
    return  this.getCustomers(id).toPromise();
   }
+  syncGetCustomersByIDToPromise(id:number){
+    return  this.getCustomerByID(id).toPromise();
+   }
   
   syncPostCustomerToPromise(customer:Customers){
     return this.postCustomer(customer).toPromise();

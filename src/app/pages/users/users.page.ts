@@ -6,6 +6,7 @@ import { EditUserPage } from '../edit-user/edit-user.page';
 import { AlertService } from 'src/app/services/alert.service';
 import { Users } from 'src/app/models/users';
 import { CompaniesService } from 'src/app/services/companies.service';
+import { CompanyUsersView } from 'src/app/models/company_users_view';
 
 @Component({
   selector: 'app-users',
@@ -52,30 +53,13 @@ isModalOpen:boolean = false;
     }
 
   }
-  async editUser(user:Users){
+  async editUser(user:CompanyUsersView){
 
     return
-    if(!this.isModalOpen){
-      this.isModalOpen = true;
-      const modal = await this.modalCtrl.create({
-        component:EditUserPage,
-        componentProps:{
-          user
-        },
-        cssClass:'large-modal'
-          });
-        modal.present();
-        const { data } = await modal.onWillDismiss();
-        this.isModalOpen = false;
-        if(data != undefined){
-        
-        }
-
-    }
-
+  
   }
 
-  async deleteUser(user:Users){
+  async deleteUser(user:CompanyUsersView){
   let alert = await this.alertCTrl.create({
     subHeader:'Dev-Coding',
     message:'Do you want to delete the account?',

@@ -38,6 +38,10 @@ const routes: Routes = [
         loadChildren: () => import('../invoices/invoices.module').then( m => m.InvoicesPageModule)
       } ,
       {
+        path: 'edit-invoice',
+        loadChildren: () => import('../edit-invoice/edit-invoice.module').then( m => m.EditInvoicePageModule)
+      } ,
+      {
         path: 'invoice-generator',
         loadChildren: () => import('../invoice-generator/invoice-generator.module').then( m => m.InvoiceGeneratorPageModule)
       }    

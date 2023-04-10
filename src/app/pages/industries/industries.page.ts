@@ -34,6 +34,9 @@ public registrationService: RegistrationService
     
   }
 
+  onSearchChange($event){
+
+  }
   companyBuilder(){
 
 this.cerrarModal();

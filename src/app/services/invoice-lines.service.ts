@@ -4,7 +4,15 @@ import { environment } from '../../environments/environment';
 import { AlertService } from './alert.service';
 import { CompaniesService } from './companies.service';
 import { InvoiceLines } from '../models/invoice_lines';
+import { Products } from '../models/products';
+interface productsToAdd {
+  id: number,
+  total: number,
+  subTotal: number,
+  tax: number,
+  product: Products
 
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -12,18 +20,21 @@ export class InvoiceLinesService {
   invoices:InvoiceLines[]=[];
   invoice : InvoiceLines = {
     id:null,
-    id_invoice:null,
-    id_product:null,
+    iD_INVOICE:null,
+    iD_PRODUCT:null,
     description:null,
     price:null,
     units:null,
     tax_id:null,
-    tax_description:null,
-    tax_amount:null,
-    sub_total:null,
+    taX_DESCRIPTION:null,
+    taX_AMOUNT:null,
+    suB_TOTAL:null,
     total : null
 
   }
+    
+products:  productsToAdd[]=[]
+  taxAmount: number = 0;
   constructor(
    private http: HttpClient,
    private alertService:AlertService,
@@ -43,7 +54,12 @@ export class InvoiceLinesService {
     console.log('URL', URL)
     return this.http.get<InvoiceLines[]>(URL);
   }
-  
+  private getInvoicezLinesByID(id:number){
+    let URL = this.getAPI(environment.getInvoicesLinesAPI);
+        URL = URL + id;
+    console.log('URL', URL)
+    return this.http.get<InvoiceLines[]>(URL);
+  }
   private postInvoiceLine(invoiceLine:InvoiceLines){
     const URL = this.getAPI(environment.postInvoiceLineAPI);
     const options = {
@@ -90,7 +106,9 @@ export class InvoiceLinesService {
   syncGetInvoicesLinesToPromise(id:number){
    return  this.getInvoicesLines(id).toPromise();
   }
-  
+  syncGetInvoicesLinesByIDToPromise(id:number){
+    return  this.getInvoicezLinesByID(id).toPromise();
+   }
   syncPostInvoiceLineToPromise(invoiceLine:InvoiceLines){
     return this.postInvoiceLine(invoiceLine).toPromise();
   }

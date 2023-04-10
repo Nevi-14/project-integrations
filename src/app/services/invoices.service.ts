@@ -11,27 +11,27 @@ import { CompanyInvoicesView } from '../models/company_invoices_view';
 })
 export class InvoicesService {
   invoices:CompanyInvoicesView[]=[];
-  invoice : Invoices = {
-    id : null,
-    id_company:null,
-    id_customer: null,
-    id_user : null,
-    title:null,
-    description:'No Description',
-    currency : '¢',
+  invoice: Invoices = {
+    id: null,
+    iD_COMPANY: null,
+    iD_CUSTOMER: null,
+    iD_USER: null,
+    title: null,
+    description: 'No Description',
+    currency: '¢',
     status: 'P',
-    date : new Date(),
-    required_date: new Date(),
-    quotation_date:new Date(),
-    approval_date:new Date(),
-    close_date:new Date(),
-    total_invoices_lines:0,
-    sub_total:0,
-    total:0,
-    discount:0,
-    discount_amount:0,
-    shipping_amount:0,
-    instructions:'No Instructions'
+    date: new Date(),
+    requireD_DATE: new Date(),
+    quotatioN_DATE: new Date(),
+    approvaL_DATE: new Date(),
+    closE_DATE: new Date(),
+    totaL_INVOICE_LINES: 0,
+    sub_total: 0,
+    total: 0,
+    discount: 0,
+    discounT_AMOUNT: 0,
+    shppinG_AMOUNT: 0,
+    instructions: 'No Instructions'
 
   }
   constructor(
@@ -53,7 +53,12 @@ export class InvoicesService {
     console.log('URL', URL)
     return this.http.get<CompanyInvoicesView[]>(URL);
   }
-  
+  private getInvoiceByID(id:number){
+    let URL = this.getAPI(environment.getInvoiceAPI);
+        URL = URL + id;
+    console.log('URL', URL)
+    return this.http.get<Invoices[]>(URL);
+  }
   private postInvoice(invoice:Invoices){
     const URL = this.getAPI(environment.postInvoiceAPI);
     const options = {
@@ -100,7 +105,9 @@ export class InvoicesService {
   syncGetInvoicesToPromise(id:number){
    return  this.getInvoices(id).toPromise();
   }
-  
+  syncGetInvoicesByIDToPromise(id:number){
+    return  this.getInvoiceByID(id).toPromise();
+   }
   syncPostInvoiceToPromise(invoice:Invoices){
     return this.postInvoice(invoice).toPromise();
   }

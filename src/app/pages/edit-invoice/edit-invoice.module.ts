@@ -4,21 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InvoiceGeneratorPageRoutingModule } from './invoice-generator-routing.module';
+import { EditInvoicePageRoutingModule } from './edit-invoice-routing.module';
 
-import { InvoiceGeneratorPage } from './invoice-generator.page';
+import { EditInvoicePage } from './edit-invoice.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentModule } from 'src/app/components/component.module';
-
+ 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InvoiceGeneratorPageRoutingModule,
+    EditInvoicePageRoutingModule,
     PipesModule,
     ComponentModule
   ],
-  declarations: [InvoiceGeneratorPage]
+  declarations: [EditInvoicePage]
 })
-export class InvoiceGeneratorPageModule {}
+export class EditInvoicePageModule {}

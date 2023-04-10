@@ -13,7 +13,7 @@ import { CustomersPage } from './customers.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CustomersPageRoutingModule
+    CustomersPageRoutingModule,
   ],
   declarations: [CustomersPage]
 })

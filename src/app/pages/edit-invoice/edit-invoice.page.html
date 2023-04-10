@@ -7,7 +7,7 @@
       <ion-row>
         <ion-col size="12" size-md="12" style="display: flex;justify-content: center;align-items: center;">
           <ion-title class="ion-text-capitalize" class="title">
-            <strong>Invoice Generator</strong>
+            <strong>Edit Invoice</strong>
           </ion-title>
         </ion-col>
          
@@ -29,7 +29,7 @@
               <ion-label>Title</ion-label>
             </ion-col>
             <ion-col size="12">
-              <ion-input name="title" [(ngModel)]="invoice.title" type="text" placeholder="title"></ion-input>
+              <ion-input name="title" [(ngModel)]="invoicesService.invoice.title" type="text" placeholder="title"></ion-input>
             </ion-col>
           
           </ion-row>
@@ -45,10 +45,10 @@
             </ion-col>
             <ion-col size="2" ></ion-col>
             <ion-col size="5">
-              <ion-input (click)="selectDate(1)" type="text" placeholder="startDate" [value]="invoice.quotatioN_DATE | date"></ion-input>
+              <ion-input (click)="selectDate(1)" type="text" placeholder="startDate" [value]="invoicesService.invoice.quotatioN_DATE | date"></ion-input>
             </ion-col>
             <ion-col size="5">
-              <ion-input (click)="selectDate(2)" type="text" placeholder="endDate" [value]="invoice.requireD_DATE | date"></ion-input>
+              <ion-input (click)="selectDate(2)" type="text" placeholder="endDate" [value]="invoicesService.invoice.requireD_DATE | date"></ion-input>
             </ion-col>
             <ion-col size="2" >
                
@@ -144,7 +144,7 @@
             <ion-fab-button (click)="productsList()"  color="dark" size="small" >
               <ion-icon name="add"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button (click)="generarPost()"  *ngIf="products.length > 0"  color="dark" size="small" >
+            <ion-fab-button (click)="generarPost()"  *ngIf="invoicesLinesService.products.length > 0"  color="dark" size="small" >
               <ion-icon name="save"></ion-icon>
             </ion-fab-button>
                 </ion-col>
@@ -174,7 +174,7 @@
                 </ion-col>
         <ion-col size="12">
         <ion-list style="height: 40vh;overflow: auto;">
-          <ion-item *ngFor="let product of products">
+          <ion-item *ngFor="let product of invoicesLinesService.products">
             <ion-grid >
               <ion-row>
                 <ion-col   class="ion-hide-md-down" style="display: flex;justify-content: flex-start;align-items: center;">{{product.product.name}}</ion-col>
@@ -205,7 +205,7 @@
         
         </ion-col>
         
-        <ion-col size="12" *ngIf="products.length > 0">
+        <ion-col size="12" *ngIf="invoicesLinesService.products.length > 0">
           <ion-item >
             <ion-grid >
              <ion-row>
@@ -226,12 +226,12 @@
                  <ion-row>
                    <ion-col size="12">
                      <strong>
-                     {{ taxAmount | currency : 2 : '.' : ',' :  '₡'  }}
+                     {{ invoicesLinesService.taxAmount | currency : 2 : '.' : ',' :  '₡'  }}
                     </strong>
                    </ion-col>
                    <ion-col size="12">
                     <strong>
-                      {{ invoice.total | currency : 2 : '.' : ',' :  '₡'  }}
+                      {{ invoicesService.invoice.total | currency : 2 : '.' : ',' :  '₡'  }}
                      </strong>
                   </ion-col>
                  </ion-row>

@@ -26,6 +26,8 @@
     
           <span  [ngStyle]="{'min-height': chartHeight,'width': chartHeight}" >
             <canvas baseChart class="chart"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
             [type]="lineChartType"
              ></canvas>
           </span>

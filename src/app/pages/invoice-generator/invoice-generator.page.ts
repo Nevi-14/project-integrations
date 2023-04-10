@@ -38,24 +38,24 @@ export class InvoiceGeneratorPage implements OnInit {
 
   invoice: Invoices = {
     id: null,
-    id_company: null,
-    id_customer: null,
-    id_user: null,
+    iD_COMPANY: null,
+    iD_CUSTOMER: null,
+    iD_USER: null,
     title: null,
     description: 'No Description',
     currency: '¢',
     status: 'P',
     date: new Date(),
-    required_date: new Date(),
-    quotation_date: new Date(),
-    approval_date: new Date(),
-    close_date: new Date(),
-    total_invoices_lines: 0,
+    requireD_DATE: new Date(),
+    quotatioN_DATE: new Date(),
+    approvaL_DATE: new Date(),
+    closE_DATE: new Date(),
+    totaL_INVOICE_LINES: 0,
     sub_total: 0,
     total: 0,
     discount: 0,
-    discount_amount: 0,
-    shipping_amount: 0,
+    discounT_AMOUNT: 0,
+    shppinG_AMOUNT: 0,
     instructions: 'No Instructions'
 
   }
@@ -171,7 +171,7 @@ export class InvoiceGeneratorPage implements OnInit {
       cssClass: 'my-custom-class',
       translucent: true,
       componentProps: {
-        fecha: value == 1 ? this.invoice.quotation_date.toISOString() : this.invoice.required_date.toISOString()
+        fecha: value == 1 ? this.invoice.quotatioN_DATE.toISOString() : this.invoice.requireD_DATE.toISOString()
       }
     });
     await popover.present();
@@ -188,9 +188,9 @@ export class InvoiceGeneratorPage implements OnInit {
       });
 
       if (value == 1) {
-        this.invoice.quotation_date = new Date(data.fecha);
+        this.invoice.quotatioN_DATE = new Date(data.fecha);
       } else {
-        this.invoice.required_date = new Date(data.fecha);
+        this.invoice.requireD_DATE = new Date(data.fecha);
       }
 
     }
@@ -198,9 +198,9 @@ export class InvoiceGeneratorPage implements OnInit {
 
 
   generarPost() {
-    this.invoice.id_company = this.companiesService.company.id;
-    this.invoice.id_customer = this.customersService.customer.id;
-    this.invoice.id_user = this.usersService.user.id;
+    this.invoice.iD_COMPANY = this.companiesService.company.id;
+    this.invoice.iD_CUSTOMER = this.customersService.customer.id;
+    this.invoice.iD_USER = this.usersService.user.id;
 
 
     const invoicesLines: InvoiceLines[] = [];
@@ -208,15 +208,15 @@ export class InvoiceGeneratorPage implements OnInit {
 
       let invoice_line: InvoiceLines = {
         id: null,
-        id_invoice: null,
-        id_product: product.id,
+        iD_INVOICE: null,
+        iD_PRODUCT: product.id,
         description: product.product.description,
         price: product.product.price,
         units: product.product.units,
         tax_id: 0,
-        tax_description: 'No description',
-        tax_amount: 0,
-        sub_total: product.subTotal,
+        taX_DESCRIPTION: 'No description',
+        taX_AMOUNT: 0,
+        suB_TOTAL: product.subTotal,
         total: product.total
 
       }
@@ -224,7 +224,7 @@ export class InvoiceGeneratorPage implements OnInit {
       invoicesLines.push(invoice_line);
 
       if (index == this.products.length - 1) {
-        this.invoice.total_invoices_lines = invoicesLines.length;
+        this.invoice.totaL_INVOICE_LINES = invoicesLines.length;
         console.log('invoice', this.invoice)
         console.log('invoicesLines', invoicesLines)
 
@@ -232,7 +232,7 @@ export class InvoiceGeneratorPage implements OnInit {
         this.invoicesService.syncPostInvoiceToPromise(this.invoice).then((invoice: Invoices) => {
 
           invoicesLines.forEach(async (line, index) => {
-            line.id_invoice = invoice.id;
+            line.iD_INVOICE = invoice.id;
             await this.invoiceLinesService.syncPostInvoiceLineToPromise(line).then(invoice => {
 
 
